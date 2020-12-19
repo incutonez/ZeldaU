@@ -1,0 +1,1376 @@
+fileFormatVersion: 2
+guid: 6d1d49868e739de47bc263893a9e396e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7593777287308456034
+    second: Aquamentus1
+  - first:
+      213: -8050505381868735831
+    second: Aquamentus2
+  - first:
+      213: 4246582678940652525
+    second: Aquamentus3
+  - first:
+      213: 6232865802514645271
+    second: Aquamentus4
+  - first:
+      213: 7090703288174320326
+    second: DigdoggerPiece1
+  - first:
+      213: -6306598192752602289
+    second: DigdoggerPiece2
+  - first:
+      213: 3568442513025048780
+    second: Digdogger1
+  - first:
+      213: 6113965770452055580
+    second: Digdogger2
+  - first:
+      213: -5710202363144185006
+    second: Gleeok1
+  - first:
+      213: -4960432042422834291
+    second: Gleeok2
+  - first:
+      213: -4556899741528890791
+    second: Gleeok3
+  - first:
+      213: 2764767178426016382
+    second: GleeokNeck
+  - first:
+      213: 6105738643464739629
+    second: GleeokHead
+  - first:
+      213: -5421599474841123167
+    second: GleeokHeadFloating
+  - first:
+      213: 2064433155502169310
+    second: DodongoDown1
+  - first:
+      213: 8796537411668001247
+    second: DodongoLeft1
+  - first:
+      213: -4093085320923484961
+    second: DodongoUp1
+  - first:
+      213: -5173363477203909298
+    second: DodongoRight1
+  - first:
+      213: -765296428086621284
+    second: GohmaOpen
+  - first:
+      213: 8516660908276426063
+    second: Gohma1
+  - first:
+      213: 4008449916828762133
+    second: Gohma2
+  - first:
+      213: -521403183828226010
+    second: GohmaOpening
+  - first:
+      213: -1585361144359886926
+    second: DodongoDown2
+  - first:
+      213: -1669125294780471889
+    second: DodongoLeft2
+  - first:
+      213: -3948276405869350730
+    second: DodongoUp2
+  - first:
+      213: -8859655405251010893
+    second: DodongoRight2
+  - first:
+      213: -7123484847485939441
+    second: DodongoDownBomb
+  - first:
+      213: -3927680372460468211
+    second: DodongoLeftBomb
+  - first:
+      213: -871959816945802432
+    second: DodongoUpBomb
+  - first:
+      213: -2349548215765263666
+    second: DodongoRightBomb
+  - first:
+      213: 3895467382594329204
+    second: GohmaBlueOpen
+  - first:
+      213: 180437529711045322
+    second: GohmaBlue1
+  - first:
+      213: -9066361492974771114
+    second: GohmaBlue2
+  - first:
+      213: -577954158761651032
+    second: GohmaBlueOpening
+  - first:
+      213: -7145520778489453487
+    second: Manhandla1
+  - first:
+      213: 5410969864187538442
+    second: Manhandla2
+  - first:
+      213: 3166690293335779682
+    second: Manhandla3
+  - first:
+      213: 6947155645052117052
+    second: Manhandla4
+  - first:
+      213: 447957217150679854
+    second: Manhandla5
+  - first:
+      213: -2226534019134032359
+    second: Manhandla6
+  - first:
+      213: -447695437470004435
+    second: Manhandla7
+  - first:
+      213: -6147682794847314380
+    second: Manhandla8
+  - first:
+      213: 4700113224682058695
+    second: Manhandla9
+  - first:
+      213: -2996767656989867865
+    second: Ganon1
+  - first:
+      213: -1245093218990706483
+    second: Ganon2
+  - first:
+      213: -7285216882985631334
+    second: Ganon3
+  - first:
+      213: -8839098342761418118
+    second: Ganon4
+  - first:
+      213: 3664271616263302216
+    second: Ganon5
+  - first:
+      213: -5681876435324643791
+    second: GanonRed1
+  - first:
+      213: 6032609180534333008
+    second: GanonRed2
+  - first:
+      213: 5068177111274062500
+    second: GanonGibs
+  - first:
+      213: 7403276703900467889
+    second: Triforce1
+  - first:
+      213: 4195642441725766518
+    second: Triforce2
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Aquamentus1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 311
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9fcc8e6acb7d9690800000000000000
+      internalID: -7593777287308456034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aquamentus2
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 311
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a2f753320cd64090800000000000000
+      internalID: -8050505381868735831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aquamentus3
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 311
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de395977274eeea30800000000000000
+      internalID: 4246582678940652525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aquamentus4
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 311
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 711c09b9c669f7650800000000000000
+      internalID: 6232865802514645271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DigdoggerPiece1
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 319
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ca135b821d376260800000000000000
+      internalID: 7090703288174320326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DigdoggerPiece2
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 319
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f435cd38b567a78a0800000000000000
+      internalID: -6306598192752602289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Digdogger1
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 311
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc0a2462f87a58130800000000000000
+      internalID: 3568442513025048780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Digdogger2
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 311
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1631bc997b29d450800000000000000
+      internalID: 6113965770452055580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gleeok1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 264
+        width: 24
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25bd135643941c0b0800000000000000
+      internalID: -5710202363144185006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gleeok2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 265
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8bebe2c651092bb0800000000000000
+      internalID: -4960432042422834291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gleeok3
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 264
+        width: 24
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 952e91d14d3a2c0c0800000000000000
+      internalID: -4556899741528890791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GleeokNeck
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 291
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e72edb4b91d6e5620800000000000000
+      internalID: 2764767178426016382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GleeokHead
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 263
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b571752f0fbb450800000000000000
+      internalID: 6105738643464739629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GleeokHeadFloating
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 263
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a686a3a00c92c4b0800000000000000
+      internalID: -5421599474841123167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoDown1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 236
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edcde30640756ac10800000000000000
+      internalID: 2064433155502169310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoLeft1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 237
+        width: 28
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd1c7eb7b24931a70800000000000000
+      internalID: 8796537411668001247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoUp1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 236
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdc6df236907237c0800000000000000
+      internalID: -4093085320923484961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoRight1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 237
+        width: 28
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e45084fb3558438b0800000000000000
+      internalID: -5173363477203909298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GohmaOpen
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 236
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b850014fe1165f0800000000000000
+      internalID: -765296428086621284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gohma1
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 236
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f45a54e09f1413670800000000000000
+      internalID: 8516660908276426063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gohma2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 236
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 510c58036ffd0a730800000000000000
+      internalID: 4008449916828762133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GohmaOpening
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 236
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 620392b119a93c8f0800000000000000
+      internalID: -521403183828226010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoDown2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 206
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bfd8b5507aaff9e0800000000000000
+      internalID: -1585361144359886926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoLeft2
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 206
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa5adf6436316d8e0800000000000000
+      internalID: -1669125294780471889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoUp2
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 206
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b0f9191787e439c0800000000000000
+      internalID: -3948276405869350730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoRight2
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 206
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bed4a1795e2c0580800000000000000
+      internalID: -8859655405251010893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoDownBomb
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0119b6e54c442d90800000000000000
+      internalID: -7123484847485939441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoLeftBomb
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 176
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d084830d2831e79c0800000000000000
+      internalID: -3927680372460468211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoUpBomb
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 043e7849a2d26e3f0800000000000000
+      internalID: -871959816945802432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DodongoRightBomb
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 176
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca98a0a85ab46fd0800000000000000
+      internalID: -2349548215765263666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GohmaBlueOpen
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 176
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ad7a502fa7f0630800000000000000
+      internalID: 3895467382594329204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GohmaBlue1
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 176
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aca639e2afa018200800000000000000
+      internalID: 180437529711045322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GohmaBlue2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 176
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65465fdf140dd2280800000000000000
+      internalID: -9066361492974771114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GohmaBlueOpening
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 176
+        width: 47
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a45d8631c1baf7f0800000000000000
+      internalID: -577954158761651032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 91
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 154a6f6e5b206dc90800000000000000
+      internalID: -7145520778489453487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla2
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 92
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0ced354c60a71b40800000000000000
+      internalID: 5410969864187538442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla3
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 91
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269e4ff3b0852fb20800000000000000
+      internalID: 3166690293335779682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla4
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 92
+        width: 48
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c306ea66041496060800000000000000
+      internalID: 6947155645052117052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 91
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2bb6d237b6773600800000000000000
+      internalID: 447957217150679854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 39
+        width: 46
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91671353b13c911e0800000000000000
+      internalID: -2226534019134032359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla7
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 39
+        width: 47
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b89022f5779c9f0800000000000000
+      internalID: -447695437470004435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla8
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 38
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43e5855e11b0faaa0800000000000000
+      internalID: -6147682794847314380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manhandla9
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 39
+        width: 48
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c33a4953182a3140800000000000000
+      internalID: 4700113224682058695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ganon1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a04dba81b75966d0800000000000000
+      internalID: -2996767656989867865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ganon2
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc0bfc9605a88bee0800000000000000
+      internalID: -1245093218990706483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ganon3
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9186f9f7d5b5ea90800000000000000
+      internalID: -7285216882985631334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ganon4
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7236f883e6355580800000000000000
+      internalID: -8839098342761418118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ganon5
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84cabefee9b1ad230800000000000000
+      internalID: 3664271616263302216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GanonRed1
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 136dfc66c7be521b0800000000000000
+      internalID: -5681876435324643791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GanonRed2
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05e528a661228b350800000000000000
+      internalID: 6032609180534333008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GanonGibs
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 12
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a28148fa38c55640800000000000000
+      internalID: 5068177111274062500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Triforce1
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 8
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b289ed10f8bdb660800000000000000
+      internalID: 7403276703900467889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Triforce2
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 8
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67bed9f329ae93a30800000000000000
+      internalID: 4195642441725766518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

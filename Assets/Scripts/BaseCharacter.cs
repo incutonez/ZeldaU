@@ -74,4 +74,17 @@ public class BaseCharacter
             }
         }
     }
+
+    public void AddHealth(float addedHealth, bool increaseMaxHealth = false)
+    {
+        health += addedHealth;
+        if (increaseMaxHealth && maxHealth != Constants.MAX_HEARTS)
+        {
+            maxHealth += addedHealth;
+        }
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
 }

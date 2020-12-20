@@ -82,7 +82,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     public IEnumerator Attack()
     {
-        if (inventory.hasSword)
+        if (inventory.sword != null)
         {
             isAttacking = true;
             yield return StartCoroutine(characterAnimation.Attack());

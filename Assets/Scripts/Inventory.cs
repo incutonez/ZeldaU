@@ -16,8 +16,10 @@ public class InventoryChangeArgs : EventArgs
 public class Inventory
 {
     public event Action<Inventory, InventoryChangeArgs> OnItemListChanged;
-    public bool hasSword = false;
+    public Item sword = null;
     public float damageModifier = 1f;
+    public int rupees = 0;
+    public int keys = 0;
 
     private Action<Item> _useItemAction;
     private List<Item> items;
@@ -28,11 +30,33 @@ public class Inventory
         items = new List<Item>();
     }
 
+    public int GetBombCount()
+    {
+        int count = 0;
+        foreach (Item item in items)
+        {
+            if (item.itemType == Items.Bomb)
+            {
+                count = item.amount;
+                break;
+            }
+        }
+        return count;
+    }
+
     public void AddItem(Item item)
     {
         if (item != null)
         {
-            if (item.IsStackable())
+            if (item.IsRupee())
+            {
+                rupees += item.GetPickupAmount();
+            }
+            else if (item.itemType == Items.Key)
+            {
+                keys += item.GetPickupAmount();
+            }
+            else if (item.IsStackable())
             {
                 bool isInInventory = false;
                 foreach (Item it in items)
@@ -40,24 +64,26 @@ public class Inventory
                     if (it.itemType == item.itemType)
                     {
                         isInInventory = true;
-                        it.amount += item.amount;
+                        it.amount += item.GetPickupAmount();
                         break;
                     }
                 }
                 if (!isInInventory)
                 {
+                    // Seed the amount
+                    item.amount = item.GetPickupAmount();
                     items.Add(item);
                 }
             }
-            else
+            else if (item.CanAddToInventory())
             {
                 items.Add(item);
             }
             if (item.IsSword())
             {
-                hasSword = true;
+                sword = item;
             }
-            if (item.IsRing())
+            else if (item.IsRing())
             {
                 damageModifier = item.itemType.GetAttribute<DamageAttribute>().TouchDamage;
             }
@@ -91,7 +117,7 @@ public class Inventory
         }
         if (item.IsSword())
         {
-            hasSword = false;
+            sword = null;
         }
         OnItemListChanged(this, new InventoryChangeArgs(item, true));
     }

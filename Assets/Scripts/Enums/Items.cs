@@ -33,6 +33,7 @@
     Raft,
     [Damage(0.5f)]
     RingBlue,
+    [Damage(1f)]
     RingGreen,
     [Damage(0.25f)]
     RingRed,

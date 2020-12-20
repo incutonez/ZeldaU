@@ -47,9 +47,21 @@ public class Item
             case Items.RupeeOne:
             case Items.RupeeFive:
                 return true;
-            default:
+        }
+        return false;
+    }
+
+    public bool CanAddToInventory()
+    {
+        switch (itemType)
+        {
+            case Items.RupeeOne:
+            case Items.RupeeFive:
+            case Items.Heart:
+            case Items.HeartContainer:
                 return false;
         }
+        return true;
     }
 
     public bool IsSword()
@@ -59,6 +71,17 @@ public class Item
             case Items.Sword:
             case Items.SwordMagical:
             case Items.SwordWhite:
+                return true;
+        }
+        return false;
+    }
+
+    public bool IsRupee()
+    {
+        switch (itemType)
+        {
+            case Items.RupeeOne:
+            case Items.RupeeFive:
                 return true;
         }
         return false;
@@ -85,5 +108,25 @@ public class Item
                 return true;
         }
         return false;
+    }
+
+    public int GetPickupAmount()
+    {
+        switch (itemType)
+        {
+            case Items.Bomb:
+                return 4;
+            case Items.Key:
+                return 1;
+            case Items.Heart:
+                return 1;
+            case Items.HeartContainer:
+                return 1;
+            case Items.RupeeOne:
+                return 1;
+            case Items.RupeeFive:
+                return 5;
+        }
+        return 0;
     }
 }

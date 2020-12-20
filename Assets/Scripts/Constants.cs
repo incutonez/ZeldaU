@@ -14,6 +14,14 @@ public static class Constants
     /// </summary>
     public const float BASE_SWORD_POWER = 2f;
 
+    /// <summary>
+    /// This is the amount of health a single heart will refill... it's 2 half hearts
+    /// </summary>
+    public const float HEART_REFILL = 2f;
+    public const int MAX_HEARTS = 32;
+
+    public const int MAX_RUPEES = 255;
+
     public static readonly Vector3 SWORD_RIGHT = new Vector3(0.11f, -0.01f, 0f);
     public static readonly Vector3 SWORD_LEFT = new Vector3(-0.11f, -0.01f, 0f);
     public static readonly Vector3 SWORD_UP = new Vector3(-0.017f, 0.1f, 0f);

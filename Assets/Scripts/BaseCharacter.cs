@@ -9,6 +9,7 @@ public class BaseCharacter
     /// If this value is null, then that means the enemy cannot take any damage
     /// </summary>
     public float? health { get; set; }
+    public float? maxHealth { get; set; }
     public float healthModifier { get; set; }
     public DamageAttribute attackStrength { get; set; }
 
@@ -32,6 +33,7 @@ public class BaseCharacter
             if (baseHealth != 0)
             {
                 health = baseHealth;
+                maxHealth = baseHealth;
                 healthModifier = healthAttribute.Modifier;
             }
         }
@@ -57,7 +59,7 @@ public class BaseCharacter
         return health.HasValue && health <= 0;
     }
 
-    public void TakeDamage(int damage, int damageModifier = 0)
+    public void TakeDamage(float damage, float damageModifier = 0)
     {
         if (health.HasValue)
         {

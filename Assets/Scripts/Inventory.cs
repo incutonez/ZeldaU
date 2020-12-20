@@ -17,6 +17,7 @@ public class Inventory
 {
     public event Action<Inventory, InventoryChangeArgs> OnItemListChanged;
     public bool hasSword = false;
+    public float damageModifier = 1f;
 
     private Action<Item> _useItemAction;
     private List<Item> items;
@@ -55,6 +56,10 @@ public class Inventory
             if (item.IsSword())
             {
                 hasSword = true;
+            }
+            if (item.IsRing())
+            {
+                damageModifier = item.itemType.GetAttribute<DamageAttribute>().TouchDamage;
             }
             item.PlaySound();
             OnItemListChanged(this, new InventoryChangeArgs(item));

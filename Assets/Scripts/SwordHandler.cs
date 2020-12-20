@@ -74,13 +74,13 @@ public class SwordHandler : MonoBehaviour
         damage = swordType.GetAttribute<DamageAttribute>();
     }
 
-    public int GetDamage()
+    public float GetDamage()
     {
         return Constants.BASE_SWORD_POWER;
     }
 
-    public int GetDamageModifier()
+    public float GetDamageModifier()
     {
-        return (int) damage.WeaponDamage;
+        return damage.WeaponDamage;
     }
 }

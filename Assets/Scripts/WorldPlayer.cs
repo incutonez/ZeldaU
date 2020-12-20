@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class WorldPlayer : WorldCharacter<BaseCharacter>
 {
     public UIInventory uiInventory;
     public const float SPEED = 1f;
+    public event EventHandler OnInitialize;
+    public event EventHandler OnTakeDamage;
 
     private Rigidbody2D rb2d;
     private CharacterAnimation characterAnimation;
@@ -52,7 +55,12 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
         WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
         if (worldEnemy != null)
         {
-            Debug.Log(worldEnemy.GetTouchDamage());
+            character.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);
+            OnTakeDamage?.Invoke(this, EventArgs.Empty);
+            if (character.IsDead())
+            {
+                DestroySelf();
+            }
         }
     }
 
@@ -65,6 +73,11 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
                 inventory.RemoveItem(new Item { itemType = item.itemType, amount = 1 });
                 break;
         }
+    }
+
+    public void InitializedCharacter()
+    {
+        OnInitialize?.Invoke(this, EventArgs.Empty);
     }
 
     public IEnumerator Attack()

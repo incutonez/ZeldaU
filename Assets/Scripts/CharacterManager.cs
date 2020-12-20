@@ -1,4 +1,5 @@
 ﻿using NPCs;
+using System;
 using UnityEngine;
 
 public class CharacterManager : BaseManager<CharacterManager>
@@ -15,6 +16,7 @@ public class CharacterManager : BaseManager<CharacterManager>
         WorldPlayer worldCharacter = transform.GetComponent<WorldPlayer>();
         BaseCharacter character = new BaseCharacter { characterType = Characters.Link };
         worldCharacter.SetCharacter(character);
+        worldCharacter.InitializedCharacter();
 
         return worldCharacter;
     }

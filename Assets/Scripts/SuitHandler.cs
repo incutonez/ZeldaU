@@ -8,7 +8,6 @@ public class SuitHandler : MonoBehaviour
     private const int textureWidth = 105;
     private const int textureHeight = 76;
     // This is a reference to the green color in the baseTexture that we'll be searching for and replacing
-    // TODO: Make this a solid color, like blue 0000ff or something, and then we know the true color
     private readonly static Color baseSuitColor = new Color(0f, 0f, 1f);
     private readonly static Color greenSuit = new Color(184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB, 24 / Constants.MAX_RGB);
     private readonly static Color blueSuit = new Color(184 / Constants.MAX_RGB, 184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB);

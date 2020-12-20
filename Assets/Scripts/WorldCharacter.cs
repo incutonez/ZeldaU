@@ -34,6 +34,16 @@ public class WorldCharacter<T> : MonoBehaviour where T : BaseCharacter
         return character.GetWeaponDamage();
     }
 
+    public float? GetHealth()
+    {
+        return character.health;
+    }
+
+    public float? GetMaxHealth()
+    {
+        return character.maxHealth;
+    }
+
     public void DestroySelf()
     {
         Destroy(gameObject);

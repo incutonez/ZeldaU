@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4667489313529949353}
   - component: {fileID: 1513557853922610316}
   - component: {fileID: 4252452300457230357}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sword
   m_TagString: Sword
   m_Icon: {fileID: 0}
@@ -247,19 +247,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798994900162157006}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &2341014248976877016
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 7871097625072075832}
   - component: {fileID: 8173552227823693243}
   - component: {fileID: 1696994827210088256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}

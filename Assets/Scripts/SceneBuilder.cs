@@ -7,18 +7,25 @@ public class SceneViewModel
 {
     public float x;
     public float y;
-    [SerializeField]
     public Matter matter;
 }
 
 // TODO: A lot of this is redundant from ItemManager... might be able to use BaseManager somehow?
 public class SceneBuilder : BaseManager<SceneBuilder>
 {
+    private Vector3 tl;
+    private Vector3 tr;
+    private Vector3 bl;
+    private Vector3 br;
     private const float xOrigin = -1.255f;
     private const float yOrigin = -0.84f;
 
     public void Awake()
     {
+        tl = Camera.main.ScreenToWorldPoint(new Vector3(Screen.height, 0));
+        bl = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
+        tr = Camera.main.ScreenToWorldPoint(new Vector3(Screen.height, Screen.width));
+        br = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.width));
         LoadSprites("Sprites/worldMatters");
         LoadPrefab("Prefabs/WorldMatter");
     }
@@ -28,7 +35,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         SceneViewModel[] matters = JsonConvert.DeserializeObject<SceneViewModel[]>(Resources.Load<TextAsset>(path).text);
         foreach (SceneViewModel viewModel in matters)
         {
-            SpawnObject(new Vector3(viewModel.x * Constants.MATTER_SIZE + xOrigin, viewModel.y * Constants.MATTER_SIZE + yOrigin), viewModel.matter);
+            // If we don't increment by 1 for the y, then it's actually right on the edge of the screen
+            SpawnObject(new Vector3(viewModel.x * Constants.MATTER_SIZE + bl.x, (viewModel.y + 1) * Constants.MATTER_SIZE + bl.y), viewModel.matter);
         }
     }
 

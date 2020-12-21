@@ -53,6 +53,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
+        WorldMatter worldMatter = collision.gameObject.GetComponent<WorldMatter>();
         if (worldEnemy != null)
         {
             character.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);
@@ -61,6 +62,10 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
             {
                 DestroySelf();
             }
+        }
+        else if (worldMatter != null)
+        {
+
         }
     }
 
@@ -137,6 +142,9 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void FixedUpdate()
     {
+        //rb2d.AddForce(movement * Time.deltaTime);
+        //transform.position += movement * Time.deltaTime;
+        //rb2d.velocity = movement;
         if (isAttacking)
         {
             rb2d.velocity = Vector2.zero;

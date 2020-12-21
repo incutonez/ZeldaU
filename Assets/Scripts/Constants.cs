@@ -22,6 +22,8 @@ public static class Constants
 
     public const int MAX_RUPEES = 255;
 
+    public const float MATTER_SIZE = 0.16f;
+
     public static readonly Vector3 SWORD_RIGHT = new Vector3(0.11f, -0.01f, 0f);
     public static readonly Vector3 SWORD_LEFT = new Vector3(-0.11f, -0.01f, 0f);
     public static readonly Vector3 SWORD_UP = new Vector3(-0.017f, 0.1f, 0f);

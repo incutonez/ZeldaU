@@ -14,15 +14,10 @@ public class GameHandler : MonoBehaviour
     {
         enemyManager = gameObject.AddComponent<EnemyManager>();
         sceneBuilder = gameObject.AddComponent<SceneBuilder>();
-        sceneBuilder.BuildScene("Screens/test");
+        sceneBuilder.BuildScene(8, 0);
         player = CharacterManager.SpawnPlayer(Vector3.zero);
         shieldHandler = player.GetComponentInChildren<ShieldHandler>(true);
         swordHandler = player.GetComponentInChildren<SwordHandler>(true);
         suitHandler = player.GetComponentInChildren<SuitHandler>(true);
-
-        enemyManager.SpawnEnemy(new Vector3(-0.245f, 0.004f), Enemies.Armos);
-        enemyManager.SpawnEnemy(new Vector3(-0.45f, 0.004f), Enemies.Gibdo);
-        enemyManager.SpawnEnemy(new Vector3(-0.245f, -0.2f), Enemies.Bubble);
-        enemyManager.SpawnEnemy(new Vector3(-0.45f, -0.2f), Enemies.Moldorm);
     }
 }

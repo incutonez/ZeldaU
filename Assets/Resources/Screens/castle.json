@@ -1,0 +1,70 @@
+{
+  "matters": [
+    {
+      "type": 7,
+      "children": [
+        {
+          "coordinates": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "type": 4,
+      "children": [
+        {
+          "coordinates": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "type": 6,
+      "children": [
+        {
+          "coordinates": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "type": 8,
+      "children": [
+        {
+          "coordinates": [
+            2,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "type": 5,
+      "children": [
+        {
+          "coordinates": [
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "type": 10,
+      "children": [
+        {
+          "coordinates": [
+            1,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

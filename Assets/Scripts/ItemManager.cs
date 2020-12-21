@@ -13,7 +13,6 @@ public class ItemManager : MonoBehaviour
     {
         Instance = this;
         sprites = Resources.LoadAll<Sprite>("Sprites/items");
-        LoadAllItems();
     }
 
     public Sprite LoadSpriteByItemType(Items itemType)

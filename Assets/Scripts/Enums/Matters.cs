@@ -1,6 +1,8 @@
 public enum Matters
 {
-    bush = 0,
+    // TODOJEF: Fix these values
+    bush = -1,
+    castle = 0,
     castleAltT = 1,
     castleAltTL = 2,
     castleAltTR = 3,
@@ -49,5 +51,5 @@ public enum Matters
     waterBL = 46,
     waterBR = 47,
     waterTL = 48,
-    waterTR = 40
+    waterTR = 49
 }

@@ -1,24 +1,43 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class SceneViewModel
 {
-    public float x;
-    public float y;
+    public int x;
+    public int y;
+    public WorldColors accentColor;
+    public WorldColors groundColor;
+    public List<SceneMatterViewModel> matters;
+}
+
+public class SceneMatterViewModel
+{
+    public List<SceneMatterChildViewModel> children;
+    public Matters type;
+}
+
+public class SceneMatterChildViewModel
+{
+    /// <summary>
+    /// This is a list of x, y coordinates, and if 4 values are specified, it becomes the max x, y range to keep adding this matter type
+    /// </summary>
+    public List<int> coordinates;
     public Matter matter;
 }
 
-// TODO: A lot of this is redundant from ItemManager... might be able to use BaseManager somehow?
 public class SceneBuilder : BaseManager<SceneBuilder>
 {
     private Vector3 tl;
     private Vector3 tr;
     private Vector3 bl;
     private Vector3 br;
-    private const float xOrigin = -1.255f;
-    private const float yOrigin = -0.84f;
+    // 0-based value, this represents the height for the number of cells we can have
+    private const int cellY = 10;
+    // 0-based value, this represents the width for the number of cells we can have
+    private const int cellX = 15;
 
     public void Awake()
     {
@@ -30,13 +49,39 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         LoadPrefab("Prefabs/WorldMatter");
     }
 
-    public void BuildScene(string path)
+    public void BuildScene(int xId, int yId)
     {
-        SceneViewModel[] matters = JsonConvert.DeserializeObject<SceneViewModel[]>(Resources.Load<TextAsset>(path).text);
-        foreach (SceneViewModel viewModel in matters)
+        SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"Screens\\{xId}{yId}").text);
+        foreach (SceneMatterViewModel viewModel in scene.matters)
         {
-            // If we don't increment by 1 for the y, then it's actually right on the edge of the screen
-            SpawnObject(new Vector3(viewModel.x * Constants.MATTER_SIZE + bl.x, (viewModel.y + 1) * Constants.MATTER_SIZE + bl.y), viewModel.matter);
+            Matters matterType = viewModel.type;
+            foreach (SceneMatterChildViewModel child in viewModel.children)
+            {
+                BuildMatter(child, matterType);
+            }
+        }
+    }
+
+    public void BuildMatter(SceneMatterChildViewModel child, Matters matterType)
+    {
+        List<int> coordinates = child.coordinates;
+        int x = coordinates[0];
+        int y = coordinates[1];
+        int xMax = x;
+        int yMax = y;
+        if (coordinates.Count == 4)
+        {
+            xMax = coordinates[2];
+            yMax = coordinates[3];
+        }
+        for (int i = x; i <= xMax; i++)
+        {
+            for (int j = y; j <= yMax; j++)
+            {
+                Matter matter = child.matter ?? new Matter();
+                matter.type = matterType;
+                SpawnObject(new Vector3(i * Constants.MATTER_SIZE + bl.x, (j + 1) * Constants.MATTER_SIZE + bl.y), matter);
+            }
         }
     }
 

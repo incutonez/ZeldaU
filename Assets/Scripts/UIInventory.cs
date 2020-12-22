@@ -11,9 +11,7 @@ public class UIInventory : MonoBehaviour
     public Image swordSlotSprite;
     public Image itemSlotSprite;
 
-    private const int padding = 4;
-    private const int HEART_WIDTH = 32 + padding;
-    private const int HEART_HEIGHT = 34 + padding;
+    private const float padding = 0.05f;
     private Inventory inventory;
     private WorldPlayer player;
     private Transform heartTemplate;
@@ -131,8 +129,8 @@ public class UIInventory : MonoBehaviour
             heart.gameObject.SetActive(true);
             // Need to use the position of where the template is and add to it
             Vector3 position = heartTemplate.position;
-            position.x += x * HEART_WIDTH;
-            position.y += y * HEART_HEIGHT;
+            position.x += x * (heart.sizeDelta.x + padding);
+            position.y += y * (heart.sizeDelta.y + padding);
             heart.position = position;
             Image image = heart.GetComponent<Image>();
             var heartCount = (i + 1) * 2;
@@ -148,7 +146,7 @@ public class UIInventory : MonoBehaviour
                 }
             }
             x++;
-            if (x > 8)
+            if (x > 7)
             {
                 x = 0;
                 y++;

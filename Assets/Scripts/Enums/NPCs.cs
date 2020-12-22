@@ -3,7 +3,7 @@
     public enum Characters
     {
         Fairy,
-        [Health(6)]
+        [Health(32)]
         Link,
         Merchant,
         OldMan,

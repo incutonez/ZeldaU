@@ -54,5 +54,6 @@ public enum Matters
     waterBL = 46,
     waterBR = 47,
     waterTL = 48,
-    waterTR = 49
+    waterTR = 49,
+    Transition = 100
 }

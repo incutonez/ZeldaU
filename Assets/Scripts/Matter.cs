@@ -3,6 +3,7 @@ using UnityEngine;
 public class Matter
 {
     public Matters type;
+    public WorldColors? color;
     public bool canMove = false;
     public bool canBurn = false;
     public bool canBomb = false;
@@ -32,5 +33,11 @@ public class Matter
                 return true;
         }
         return false;
+    }
+
+    public Color GetColor()
+    {
+        string hex = color.HasValue ? color.GetDescription() : WorldColors.Tan.GetDescription();
+        return GameHandler.sceneBuilder.HexToColor(hex);
     }
 }

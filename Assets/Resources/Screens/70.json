@@ -1,0 +1,179 @@
+{
+  "x": 7,
+  "y": 0,
+  "accentColor": 2,
+  "groundColor": 1,
+  "matters": [
+    {
+      "type": 21,
+      "children": [
+        {
+          "coordinates": [
+            2,
+            5
+          ]
+        },
+        {
+          "coordinates": [
+            5,
+            5
+          ]
+        },
+        {
+          "coordinates": [
+            8,
+            5
+          ]
+        },
+        {
+          "coordinates": [
+            8,
+            7
+          ]
+        },
+        {
+          "coordinates": [
+            8,
+            3
+          ]
+        },
+        {
+          "coordinates": [
+            10,
+            4
+          ]
+        },
+        {
+          "coordinates": [
+            10,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "type": 39,
+      "children": [
+        {
+          "coordinates": [
+            0,
+            0,
+            15,
+            0
+          ]
+        },
+        {
+          "coordinates": [
+            14,
+            1,
+            15,
+            2
+          ]
+        },
+        {
+          "coordinates": [
+            15,
+            3
+          ]
+        },
+        {
+          "coordinates": [
+            0,
+            9,
+            10,
+            10
+          ]
+        },
+        {
+          "coordinates": [
+            11,
+            10
+          ]
+        },
+        {
+          "coordinates": [
+            14,
+            8,
+            15,
+            10
+          ]
+        },
+        {
+          "coordinates": [
+            15,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "type": 41,
+      "children": [
+        {
+          "coordinates": [
+            11,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "type": 43,
+      "children": [
+        {
+          "coordinates": [
+            14,
+            3
+          ]
+        },
+        {
+          "coordinates": [
+            15,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "type": 40,
+      "children": [
+        {
+          "coordinates": [
+            15,
+            6
+          ]
+        },
+        {
+          "coordinates": [
+            14,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "type": 42,
+      "children": [
+        {
+          "coordinates": [
+            0,
+            1,
+            13,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "type": 100,
+      "children": [
+        {
+          "coordinates": [
+            16,
+            5
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldMatter : MonoBehaviour
@@ -14,11 +13,11 @@ public class WorldMatter : MonoBehaviour
         worldObjectData = GetComponent<WorldObjectData>();
     }
 
-    public void SetMatter(Matter matter, Color color)
+    public void SetMatter(Matter matter)
     {
         this.matter = matter;
         renderer.sprite = matter.GetSprite();
-        renderer.color = color;
+        renderer.color = matter.GetColor();
         worldObjectData.SetObjectData(renderer.sprite);
         if (matter.CanEnter())
         {

@@ -51,6 +51,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
+        WorldMatter worldMatter = collision.gameObject.GetComponent<WorldMatter>();
         if (worldEnemy != null)
         {
             character.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);
@@ -58,6 +59,13 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
             if (character.IsDead())
             {
                 DestroySelf();
+            }
+        }
+        if (worldMatter != null)
+        {
+            if (worldMatter.matter.type == Matters.Transition)
+            {
+                GameHandler.screenLoader.LoadNextLevel(8, 0);
             }
         }
     }

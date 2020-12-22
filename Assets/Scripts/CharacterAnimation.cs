@@ -7,13 +7,6 @@ public class CharacterAnimation : MonoBehaviour
 
     private Vector3 lastMovement;
 
-    public void Awake()
-    {
-        // TODOJEF: Figure out a better way?
-        var body = transform.Find("Body");
-        body.GetComponent<WorldObjectData>().SetObjectSize(body.GetComponent<SpriteRenderer>().sprite.bounds.size);
-    }
-
     // Idea taken from https://www.youtube.com/watch?v=Bf_5qIt9Gr8
     public void Animate(Vector3 movement)
     {

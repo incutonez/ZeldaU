@@ -8,13 +8,15 @@ public class SceneViewModel
 {
     public int x;
     public int y;
-    public WorldColors accentColor;
-    public WorldColors groundColor;
+    public WorldColors? accentColor;
+    public WorldColors? groundColor;
     public List<SceneMatterViewModel> matters;
 }
 
 public class SceneMatterViewModel
 {
+    public WorldColors? accentColor;
+    public WorldColors? groundColor;
     public List<SceneMatterChildViewModel> children;
     public Matters type;
 }
@@ -35,6 +37,7 @@ public class SceneMatterChildViewModel
 public class SceneBuilder : BaseManager<SceneBuilder>
 {
     private Vector3 bl;
+    private List<WorldMatter> activeMatters = new List<WorldMatter>();
 
     public void Awake()
     {
@@ -45,6 +48,13 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
     public void BuildScene(int xId, int yId)
     {
+        foreach (WorldMatter worldMatter in activeMatters)
+        {
+            worldMatter.DestroySelf();
+        }
+
+        activeMatters.Clear();
+
         SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"Screens\\{xId}{yId}").text);
         foreach (SceneMatterViewModel viewModel in scene.matters)
         {
@@ -55,7 +65,6 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public void BuildMatter(SceneMatterViewModel viewModel, SceneViewModel scene)
     {
         Matters matterType = viewModel.type;
-        Color accentColor = HexToColor(scene.accentColor.GetDescription());
         foreach (SceneMatterChildViewModel child in viewModel.children)
         {
             List<int> coordinates = child.coordinates;
@@ -74,18 +83,23 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                 {
                     Matter matter = child.matter ?? new Matter();
                     matter.type = matterType;
-                    SpawnObject(new Vector3(i + bl.x, j + 1 + bl.y), matter, accentColor);
+                    if (!matter.color.HasValue)
+                    {
+                        // Order of priority
+                        matter.color = viewModel.accentColor ?? scene.accentColor;
+                    }
+                    activeMatters.Add(SpawnObject(new Vector3(i + bl.x, j + 1 + bl.y), matter));
                 }
             }
         }
     }
 
-    public WorldMatter SpawnObject(Vector3 position, Matter matter, Color color)
+    public WorldMatter SpawnObject(Vector3 position, Matter matter)
     {
         RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab, position, Quaternion.identity);
 
         WorldMatter worldMatter = transform.GetComponent<WorldMatter>();
-        worldMatter.SetMatter(matter, color);
+        worldMatter.SetMatter(matter);
 
         return worldMatter;
     }

@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class WorldObjectData : MonoBehaviour
 {
     private new RectTransform transform;
     private new SpriteRenderer renderer;
-    private new BoxCollider2D collider;
+    private new PolygonCollider2D collider;
 
     private void Awake()
     {
         transform = GetComponent<RectTransform>();
         renderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+        collider = GetComponent<PolygonCollider2D>();
     }
 
     public void SetObjectData(Sprite sprite, bool setSize = true)
@@ -29,7 +30,7 @@ public class WorldObjectData : MonoBehaviour
     public void SetObjectSize(Vector3 size)
     {
         SetTransformSize(size);
-        SetBoxColliderSize(size);
+        UpdatePolygonCollider2D();
     }
 
     public void SetTransformSize(Vector3 size)
@@ -40,14 +41,26 @@ public class WorldObjectData : MonoBehaviour
         }
     }
 
-    public void SetBoxColliderSize(Vector3 size)
+    // Taken from http://answers.unity.com/answers/1771248/view.html
+    public void UpdatePolygonCollider2D(float tolerance = 0.05f)
     {
-        if (collider != null)
+        List<Vector2> points = new List<Vector2>();
+        List<Vector2> simplifiedPoints = new List<Vector2>();
+        if (renderer == null)
         {
-            collider.offset = Vector2.zero;
-            collider.size = new Vector3(size.x / transform.lossyScale.x,
-                                    size.y / transform.lossyScale.y,
-                                    size.z / transform.lossyScale.z);
+            renderer = GetComponent<SpriteRenderer>();
+        }
+        if (collider == null)
+        {
+            collider = GetComponent<PolygonCollider2D>();
+        }
+        var sprite = renderer.sprite;
+        collider.pathCount = sprite.GetPhysicsShapeCount();
+        for (int i = 0; i < collider.pathCount; i++)
+        {
+            sprite.GetPhysicsShape(i, points);
+            LineUtility.Simplify(points, tolerance, simplifiedPoints);
+            collider.SetPath(i, simplifiedPoints);
         }
     }
 }

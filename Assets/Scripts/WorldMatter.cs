@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldMatter : MonoBehaviour
@@ -21,7 +22,7 @@ public class WorldMatter : MonoBehaviour
         worldObjectData.SetObjectData(renderer.sprite);
         if (matter.CanEnter())
         {
-            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PolygonCollider2D>().enabled = false;
         }
     }
 

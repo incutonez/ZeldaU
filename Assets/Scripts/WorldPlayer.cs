@@ -9,7 +9,6 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     public event EventHandler OnInitialize;
     public event EventHandler OnTakeDamage;
 
-    private Rigidbody2D rb2d;
     private CharacterAnimation characterAnimation;
     private Inventory inventory;
     private Vector3 movement;
@@ -19,7 +18,6 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     public new void Awake()
     {
         base.Awake();
-        rb2d = GetComponent<Rigidbody2D>();
         characterAnimation = GetComponent<CharacterAnimation>();
         inventory = new Inventory(UseItem);
         uiInventory = FindObjectOfType<UIInventory>();
@@ -137,17 +135,14 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void FixedUpdate()
     {
-        //rb2d.AddForce(movement * Time.deltaTime);
-        //transform.position += movement * Time.deltaTime;
-        //rb2d.velocity = movement;
         if (isAttacking)
         {
-            rb2d.velocity = Vector2.zero;
+            // TODO: Do something?
         }
         else
         {
-            // Taken from https://www.youtube.com/watch?v=Bf_5qIt9Gr8
-            rb2d.velocity = movement * SPEED;
+            // Good resource https://forum.unity.com/threads/the-proper-way-to-control-the-player.429459/
+            transform.Translate(movement * Time.deltaTime * SPEED);
         }
     }
 }

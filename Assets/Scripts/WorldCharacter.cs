@@ -3,8 +3,7 @@
 public class WorldCharacter<T> : MonoBehaviour where T : BaseCharacter
 {
     public T character;
-
-    private WorldObjectData worldObjectData;
+    public WorldObjectData worldObjectData;
 
     public void Awake()
     {

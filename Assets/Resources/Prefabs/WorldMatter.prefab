@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7158907850048521417}
   - component: {fileID: 7158907850048521415}
   - component: {fileID: 2163460744203813719}
-  - component: {fileID: 5722956086886475094}
+  - component: {fileID: 4899002265416804969}
   m_Layer: 0
   m_Name: WorldMatter
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -1.255, y: -0.84}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 0.95, y: 0.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7158907850048521417
 MonoBehaviour:
@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c55a01a0e4d6747a9b6767dce7e13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &5722956086886475094
-BoxCollider2D:
+--- !u!60 &4899002265416804969
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -138,6 +138,10 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0}
+      - {x: 0, y: -1}
+      - {x: 1, y: -1}
+      - {x: 1, y: -0.1875}
+      - {x: 0.8125, y: 0}

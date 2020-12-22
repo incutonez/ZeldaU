@@ -44,7 +44,10 @@ public class WorldObjectData : MonoBehaviour
     {
         if (collider != null)
         {
-            collider.size = size;
+            collider.offset = Vector2.zero;
+            collider.size = new Vector3(size.x / transform.lossyScale.x,
+                                    size.y / transform.lossyScale.y,
+                                    size.z / transform.lossyScale.z);
         }
     }
 }

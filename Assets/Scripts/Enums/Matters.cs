@@ -1,3 +1,6 @@
+/// <summary>
+/// Each sprite has a Pixel Per Unit (PPU) of 16, so this is the base grid cell we use for the game
+/// </summary>
 public enum Matters
 {
     // TODOJEF: Fix these values

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WorldPlayer : WorldCharacter<BaseCharacter>
 {
     public UIInventory uiInventory;
-    public const float SPEED = 1f;
+    public const float SPEED = 5f;
     public event EventHandler OnInitialize;
     public event EventHandler OnTakeDamage;
 

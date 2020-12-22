@@ -7,26 +7,17 @@ public class WorldMatter : MonoBehaviour
     private new SpriteRenderer renderer;
     private WorldObjectData worldObjectData;
 
-    public static WorldMatter SpawnObject(Vector3 position, Matter matter)
-    {
-        RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab, position, Quaternion.identity);
-
-        WorldMatter wObject = transform.GetComponent<WorldMatter>();
-        wObject.SetMatter(matter);
-
-        return wObject;
-    }
-
     public void Awake()
     {
         renderer = GetComponent<SpriteRenderer>();
         worldObjectData = GetComponent<WorldObjectData>();
     }
 
-    public void SetMatter(Matter matter)
+    public void SetMatter(Matter matter, Color color)
     {
         this.matter = matter;
         renderer.sprite = matter.GetSprite();
+        renderer.color = color;
         worldObjectData.SetObjectData(renderer.sprite);
         if (matter.CanEnter())
         {

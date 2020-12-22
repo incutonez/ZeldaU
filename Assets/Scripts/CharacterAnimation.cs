@@ -4,8 +4,6 @@ using UnityEngine;
 public class CharacterAnimation : MonoBehaviour
 {
     public Animator animator;
-    public new RectTransform transform;
-    public new BoxCollider2D collider;
 
     private Vector3 lastMovement;
 

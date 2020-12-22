@@ -28,23 +28,17 @@ public class SceneMatterChildViewModel
     public Matter matter;
 }
 
+/// <summary>
+/// The camera is set to 7.5 for its size because it's Camera ortographic size = vertical resolution (240) / PPU (16) / 2 = 7.5
+/// per https://hackernoon.com/making-your-pixel-art-game-look-pixel-perfect-in-unity3d-3534963cad1d
+/// </summary>
 public class SceneBuilder : BaseManager<SceneBuilder>
 {
-    private Vector3 tl;
-    private Vector3 tr;
     private Vector3 bl;
-    private Vector3 br;
-    // 0-based value, this represents the height for the number of cells we can have
-    private const int cellY = 10;
-    // 0-based value, this represents the width for the number of cells we can have
-    private const int cellX = 15;
 
     public void Awake()
     {
-        tl = Camera.main.ScreenToWorldPoint(new Vector3(Screen.height, 0));
         bl = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
-        tr = Camera.main.ScreenToWorldPoint(new Vector3(Screen.height, Screen.width));
-        br = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.width));
         LoadSprites("Sprites/worldMatters");
         LoadPrefab("Prefabs/WorldMatter");
     }
@@ -54,44 +48,56 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"Screens\\{xId}{yId}").text);
         foreach (SceneMatterViewModel viewModel in scene.matters)
         {
-            Matters matterType = viewModel.type;
-            foreach (SceneMatterChildViewModel child in viewModel.children)
-            {
-                BuildMatter(child, matterType);
-            }
+            BuildMatter(viewModel, scene);
         }
     }
 
-    public void BuildMatter(SceneMatterChildViewModel child, Matters matterType)
+    public void BuildMatter(SceneMatterViewModel viewModel, SceneViewModel scene)
     {
-        List<int> coordinates = child.coordinates;
-        int x = coordinates[0];
-        int y = coordinates[1];
-        int xMax = x;
-        int yMax = y;
-        if (coordinates.Count == 4)
+        Matters matterType = viewModel.type;
+        Color accentColor = HexToColor(scene.accentColor.GetDescription());
+        foreach (SceneMatterChildViewModel child in viewModel.children)
         {
-            xMax = coordinates[2];
-            yMax = coordinates[3];
-        }
-        for (int i = x; i <= xMax; i++)
-        {
-            for (int j = y; j <= yMax; j++)
+            List<int> coordinates = child.coordinates;
+            int x = coordinates[0];
+            int y = coordinates[1];
+            int xMax = x;
+            int yMax = y;
+            if (coordinates.Count == 4)
             {
-                Matter matter = child.matter ?? new Matter();
-                matter.type = matterType;
-                SpawnObject(new Vector3(i * Constants.MATTER_SIZE + bl.x, (j + 1) * Constants.MATTER_SIZE + bl.y), matter);
+                xMax = coordinates[2];
+                yMax = coordinates[3];
+            }
+            for (int i = x; i <= xMax; i++)
+            {
+                for (int j = y; j <= yMax; j++)
+                {
+                    Matter matter = child.matter ?? new Matter();
+                    matter.type = matterType;
+                    SpawnObject(new Vector3(i + bl.x, j + 1 + bl.y), matter, accentColor);
+                }
             }
         }
     }
 
-    public WorldMatter SpawnObject(Vector3 position, Matter matter)
+    public WorldMatter SpawnObject(Vector3 position, Matter matter, Color color)
     {
         RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab, position, Quaternion.identity);
 
         WorldMatter worldMatter = transform.GetComponent<WorldMatter>();
-        worldMatter.SetMatter(matter);
+        worldMatter.SetMatter(matter, color);
 
         return worldMatter;
+    }
+
+    public float HexToDec(string hex)
+    {
+        return Convert.ToInt32(hex, 16) / 255f;
+    }
+
+    // Idea taken from https://www.youtube.com/watch?v=CMGn2giYLc8
+    public Color HexToColor(string hex)
+    {
+        return new Color(HexToDec(hex.Substring(0, 2)), HexToDec(hex.Substring(2, 2)), HexToDec(hex.Substring(4, 2)));
     }
 }

@@ -1,5 +1,4 @@
 ﻿using NPCs;
-using System;
 using UnityEngine;
 
 public class CharacterManager : BaseManager<CharacterManager>

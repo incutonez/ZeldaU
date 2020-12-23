@@ -6,12 +6,12 @@ public class BaseManager<T> : MonoBehaviour
     private Sprite[] sprites;
     public RectTransform prefab;
 
-    public TWorldCharacter Spawn<TWorldCharacter, TCharacter, TEnum>(Vector3 position, TEnum characterType)
+    public TWorldCharacter Spawn<TWorldCharacter, TCharacter, TEnum>(Vector3 position, TEnum characterType, Transform parent)
         where TWorldCharacter : WorldCharacter<TCharacter>
         where TCharacter : BaseCharacter, new()
         where TEnum : Enum
     {
-        RectTransform transform = Instantiate(prefab, position, Quaternion.identity);
+        RectTransform transform = Instantiate(prefab, position, Quaternion.identity, parent);
 
         TWorldCharacter worldCharacter = transform.GetComponent<TWorldCharacter>();
         TCharacter character = new TCharacter { characterType = characterType };

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using NPCs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,13 +7,25 @@ using UnityEngine;
 
 public class SceneViewModel
 {
-    // TODOJEF: NEED?
-    //public int x { get; set; }
-    // TODOJEF: NEED?
-    //public int y { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
     public WorldColors? accentColor { get; set; }
     public WorldColors? groundColor { get; set; }
     public List<SceneMatterViewModel> matters { get; set; }
+    public List<SceneEnemyViewModel> enemies { get; set; }
+}
+
+public class SceneEnemyViewModel
+{
+    List<SceneEnemyChildViewModel> children { get; set; }
+    public int count { get; set; }
+    public Enemies type { get; set; }
+}
+
+public class SceneEnemyChildViewModel
+{
+    public List<int> coordinates { get; set; }
+    public Enemy enemy { get; set; }
 }
 
 public class SceneMatterViewModel
@@ -38,6 +51,8 @@ public class SceneMatterChildViewModel
 /// </summary>
 public class SceneBuilder : BaseManager<SceneBuilder>
 {
+    public Transform screensContainer;
+
     private int currentX;
     private int currentY;
     private Animator animator;
@@ -47,8 +62,11 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     // TODOJEF: NEED?
     private Vector3 topLeftCoords;
     private Vector3 topRightCoords;
-    private List<WorldMatter> activeMatters = new List<WorldMatter>();
     private const float TRANSITION_PADDING = 0.5f;
+    // This is a 2D array of rows (y-axis) x columns (x-axis)
+    private bool[,] screenGrid = new bool[11, 16];
+    private const MidpointRounding roundStrategy = MidpointRounding.AwayFromZero;
+    private const int roundPrecision = 2;
 
     public void Awake()
     {
@@ -59,12 +77,28 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         // We subtract 4 units here because that's how tall the HUD is
         topRightCoords.y -= 4;
         animator = transform.Find("Crossfade").GetComponent<Animator>();
+        screensContainer = GameObject.Find("Screens").transform;
         LoadSprites($"{Constants.PATH_SPRITES}worldMatters");
         LoadPrefab($"{Constants.PATH_PREFABS}WorldMatter");
     }
 
-    public void BuildScene(SceneViewModel scene)
+    public Transform GetScreen(string screenId)
     {
+        Transform parent = screensContainer.Find(screenId);
+        if (parent == null)
+        {
+            parent = new GameObject().transform;
+            parent.name = screenId;
+            parent.parent = screensContainer;
+        }
+        return parent;
+    }
+
+    public void BuildScreen(SceneViewModel scene)
+    {
+        Transform parent = GetScreen($"{scene.x}{scene.y}");
+        float blX = bottomLeftCoords.x;
+        float blY = bottomLeftCoords.y;
         foreach (SceneMatterViewModel viewModel in scene.matters)
         {
             Matters matterType = viewModel.type;
@@ -87,31 +121,71 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                     for (int j = y; j <= yMax; j++)
                     {
                         Matter matter = child.matter ?? new Matter();
+                        // We get some imprecision when adding these values, so let's do some rounding
+                        float xCoord = (float) Math.Round(i + blX + matter.transitionX, roundPrecision, roundStrategy);
+                        float yCoord = (float) Math.Round(j + blY + matter.transitionY, roundPrecision, roundStrategy);
                         matter.type = matterType;
-                        if (!matter.color.HasValue)
+                        if (!matter.IsTransition())
                         {
-                            matter.color = color;
+                            if (!matter.color.HasValue)
+                            {
+                                matter.color = color;
+                            }
+                            screenGrid[j, i] = true;
                         }
-                        activeMatters.Add(SpawnMatter(new Vector3(i + bottomLeftCoords.x + matter.transitionX, j + 1 + bottomLeftCoords.y + matter.transitionY), matter));
+                        // -7.5, -7
+                        //SpawnMatter(new Vector3(i, j), matter, parent);
+                        SpawnMatter(new Vector3(xCoord, yCoord), matter, parent);
                     }
+                }
+            }
+        }
+        // TODOJEF: PICK UP HERE
+        if (scene.enemies != null)
+        {
+            System.Random r = new System.Random();
+            foreach (SceneEnemyViewModel viewModel in scene.enemies)
+            {
+                Enemies enemyType = viewModel.type;
+                // Randomly spawn enemies
+                for (int i = 0; i < viewModel.count; i++)
+                {
+                    int xTemp = 0;
+                    int yTemp = 0;
+                    bool found = false;
+                    while (!found)
+                    {
+                        xTemp = r.Next(0, 16);
+                        yTemp = r.Next(0, 11);
+                        if (screenGrid[yTemp, xTemp] == false)
+                        {
+                            found = true;
+                        }
+                    }
+                    screenGrid[yTemp, xTemp] = true;
+                    // TODOJEF: ALMOST THERE
+                    GameHandler.enemyManager.SpawnEnemy(new Vector3((float) Math.Round(xTemp + blX, roundPrecision, roundStrategy), (float) Math.Round(yTemp + blY, roundPrecision, roundStrategy)), enemyType, parent);
                 }
             }
         }
     }
 
-    public void ClearScene()
+    public void ClearScreen(string screenId)
     {
-        foreach (WorldMatter worldMatter in activeMatters)
+        Transform screen = GetScreen(screenId);
+        if (screen != null)
         {
-            worldMatter.DestroySelf();
+            Destroy(screen.gameObject);
         }
-
-        activeMatters.Clear();
+        screenGrid = new bool[11, 16];
     }
 
-    public WorldMatter SpawnMatter(Vector3 position, Matter matter)
+    public WorldMatter SpawnMatter(Vector3 position, Matter matter, Transform parent)
     {
-        RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab, position, Quaternion.identity);
+        RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab);
+        transform.parent = parent;
+        transform.position = position;
+        transform.rotation = Quaternion.identity;
 
         WorldMatter worldMatter = transform.GetComponent<WorldMatter>();
         worldMatter.SetMatter(matter);
@@ -159,8 +233,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         yield return new WaitForSeconds(0.5f);
 
         // Clear the previous scene
-        ClearScene();
-        BuildScene(JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{x}{y}").text));
+        ClearScreen($"{currentX}{currentY}");
+        BuildScreen(JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{x}{y}").text));
         GameHandler.player.transform.position = playerPosition;
         currentX = x;
         currentY = y;

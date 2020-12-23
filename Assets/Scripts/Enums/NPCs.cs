@@ -18,152 +18,152 @@
         /// </summary>
         [Damage(1)]
         [Health(6)]
-        Armos,
+        Armos = 0,
         [Damage(1)]
         [Health()]
-        Boulder,
+        Boulder = 1,
         [Damage()]
         [Health()]
-        Bubble,
+        Bubble = 2,
         [Damage()]
         [Health()]
-        BubbleBlue,
+        BubbleBlue = 3,
         [Damage()]
         [Health()]
-        BubbleRed,
+        BubbleRed = 4,
         [Damage(2)]
         [Health(8)]
-        Darknut,
+        Darknut = 5,
         [Damage(4)]
         [Health(16)]
-        DarknutBlue,
+        DarknutBlue = 6,
         [Damage(1)]
         [Health(2)]
-        Gel,
+        Gel = 7,
         /// <summary>
         /// Other health:
         /// You can only destroy the main Ghini... the other ones cannot be attacked
         /// </summary>
         [Damage(1)]
         [Health(22)]
-        Ghini,
+        Ghini = 8,
         [Damage(4)]
         [Health(12, 0.75f)]
-        Gibdo,
+        Gibdo = 9,
         // TODO: Verify this damage
         [Damage(2, 2)]
         [Health()]
-        GleeokHead,
+        GleeokHead = 10,
         [Damage(1, 2)]
         [Health(6)]
-        Goriya,
+        Goriya = 11,
         [Damage(2, 2)]
         [Health(10)]
-        GoriyaBlue,
+        GoriyaBlue = 12,
         [Damage(1)]
         [Health(2)]
-        Keese,
+        Keese = 13,
         [Damage(1)]
         [Health(2)]
-        KeeseBlue,
+        KeeseBlue = 14,
         [Damage(1)]
         [Health(2)]
-        KeeseRed,
+        KeeseRed = 15,
         [Damage(4)]
         [Health(8, 0)]
-        Lanmola,
+        Lanmola = 16,
         /// <summary>
         /// This one moves faster than the red version
         /// </summary>
         [Damage(4)]
         [Health(8, 0)]
-        LanmolaBlue,
+        LanmolaBlue = 17,
         [Damage(1)]
         [Health(4)]
-        Leever,
+        Leever = 18,
         [Damage(2)]
         [Health(8)]
-        LeeverBlue,
+        LeeverBlue = 19,
         /// <summary>
         /// If sucked in, the player will randomly lose their Magical Shield
         /// </summary>
         [Damage(2)]
         [Health(20)]
-        LikeLike,
+        LikeLike = 20,
         [Damage(2, 2)]
         [Health(8)]
-        Lynel,
+        Lynel = 21,
         [Damage(4, 4)]
         [Health(12)]
-        LynelBlue,
+        LynelBlue = 22,
         [Damage(1, 1)]
         [Health(4)]
-        Moblin,
+        Moblin = 23,
         [Damage(1, 1)]
         [Health(6)]
-        MoblinBlue,
+        MoblinBlue = 24,
         [Damage(1)]
         [Health(10, 0)]
-        Moldorm,
+        Moldorm = 25,
         [Damage(1, 1)]
         [Health(2)]
-        Octorok,
+        Octorok = 26,
         [Damage(1, 1)]
         [Health(4)]
-        OctorokBlue,
+        OctorokBlue = 27,
         [Damage(4)]
         [Health(20)]
-        Patra,
+        Patra = 28,
         [Damage(1)]
         [Health(4)]
-        Peahat,
+        Peahat = 29,
         [Damage(4)]
         [Health(20)]
-        PolsVoice,
+        PolsVoice = 30,
         [Damage(1)]
         [Health(2)]
-        Rope,
+        Rope = 31,
         [Damage(1)]
         [Health(8)]
-        RopeBlue,
+        RopeBlue = 32,
         // TODO: Verify the shoot damage of the sword
         [Damage(1/4, 1/4)]
         [Health(4)]
-        Stalfos,
+        Stalfos = 33,
         [Damage(1)]
         [Health(2)]
-        Tektite,
+        Tektite = 34,
         [Damage(1)]
         [Health(2)]
-        TektiteBlue,
+        TektiteBlue = 35,
         [Damage(1)]
         [Health()]
-        Trap,
+        Trap = 36,
         /// <summary>
         /// When it's hit without magical sword, it turns into 2 Keese
         /// </summary>
         [Damage(2)]
         [Health(2)]
-        Vire,
+        Vire = 37,
         /// <summary>
         /// When this catches player, the player returns to the beginning of the castle
         /// </summary>
         [Damage(1)]
         [Health(6)]
-        Wallmaster,
+        Wallmaster = 38,
         [Damage(2, 8)]
         [Health(6)]
-        Wizzrobe,
+        Wizzrobe = 39,
         // TODO: Verify the shoot damage
         [Damage(4, 4)]
         [Health(10)]
-        WizzrobeBlue,
+        WizzrobeBlue = 40,
         [Damage(2)]
         [Health(2)]
-        Zol,
+        Zol = 41,
         [Damage(1, 1)]
         [Health(4)]
-        Zora
+        Zora = 42
     }
 
     public enum Bosses

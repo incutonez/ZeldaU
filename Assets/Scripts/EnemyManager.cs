@@ -15,8 +15,8 @@ public class EnemyManager : BaseManager<EnemyManager>
         LoadPrefab($"{Constants.PATH_PREFABS}Enemy");
     }
 
-    public void SpawnEnemy (Vector3 position, Enemies enemyType)
+    public void SpawnEnemy (Vector3 position, Enemies enemyType, Transform parent)
     {
-        activeEnemies.Add(Spawn<WorldEnemy, Enemy, Enemies>(position, enemyType));
+        activeEnemies.Add(Spawn<WorldEnemy, Enemy, Enemies>(position, enemyType, parent));
     }
 }

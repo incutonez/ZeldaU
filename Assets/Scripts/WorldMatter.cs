@@ -18,7 +18,7 @@ public class WorldMatter : MonoBehaviour
         this.matter = matter;
         renderer.sprite = matter.GetSprite();
         renderer.color = matter.GetColor();
-        worldObjectData.SetObjectData(renderer.sprite);
+        //worldObjectData.SetObjectData(renderer.sprite);
         if (matter.CanEnter())
         {
             GetComponent<PolygonCollider2D>().enabled = false;

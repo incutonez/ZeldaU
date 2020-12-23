@@ -20,7 +20,5 @@ public class GameHandler : MonoBehaviour
         shieldHandler = player.GetComponentInChildren<ShieldHandler>(true);
         swordHandler = player.GetComponentInChildren<SwordHandler>(true);
         suitHandler = player.GetComponentInChildren<SuitHandler>(true);
-
-        enemyManager.SpawnEnemy(new Vector3(0, 0), Enemies.Armos);
     }
 }

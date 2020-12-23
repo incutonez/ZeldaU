@@ -9,14 +9,13 @@ public class GameHandler : MonoBehaviour
     public static SuitHandler suitHandler;
     public static EnemyManager enemyManager;
     public static SceneBuilder sceneBuilder;
-    public static ScreenLoader screenLoader;
+    public static bool isTransitioning = false;
 
     public void Start()
     {
         enemyManager = gameObject.AddComponent<EnemyManager>();
         sceneBuilder = gameObject.AddComponent<SceneBuilder>();
-        screenLoader = gameObject.GetComponent<ScreenLoader>();
-        sceneBuilder.BuildScene(7, 0);
+        sceneBuilder.LoadScreen(8, 0);
         player = CharacterManager.SpawnPlayer(Vector3.zero);
         shieldHandler = player.GetComponentInChildren<ShieldHandler>(true);
         swordHandler = player.GetComponentInChildren<SwordHandler>(true);

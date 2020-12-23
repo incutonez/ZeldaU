@@ -25,6 +25,21 @@ public class WorldMatter : MonoBehaviour
         }
     }
 
+    public bool IsTransition()
+    {
+        return matter.IsTransition();
+    }
+
+    public float GetPositionX()
+    {
+        return transform.position.x;
+    }
+
+    public float GetPositionY()
+    {
+        return transform.position.y;
+    }
+
     public Matter GetMatter()
     {
         return matter;

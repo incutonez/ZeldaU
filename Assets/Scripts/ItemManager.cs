@@ -12,7 +12,7 @@ public class ItemManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        sprites = Resources.LoadAll<Sprite>("Sprites/items");
+        sprites = Resources.LoadAll<Sprite>($"{Constants.PATH_SPRITES}items");
     }
 
     public Sprite LoadSpriteByItemType(Items itemType)

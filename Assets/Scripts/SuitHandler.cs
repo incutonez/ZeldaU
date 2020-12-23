@@ -16,7 +16,7 @@ public class SuitHandler : MonoBehaviour
 
     private void Awake()
     {
-        baseColors = Resources.Load<Sprite>("Sprites/characterBase").texture.GetPixels(0, 0, textureWidth, textureHeight);
+        baseColors = Resources.Load<Sprite>($"{Constants.PATH_SPRITES}characterBase").texture.GetPixels(0, 0, textureWidth, textureHeight);
         SetSuitColor(Items.RingGreen);
     }
 

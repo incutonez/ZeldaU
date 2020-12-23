@@ -35,6 +35,10 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     // Update is called once per frame
     void Update()
     {
+        if (GameHandler.isTransitioning)
+        {
+            return;
+        }
         Move();
     }
 
@@ -50,6 +54,10 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (GameHandler.isTransitioning)
+        {
+            return;
+        }
         WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
         WorldMatter worldMatter = collision.gameObject.GetComponent<WorldMatter>();
         if (worldEnemy != null)
@@ -63,9 +71,9 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
         }
         if (worldMatter != null)
         {
-            if (worldMatter.matter.type == Matters.Transition)
+            if (worldMatter.IsTransition())
             {
-                GameHandler.screenLoader.LoadNextLevel(8, 0);
+                GameHandler.sceneBuilder.LoadScreen(worldMatter);
             }
         }
     }
@@ -143,6 +151,10 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void FixedUpdate()
     {
+        if (GameHandler.isTransitioning)
+        {
+            return;
+        }
         if (isAttacking)
         {
             // TODO: Do something?

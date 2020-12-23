@@ -1,16 +1,52 @@
 {
-  "x": 8,
+  "x": 7,
   "y": 0,
   "accentColor": 2,
   "groundColor": 1,
   "matters": [
     {
-      "type": 10,
+      "type": 21,
       "children": [
         {
           "coordinates": [
-            4,
-            9
+            2,
+            5
+          ]
+        },
+        {
+          "coordinates": [
+            5,
+            5
+          ]
+        },
+        {
+          "coordinates": [
+            8,
+            5
+          ]
+        },
+        {
+          "coordinates": [
+            8,
+            7
+          ]
+        },
+        {
+          "coordinates": [
+            8,
+            3
+          ]
+        },
+        {
+          "coordinates": [
+            10,
+            4
+          ]
+        },
+        {
+          "coordinates": [
+            10,
+            6
           ]
         }
       ]
@@ -28,97 +64,44 @@
         },
         {
           "coordinates": [
-            0,
+            14,
             1,
-            1,
+            15,
+            2
+          ]
+        },
+        {
+          "coordinates": [
+            15,
             3
+          ]
+        },
+        {
+          "coordinates": [
+            0,
+            9,
+            10,
+            10
+          ]
+        },
+        {
+          "coordinates": [
+            11,
+            10
           ]
         },
         {
           "coordinates": [
             14,
-            1,
-            15,
-            3
-          ]
-        },
-        {
-          "coordinates": [
-            0,
-            6,
-            0,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            1,
-            7,
-            1,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            2,
             8,
-            2,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            3,
-            9,
-            3,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            4,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            5,
-            9,
-            5,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            6,
-            10
-          ]
-        },
-        {
-          "coordinates": [
-            9,
-            7,
             15,
             10
           ]
         },
         {
           "coordinates": [
-            10,
-            6,
             15,
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "type": 40,
-      "children": [
-        {
-          "coordinates": [
-            9,
-            6
+            7
           ]
         }
       ]
@@ -128,26 +111,42 @@
       "children": [
         {
           "coordinates": [
-            1,
+            11,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "type": 43,
+      "children": [
+        {
+          "coordinates": [
+            14,
+            3
+          ]
+        },
+        {
+          "coordinates": [
+            15,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "type": 40,
+      "children": [
+        {
+          "coordinates": [
+            15,
             6
           ]
         },
         {
           "coordinates": [
-            2,
+            14,
             7
-          ]
-        },
-        {
-          "coordinates": [
-            3,
-            8
-          ]
-        },
-        {
-          "coordinates": [
-            6,
-            9
           ]
         }
       ]
@@ -157,21 +156,7 @@
       "children": [
         {
           "coordinates": [
-            14,
-            4,
-            15,
-            4
-          ]
-        },
-        {
-          "coordinates": [
             0,
-            4
-          ]
-        },
-        {
-          "coordinates": [
-            2,
             1,
             13,
             1
@@ -180,12 +165,37 @@
       ]
     },
     {
-      "type": 44,
+      "type": 100,
       "children": [
         {
+          "matter": {
+            "transitionX": 1
+          },
           "coordinates": [
-            1,
-            4
+            16,
+            5
+          ]
+        },
+        {
+          "matter": {
+            "transitionX": -1
+          },
+          "coordinates": [
+            -1,
+            2,
+            -1,
+            8
+          ]
+        },
+        {
+          "matter": {
+            "transitionY": 1
+          },
+          "coordinates": [
+            12,
+            11,
+            13,
+            11
           ]
         }
       ]

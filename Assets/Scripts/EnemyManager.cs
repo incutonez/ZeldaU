@@ -11,8 +11,8 @@ public class EnemyManager : BaseManager<EnemyManager>
 
     public void Awake()
     {
-        LoadSprites("Sprites/enemies");
-        LoadPrefab("Prefabs/Enemy");
+        LoadSprites($"{Constants.PATH_SPRITES}enemies");
+        LoadPrefab($"{Constants.PATH_PREFABS}Enemy");
     }
 
     public void SpawnEnemy (Vector3 position, Enemies enemyType)

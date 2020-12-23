@@ -198,7 +198,7 @@
             "transitionX": -1
           },
           "coordinates": [
-            -1,
+            0,
             5
           ]
         },
@@ -207,7 +207,7 @@
             "transitionX": 1
           },
           "coordinates": [
-            16,
+            15,
             5
           ]
         },
@@ -217,9 +217,9 @@
           },
           "coordinates": [
             7,
-            11,
+            10,
             8,
-            11
+            10
           ]
         }
       ]

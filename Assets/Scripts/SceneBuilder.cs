@@ -6,19 +6,21 @@ using UnityEngine;
 
 public class SceneViewModel
 {
-    public int x;
-    public int y;
-    public WorldColors? accentColor;
-    public WorldColors? groundColor;
-    public List<SceneMatterViewModel> matters;
+    // TODOJEF: NEED?
+    //public int x { get; set; }
+    // TODOJEF: NEED?
+    //public int y { get; set; }
+    public WorldColors? accentColor { get; set; }
+    public WorldColors? groundColor { get; set; }
+    public List<SceneMatterViewModel> matters { get; set; }
 }
 
 public class SceneMatterViewModel
 {
-    public WorldColors? accentColor;
-    public WorldColors? groundColor;
-    public List<SceneMatterChildViewModel> children;
-    public Matters type;
+    public WorldColors? accentColor { get; set; }
+    public WorldColors? groundColor { get; set; }
+    public List<SceneMatterChildViewModel> children { get; set; }
+    public Matters type { get; set; }
 }
 
 public class SceneMatterChildViewModel
@@ -26,8 +28,8 @@ public class SceneMatterChildViewModel
     /// <summary>
     /// This is a list of x, y coordinates, and if 4 values are specified, it becomes the max x, y range to keep adding this matter type
     /// </summary>
-    public List<int> coordinates;
-    public Matter matter;
+    public List<int> coordinates { get; set; }
+    public Matter matter { get; set; }
 }
 
 /// <summary>
@@ -40,7 +42,9 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private int currentY;
     private Animator animator;
     private Vector3 bottomLeftCoords;
+    // TODOJEF: NEED?
     private Vector3 bottomRightCoords;
+    // TODOJEF: NEED?
     private Vector3 topLeftCoords;
     private Vector3 topRightCoords;
     private List<WorldMatter> activeMatters = new List<WorldMatter>();
@@ -49,9 +53,11 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public void Awake()
     {
         bottomLeftCoords = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
-        bottomRightCoords = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0));
-        topLeftCoords = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
+        //bottomRightCoords = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0));
+        //topLeftCoords = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
         topRightCoords = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        // We subtract 4 units here because that's how tall the HUD is
+        topRightCoords.y -= 4;
         animator = transform.Find("Crossfade").GetComponent<Animator>();
         LoadSprites($"{Constants.PATH_SPRITES}worldMatters");
         LoadPrefab($"{Constants.PATH_PREFABS}WorldMatter");
@@ -86,7 +92,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                         {
                             matter.color = color;
                         }
-                        activeMatters.Add(SpawnMatter(new Vector3(i + bottomLeftCoords.x, j + 1 + bottomLeftCoords.y), matter));
+                        activeMatters.Add(SpawnMatter(new Vector3(i + bottomLeftCoords.x + matter.transitionX, j + 1 + bottomLeftCoords.y + matter.transitionY), matter));
                     }
                 }
             }
@@ -126,17 +132,18 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
     public void LoadScreen(WorldMatter worldMatter)
     {
-        StartCoroutine(LoadScreenRoutine(GetTransitionX(worldMatter.GetMatter()), GetTransitionY(worldMatter.GetMatter()), GetPlayerTransitionPosition(worldMatter)));
+        Matter matter = worldMatter.GetMatter();
+        StartCoroutine(LoadScreenRoutine(GetTransitionX(matter), GetTransitionY(matter), GetPlayerTransitionPosition(worldMatter.GetPositionX(), worldMatter.GetPositionY(), matter)));
     }
 
     public int GetTransitionX(Matter matter)
     {
-        return currentX + matter.transitionX ?? 0;
+        return currentX + matter.transitionX;
     }
 
     public int GetTransitionY(Matter matter)
     {
-        return currentY + matter.transitionY ?? 0;
+        return currentY + matter.transitionY;
     }
 
     public void LoadScreen(int x, int y)
@@ -164,15 +171,12 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         GameHandler.isTransitioning = false;
     }
 
-    public Vector3 GetPlayerTransitionPosition(WorldMatter worldMatter)
+    public Vector3 GetPlayerTransitionPosition(float x, float y, Matter matter)
     {
-        float x = worldMatter.GetPositionX();
-        float y = worldMatter.GetPositionY();
-        Matter matter = worldMatter.GetMatter();
         // Moving to the left screen
         if (matter.transitionX == -1)
         {
-            x = bottomRightCoords.x - TRANSITION_PADDING;
+            x = topRightCoords.x - TRANSITION_PADDING;
         }
         // Moving to the right screen
         else if (matter.transitionX == 1)
@@ -182,12 +186,13 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         // Moving to the bottom screen
         if (matter.transitionY == -1)
         {
-            y = topLeftCoords.y - TRANSITION_PADDING;
+            y = topRightCoords.y - TRANSITION_PADDING;
         }
         // Moving to the top screen
         else if (matter.transitionY == 1)
         {
-            y = topRightCoords.y + TRANSITION_PADDING;
+            // We have to apply a slight fudge factor when moving up... I think it's because of the bottom positioning being considered "below"
+            y = bottomLeftCoords.y + TRANSITION_PADDING + 0.05f;
         }
         return new Vector3(x, y);
     }

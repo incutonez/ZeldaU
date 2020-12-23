@@ -8,12 +8,12 @@ public class Matter
     /// This is only used for Transition matters... it's the x value for the next screen... if this is a positive value, then
     /// that means this transition is on the right side of the screen, and if it's negative, then it's on the left side
     /// </summary>
-    public int? transitionX;
+    public int transitionX;
     /// <summary>
     /// This is only used for Transition matters... it's the y value for the next screen... if this is a positive value, then
     /// that means this transition is on the top of the screen, and if it's negative, then it's on the bottom
     /// </summary>
-    public int? transitionY;
+    public int transitionY;
     public bool canMove = false;
     public bool canBurn = false;
     public bool canBomb = false;

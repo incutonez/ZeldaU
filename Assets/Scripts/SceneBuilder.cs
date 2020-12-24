@@ -56,26 +56,12 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private int currentX;
     private int currentY;
     private Animator animator;
-    private Vector3 bottomLeftCoords;
-    // TODOJEF: NEED?
-    private Vector3 bottomRightCoords;
-    // TODOJEF: NEED?
-    private Vector3 topLeftCoords;
-    private Vector3 topRightCoords;
-    private const float TRANSITION_PADDING = 0.5f;
+    private const float TRANSITION_PADDING = 0.05f;
     // This is a 2D array of rows (y-axis) x columns (x-axis)
-    private bool[,] screenGrid = new bool[11, 16];
-    private const MidpointRounding roundStrategy = MidpointRounding.AwayFromZero;
-    private const int roundPrecision = 2;
+    private bool[,] screenGrid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
 
     public void Awake()
     {
-        bottomLeftCoords = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
-        //bottomRightCoords = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0));
-        //topLeftCoords = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
-        topRightCoords = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
-        // We subtract 4 units here because that's how tall the HUD is
-        topRightCoords.y -= 4;
         animator = transform.Find("Crossfade").GetComponent<Animator>();
         screensContainer = GameObject.Find("Screens").transform;
         LoadSprites($"{Constants.PATH_SPRITES}worldMatters");
@@ -89,7 +75,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         {
             parent = new GameObject().transform;
             parent.name = screenId;
-            parent.parent = screensContainer;
+            parent.SetParent(screensContainer);
+            parent.localPosition = Vector3.zero;
         }
         return parent;
     }
@@ -97,8 +84,6 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public void BuildScreen(SceneViewModel scene)
     {
         Transform parent = GetScreen($"{scene.x}{scene.y}");
-        float blX = bottomLeftCoords.x;
-        float blY = bottomLeftCoords.y;
         foreach (SceneMatterViewModel viewModel in scene.matters)
         {
             Matters matterType = viewModel.type;
@@ -121,9 +106,6 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                     for (int j = y; j <= yMax; j++)
                     {
                         Matter matter = child.matter ?? new Matter();
-                        // We get some imprecision when adding these values, so let's do some rounding
-                        float xCoord = (float) Math.Round(i + blX + matter.transitionX, roundPrecision, roundStrategy);
-                        float yCoord = (float) Math.Round(j + blY + matter.transitionY, roundPrecision, roundStrategy);
                         matter.type = matterType;
                         if (!matter.IsTransition())
                         {
@@ -133,14 +115,13 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                             }
                             screenGrid[j, i] = true;
                         }
-                        // -7.5, -7
-                        //SpawnMatter(new Vector3(i, j), matter, parent);
-                        SpawnMatter(new Vector3(xCoord, yCoord), matter, parent);
+                        // i and j here are simple indices into our parent game object, which is set at our "0, 0" origin,
+                        // which is -8, -7.5
+                        SpawnMatter(new Vector3(i + matter.transitionX, j + matter.transitionY), matter, parent);
                     }
                 }
             }
         }
-        // TODOJEF: PICK UP HERE
         if (scene.enemies != null)
         {
             System.Random r = new System.Random();
@@ -163,8 +144,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                         }
                     }
                     screenGrid[yTemp, xTemp] = true;
-                    // TODOJEF: ALMOST THERE
-                    GameHandler.enemyManager.SpawnEnemy(new Vector3((float) Math.Round(xTemp + blX, roundPrecision, roundStrategy), (float) Math.Round(yTemp + blY, roundPrecision, roundStrategy)), enemyType, parent);
+                    GameHandler.enemyManager.SpawnEnemy(new Vector3(xTemp, yTemp), enemyType, parent);
                 }
             }
         }
@@ -177,25 +157,27 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         {
             Destroy(screen.gameObject);
         }
-        screenGrid = new bool[11, 16];
+        screenGrid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
     }
 
     public WorldMatter SpawnMatter(Vector3 position, Matter matter, Transform parent)
     {
         RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab);
-        transform.parent = parent;
-        transform.position = position;
+        transform.SetParent(parent);
+        transform.localPosition = position;
         transform.rotation = Quaternion.identity;
 
-        WorldMatter worldMatter = transform.GetComponent<WorldMatter>();
+        WorldMatter worldMatter = transform.Find("Image").GetComponent<WorldMatter>();
         worldMatter.SetMatter(matter);
+        // TODOJEF: Better way of doing this?
+        transform.name = worldMatter.GetSpriteName();
 
         return worldMatter;
     }
 
     public float HexToDec(string hex)
     {
-        return Convert.ToInt32(hex, 16) / 255f;
+        return Convert.ToInt32(hex, 16) / Constants.MAX_RGB;
     }
 
     // Idea taken from https://www.youtube.com/watch?v=CMGn2giYLc8
@@ -207,7 +189,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public void LoadScreen(WorldMatter worldMatter)
     {
         Matter matter = worldMatter.GetMatter();
-        StartCoroutine(LoadScreenRoutine(GetTransitionX(matter), GetTransitionY(matter), GetPlayerTransitionPosition(worldMatter.GetPositionX(), worldMatter.GetPositionY(), matter)));
+        StartCoroutine(LoadScreenRoutine(GetTransitionX(matter), GetTransitionY(matter), GetPlayerTransitionPosition(GameHandler.player.GetPosition(), matter)));
     }
 
     public int GetTransitionX(Matter matter)
@@ -222,7 +204,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
     public void LoadScreen(int x, int y)
     {
-        StartCoroutine(LoadScreenRoutine(x, y, Vector3.zero));
+        StartCoroutine(LoadScreenRoutine(x, y, Constants.STARTING_POSITION));
     }
 
     public IEnumerator LoadScreenRoutine(int x, int y, Vector3 playerPosition)
@@ -235,7 +217,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         // Clear the previous scene
         ClearScreen($"{currentX}{currentY}");
         BuildScreen(JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{x}{y}").text));
-        GameHandler.player.transform.position = playerPosition;
+        GameHandler.player.transform.localPosition = playerPosition;
         currentX = x;
         currentY = y;
 
@@ -245,29 +227,28 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         GameHandler.isTransitioning = false;
     }
 
-    public Vector3 GetPlayerTransitionPosition(float x, float y, Matter matter)
+    public Vector3 GetPlayerTransitionPosition(Vector3 position, Matter matter)
     {
         // Moving to the left screen
         if (matter.transitionX == -1)
         {
-            x = topRightCoords.x - TRANSITION_PADDING;
+            position.x = Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING;
         }
         // Moving to the right screen
         else if (matter.transitionX == 1)
         {
-            x = bottomLeftCoords.x + TRANSITION_PADDING;
+            position.x = TRANSITION_PADDING;
         }
         // Moving to the bottom screen
         if (matter.transitionY == -1)
         {
-            y = topRightCoords.y - TRANSITION_PADDING;
+            position.y = Constants.GRID_ROWS_ZERO - TRANSITION_PADDING;
         }
         // Moving to the top screen
         else if (matter.transitionY == 1)
         {
-            // We have to apply a slight fudge factor when moving up... I think it's because of the bottom positioning being considered "below"
-            y = bottomLeftCoords.y + TRANSITION_PADDING + 0.05f;
+            position.y = TRANSITION_PADDING;
         }
-        return new Vector3(x, y);
+        return position;
     }
 }

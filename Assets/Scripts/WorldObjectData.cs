@@ -42,7 +42,7 @@ public class WorldObjectData : MonoBehaviour
     }
 
     // Taken from http://answers.unity.com/answers/1771248/view.html
-    public void UpdatePolygonCollider2D(float tolerance = 0.05f)
+    public void UpdatePolygonCollider2D(float tolerance = 0.5f)
     {
         List<Vector2> points = new List<Vector2>();
         List<Vector2> simplifiedPoints = new List<Vector2>();

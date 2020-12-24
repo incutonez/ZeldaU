@@ -8,13 +8,16 @@ public class CharacterManager : BaseManager<CharacterManager>
         LoadSprites($"{Constants.PATH_SPRITES}characters");
     }
 
-    public static WorldPlayer SpawnPlayer(Vector3 position)
+    public static WorldPlayer SpawnPlayer(Vector3 position, Transform parent)
     {
-        RectTransform transform = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}Character"), position, Quaternion.identity);
+        RectTransform transform = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}Character"));
+        transform.SetParent(parent);
+        transform.localPosition = position;
+        transform.rotation = Quaternion.identity;
 
         WorldPlayer worldCharacter = transform.GetComponent<WorldPlayer>();
         BaseCharacter character = new BaseCharacter { characterType = Characters.Link };
-        worldCharacter.SetCharacter(character);
+        worldCharacter.SetCharacter(character, false);
         worldCharacter.InitializedCharacter();
 
         return worldCharacter;

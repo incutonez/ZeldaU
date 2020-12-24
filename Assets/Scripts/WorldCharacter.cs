@@ -10,17 +10,16 @@ public class WorldCharacter<T> : MonoBehaviour where T : BaseCharacter
         worldObjectData = GetComponent<WorldObjectData>();
     }
 
-    public void SetCharacter(T character)
+    public void SetCharacter(T character, bool updateCollider = true)
     {
         this.character = character;
         character.Initialize();
-    }
-
-    public void SetCharacter(T character, Sprite sprite)
-    {
-        this.character = character;
-        character.Initialize();
-        worldObjectData.SetObjectData(sprite);
+        transform.name = character.characterType.GetDescription();
+        if (updateCollider)
+        {
+            // TODOJEF: COME BACK TO THIS
+            //worldObjectData.UpdatePolygonCollider2D();
+        }
     }
 
     public float GetTouchDamage()

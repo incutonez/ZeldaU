@@ -7,7 +7,24 @@ public static class Constants
     public const string PATH_DATA = "Data/";
     public const string PATH_OVERWORLD = PATH_DATA + "Overworld/";
 
-    public const float MAX_RGB = 255;
+    /// <summary>
+    /// This represents the number of cells horizontally.
+    /// </summary>
+    public const int GRID_COLUMNS = 16;
+    /// <summary>
+    /// This represents the number of cells vertically.
+    /// </summary>
+    public const int GRID_ROWS = 11;
+    /// <summary>
+    /// This represents the number of cells horizontally, but the 0-based version
+    /// </summary>
+    public const int GRID_COLUMNS_ZERO = GRID_COLUMNS - 1;
+    /// <summary>
+    /// This represents the number of cells vertically, but the 0-based version
+    /// </summary>
+    public const int GRID_ROWS_ZERO = GRID_ROWS - 1;
+
+    public const float MAX_RGB = 255f;
 
     public const float ATTACK_DELAY = 0.2f;
     public const float ATTACK_DELAY_THRESHOLD = 0f;
@@ -27,10 +44,9 @@ public static class Constants
 
     public const int MAX_RUPEES = 255;
 
-    public const float PPU = 100f;
-    public const float MATTER_SIZE = 16f;
-
     public static readonly Color COLOR_INVISIBLE = new Color(1f, 1f, 1f, 0f);
+
+    public static readonly Vector3 STARTING_POSITION = new Vector3(7, 5);
 
     public static readonly Vector3 SWORD_RIGHT = new Vector3(0.11f, -0.01f, 0f);
     public static readonly Vector3 SWORD_LEFT = new Vector3(-0.11f, -0.01f, 0f);

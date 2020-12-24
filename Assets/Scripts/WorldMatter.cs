@@ -16,12 +16,22 @@ public class WorldMatter : MonoBehaviour
     public void SetMatter(Matter matter)
     {
         this.matter = matter;
-        renderer.sprite = matter.GetSprite();
         renderer.color = matter.GetColor();
-        //worldObjectData.SetObjectData(renderer.sprite);
-        if (matter.CanEnter())
+        //transform.name = matter.type.GetDescription();
+        if (IsTransition())
         {
-            GetComponent<PolygonCollider2D>().enabled = false;
+            gameObject.layer = 9;
+        }
+        else
+        {
+            renderer.sprite = matter.GetSprite();
+            worldObjectData.UpdatePolygonCollider2D();
+            // TODOJEF: Need to access parent and set name
+            //transform.name = renderer.sprite.name;
+            if (matter.CanEnter())
+            {
+                GetComponent<PolygonCollider2D>().enabled = false;
+            }
         }
     }
 
@@ -32,12 +42,17 @@ public class WorldMatter : MonoBehaviour
 
     public float GetPositionX()
     {
-        return transform.position.x;
+        return transform.localPosition.x;
     }
 
     public float GetPositionY()
     {
-        return transform.position.y;
+        return transform.localPosition.y;
+    }
+
+    public string GetSpriteName()
+    {
+        return matter.type.GetDescription();
     }
 
     public Matter GetMatter()

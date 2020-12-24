@@ -16,7 +16,7 @@ public class GameHandler : MonoBehaviour
         enemyManager = gameObject.AddComponent<EnemyManager>();
         sceneBuilder = gameObject.AddComponent<SceneBuilder>();
         sceneBuilder.LoadScreen(8, 0);
-        player = CharacterManager.SpawnPlayer(Vector3.zero);
+        player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
         shieldHandler = player.GetComponentInChildren<ShieldHandler>(true);
         swordHandler = player.GetComponentInChildren<SwordHandler>(true);
         suitHandler = player.GetComponentInChildren<SuitHandler>(true);

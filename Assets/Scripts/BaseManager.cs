@@ -11,11 +11,14 @@ public class BaseManager<T> : MonoBehaviour
         where TCharacter : BaseCharacter, new()
         where TEnum : Enum
     {
-        RectTransform transform = Instantiate(prefab, position, Quaternion.identity, parent);
+        RectTransform transform = Instantiate(prefab);
+        transform.SetParent(parent);
+        transform.localPosition = position;
+        transform.rotation = Quaternion.identity;
 
         TWorldCharacter worldCharacter = transform.GetComponent<TWorldCharacter>();
         TCharacter character = new TCharacter { characterType = characterType };
-        worldCharacter.SetCharacter(character, LoadSprite(character.GetSpriteName()));
+        worldCharacter.SetCharacter(character);
 
         return worldCharacter;
     }

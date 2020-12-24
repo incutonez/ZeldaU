@@ -59,7 +59,6 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
             return;
         }
         WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
-        WorldMatter worldMatter = collision.gameObject.GetComponent<WorldMatter>();
         if (worldEnemy != null)
         {
             character.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);
@@ -67,13 +66,6 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
             if (character.IsDead())
             {
                 DestroySelf();
-            }
-        }
-        if (worldMatter != null)
-        {
-            if (worldMatter.IsTransition())
-            {
-                GameHandler.sceneBuilder.LoadScreen(worldMatter);
             }
         }
     }
@@ -147,6 +139,11 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
                 characterAnimation.Animate(movement);
             }
         }
+    }
+
+    public Vector3 GetPosition()
+    {
+        return GetComponent<RectTransform>().localPosition;
     }
 
     private void FixedUpdate()

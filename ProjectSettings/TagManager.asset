@@ -17,8 +17,8 @@ TagManager:
   - Sword
   - Enemy
   - Player
-  - 
-  - 
+  - Transition
+  - PlayerTransition
   - 
   - 
   - 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerTransition : MonoBehaviour
+public class WorldPlayerTransition : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -11,13 +11,13 @@ public class PlayerTransition : MonoBehaviour
         WorldMatter worldMatter = collision.gameObject.GetComponent<WorldMatter>();
         if (worldMatter != null)
         {
-            if (worldMatter.GetMatter().CanEnter())
+            if (worldMatter.CanEnter())
             {
-                StartCoroutine(GameHandler.player.Enter(worldMatter));
+                StartCoroutine(GameHandler.sceneBuilder.EnterDoor(worldMatter));
             }
             else if (worldMatter.IsTransition())
             {
-                GameHandler.sceneBuilder.LoadScreen(worldMatter);
+                StartCoroutine(GameHandler.sceneBuilder.LoadScreen(worldMatter));
             }
         }
     }

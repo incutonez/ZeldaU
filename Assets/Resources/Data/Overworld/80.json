@@ -2,7 +2,6 @@
   "x": 8,
   "y": 0,
   "accentColor": 2,
-  "groundColor": 3,
   "matters": [
     {
       "type": 39,
@@ -213,7 +212,8 @@
         },
         {
           "matter": {
-            "type": 10
+            "type": 10,
+            "transitionName": "Shop"
           },
           "coordinates": [
             4,

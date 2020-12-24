@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8460127273777966336}
   - component: {fileID: 4065426188239099174}
-  - component: {fileID: 1285507668784522481}
+  - component: {fileID: 1554421180022858812}
   m_Layer: 10
   m_Name: TransitionCollider
   m_TagString: Untagged
@@ -63,7 +63,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1285507668784522481
+--- !u!114 &1554421180022858812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -31,7 +31,6 @@ public class SceneEnemyChildViewModel
 public class SceneMatterViewModel
 {
     public WorldColors? accentColor { get; set; }
-    public WorldColors? groundColor { get; set; }
     public List<SceneMatterChildViewModel> children { get; set; }
     public Matters type { get; set; }
 }
@@ -53,13 +52,16 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 {
     public Transform screensContainer;
 
-    private int currentX;
-    private int currentY;
+    private Vector3 overworldPosition = Vector3.zero;
+    private string currentScreenId;
+    private int currentX = 8;
+    private int currentY = 0;
     private Animator animator;
     private const float TRANSITION_PADDING = 0.05f;
     // This is a 2D array of rows (y-axis) x columns (x-axis)
     private bool[,] screenGrid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
     private Color groundColor;
+    private WorldMatter door;
 
     public void Awake()
     {
@@ -71,6 +73,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
     public Transform GetScreen(string screenId)
     {
+        if (screenId == null)
+        {
+            return null;
+        }
         Transform parent = screensContainer.Find(screenId);
         if (parent == null)
         {
@@ -82,9 +88,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         return parent;
     }
 
-    public void BuildScreen(SceneViewModel scene)
+    public void BuildScreen(string screenId)
     {
-        Transform parent = GetScreen($"{scene.x}{scene.y}");
+        SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{screenId}").text);
+        Transform parent = GetScreen(screenId);
         // Update to the latest ground color for this scene
         groundColor = HexToColor((scene.groundColor ?? WorldColors.Tan).GetDescription());
         Camera.main.backgroundColor = groundColor;
@@ -165,6 +172,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
             Destroy(screen.gameObject);
         }
         screenGrid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
+        door = null;
     }
 
     public RectTransform SpawnMatter(Vector3 position, Matter matter, Transform parent)
@@ -178,6 +186,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         worldMatter.SetMatter(matter, groundColor);
         // TODOJEF: Better way of doing this?
         transform.name = worldMatter.GetSpriteName();
+        if (worldMatter.CanEnter())
+        {
+            door = worldMatter;
+        }
 
         return transform;
     }
@@ -193,28 +205,56 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         return new Color(HexToDec(hex.Substring(0, 2)), HexToDec(hex.Substring(2, 2)), HexToDec(hex.Substring(4, 2)));
     }
 
-    public void LoadScreen(WorldMatter worldMatter)
+    public string GetScreenId(Matter matter)
+    {
+        string screenId = matter.transitionName;
+        if (screenId == null)
+        {
+            currentX += matter.transitionX;
+            currentY += matter.transitionY;
+            screenId = $"{currentX}{currentY}";
+        }
+        else if (screenId == Constants.TRANSITION_BACK)
+        {
+            screenId = $"{currentX}{currentY}";
+        }
+        return screenId;
+    }
+
+    public IEnumerator EnterDoor(WorldMatter worldMatter)
+    {
+        GameHandler.isTransitioning = true;
+        worldMatter.hiddenDoor.gameObject.SetActive(true);
+        yield return StartCoroutine(GameHandler.player.characterAnimation.Enter());
+        yield return StartCoroutine(LoadScreen(worldMatter));
+        // TODOJEF: I don't like dipping into the animator like this... figure out a better way
+        GameHandler.player.characterAnimation.animator.SetBool("isEntering", false);
+    }
+
+    public IEnumerator LoadScreen(WorldMatter worldMatter)
     {
         Matter matter = worldMatter.GetMatter();
-        StartCoroutine(LoadScreenRoutine(GetTransitionX(matter), GetTransitionY(matter), GetPlayerTransitionPosition(GameHandler.player.GetPosition(), matter)));
+        yield return StartCoroutine(LoadScreenRoutine(GetScreenId(matter), GetPlayerTransitionPosition(GameHandler.player.GetPosition(), matter)));
+        if (matter.transitionName == Constants.TRANSITION_BACK)
+        {
+            if (door != null)
+            {
+                door.hiddenDoor.gameObject.SetActive(true);
+            }
+            yield return StartCoroutine(GameHandler.player.characterAnimation.Exit());
+            if (door != null)
+            {
+                door.hiddenDoor.gameObject.SetActive(false);
+            }
+        }
     }
 
-    public int GetTransitionX(Matter matter)
+    public void LoadScreen(string screenId)
     {
-        return currentX + matter.transitionX;
+        StartCoroutine(LoadScreenRoutine(screenId, Constants.STARTING_POSITION));
     }
 
-    public int GetTransitionY(Matter matter)
-    {
-        return currentY + matter.transitionY;
-    }
-
-    public void LoadScreen(int x, int y)
-    {
-        StartCoroutine(LoadScreenRoutine(x, y, Constants.STARTING_POSITION));
-    }
-
-    public IEnumerator LoadScreenRoutine(int x, int y, Vector3 playerPosition)
+    public IEnumerator LoadScreenRoutine(string screenId, Vector3 playerPosition)
     {
         GameHandler.isTransitioning = true;
         animator.SetBool("Start", true);
@@ -222,11 +262,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         yield return new WaitForSeconds(0.5f);
 
         // Clear the previous scene
-        ClearScreen($"{currentX}{currentY}");
-        BuildScreen(JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{x}{y}").text));
+        ClearScreen(currentScreenId);
+        BuildScreen(screenId);
         GameHandler.player.transform.localPosition = playerPosition;
-        currentX = x;
-        currentY = y;
+        currentScreenId = screenId;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -236,8 +275,21 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
     public Vector3 GetPlayerTransitionPosition(Vector3 position, Matter matter)
     {
+        // Transitioning to a place not in overworld
+        if (matter.CanEnter())
+        {
+            // Save off the player's current position, so we can restore it later
+            overworldPosition = position;
+            position = new Vector3(7f, TRANSITION_PADDING);
+        }
+        // Need to transition back to overworld
+        else if (matter.transitionName == Constants.TRANSITION_BACK)
+        {
+            // Restore the player's previous position
+            position = overworldPosition;
+        }
         // Moving to the left screen
-        if (matter.transitionX == -1)
+        else if (matter.transitionX == -1)
         {
             position.x = Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING;
         }

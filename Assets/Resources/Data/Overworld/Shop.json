@@ -1,0 +1,88 @@
+{
+  "accentColor": 7,
+  "groundColor": 8,
+  "matters": [
+    {
+      "type": 39,
+      "children": [
+        {
+          "coordinates": [
+            0,
+            0,
+            6,
+            0
+          ]
+        },
+        {
+          "coordinates": [
+            9,
+            0,
+            15,
+            0
+          ]
+        },
+        {
+          "coordinates": [
+            0,
+            1,
+            1,
+            10
+          ]
+        },
+        {
+          "coordinates": [
+            14,
+            1,
+            15,
+            10
+          ]
+        },
+        {
+          "coordinates": [
+            2,
+            9,
+            13,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": 42,
+      "children": [
+        {
+          "coordinates": [
+            2,
+            1,
+            6,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            9,
+            1,
+            13,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "type": 100,
+      "children": [
+        {
+          "matter": {
+            "transitionName": "Back"
+          },
+          "coordinates": [
+            7,
+            -1,
+            8,
+            -1
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -43,6 +43,11 @@ public class WorldMatter : MonoBehaviour
         }
     }
 
+    public bool CanEnter()
+    {
+        return matter.CanEnter();
+    }
+
     public bool IsTransition()
     {
         return matter.IsTransition();

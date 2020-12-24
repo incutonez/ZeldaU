@@ -13,5 +13,9 @@ public enum WorldColors
     [Description("747474")]
     Gray = 5,
     [Description("fcfcfc")]
-    White = 6
+    White = 6,
+    [Description("7c0800")]
+    Red = 7,
+    [Description("000000")]
+    Black = 8
 }

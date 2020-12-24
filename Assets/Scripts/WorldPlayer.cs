@@ -8,8 +8,8 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     public const float SPEED = 5f;
     public event EventHandler OnInitialize;
     public event EventHandler OnTakeDamage;
+    public CharacterAnimation characterAnimation;
 
-    private CharacterAnimation characterAnimation;
     private Inventory inventory;
     private Vector3 movement;
     private bool isAttacking = false;
@@ -84,16 +84,6 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     public void InitializedCharacter()
     {
         OnInitialize?.Invoke(this, EventArgs.Empty);
-    }
-
-    public IEnumerator Enter(WorldMatter worldMatter)
-    {
-        GameHandler.isTransitioning = true;
-        worldMatter.hiddenDoor.gameObject.SetActive(true);
-        yield return StartCoroutine(characterAnimation.Enter());
-        worldMatter.hiddenDoor.gameObject.SetActive(false);
-        GameHandler.isTransitioning = false;
-        Debug.Log("DONE");
     }
 
     public IEnumerator Attack()

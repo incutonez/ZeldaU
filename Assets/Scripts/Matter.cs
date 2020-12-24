@@ -15,6 +15,11 @@ public class Matter
     /// </summary>
     public int transitionY;
     /// <summary>
+    /// This is only used for Transition matters... it's the actual name of the transition that you'd like to load.  This is
+    /// useful for things that are not in the overworld/underworld, like shops.
+    /// </summary>
+    public string transitionName;
+    /// <summary>
     /// This is an override for the CanEnter method... by default, we have certain Matters that are considered
     /// something the player can enter, but there are some scenarios where that's not always true
     /// </summary>

@@ -22,7 +22,7 @@ public class SwordHandler : MonoBehaviour
 
     public IEnumerator Swing(Vector3 playerPosition)
     {
-        GameHandler.shieldHandler.ToggleShields(false);
+        GameHandler.ShieldHandler.ToggleShields(false);
         ToggleSword(true);
         SetPosition(playerPosition);
         // TODOJEF: Have to determine which Sword FX should play... need to know if at full health

@@ -5,21 +5,6 @@ public class Matter
     public Matters type = Matters.None;
     public WorldColors? color;
     /// <summary>
-    /// This is only used for Transition matters... it's the x value for the next screen... if this is a positive value, then
-    /// that means this transition is on the right side of the screen, and if it's negative, then it's on the left side
-    /// </summary>
-    public int transitionX;
-    /// <summary>
-    /// This is only used for Transition matters... it's the y value for the next screen... if this is a positive value, then
-    /// that means this transition is on the top of the screen, and if it's negative, then it's on the bottom
-    /// </summary>
-    public int transitionY;
-    /// <summary>
-    /// This is only used for Transition matters... it's the actual name of the transition that you'd like to load.  This is
-    /// useful for things that are not in the overworld/underworld, like shops.
-    /// </summary>
-    public string transitionName;
-    /// <summary>
     /// This is an override for the CanEnter method... by default, we have certain Matters that are considered
     /// something the player can enter, but there are some scenarios where that's not always true
     /// </summary>
@@ -30,7 +15,7 @@ public class Matter
 
     public Sprite GetSprite()
     {
-        return GameHandler.sceneBuilder.LoadSprite(type.GetDescription());
+        return GameHandler.SceneBuilder.LoadSprite(type.GetDescription());
     }
 
     public bool CanEnter()
@@ -71,6 +56,6 @@ public class Matter
             return Constants.COLOR_INVISIBLE;
         }
         string hex = color.HasValue ? color.GetDescription() : WorldColors.Tan.GetDescription();
-        return GameHandler.sceneBuilder.HexToColor(hex);
+        return Utilities.HexToColor(hex);
     }
 }

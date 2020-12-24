@@ -35,7 +35,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     // Update is called once per frame
     void Update()
     {
-        if (GameHandler.isTransitioning)
+        if (GameHandler.IsTransitioning)
         {
             return;
         }
@@ -54,7 +54,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GameHandler.isTransitioning)
+        if (GameHandler.IsTransitioning)
         {
             return;
         }
@@ -148,7 +148,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void FixedUpdate()
     {
-        if (GameHandler.isTransitioning)
+        if (GameHandler.IsTransitioning)
         {
             return;
         }

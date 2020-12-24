@@ -4,7 +4,7 @@ public class WorldPlayerTransition : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GameHandler.isTransitioning)
+        if (GameHandler.IsTransitioning)
         {
             return;
         }
@@ -13,11 +13,11 @@ public class WorldPlayerTransition : MonoBehaviour
         {
             if (worldMatter.CanEnter())
             {
-                StartCoroutine(GameHandler.sceneBuilder.EnterDoor(worldMatter));
+                StartCoroutine(GameHandler.SceneBuilder.EnterDoor(worldMatter));
             }
             else if (worldMatter.IsTransition())
             {
-                StartCoroutine(GameHandler.sceneBuilder.LoadScreen(worldMatter));
+                StartCoroutine(GameHandler.SceneBuilder.LoadScreen(worldMatter));
             }
         }
     }

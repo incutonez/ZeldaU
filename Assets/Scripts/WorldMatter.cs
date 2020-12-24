@@ -4,6 +4,7 @@ public class WorldMatter : MonoBehaviour
 {
     public Matter matter;
     public RectTransform hiddenDoor;
+    public SceneViewModel transition;
 
     private new SpriteRenderer renderer;
     private WorldObjectData worldObjectData;
@@ -14,7 +15,7 @@ public class WorldMatter : MonoBehaviour
         worldObjectData = GetComponent<WorldObjectData>();
     }
 
-    public void SetMatter(Matter matter, Color groundColor)
+    public void SetMatter(Matter matter)
     {
         this.matter = matter;
         renderer.color = matter.GetColor();
@@ -38,7 +39,6 @@ public class WorldMatter : MonoBehaviour
                 hiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"));
                 hiddenDoor.SetParent(GetComponent<RectTransform>());
                 hiddenDoor.localPosition = new Vector3(0.5f, -1.75f);
-                hiddenDoor.GetComponent<SpriteRenderer>().color = groundColor;
             }
         }
     }

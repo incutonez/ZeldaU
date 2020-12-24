@@ -58,15 +58,15 @@ public class UIInventory : MonoBehaviour
         {
             if (item.IsRing())
             {
-                GameHandler.suitHandler.SetSuitColor(item.itemType);
+                GameHandler.SuitHandler.SetSuitColor(item.itemType);
             }
             else if (item.IsShield())
             {
-                GameHandler.shieldHandler.SetShield(item.itemType);
+                GameHandler.ShieldHandler.SetShield(item.itemType);
             }
             else if (item.IsSword())
             {
-                GameHandler.swordHandler.SetSword(item);
+                GameHandler.SwordHandler.SetSword(item);
                 RefreshSwordUI();
             }
             else if (item.IsRupee())

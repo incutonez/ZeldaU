@@ -1,43 +1,24 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseManager<T> : MonoBehaviour
 {
-    private Sprite[] sprites;
-    public RectTransform prefab;
+    private Sprite[] Sprites { get; set; }
 
-    public TWorldCharacter Spawn<TWorldCharacter, TCharacter, TEnum>(Vector3 position, TEnum characterType, Transform parent)
-        where TWorldCharacter : WorldCharacter<TCharacter>
-        where TCharacter : BaseCharacter, new()
-        where TEnum : Enum
+    public RectTransform LoadPrefab(string prefabPath)
     {
-        RectTransform transform = Instantiate(prefab);
-        transform.SetParent(parent);
-        transform.localPosition = position;
-        transform.rotation = Quaternion.identity;
-
-        TWorldCharacter worldCharacter = transform.GetComponent<TWorldCharacter>();
-        TCharacter character = new TCharacter { characterType = characterType };
-        worldCharacter.SetCharacter(character);
-
-        return worldCharacter;
-    }
-
-    public void LoadPrefab(string prefabPath)
-    {
-        prefab = Resources.Load<RectTransform>(prefabPath);
+        return Resources.Load<RectTransform>(prefabPath);
     }
 
     public void LoadSprites(string spriteLocation)
     {
-        sprites = Resources.LoadAll<Sprite>(spriteLocation);
+        Sprites = Resources.LoadAll<Sprite>(spriteLocation);
     }
 
     // Idea taken from https://answers.unity.com/questions/1417421/how-to-load-all-my-sprites-in-my-folder-and-put-th.html
     public Sprite LoadSprite(string spriteName)
     {
         Sprite sprite = null;
-        foreach (Sprite item in sprites)
+        foreach (Sprite item in Sprites)
         {
             if (item.name == spriteName)
             {

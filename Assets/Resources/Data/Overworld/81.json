@@ -257,8 +257,8 @@
       "type": 100,
       "children": [
         {
-          "matter": {
-            "transitionY": -1
+          "transition": {
+            "y": -1
           },
           "coordinates": [
             7,
@@ -268,8 +268,8 @@
           ]
         },
         {
-          "matter": {
-            "transitionX": -1
+          "transition": {
+            "x": -1
           },
           "coordinates": [
             0,
@@ -279,8 +279,8 @@
           ]
         },
         {
-          "matter": {
-            "transitionX": 1
+          "transition": {
+            "x": 1
           },
           "coordinates": [
             15,

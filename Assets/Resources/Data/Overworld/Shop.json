@@ -72,8 +72,8 @@
       "type": 100,
       "children": [
         {
-          "matter": {
-            "transitionName": "Back"
+          "transition": {
+            "name": "Back"
           },
           "coordinates": [
             7,

@@ -22,7 +22,7 @@ public class CharacterAnimation : MonoBehaviour
             lastMovement = movement;
             Walk(movement);
         }
-        GameHandler.shieldHandler.ToggleShields(lastMovement.y == -1f || lastMovement == Vector3.zero, lastMovement.x > 0f, lastMovement.x < 0f);
+        GameHandler.ShieldHandler.ToggleShields(lastMovement.y == -1f || lastMovement == Vector3.zero, lastMovement.x > 0f, lastMovement.x < 0f);
     }
 
     public void Idle(Vector3 movement)
@@ -41,7 +41,7 @@ public class CharacterAnimation : MonoBehaviour
     {
         animator.SetBool("isMoving", false);
         animator.SetBool("isAttacking", true);
-        yield return GameHandler.swordHandler.Swing(lastMovement);
+        yield return GameHandler.SwordHandler.Swing(lastMovement);
         animator.SetBool("isAttacking", false);
     }
 

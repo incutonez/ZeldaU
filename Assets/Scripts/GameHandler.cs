@@ -1,24 +1,26 @@
-﻿using NPCs;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// This is the main game handler object... it holds references to "global" variables that we use in other classes
+/// </summary>
 public class GameHandler : MonoBehaviour
 {
-    public static WorldPlayer player;
-    public static ShieldHandler shieldHandler;
-    public static SwordHandler swordHandler;
-    public static SuitHandler suitHandler;
-    public static EnemyManager enemyManager;
-    public static SceneBuilder sceneBuilder;
-    public static bool isTransitioning = false;
+    public static WorldPlayer Player { get; set; }
+    public static ShieldHandler ShieldHandler { get; set; }
+    public static SwordHandler SwordHandler { get; set; }
+    public static SuitHandler SuitHandler { get; set; }
+    public static CharacterManager CharacterManager { get; set; }
+    public static SceneBuilder SceneBuilder { get; set; }
+    public static bool IsTransitioning { get; set; }
 
     public void Start()
     {
-        enemyManager = gameObject.AddComponent<EnemyManager>();
-        sceneBuilder = gameObject.AddComponent<SceneBuilder>();
-        sceneBuilder.LoadScreen("80");
-        player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
-        shieldHandler = player.GetComponentInChildren<ShieldHandler>(true);
-        swordHandler = player.GetComponentInChildren<SwordHandler>(true);
-        suitHandler = player.GetComponentInChildren<SuitHandler>(true);
+        CharacterManager = gameObject.AddComponent<CharacterManager>();
+        SceneBuilder = gameObject.AddComponent<SceneBuilder>();
+        SceneBuilder.LoadScreen("80");
+        Player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
+        ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);
+        SwordHandler = Player.GetComponentInChildren<SwordHandler>(true);
+        SuitHandler = Player.GetComponentInChildren<SuitHandler>(true);
     }
 }

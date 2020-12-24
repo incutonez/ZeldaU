@@ -59,6 +59,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private const float TRANSITION_PADDING = 0.05f;
     // This is a 2D array of rows (y-axis) x columns (x-axis)
     private bool[,] screenGrid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
+    private Color groundColor;
 
     public void Awake()
     {
@@ -84,6 +85,9 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public void BuildScreen(SceneViewModel scene)
     {
         Transform parent = GetScreen($"{scene.x}{scene.y}");
+        // Update to the latest ground color for this scene
+        groundColor = HexToColor((scene.groundColor ?? WorldColors.Tan).GetDescription());
+        Camera.main.backgroundColor = groundColor;
         foreach (SceneMatterViewModel viewModel in scene.matters)
         {
             Matters matterType = viewModel.type;
@@ -106,7 +110,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                     for (int j = y; j <= yMax; j++)
                     {
                         Matter matter = child.matter ?? new Matter();
-                        matter.type = matterType;
+                        if (matter.type == Matters.None)
+                        {
+                            matter.type = matterType;
+                        }
                         if (!matter.IsTransition())
                         {
                             if (!matter.color.HasValue)
@@ -160,7 +167,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         screenGrid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
     }
 
-    public WorldMatter SpawnMatter(Vector3 position, Matter matter, Transform parent)
+    public RectTransform SpawnMatter(Vector3 position, Matter matter, Transform parent)
     {
         RectTransform transform = Instantiate(GameHandler.sceneBuilder.prefab);
         transform.SetParent(parent);
@@ -168,11 +175,11 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         transform.rotation = Quaternion.identity;
 
         WorldMatter worldMatter = transform.Find("Image").GetComponent<WorldMatter>();
-        worldMatter.SetMatter(matter);
+        worldMatter.SetMatter(matter, groundColor);
         // TODOJEF: Better way of doing this?
         transform.name = worldMatter.GetSpriteName();
 
-        return worldMatter;
+        return transform;
     }
 
     public float HexToDec(string hex)

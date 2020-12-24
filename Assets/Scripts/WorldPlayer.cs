@@ -86,6 +86,16 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
         OnInitialize?.Invoke(this, EventArgs.Empty);
     }
 
+    public IEnumerator Enter(WorldMatter worldMatter)
+    {
+        GameHandler.isTransitioning = true;
+        worldMatter.hiddenDoor.gameObject.SetActive(true);
+        yield return StartCoroutine(characterAnimation.Enter());
+        worldMatter.hiddenDoor.gameObject.SetActive(false);
+        GameHandler.isTransitioning = false;
+        Debug.Log("DONE");
+    }
+
     public IEnumerator Attack()
     {
         if (inventory.sword != null)

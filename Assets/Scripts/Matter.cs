@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Matter
 {
-    public Matters type;
+    public Matters type = Matters.None;
     public WorldColors? color;
     /// <summary>
     /// This is only used for Transition matters... it's the x value for the next screen... if this is a positive value, then
@@ -14,6 +14,11 @@ public class Matter
     /// that means this transition is on the top of the screen, and if it's negative, then it's on the bottom
     /// </summary>
     public int transitionY;
+    /// <summary>
+    /// This is an override for the CanEnter method... by default, we have certain Matters that are considered
+    /// something the player can enter, but there are some scenarios where that's not always true
+    /// </summary>
+    public bool? canEnter;
     public bool canMove = false;
     public bool canBurn = false;
     public bool canBomb = false;
@@ -25,6 +30,10 @@ public class Matter
 
     public bool CanEnter()
     {
+        if (canEnter.HasValue)
+        {
+            return canEnter.Value;
+        }
         switch (type)
         {
             case Matters.stairsDown:

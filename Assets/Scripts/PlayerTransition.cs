@@ -11,7 +11,11 @@ public class PlayerTransition : MonoBehaviour
         WorldMatter worldMatter = collision.gameObject.GetComponent<WorldMatter>();
         if (worldMatter != null)
         {
-            if (worldMatter.IsTransition())
+            if (worldMatter.GetMatter().CanEnter())
+            {
+                StartCoroutine(GameHandler.player.Enter(worldMatter));
+            }
+            else if (worldMatter.IsTransition())
             {
                 GameHandler.sceneBuilder.LoadScreen(worldMatter);
             }

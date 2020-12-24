@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2998641560817503416}
   - component: {fileID: 3201541511690423161}
   - component: {fileID: 747717795826666202}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c55a01a0e4d6747a9b6767dce7e13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hiddenDoor: {fileID: 0}
 --- !u!1 &7158907850048521418
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7158907850048521414}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: WorldMatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

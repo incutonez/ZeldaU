@@ -3,6 +3,7 @@
 /// </summary>
 public enum Matters
 {
+    None = -2,
     // TODOJEF: Fix these values
     bush = -1,
     castle = 0,

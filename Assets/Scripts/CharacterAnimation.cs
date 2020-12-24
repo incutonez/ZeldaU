@@ -41,4 +41,12 @@ public class CharacterAnimation : MonoBehaviour
         yield return GameHandler.swordHandler.Swing(lastMovement);
         animator.SetBool("isAttacking", false);
     }
+
+    public IEnumerator Enter()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isEntering", true);
+        yield return new WaitForSeconds(2f);
+        animator.SetBool("isEntering", false);
+    }
 }

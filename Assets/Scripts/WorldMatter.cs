@@ -3,6 +3,7 @@ using UnityEngine;
 public class WorldMatter : MonoBehaviour
 {
     public Matter matter;
+    public RectTransform hiddenDoor;
 
     private new SpriteRenderer renderer;
     private WorldObjectData worldObjectData;
@@ -13,24 +14,31 @@ public class WorldMatter : MonoBehaviour
         worldObjectData = GetComponent<WorldObjectData>();
     }
 
-    public void SetMatter(Matter matter)
+    public void SetMatter(Matter matter, Color groundColor)
     {
         this.matter = matter;
         renderer.color = matter.GetColor();
-        //transform.name = matter.type.GetDescription();
         if (IsTransition())
         {
-            gameObject.layer = 9;
+            // If we're in a transition, we have to set a certain layer that interacts with the player
+            gameObject.layer = LayerMask.NameToLayer("Transition");
         }
         else
         {
             renderer.sprite = matter.GetSprite();
             worldObjectData.UpdatePolygonCollider2D();
-            // TODOJEF: Need to access parent and set name
-            //transform.name = renderer.sprite.name;
+            // If the player can enter this object, we need to change the collider's offset
             if (matter.CanEnter())
             {
-                GetComponent<PolygonCollider2D>().enabled = false;
+                // TODOJEF: There's got to be a better way of doing this for the blocking layer that we have to add
+                // when the player goes down stairs... we need all of this, so the character sprite appears behind
+                // the floor, as if they're going down
+                gameObject.layer = LayerMask.NameToLayer("Transition");
+                GetComponent<PolygonCollider2D>().offset = new Vector2(0, 1f);
+                hiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"));
+                hiddenDoor.SetParent(GetComponent<RectTransform>());
+                hiddenDoor.localPosition = new Vector3(0.5f, -1.75f);
+                hiddenDoor.GetComponent<SpriteRenderer>().color = groundColor;
             }
         }
     }

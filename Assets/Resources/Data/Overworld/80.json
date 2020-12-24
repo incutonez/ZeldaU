@@ -2,19 +2,8 @@
   "x": 8,
   "y": 0,
   "accentColor": 2,
-  "groundColor": 1,
+  "groundColor": 3,
   "matters": [
-    {
-      "type": 10,
-      "children": [
-        {
-          "coordinates": [
-            4,
-            9
-          ]
-        }
-      ]
-    },
     {
       "type": 39,
       "children": [
@@ -220,6 +209,15 @@
             10,
             8,
             10
+          ]
+        },
+        {
+          "matter": {
+            "type": 10
+          },
+          "coordinates": [
+            4,
+            9
           ]
         }
       ]

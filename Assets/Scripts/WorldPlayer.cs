@@ -20,7 +20,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
         base.Awake();
         characterAnimation = GetComponent<CharacterAnimation>();
         inventory = new Inventory(UseItem);
-        uiInventory = GameHandler.Inventory.GetComponent<UIInventory>();
+        uiInventory = GameHandler.Inventory;
         uiInventory.SetInventory(inventory);
         uiInventory.SetPlayer(this);
     }

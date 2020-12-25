@@ -47,45 +47,52 @@ public class WorldScreen : MonoBehaviour
         transform.localPosition = Vector3.zero;
         ViewModel = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{screenId}").text);
         GroundColor = Utilities.HexToColor((ViewModel.groundColor ?? WorldColors.Tan).GetDescription());
-        Build();
+        Build(ViewModel);
         SetDoorColor(GroundColor);
         return this;
     }
 
-    public void Build()
+    public void Build(SceneViewModel scene)
     {
-        foreach (SceneMatterViewModel viewModel in ViewModel.matters)
+        if (scene == null)
         {
-            Matters matterType = viewModel.type;
-            // Order of priority
-            WorldColors? color = viewModel.accentColor ?? ViewModel.accentColor;
-            foreach (SceneMatterChildViewModel child in viewModel.children)
+            return;
+        }
+        if (scene.matters != null)
+        {
+            foreach (SceneMatterViewModel viewModel in scene.matters)
             {
-                List<int> coordinates = child.coordinates;
-                int x = coordinates[0];
-                int y = coordinates[1];
-                int xMax = x;
-                int yMax = y;
-                if (coordinates.Count == 4)
+                Matters matterType = viewModel.type;
+                // Order of priority
+                WorldColors? color = viewModel.accentColor ?? scene.accentColor;
+                foreach (SceneMatterChildViewModel child in viewModel.children)
                 {
-                    xMax = coordinates[2];
-                    yMax = coordinates[3];
-                }
-                for (int i = x; i <= xMax; i++)
-                {
-                    for (int j = y; j <= yMax; j++)
+                    List<float> coordinates = child.coordinates;
+                    float x = coordinates[0];
+                    float y = coordinates[1];
+                    float xMax = x;
+                    float yMax = y;
+                    if (coordinates.Count == 4)
                     {
-                        // i and j here are simple indices into our parent game object, which is set at our "0, 0" origin,
-                        // which is -8, -7.5
-                        SpawnMatter(child, i, j, matterType, color);
+                        xMax = coordinates[2];
+                        yMax = coordinates[3];
+                    }
+                    for (float i = x; i <= xMax; i++)
+                    {
+                        for (float j = y; j <= yMax; j++)
+                        {
+                            // i and j here are simple indices into our parent game object, which is set at our "0, 0" origin,
+                            // which is -8, -7.5
+                            SpawnMatter(child, i, j, matterType, color);
+                        }
                     }
                 }
             }
         }
-        if (ViewModel.enemies != null)
+        if (scene.enemies != null)
         {
             System.Random r = new System.Random();
-            foreach (SceneEnemyViewModel viewModel in ViewModel.enemies)
+            foreach (SceneEnemyViewModel viewModel in scene.enemies)
             {
                 Enemies enemyType = viewModel.type;
                 // Randomly spawn enemies
@@ -110,7 +117,7 @@ public class WorldScreen : MonoBehaviour
         }
     }
 
-    public RectTransform SpawnMatter(SceneMatterChildViewModel child, int column, int row, Matters matterType, WorldColors? color)
+    public RectTransform SpawnMatter(SceneMatterChildViewModel child, float column, float row, Matters matterType, WorldColors? color)
     {
         SceneViewModel transition = child.transition;
         Matter matter = child.matter ?? new Matter();
@@ -124,7 +131,19 @@ public class WorldScreen : MonoBehaviour
             {
                 matter.color = color;
             }
-            Grid[row, column] = true;
+            // We need to generate which cells the floating value takes up... this produces a 2x2 grid potentially, but it's
+            // usually a 1x1 grid
+            int rowUp = Mathf.CeilToInt(row);
+            int rowDown = Mathf.FloorToInt(row);
+            int colUp = Mathf.CeilToInt(column);
+            int colDown = Mathf.FloorToInt(column);
+            for (int i = rowDown; i <= rowUp; i++)
+            {
+                for (int j = colDown; j <= colUp; j++)
+                {
+                    Grid[i, j] = true;
+                }
+            }
         }
         else
         {

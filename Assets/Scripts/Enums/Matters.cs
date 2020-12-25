@@ -17,6 +17,7 @@ public enum Matters
     castleTR = 8,
     dock = 9,
     door = 10,
+    Fire = 50,
     grave = 11,
     pond = 12,
     pondB = 13,

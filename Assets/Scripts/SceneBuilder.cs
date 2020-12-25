@@ -89,25 +89,28 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
     public IEnumerator LoadScreen(WorldMatter worldMatter)
     {
+        GameHandler.IsTransitioning = true;
+        // TODOJEF: need to pass in world matter's transition
         yield return StartCoroutine(LoadScreenRoutine(GetScreenId(worldMatter), GetPlayerTransitionPosition(GameHandler.Player.GetPosition(), worldMatter)));
+        currentScreen.Build(worldMatter.transition);
         if (worldMatter.transition.name == Constants.TRANSITION_BACK)
         {
-            GameHandler.IsTransitioning = true;
             currentScreen.ToggleDoor(true);
             yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
             currentScreen.ToggleDoor(false);
-            GameHandler.IsTransitioning = false;
         }
+        GameHandler.IsTransitioning = false;
     }
 
     public IEnumerator LoadScreen(string screenId)
     {
+        GameHandler.IsTransitioning = true;
         yield return StartCoroutine(LoadScreenRoutine(screenId, Constants.STARTING_POSITION));
+        GameHandler.IsTransitioning = false;
     }
 
     public IEnumerator LoadScreenRoutine(string screenId, Vector3 playerPosition)
     {
-        GameHandler.IsTransitioning = true;
         animator.SetBool("Start", true);
 
         yield return new WaitForSeconds(0.5f);
@@ -121,7 +124,6 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         yield return new WaitForSeconds(0.5f);
 
         animator.SetBool("Start", false);
-        GameHandler.IsTransitioning = false;
     }
 
     public Vector3 GetPlayerTransitionPosition(Vector3 position, WorldMatter worldMatter)

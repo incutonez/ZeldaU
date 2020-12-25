@@ -10,6 +10,7 @@ public class UIInventory : MonoBehaviour
     public Text bombCount;
     public Image swordSlotSprite;
     public Image itemSlotSprite;
+    public Transform HUD;
 
     private const float padding = 0.05f;
     private Inventory inventory;

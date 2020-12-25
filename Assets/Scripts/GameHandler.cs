@@ -13,7 +13,7 @@ public class GameHandler : MonoBehaviour
     public static CharacterManager CharacterManager { get; set; }
     public static SceneBuilder SceneBuilder { get; set; }
     public static bool IsTransitioning { get; set; }
-    public static GameObject Inventory { get; set; }
+    public static UIInventory Inventory { get; set; }
 
     public void Start()
     {
@@ -22,8 +22,7 @@ public class GameHandler : MonoBehaviour
 
     public IEnumerator StartScene()
     {
-        Inventory = GameObject.Find("Inventory");
-        Inventory.SetActive(false);
+        Inventory = GameObject.Find("Inventory").GetComponent<UIInventory>();
         CharacterManager = gameObject.AddComponent<CharacterManager>();
         SceneBuilder = gameObject.AddComponent<SceneBuilder>();
         Player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
@@ -32,7 +31,8 @@ public class GameHandler : MonoBehaviour
         ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);
         SwordHandler = Player.GetComponentInChildren<SwordHandler>(true);
         SuitHandler = Player.GetComponentInChildren<SuitHandler>(true);
-        Inventory.SetActive(true);
+        // TODOJEF: Better way of doing this?
+        Inventory.HUD.gameObject.SetActive(true);
         Player.gameObject.SetActive(true);
     }
 }

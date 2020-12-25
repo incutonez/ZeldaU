@@ -589,27 +589,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 330
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24cadc997f2f3ab80800000000000000
-      internalID: -8384590935982494654
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Moldorm
       rect:
         serializedVersion: 2
@@ -752,27 +731,6 @@ TextureImporter:
       bones: []
       spriteID: 64168b4e930de2000800000000000000
       internalID: 13176795997692230
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire2
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 300
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d50b246b14cdd5c30800000000000000
-      internalID: 4349874989898575965
       vertices: []
       indices: 
       edges: []

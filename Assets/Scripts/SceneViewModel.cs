@@ -49,7 +49,7 @@ public class SceneMatterChildViewModel
     /// <summary>
     /// This is a list of x, y coordinates, and if 4 values are specified, it becomes the max x, y range to keep adding this matter type
     /// </summary>
-    public List<int> coordinates { get; set; }
+    public List<float> coordinates { get; set; }
     public Matter matter { get; set; }
     public SceneViewModel transition { get; set; }
 }

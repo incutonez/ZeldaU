@@ -598,7 +598,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7092050430040721966}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1542,7 +1542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0a88fd0cd9837478bf53cfd11cbaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
 --- !u!4 &1348197037
 Transform:
   m_ObjectHideFlags: 0
@@ -1604,8 +1603,8 @@ MonoBehaviour:
   rupeeCount: {fileID: 305771615}
   keyCount: {fileID: 1329813378}
   bombCount: {fileID: 1899569692}
-  swordSlotSprite: {fileID: 507287756}
-  itemSlotSprite: {fileID: 1716013290}
+  swordSlotSprite: {fileID: 1716013290}
+  itemSlotSprite: {fileID: 507287756}
   HUD: {fileID: 76896539}
 --- !u!850595691 &1584510956
 LightingSettings:
@@ -1856,6 +1855,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ASlot
       objectReference: {fileID: 0}
+    - target: {fileID: 7092050429936620258, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835423bd5ce116546a4870f03a6aea2d, type: 3}
 --- !u!224 &1716013289 stripped
@@ -1871,7 +1875,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1716013288}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2220,6 +2224,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092050429687579712, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092050429936620258, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092050429936620258, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092050429936620258, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092050429936620258, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092050429936620258, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835423bd5ce116546a4870f03a6aea2d, type: 3}

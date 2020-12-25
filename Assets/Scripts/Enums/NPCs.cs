@@ -2,13 +2,13 @@
 {
     public enum Characters
     {
-        Fairy,
+        Fairy = 1,
         [Health(32)]
-        Link,
-        Merchant,
-        OldMan,
-        OldWoman,
-        Zelda
+        Link = 2,
+        Merchant = 3,
+        OldMan = 4,
+        OldWoman = 5,
+        Zelda = 6
     }
 
     public enum Enemies

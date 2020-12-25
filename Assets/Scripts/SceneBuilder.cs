@@ -19,8 +19,9 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private WorldScreen currentScreen;
     private Transform scenePrefab;
 
-    public void Awake()
+    public new void Awake()
     {
+        base.Awake();
         animator = transform.Find("Crossfade").GetComponent<Animator>();
         screensContainer = GameObject.Find("Screens").transform;
         scenePrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}Scene");
@@ -33,7 +34,14 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         return screenId != null ? screensContainer.Find(screenId) : null;
     }
 
-    public void BuildScreen(string screenId)
+    /// <summary>
+    /// If a transition is passed in, then that means we have extra scene configurations to add... this is handy
+    /// for when we're going into shops.  We have a default Shop file that has the border, but then the transition
+    /// config contains what character is in there/what items are shown
+    /// </summary>
+    /// <param name="screenId"></param>
+    /// <param name="transition"></param>
+    public void BuildScreen(string screenId, SceneViewModel transition)
     {
         Transform parent = GetScreen(screenId);
         // Parent has not been built, so let's build and cache it
@@ -41,6 +49,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         {
             parent = Instantiate(scenePrefab);
             currentScreen = parent.gameObject.GetComponent<WorldScreen>().Initialize(screenId, screensContainer);
+            if (transition != null)
+            {
+                currentScreen.Build(transition);
+            }
         }
         else
         {
@@ -63,11 +75,11 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public string GetScreenId(WorldMatter transitionMatter)
     {
         SceneViewModel transition = transitionMatter.transition;
-        string screenId = transition.name;
+        string screenId = transition.Name;
         if (screenId == null)
         {
-            currentX += transition.x;
-            currentY += transition.y;
+            currentX += transition.X;
+            currentY += transition.Y;
             screenId = $"{currentX}{currentY}";
         }
         else if (screenId == Constants.TRANSITION_BACK)
@@ -91,9 +103,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     {
         GameHandler.IsTransitioning = true;
         // TODOJEF: need to pass in world matter's transition
-        yield return StartCoroutine(LoadScreenRoutine(GetScreenId(worldMatter), GetPlayerTransitionPosition(GameHandler.Player.GetPosition(), worldMatter)));
-        currentScreen.Build(worldMatter.transition);
-        if (worldMatter.transition.name == Constants.TRANSITION_BACK)
+        yield return StartCoroutine(LoadScreenRoutine(GetScreenId(worldMatter), GetPlayerTransitionPosition(GameHandler.Player.GetPosition(), worldMatter), worldMatter.transition));
+        if (worldMatter.transition.Name == Constants.TRANSITION_BACK)
         {
             currentScreen.ToggleDoor(true);
             yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
@@ -109,7 +120,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         GameHandler.IsTransitioning = false;
     }
 
-    public IEnumerator LoadScreenRoutine(string screenId, Vector3 playerPosition)
+    public IEnumerator LoadScreenRoutine(string screenId, Vector3 playerPosition, SceneViewModel transition = null)
     {
         animator.SetBool("Start", true);
 
@@ -117,7 +128,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
 
         // Clear the previous scene
         ClearScreen(currentScreenId);
-        BuildScreen(screenId);
+        BuildScreen(screenId, transition);
         GameHandler.Player.transform.localPosition = playerPosition;
         currentScreenId = screenId;
 
@@ -137,28 +148,28 @@ public class SceneBuilder : BaseManager<SceneBuilder>
             position = new Vector3(7f, TRANSITION_PADDING);
         }
         // Need to transition back to overworld
-        else if (transition.name == Constants.TRANSITION_BACK)
+        else if (transition.Name == Constants.TRANSITION_BACK)
         {
             // Restore the player's previous position
             position = overworldPosition;
         }
         // Moving to the left screen
-        else if (transition.x == -1)
+        else if (transition.X == -1)
         {
             position.x = Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING;
         }
         // Moving to the right screen
-        else if (transition.x == 1)
+        else if (transition.X == 1)
         {
             position.x = TRANSITION_PADDING;
         }
         // Moving to the bottom screen
-        if (transition.y == -1)
+        if (transition.Y == -1)
         {
             position.y = Constants.GRID_ROWS_ZERO - TRANSITION_PADDING;
         }
         // Moving to the top screen
-        else if (transition.y == 1)
+        else if (transition.Y == 1)
         {
             position.y = TRANSITION_PADDING;
         }

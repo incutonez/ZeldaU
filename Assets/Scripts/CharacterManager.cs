@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class CharacterManager : BaseManager<CharacterManager>
 {
-    public RectTransform enemyPrefab;
+    public RectTransform EnemyPrefab { get; set; }
+    public RectTransform NPCPrefab { get; set; }
 
-    public void Awake()
+    public new void Awake()
     {
+        base.Awake();
         LoadSprites($"{Constants.PATH_SPRITES}characters");
         LoadSprites($"{Constants.PATH_SPRITES}enemies");
-        enemyPrefab = LoadPrefab($"{Constants.PATH_PREFABS}Enemy");
+        EnemyPrefab = LoadPrefab($"{Constants.PATH_PREFABS}Enemy");
+        NPCPrefab = LoadPrefab($"{Constants.PATH_PREFABS}NPC");
     }
 
     public TWorldCharacter Spawn<TWorldCharacter, TCharacter, TEnum>(Vector3 position, TEnum characterType, Transform parent, RectTransform prefab)
@@ -45,8 +48,13 @@ public class CharacterManager : BaseManager<CharacterManager>
         return worldCharacter;
     }
 
+    public void SpawnCharacter(Vector3 position, Characters characterType, Transform parent)
+    {
+        Spawn<WorldCharacter<BaseCharacter>, BaseCharacter, Characters>(position, characterType, parent, NPCPrefab);
+    }
+
     public void SpawnEnemy(Vector3 position, Enemies enemyType, Transform parent)
     {
-        Spawn<WorldEnemy, Enemy, Enemies>(position, enemyType, parent, enemyPrefab);
+        Spawn<WorldEnemy, Enemy, Enemies>(position, enemyType, parent, EnemyPrefab);
     }
 }

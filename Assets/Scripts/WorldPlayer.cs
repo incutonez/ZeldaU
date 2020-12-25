@@ -72,11 +72,11 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     private void UseItem(Item item)
     {
-        switch (item.itemType)
+        switch (item.Type)
         {
             case Items.PotionBlue:
                 // TODOJEF: Flash character red
-                inventory.RemoveItem(new Item { itemType = item.itemType, amount = 1 });
+                inventory.RemoveItem(new Item { Type = item.Type, Amount = 1 });
                 break;
         }
     }

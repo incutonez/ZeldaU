@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldObjectData: {fileID: 0}
+  sRenderer: {fileID: 0}
 --- !u!60 &5625942687681487775
 PolygonCollider2D:
   m_ObjectHideFlags: 0

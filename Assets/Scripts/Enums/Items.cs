@@ -1,56 +1,55 @@
 ﻿public enum Items
 {
     [Damage(0, 4)]
-    Arrow,
+    Arrow = 1,
     [Damage(0, 8)]
-    ArrowSilver,
+    ArrowSilver = 2,
     [Damage(0, 8)]
-    Bomb,
-    Boomerang,
-    BoomerangMagical,
-    Bow,
+    Bomb = 3,
+    Boomerang = 4,
+    BoomerangMagical = 5,
+    Bow = 6,
     [Damage(0, 2)]
-    Candle,
+    Candle = 7,
     [Damage(0, 2)]
-    CandleRed,
-    Clock,
-    Compass,
-    Flute,
-    Food,
-    Heart,
-    HeartContainer,
-    Key,
-    KeySkeleton,
-    Ladder,
-    // Missing
-    Letter,
-    MagicBook,
-    Map,
-    PotionBlue,
-    PotionRed,
-    PowerBracelet,
+    CandleRed = 8,
+    Clock = 9,
+    Compass = 10,
+    Flute = 11,
+    Food = 12,
+    Heart = 13,
+    HeartContainer = 14,
+    Key = 15,
+    KeySkeleton = 16,
+    Ladder = 17,
+    Letter = 18,
+    MagicBook = 19,
+    Map = 20,
+    PotionBlue = 21,
+    PotionRed = 22,
+    PowerBracelet = 23,
     // Raft changes colors based on suit
-    Raft,
+    Raft = 24,
     [Damage(0.5f)]
-    RingBlue,
+    RingBlue = 25,
     [Damage(1f)]
-    RingGreen,
+    RingGreen = 26,
     [Damage(0.25f)]
-    RingRed,
-    RupeeFive,
-    RupeeOne,
+    RingRed = 27,
+    RupeeFive = 28,
+    RupeeOne = 29,
     // On character sprite
-    Shield,
+    Shield = 30,
     // On character sprite
-    ShieldMagical,
+    ShieldMagical = 31,
     [Damage()]
-    Sword,
+    Sword = 32,
     [Damage(0, 2)]
-    SwordWhite,
+    SwordWhite = 33,
     [Damage(0, 4)]
-    SwordMagical,
+    SwordMagical = 34,
     // Split between Shard1 and 2
-    TriforceShard,
+    TriforceShard = 35,
     [Damage(0, 4)]
-    Wand
+    Wand = 36
 }

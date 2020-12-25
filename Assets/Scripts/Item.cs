@@ -5,18 +5,18 @@ using UnityEngine;
 [Serializable]
 public class Item
 {
-    public Items itemType;
-    public int amount;
+    public Items Type { get; set; }
+    public int Amount { get; set; }
 
     public Sprite GetSprite()
     {
-        return ItemManager.Instance.LoadSpriteByItemType(itemType);
+        return ItemManager.Instance.LoadSpriteByItemType(Type);
     }
 
     public void PlaySound()
     {
         FX? sound = null;
-        switch (itemType)
+        switch (Type)
         {
             case Items.Heart:
             case Items.Key:
@@ -40,7 +40,7 @@ public class Item
 
     public bool IsStackable()
     {
-        switch(itemType)
+        switch(Type)
         {
             case Items.Bomb:
             case Items.Key:
@@ -53,7 +53,7 @@ public class Item
 
     public bool CanAddToInventory()
     {
-        switch (itemType)
+        switch (Type)
         {
             case Items.RupeeOne:
             case Items.RupeeFive:
@@ -66,7 +66,7 @@ public class Item
 
     public bool IsSword()
     {
-        switch (itemType)
+        switch (Type)
         {
             case Items.Sword:
             case Items.SwordMagical:
@@ -78,7 +78,7 @@ public class Item
 
     public bool IsRupee()
     {
-        switch (itemType)
+        switch (Type)
         {
             case Items.RupeeOne:
             case Items.RupeeFive:
@@ -89,7 +89,7 @@ public class Item
 
     public bool IsRing()
     {
-        switch(itemType)
+        switch(Type)
         {
             case Items.RingGreen:
             case Items.RingBlue:
@@ -101,7 +101,7 @@ public class Item
 
     public bool IsShield()
     {
-        switch(itemType)
+        switch(Type)
         {
             case Items.Shield:
             case Items.ShieldMagical:
@@ -112,7 +112,7 @@ public class Item
 
     public int GetPickupAmount()
     {
-        switch (itemType)
+        switch (Type)
         {
             case Items.Bomb:
                 return 4;

@@ -5,13 +5,15 @@ public class WorldItem : MonoBehaviour
     public Item item;
     public new SpriteRenderer renderer;
     public new RectTransform transform;
-    public new BoxCollider2D collider;
 
     private WorldObjectData worldObjectData;
 
-    public static WorldItem SpawnItem(Vector3 position, Item item)
+    public static WorldItem SpawnItem(Vector3 position, Item item, Transform parent)
     {
-        RectTransform transform = Instantiate(ItemManager.Instance.prefab, position, Quaternion.identity);
+        RectTransform transform = Instantiate(ItemManager.Instance.prefab);
+        transform.SetParent(parent);
+        transform.localPosition = position;
+        transform.rotation = Quaternion.identity;
 
         WorldItem itemWorld = transform.GetComponent<WorldItem>();
         itemWorld.SetItem(item);
@@ -24,10 +26,10 @@ public class WorldItem : MonoBehaviour
         worldObjectData = GetComponent<WorldObjectData>();
     }
 
-    public static WorldItem DropItem(Vector3 dropPosition, Item item)
-    {
-        return SpawnItem(dropPosition, item);
-    }
+    //public static WorldItem DropItem(Vector3 dropPosition, Item item)
+    //{
+    //    return SpawnItem(dropPosition, item);
+    //}
 
     public void SetItem(Item item)
     {
@@ -37,12 +39,12 @@ public class WorldItem : MonoBehaviour
         {
             worldObjectData.SetObjectData(sprite);
             // If we have a Heart, we need to make it blink, so let's add that animation
-            if (item.itemType == Items.Heart)
+            if (item.Type == Items.Heart)
             {
                 Animator anim = gameObject.AddComponent<Animator>();
                 anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Controllers/HeartBlinkController");
             }
-            else if (item.itemType == Items.TriforceShard)
+            else if (item.Type == Items.TriforceShard)
             {
                 Animator anim = gameObject.AddComponent<Animator>();
                 anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Controllers/TriforceBlinkController");

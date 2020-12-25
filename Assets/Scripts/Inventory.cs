@@ -35,9 +35,9 @@ public class Inventory
         int count = 0;
         foreach (Item item in items)
         {
-            if (item.itemType == Items.Bomb)
+            if (item.Type == Items.Bomb)
             {
-                count = item.amount;
+                count = item.Amount;
                 break;
             }
         }
@@ -52,7 +52,7 @@ public class Inventory
             {
                 rupees += item.GetPickupAmount();
             }
-            else if (item.itemType == Items.Key)
+            else if (item.Type == Items.Key)
             {
                 keys += item.GetPickupAmount();
             }
@@ -61,17 +61,17 @@ public class Inventory
                 bool isInInventory = false;
                 foreach (Item it in items)
                 {
-                    if (it.itemType == item.itemType)
+                    if (it.Type == item.Type)
                     {
                         isInInventory = true;
-                        it.amount += item.GetPickupAmount();
+                        it.Amount += item.GetPickupAmount();
                         break;
                     }
                 }
                 if (!isInInventory)
                 {
                     // Seed the amount
-                    item.amount = item.GetPickupAmount();
+                    item.Amount = item.GetPickupAmount();
                     items.Add(item);
                 }
             }
@@ -85,7 +85,7 @@ public class Inventory
             }
             else if (item.IsRing())
             {
-                damageModifier = item.itemType.GetAttribute<DamageAttribute>().TouchDamage;
+                damageModifier = item.Type.GetAttribute<DamageAttribute>().TouchDamage;
             }
             item.PlaySound();
             OnItemListChanged(this, new InventoryChangeArgs(item));
@@ -99,14 +99,14 @@ public class Inventory
             Item inventoryItem = null;
             foreach (Item it in items)
             {
-                if (it.itemType == item.itemType)
+                if (it.Type == item.Type)
                 {
                     inventoryItem = it;
-                    it.amount -= item.amount;
+                    it.Amount -= item.Amount;
                     break;
                 }
             }
-            if (inventoryItem != null && inventoryItem.amount <= 0)
+            if (inventoryItem != null && inventoryItem.Amount <= 0)
             {
                 items.Remove(inventoryItem);
             }

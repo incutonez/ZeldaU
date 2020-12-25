@@ -59,11 +59,11 @@ public class UIInventory : MonoBehaviour
         {
             if (item.IsRing())
             {
-                GameHandler.SuitHandler.SetSuitColor(item.itemType);
+                GameHandler.SuitHandler.SetSuitColor(item.Type);
             }
             else if (item.IsShield())
             {
-                GameHandler.ShieldHandler.SetShield(item.itemType);
+                GameHandler.ShieldHandler.SetShield(item.Type);
             }
             else if (item.IsSword())
             {
@@ -74,20 +74,20 @@ public class UIInventory : MonoBehaviour
             {
                 RefreshRupeeUI();
             }
-            else if (item.itemType == Items.Bomb)
+            else if (item.Type == Items.Bomb)
             {
                 RefreshBombUI();
             }
-            else if (item.itemType == Items.Key)
+            else if (item.Type == Items.Key)
             {
                 RefreshKeyUI();
             }
-            else if (item.itemType == Items.HeartContainer)
+            else if (item.Type == Items.HeartContainer)
             {
                 player.character.AddHealth(Constants.HEART_REFILL, true);
                 RefreshLifeUI();
             }
-            else if (item.itemType == Items.Heart)
+            else if (item.Type == Items.Heart)
             {
                 player.character.AddHealth(Constants.HEART_REFILL);
                 RefreshLifeUI();
@@ -98,6 +98,7 @@ public class UIInventory : MonoBehaviour
     private void RefreshSwordUI()
     {
         Sprite swordSprite = inventory.sword?.GetSprite();
+        swordSlotSprite.enabled = true;
         swordSlotSprite.sprite = swordSprite;
         swordSlotSprite.color = new Color(255, 255, 255, swordSprite != null ? 1 : 0);
     }

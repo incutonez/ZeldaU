@@ -46,7 +46,7 @@ public class WorldScreen : MonoBehaviour
         transform.SetParent(container);
         transform.localPosition = Vector3.zero;
         ViewModel = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{screenId}").text);
-        GroundColor = Utilities.HexToColor((ViewModel.groundColor ?? WorldColors.Tan).GetDescription());
+        GroundColor = Utilities.HexToColor((ViewModel.GroundColor ?? WorldColors.Tan).GetDescription());
         Build(ViewModel);
         SetDoorColor(GroundColor);
         return this;
@@ -58,16 +58,16 @@ public class WorldScreen : MonoBehaviour
         {
             return;
         }
-        if (scene.matters != null)
+        if (scene.Matters != null)
         {
-            foreach (SceneMatterViewModel viewModel in scene.matters)
+            foreach (SceneMatterViewModel viewModel in scene.Matters)
             {
-                Matters matterType = viewModel.type;
+                Matters matterType = viewModel.Type;
                 // Order of priority
-                WorldColors? color = viewModel.accentColor ?? scene.accentColor;
-                foreach (SceneMatterChildViewModel child in viewModel.children)
+                WorldColors? color = viewModel.AccentColor ?? scene.AccentColor;
+                foreach (SceneMatterChildViewModel child in viewModel.Children)
                 {
-                    List<float> coordinates = child.coordinates;
+                    List<float> coordinates = child.Coordinates;
                     float x = coordinates[0];
                     float y = coordinates[1];
                     float xMax = x;
@@ -89,14 +89,14 @@ public class WorldScreen : MonoBehaviour
                 }
             }
         }
-        if (scene.enemies != null)
+        if (scene.Enemies != null)
         {
             System.Random r = new System.Random();
-            foreach (SceneEnemyViewModel viewModel in scene.enemies)
+            foreach (SceneEnemyViewModel viewModel in scene.Enemies)
             {
-                Enemies enemyType = viewModel.type;
+                Enemies enemyType = viewModel.Type;
                 // Randomly spawn enemies
-                for (int i = 0; i < viewModel.count; i++)
+                for (int i = 0; i < viewModel.Count; i++)
                 {
                     int xTemp = 0;
                     int yTemp = 0;
@@ -115,12 +115,26 @@ public class WorldScreen : MonoBehaviour
                 }
             }
         }
+        if (scene.Items != null)
+        {
+            foreach (SceneItemViewModel item in scene.Items)
+            {
+                WorldItem.SpawnItem(new Vector3(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
+            }
+        }
+        if (scene.Characters != null)
+        {
+            foreach (SceneCharacterViewModel character in scene.Characters)
+            {
+                GameHandler.CharacterManager.SpawnCharacter(new Vector3(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
+            }
+        }
     }
 
     public RectTransform SpawnMatter(SceneMatterChildViewModel child, float column, float row, Matters matterType, WorldColors? color)
     {
-        SceneViewModel transition = child.transition;
-        Matter matter = child.matter ?? new Matter();
+        SceneViewModel transition = child.Transition;
+        Matter matter = child.Matter ?? new Matter();
         if (matter.type == Matters.None)
         {
             matter.type = matterType;
@@ -147,8 +161,8 @@ public class WorldScreen : MonoBehaviour
         }
         else
         {
-            column += transition.x;
-            row += transition.y;
+            column += transition.X;
+            row += transition.Y;
         }
         RectTransform transform = Instantiate(GameHandler.SceneBuilder.worldMatterPrefab);
         transform.SetParent(this.transform);

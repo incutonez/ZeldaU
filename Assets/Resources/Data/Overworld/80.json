@@ -234,7 +234,23 @@
                   }
                 ]
               }
-            ]
+            ],
+            "Items": [{
+                "Item": {
+                    "Type": 32
+                },
+                "Coordinates": [
+                    8,
+                    4.5
+                ]
+            }],
+            "Characters": [{
+                "Type": 4,
+                "Coordinates": [
+                    7.5,
+                    6
+                ]
+            }]
           },
           "coordinates": [
             4,

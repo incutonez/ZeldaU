@@ -49,7 +49,7 @@ public class ItemManager : MonoBehaviour
         List<Items> items = EnumExtensions.GetValues<Items>();
         foreach (Items item in items)
         {
-            WorldItem.SpawnItem(new Vector3(x, y), new Item { itemType = item });
+            WorldItem.SpawnItem(new Vector3(x, y), new Item { Type = item }, transform);
             x += .2f;
             if (x > xMax)
             {

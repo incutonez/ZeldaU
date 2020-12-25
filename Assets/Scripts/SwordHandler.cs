@@ -6,18 +6,18 @@ public class SwordHandler : MonoBehaviour
 {
     public new bool enabled = false;
 
-    private Sprite swordSprite;
     private RectTransform swordTransform;
     private SpriteRenderer swordRenderer;
-    private WorldObjectData worldObjectData;
     private Items swordType;
     private DamageAttribute damage;
+    private BoxCollider2D swordCollider;
 
     public void Awake()
     {
         swordTransform = GetComponent<RectTransform>();
         swordRenderer = GetComponent<SpriteRenderer>();
-        worldObjectData = GetComponent<WorldObjectData>();
+        swordCollider = GetComponent<BoxCollider2D>();
+        ToggleSword(false);
     }
 
     public IEnumerator Swing(Vector3 playerPosition)
@@ -33,9 +33,7 @@ public class SwordHandler : MonoBehaviour
 
     public void ToggleSword(bool enabled = false)
     {
-        this.enabled = enabled;
-        worldObjectData.SetObjectSize(enabled ? swordSprite.bounds.size : Vector3.zero);
-        swordRenderer.enabled = enabled;
+        swordTransform.gameObject.SetActive(enabled);
     }
 
     public void SetPosition(Vector3 movement)
@@ -45,32 +43,34 @@ public class SwordHandler : MonoBehaviour
             swordTransform.localPosition = Constants.SWORD_RIGHT;
             swordTransform.localRotation = Constants.SWORD_X_ROTATION;
             swordRenderer.flipY = false;
+            swordCollider.offset = Constants.SWORD_COLLIDER_POSITIVE;
         }
         else if (movement.x < 0)
         {
             swordTransform.localPosition = Constants.SWORD_LEFT;
             swordTransform.localRotation = Constants.SWORD_X_ROTATION;
             swordRenderer.flipY = true;
+            swordCollider.offset = Constants.SWORD_COLLIDER_NEGATIVE;
         }
         else if (movement.y > 0)
         {
             swordTransform.localPosition = Constants.SWORD_UP;
             swordTransform.localRotation = Constants.SWORD_Y_ROTATION;
             swordRenderer.flipY = false;
+            swordCollider.offset = Constants.SWORD_COLLIDER_POSITIVE;
         }
         else if (movement.y < 0 || movement == Vector3.zero)
         {
             swordTransform.localPosition = Constants.SWORD_DOWN;
             swordTransform.localRotation = Constants.SWORD_Y_ROTATION;
             swordRenderer.flipY = true;
+            swordCollider.offset = Constants.SWORD_COLLIDER_NEGATIVE;
         }
     }
 
     public void SetSword(Item item)
     {
-        swordType = item.itemType;
-        swordSprite = item?.GetSprite();
-        worldObjectData.SetObjectData(swordSprite, false);
+        swordType = item.Type;
         damage = swordType.GetAttribute<DamageAttribute>();
     }
 

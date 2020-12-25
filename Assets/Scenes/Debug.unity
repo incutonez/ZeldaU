@@ -660,7 +660,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.9372549, b: 0.6509804, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1066,8 +1066,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5d2e28ec2afcb4484cd440957e2bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
   screensContainer: {fileID: 1123231077}
+  worldMatterPrefab: {fileID: 0}
 --- !u!1 &818468207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0a88fd0cd9837478bf53cfd11cbaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 773153394043489206, guid: 4b19f32d2ef3cb44e80129210be24710, type: 3}
+  enemyPrefab: {fileID: 0}
 --- !u!4 &1348197037
 Transform:
   m_ObjectHideFlags: 0
@@ -1568,7 +1568,7 @@ GameObject:
   - component: {fileID: 1546206353}
   - component: {fileID: 1546206354}
   m_Layer: 0
-  m_Name: UI_Inventory
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

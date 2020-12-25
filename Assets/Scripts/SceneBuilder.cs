@@ -100,9 +100,9 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         }
     }
 
-    public void LoadScreen(string screenId)
+    public IEnumerator LoadScreen(string screenId)
     {
-        StartCoroutine(LoadScreenRoutine(screenId, Constants.STARTING_POSITION));
+        yield return StartCoroutine(LoadScreenRoutine(screenId, Constants.STARTING_POSITION));
     }
 
     public IEnumerator LoadScreenRoutine(string screenId, Vector3 playerPosition)

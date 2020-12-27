@@ -7,31 +7,83 @@ using UnityEngine;
 /// </summary>
 public class SceneBuilder : BaseManager<SceneBuilder>
 {
-    public Transform screensContainer;
-    public RectTransform worldMatterPrefab;
-
-    private Vector3 overworldPosition = Vector3.zero;
-    private string currentScreenId;
-    private int currentX = 8;
-    private int currentY = 0;
-    private Animator animator;
+    public const int PAN_SPEED = 15;
     private const float TRANSITION_PADDING = 0.05f;
-    private WorldScreen currentScreen;
-    private Transform scenePrefab;
+
+    public Transform ScreensContainer { get; set; }
+    public RectTransform WorldMatterPrefab { get; set; }
+
+    private Vector3 OverworldPosition { get; set; } = Vector3.zero;
+    private int CurrentX { get; set; } = 8;
+    private int CurrentY { get; set; } = 0;
+    private Animator Animator { get; set; }
+    private WorldScreen CurrentScreen { get; set; }
+    private WorldScreen PreviousScreen { get; set; }
+    private Transform ScenePrefab { get; set; }
 
     public new void Awake()
     {
         base.Awake();
-        animator = transform.Find("Crossfade").GetComponent<Animator>();
-        screensContainer = GameObject.Find("Screens").transform;
-        scenePrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}Scene");
+        Animator = transform.Find("Crossfade").GetComponent<Animator>();
+        ScreensContainer = GameObject.Find("Screens").transform;
+        ScenePrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}Scene");
         LoadSprites($"{Constants.PATH_SPRITES}worldMatters");
-        worldMatterPrefab = LoadPrefab($"{Constants.PATH_PREFABS}WorldMatter");
+        WorldMatterPrefab = LoadPrefab($"{Constants.PATH_PREFABS}WorldMatter");
+    }
+
+    /// <summary>
+    /// This is the transitioning effect that takes place between screens... it slides the next screen into view
+    /// </summary>
+    /// <param name="transition"></param>
+    /// <returns></returns>
+    public IEnumerator PanScreen(SceneViewModel transition)
+    {
+        int x = transition.X;
+        int y = transition.Y;
+        Transform currentTransform = CurrentScreen.transform;
+        Transform previousTransform = PreviousScreen.transform;
+        Transform player = GameHandler.Player.transform;
+        float previousX = 0f;
+        float previousY = 0f;
+        float playerX = player.localPosition.x;
+        float playerY = player.localPosition.y;
+        if (x == 1)
+        {
+            previousX = -Constants.GRID_COLUMNS;
+            playerX = TRANSITION_PADDING;
+        }
+        else if (x == -1)
+        {
+            previousX = Constants.GRID_COLUMNS;
+            playerX = Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING;
+        }
+        if (y == 1)
+        {
+            previousY = -Constants.GRID_ROWS;
+            playerY = TRANSITION_PADDING;
+        }
+        else if (y == -1)
+        {
+            previousY = Constants.GRID_ROWS;
+            playerY = Constants.GRID_ROWS_ZERO - TRANSITION_PADDING;
+        }
+        Vector3 previousDestination = new Vector3(previousX, previousY);
+        Vector3 playerDestination = new Vector3(playerX, playerY);
+        currentTransform.localPosition = new Vector3(-previousX, -previousY);
+        while (previousTransform.localPosition != previousDestination && currentTransform.localPosition != Vector3.zero)
+        {
+            player.localPosition = Vector3.MoveTowards(player.localPosition, playerDestination, Time.deltaTime * PAN_SPEED);
+            previousTransform.localPosition = Vector3.MoveTowards(previousTransform.localPosition, previousDestination, Time.deltaTime * PAN_SPEED);
+            currentTransform.localPosition = Vector3.MoveTowards(currentTransform.localPosition, Vector3.zero, Time.deltaTime * PAN_SPEED);
+            yield return null;
+        }
+        PreviousScreen.gameObject.SetActive(false);
+        SetScreenLoading(false);
     }
 
     public Transform GetScreen(string screenId)
     {
-        return screenId != null ? screensContainer.Find(screenId) : null;
+        return screenId != null ? ScreensContainer.Find(screenId) : null;
     }
 
     /// <summary>
@@ -47,132 +99,101 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         // Parent has not been built, so let's build and cache it
         if (parent == null)
         {
-            parent = Instantiate(scenePrefab);
-            currentScreen = parent.gameObject.GetComponent<WorldScreen>().Initialize(screenId, screensContainer);
+            parent = Instantiate(ScenePrefab);
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>().Initialize(screenId, ScreensContainer);
             if (transition != null)
             {
-                currentScreen.Build(transition);
+                CurrentScreen.Build(transition);
             }
         }
         else
         {
-            currentScreen = parent.gameObject.GetComponent<WorldScreen>();
-            // Otherwise, the screen is in memory, so let's activate it
-            parent.gameObject.SetActive(true);
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
         }
-        Camera.main.backgroundColor = currentScreen.GroundColor;
+        Camera.main.backgroundColor = CurrentScreen.GroundColor;
     }
 
-    public void ClearScreen(string screenId)
+    public string GetScreenId(WorldMatter worldMatter)
     {
-        Transform screen = GetScreen(screenId);
-        if (screen != null)
-        {
-            screen.gameObject.SetActive(false);
-        }
-    }
-
-    public string GetScreenId(WorldMatter transitionMatter)
-    {
-        SceneViewModel transition = transitionMatter.transition;
+        SceneViewModel transition = worldMatter.Transition;
         string screenId = transition.Name;
         if (screenId == null)
         {
-            currentX += transition.X;
-            currentY += transition.Y;
-            screenId = $"{currentX}{currentY}";
+            CurrentX += transition.X;
+            CurrentY += transition.Y;
+            screenId = $"{CurrentX}{CurrentY}";
         }
         else if (screenId == Constants.TRANSITION_BACK)
         {
-            screenId = $"{currentX}{currentY}";
+            screenId = $"{CurrentX}{CurrentY}";
         }
         return screenId;
     }
 
     public IEnumerator EnterDoor(WorldMatter worldMatter)
     {
-        GameHandler.IsTransitioning = true;
-        currentScreen.ToggleDoor(true);
+        SetScreenLoading(true);
+        CurrentScreen.ToggleDoor(true);
         yield return StartCoroutine(GameHandler.Player.characterAnimation.Enter());
         yield return StartCoroutine(LoadScreen(worldMatter));
         // TODOJEF: I don't like dipping into the animator like this... figure out a better way
         GameHandler.Player.characterAnimation.animator.SetBool("isEntering", false);
+        SetScreenLoading(false);
+    }
+
+    public void SetScreenLoading(bool transitioning)
+    {
+        GameHandler.IsTransitioning = transitioning;
     }
 
     public IEnumerator LoadScreen(WorldMatter worldMatter)
     {
-        GameHandler.IsTransitioning = true;
-        // TODOJEF: need to pass in world matter's transition
-        yield return StartCoroutine(LoadScreenRoutine(GetScreenId(worldMatter), GetPlayerTransitionPosition(GameHandler.Player.GetPosition(), worldMatter), worldMatter.transition));
-        if (worldMatter.transition.Name == Constants.TRANSITION_BACK)
-        {
-            currentScreen.ToggleDoor(true);
-            yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
-            currentScreen.ToggleDoor(false);
-        }
-        GameHandler.IsTransitioning = false;
+        yield return StartCoroutine(LoadScreenRoutine(worldMatter));
     }
 
     public IEnumerator LoadScreen(string screenId)
     {
-        GameHandler.IsTransitioning = true;
-        yield return StartCoroutine(LoadScreenRoutine(screenId, Constants.STARTING_POSITION));
-        GameHandler.IsTransitioning = false;
+        yield return StartCoroutine(LoadScreenRoutine(new WorldMatter { Matter = new Matter { type = Matters.Transition }, Transition = new SceneViewModel { Name = screenId } }));
     }
 
-    public IEnumerator LoadScreenRoutine(string screenId, Vector3 playerPosition, SceneViewModel transition = null)
+    public IEnumerator LoadScreenRoutine(WorldMatter worldMatter)
     {
-        animator.SetBool("Start", true);
-
-        yield return new WaitForSeconds(0.5f);
-
-        // Clear the previous scene
-        ClearScreen(currentScreenId);
+        SetScreenLoading(true);
+        SceneViewModel transition = worldMatter.Transition;
+        string screenId = GetScreenId(worldMatter);
+        PreviousScreen = CurrentScreen;
         BuildScreen(screenId, transition);
-        GameHandler.Player.transform.localPosition = playerPosition;
-        currentScreenId = screenId;
-
-        yield return new WaitForSeconds(0.5f);
-
-        animator.SetBool("Start", false);
-    }
-
-    public Vector3 GetPlayerTransitionPosition(Vector3 position, WorldMatter worldMatter)
-    {
-        SceneViewModel transition = worldMatter.transition;
-        // Transitioning to a place not in overworld
-        if (worldMatter.CanEnter())
+        if (transition != null)
         {
-            // Save off the player's current position, so we can restore it later
-            overworldPosition = position;
-            position = new Vector3(7f, TRANSITION_PADDING);
+            CurrentScreen.gameObject.SetActive(true);
+            if (transition.Name == Constants.TRANSITION_BACK)
+            {
+                PreviousScreen.gameObject.SetActive(false);
+                // Restore the player's previous position
+                GameHandler.Player.transform.localPosition = OverworldPosition;
+                CurrentScreen.ToggleDoor(true);
+                yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
+                CurrentScreen.ToggleDoor(false);
+            }
+            else if (transition.Name == "Shop")
+            {
+                PreviousScreen.gameObject.SetActive(false);
+                if (worldMatter.CanEnter())
+                {
+                    // Save off the player's current position, so we can restore it later
+                    OverworldPosition = GameHandler.Player.transform.localPosition;
+                    GameHandler.Player.transform.localPosition = new Vector3(7f, TRANSITION_PADDING);
+                }
+            }
+            else if (PreviousScreen != null)
+            {
+                yield return StartCoroutine(PanScreen(transition));
+            }
         }
-        // Need to transition back to overworld
-        else if (transition.Name == Constants.TRANSITION_BACK)
+        else
         {
-            // Restore the player's previous position
-            position = overworldPosition;
+            yield return null;
         }
-        // Moving to the left screen
-        else if (transition.X == -1)
-        {
-            position.x = Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING;
-        }
-        // Moving to the right screen
-        else if (transition.X == 1)
-        {
-            position.x = TRANSITION_PADDING;
-        }
-        // Moving to the bottom screen
-        if (transition.Y == -1)
-        {
-            position.y = Constants.GRID_ROWS_ZERO - TRANSITION_PADDING;
-        }
-        // Moving to the top screen
-        else if (transition.Y == 1)
-        {
-            position.y = TRANSITION_PADDING;
-        }
-        return position;
+        SetScreenLoading(false);
     }
 }

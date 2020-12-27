@@ -2,32 +2,35 @@ using UnityEngine;
 
 public class WorldMatter : MonoBehaviour
 {
-    public Matter matter;
-    public RectTransform hiddenDoor;
-    public SceneViewModel transition;
+    public Matter Matter { get; set; }
+    public RectTransform HiddenDoor { get; set; }
+    public SceneViewModel Transition { get; set; }
 
-    private new SpriteRenderer renderer;
-    private WorldObjectData worldObjectData;
+    private SpriteRenderer Renderer { get; set; }
+    private WorldObjectData WorldObjectData { get; set; }
+    private PolygonCollider2D Collider { get; set; }
 
     public void Awake()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        worldObjectData = GetComponent<WorldObjectData>();
+        Renderer = GetComponent<SpriteRenderer>();
+        WorldObjectData = GetComponent<WorldObjectData>();
+        Collider = GetComponent<PolygonCollider2D>();
     }
 
     public void SetMatter(Matter matter)
     {
-        this.matter = matter;
-        renderer.color = matter.GetColor();
+        Matter = matter;
+        Renderer.color = matter.GetColor();
         if (IsTransition())
         {
             // If we're in a transition, we have to set a certain layer that interacts with the player
             gameObject.layer = LayerMask.NameToLayer("Transition");
+            Collider.isTrigger = true;
         }
         else
         {
-            renderer.sprite = matter.GetSprite();
-            worldObjectData.UpdatePolygonCollider2D();
+            Renderer.sprite = matter.GetSprite();
+            WorldObjectData.UpdatePolygonCollider2D();
             // If the player can enter this object, we need to change the collider's offset
             if (matter.CanEnter())
             {
@@ -35,22 +38,23 @@ public class WorldMatter : MonoBehaviour
                 // when the player goes down stairs... we need all of this, so the character sprite appears behind
                 // the floor, as if they're going down
                 gameObject.layer = LayerMask.NameToLayer("Transition");
-                GetComponent<PolygonCollider2D>().offset = new Vector2(0, 1f);
-                hiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"));
-                hiddenDoor.SetParent(GetComponent<RectTransform>());
-                hiddenDoor.localPosition = new Vector3(0.5f, -1.75f);
+                Collider.offset = new Vector2(0, 1f);
+                Collider.isTrigger = true;
+                HiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"));
+                HiddenDoor.SetParent(GetComponent<RectTransform>());
+                HiddenDoor.localPosition = new Vector3(0.5f, -1.75f);
             }
         }
     }
 
     public bool CanEnter()
     {
-        return matter.CanEnter();
+        return Matter.CanEnter();
     }
 
     public bool IsTransition()
     {
-        return matter.IsTransition();
+        return Matter.IsTransition();
     }
 
     public float GetPositionX()
@@ -65,12 +69,12 @@ public class WorldMatter : MonoBehaviour
 
     public string GetSpriteName()
     {
-        return matter.type.GetDescription();
+        return Matter.type.GetDescription();
     }
 
     public Matter GetMatter()
     {
-        return matter;
+        return Matter;
     }
 
     public void DestroySelf()

@@ -27,7 +27,7 @@ public class WorldScreen : MonoBehaviour
         WorldMatter door = GetDoor();
         if (door != null)
         {
-            door.hiddenDoor.GetComponent<SpriteRenderer>().color = color;
+            door.HiddenDoor.GetComponent<SpriteRenderer>().color = color;
         }
     }
 
@@ -36,7 +36,7 @@ public class WorldScreen : MonoBehaviour
         WorldMatter door = GetDoor();
         if (door != null)
         {
-            door.hiddenDoor.gameObject.SetActive(active);
+            door.HiddenDoor.gameObject.SetActive(active);
         }
     }
 
@@ -135,6 +135,8 @@ public class WorldScreen : MonoBehaviour
     {
         SceneViewModel transition = child.Transition;
         Matter matter = child.Matter ?? new Matter();
+        RectTransform transform = Instantiate(GameHandler.SceneBuilder.WorldMatterPrefab);
+        WorldMatter worldMatter = transform.Find("Image").GetComponent<WorldMatter>();
         if (matter.type == Matters.None)
         {
             matter.type = matterType;
@@ -164,14 +166,12 @@ public class WorldScreen : MonoBehaviour
             column += transition.X;
             row += transition.Y;
         }
-        RectTransform transform = Instantiate(GameHandler.SceneBuilder.worldMatterPrefab);
         transform.SetParent(this.transform);
         transform.localPosition = new Vector3(column, row);
         transform.rotation = Quaternion.identity;
 
-        WorldMatter worldMatter = transform.Find("Image").GetComponent<WorldMatter>();
         worldMatter.SetMatter(matter);
-        worldMatter.transition = transition;
+        worldMatter.Transition = transition;
         // TODOJEF: Better way of doing this?
         transform.name = worldMatter.GetSpriteName();
 

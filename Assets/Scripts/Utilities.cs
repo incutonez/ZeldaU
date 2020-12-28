@@ -19,4 +19,14 @@ public static class Utilities
     {
         return new Color(HexToDec(hex.Substring(0, 2)), HexToDec(hex.Substring(2, 2)), HexToDec(hex.Substring(4, 2)));
     }
+
+    public static int GetRandomInt(int max = 0, int min = 0)
+    {
+        return Constants.RANDOM_GENERATOR.Next(min, max);
+    }
+
+    public static Vector3 GetRandomCoordinates()
+    {
+        return new Vector3(GetRandomInt(Constants.GRID_COLUMNS), GetRandomInt(Constants.GRID_ROWS));
+    }
 }

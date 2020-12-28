@@ -8,6 +8,8 @@ public static class Constants
     public const string PATH_OVERWORLD = PATH_DATA + "Overworld/";
     public const string TRANSITION_BACK = "Back";
 
+    public static readonly System.Random RANDOM_GENERATOR = new System.Random();
+
     /// <summary>
     /// This represents the number of cells horizontally.
     /// </summary>

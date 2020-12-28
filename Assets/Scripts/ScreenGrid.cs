@@ -25,7 +25,7 @@ public class ScreenGrid<T>
     public T[,] Cells { get; set; }
     public TextMesh[,] CellsText { get; set; }
     public Vector3 Origin { get; set; }
-    public bool DebugMode { get; set; } = true;
+    public bool DebugMode { get; set; } = false;
 
     public ScreenGrid(int width, int height, float cellSize, Vector3 origin, Func<ScreenGrid<T>, int, int, T> createFunc)
     {
@@ -128,44 +128,6 @@ public class ScreenGrid<T>
         GetXY(position, out x, out y);
         return GetValue(x, y);
     }
-
-    //public void AddValue (int x, int y, T value)
-    //{
-    //    SetValue(x, y, GetValue(x, y) + value);
-    //}
-
-    //public void AddValue (Vector3 position, T value, T fullRange, T totalRange)
-    //{
-    //    T lowerRange = Mathf.RoundToInt((float)value / (totalRange - fullRange));
-
-    //    GetXY(position, out int x, out int y);
-    //    for (int i = 0; i < totalRange; i++)
-    //    {
-    //        for (int j = 0; j < totalRange - i; j++)
-    //        {
-    //            int radius = i + j;
-    //            T valueToAdd = value;
-    //            if (radius > fullRange)
-    //            {
-    //                valueToAdd -= lowerRange * (radius - fullRange);
-    //            }
-
-    //            AddValue(x + i, y + j, valueToAdd);
-    //            if (i != 0)
-    //            {
-    //                AddValue(x - i, y + j, valueToAdd);
-    //            }
-    //            if (j != 0)
-    //            {
-    //                AddValue(x + i, y - j, valueToAdd);
-    //                if (i != 0)
-    //                {
-    //                    AddValue(x - i, y - j, valueToAdd);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
 
     // TODOJEF: THROWAWAY
     // text, parent, localPosition, fontSize, color, anchor, alignment, sortingOrder

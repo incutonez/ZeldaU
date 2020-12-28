@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BaseManager<T> : MonoBehaviour
 {
-    private List<Sprite> Sprites { get; set; }
+    public List<Sprite> Sprites { get; set; }
 
     public void Awake()
     {

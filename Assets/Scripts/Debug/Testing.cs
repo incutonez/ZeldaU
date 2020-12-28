@@ -11,7 +11,7 @@ public class Testing : MonoBehaviour
 
     private void Start()
     {
-        Grid = new ScreenGrid<HeatMapGridObject>(20, 10, 6f, Vector3.zero, (ScreenGrid<HeatMapGridObject> grid, int x, int y) => new HeatMapGridObject(grid, x, y));
+        Grid = new ScreenGrid<HeatMapGridObject>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, Vector3.zero, (ScreenGrid<HeatMapGridObject> grid, int x, int y) => new HeatMapGridObject(grid, x, y));
         //HeatMap.SetGrid(Grid);
         //HeatMapBool.SetGrid(Grid);
         GenericVisual.SetGrid(Grid);

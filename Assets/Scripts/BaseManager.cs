@@ -10,6 +10,7 @@ public class BaseManager<T> : MonoBehaviour
         Sprites = new List<Sprite>();
     }
 
+    // TODOJEF: Should make all of this a utility instead
     public RectTransform LoadPrefab(string prefabPath)
     {
         return Resources.Load<RectTransform>(prefabPath);

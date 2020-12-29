@@ -49,7 +49,7 @@ public static class Constants
 
     public static readonly Color COLOR_INVISIBLE = new Color(1f, 1f, 1f, 0f);
 
-    public static readonly Vector3 STARTING_POSITION = new Vector3(7, 5);
+    public static readonly Vector3 STARTING_POSITION = new Vector3(-1, -2);
 
     public static readonly Vector3 SWORD_RIGHT = new Vector3(1.2f, 0.4f);
     public static readonly Vector3 SWORD_COLLIDER_POSITIVE = new Vector3(0f, 0.156f);

@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Taken from https://www.youtube.com/watch?v=mZzZXfySeFQ
 /// </summary>
-public class ScreenTileVisual : MonoBehaviour
+public class WorldScreenTile : MonoBehaviour
 {
     private struct MatterCoords
     {
@@ -21,7 +21,7 @@ public class ScreenTileVisual : MonoBehaviour
     private Dictionary<Matters, MatterCoords> Dictionary { get; set; }
     private Quaternion[] CachedQuaternionEulerArr { get; set; }
     private Mesh Mesh { get; set; }
-    private ScreenTile ScreenTile { get; set; }
+    private Transform WorldDoorPrefab { get; set; }
 
     public void LoadWorld()
     {
@@ -57,14 +57,40 @@ public class ScreenTileVisual : MonoBehaviour
                     {
                         for (float j = y; j <= yMax; j++)
                         {
-                            Vector3 position = ScreenTile.Grid.GetWorldPosition(i, j);
-                            ScreenTile.SetTileMatterType(position, matterType, color);
-                            // TODOJEF: Use composite colliders?
+                            Vector3 position = Grid.GetWorldPosition(i, j);
+                            if (matterType == Matters.door)
+                            {
+                                // Because our world has each position as being centered, we have to apply the offset... same
+                                // as what we do in the AddToMesh method
+                                Instantiate(WorldDoorPrefab, position + GetQuadSize() * 0.5f, Quaternion.identity, transform);
+                            }
+                            else if (matterType == Matters.Transition)
+                            {
+                                // TODOJEF: DO something
+                            }
+                            else
+                            {
+                                SetTileType(position, matterType, color);
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    public void SetTileType(Vector3 position, Matters matterType, WorldColors color)
+    {
+        ScreenTileViewModel viewModel = Grid.GetViewModel(position);
+        if (viewModel != null)
+        {
+            viewModel.Initialize(matterType, color);
+        }
+    }
+
+    public Vector3 GetQuadSize()
+    {
+        return Vector2.one * Grid.CellSize;
     }
 
     public void RefreshGrid()
@@ -73,19 +99,20 @@ public class ScreenTileVisual : MonoBehaviour
         int height = Grid.Height;
 
         CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors);
+        Vector3 quadSize = GetQuadSize();
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
                 int index = i * height + j;
-                Vector3 quadSize = new Vector3(1, 1) * Grid.CellSize;
-                ScreenTileViewModel gridValue = Grid.GetValue(i, j);
-                Matters matterType = gridValue.MatterType;
+                ScreenTileViewModel tile = Grid.GetValue(i, j);
+                Matters tileType = tile.TileType;
                 Vector2 uv00;
                 Vector2 uv11;
-                if (Dictionary.ContainsKey(matterType))
+                Vector3 localQuadSize = quadSize;
+                if (Dictionary.ContainsKey(tileType) && tileType != Matters.door)
                 {
-                    MatterCoords coords = Dictionary[matterType];
+                    MatterCoords coords = Dictionary[tileType];
                     uv00 = coords.uv00;
                     uv11 = coords.uv11;
                 }
@@ -93,9 +120,10 @@ public class ScreenTileVisual : MonoBehaviour
                 {
                     uv00 = Vector2.zero;
                     uv11 = Vector2.zero;
-                    quadSize = Vector3.zero;
+                    localQuadSize = Vector3.zero;
                 }
-                AddToMesh(vertices, uvs, triangles, index, Grid.GetWorldPosition(i, j) + quadSize * 0.5f, 0f, quadSize, uv00, uv11, gridValue.GetColor(), colors);
+                // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
+                AddToMesh(vertices, uvs, triangles, index, Grid.GetWorldPosition(i, j) + localQuadSize * 0.5f, 0f, localQuadSize, uv00, uv11, tile.GetColor(), colors);
             }
         }
         Mesh.vertices = vertices;
@@ -191,7 +219,7 @@ public class ScreenTileVisual : MonoBehaviour
         }
     }
 
-    public ScreenTileVisual Initialize(string screenId)
+    public WorldScreenTile Initialize(string screenId)
     {
         Mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = Mesh;
@@ -215,10 +243,11 @@ public class ScreenTileVisual : MonoBehaviour
                 });
             }
         }
-        ScreenTile = new ScreenTile(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f));
-        Grid = ScreenTile.Grid;
+        WorldDoorPrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}WorldDoor");
+        Grid = new ScreenGrid<ScreenTileViewModel>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenTileViewModel> grid, int x, int y) => new ScreenTileViewModel(grid, x, y));
         Grid.OnGridValueChanged += Grid_OnValueChanged;
         ScreenId = screenId;
+        transform.name = screenId;
         LoadWorld();
         return this;
     }
@@ -246,7 +275,7 @@ public class ScreenTileVisual : MonoBehaviour
         colors = new Color[verts.Length];
     }
 
-    // Copied from CodeMonkey's MeshUtils
+    // Copied from CodeMonkey's MeshUtils and tweaked for colors
     public void AddToMesh(
         Vector3[] vertices,
         Vector2[] uvs,
@@ -292,6 +321,7 @@ public class ScreenTileVisual : MonoBehaviour
         uvs[vIndex2] = new Vector2(uv11.x, uv00.y);
         uvs[vIndex3] = new Vector2(uv11.x, uv11.y);
 
+        // Set vertex colors
         colors[vIndex0] = color;
         colors[vIndex1] = color;
         colors[vIndex2] = color;
@@ -320,11 +350,58 @@ public class ScreenTileVisual : MonoBehaviour
         if (CachedQuaternionEulerArr == null)
         {
             CachedQuaternionEulerArr = new Quaternion[360];
-            for (int i = 0; i < 360; i++)
+            for (int i = 0; i < CachedQuaternionEulerArr.Length; i++)
             {
                 CachedQuaternionEulerArr[i] = Quaternion.Euler(0, 0, i);
             }
         }
         return CachedQuaternionEulerArr[rotation];
+    }
+}
+
+public class ScreenTileViewModel
+{
+    public Matters TileType { get; set; } = Matters.None;
+
+    private ScreenGrid<ScreenTileViewModel> Grid { get; set; }
+    private int X { get; set; }
+    private int Y { get; set; }
+    private WorldColors Color { get; set; }
+
+    public ScreenTileViewModel(ScreenGrid<ScreenTileViewModel> grid, int x, int y)
+    {
+        Grid = grid;
+        X = x;
+        Y = y;
+    }
+
+    public void Initialize(Matters tileType, WorldColors color)
+    {
+        TileType = tileType;
+        Color = color;
+        Grid.TriggerChange(X, Y);
+    }
+
+    public Color GetColor()
+    {
+        if (TileType == Matters.Transition || TileType == Matters.door)
+        {
+            Color = WorldColors.Black;
+        }
+        else if (Color == WorldColors.None)
+        {
+            return Constants.COLOR_INVISIBLE;
+        }
+        return Utilities.HexToColor(Color.GetDescription());
+    }
+
+    public bool IsDoor()
+    {
+        return TileType == Matters.door;
+    }
+
+    public override string ToString()
+    {
+        return TileType.ToString();
     }
 }

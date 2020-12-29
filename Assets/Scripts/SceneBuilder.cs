@@ -17,8 +17,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private int CurrentX { get; set; } = 8;
     private int CurrentY { get; set; } = 0;
     private Animator Animator { get; set; }
-    private ScreenTileVisual CurrentScreen { get; set; }
-    private ScreenTileVisual PreviousScreen { get; set; }
+    private WorldScreenTile CurrentScreen { get; set; }
+    private WorldScreenTile PreviousScreen { get; set; }
     private Transform ScenePrefab { get; set; }
 
     public new void Awake()
@@ -101,7 +101,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         {
             parent = Instantiate(ScenePrefab);
             parent.SetParent(ScreensContainer);
-            CurrentScreen = parent.gameObject.GetComponent<ScreenTileVisual>().Initialize(screenId);
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>().Initialize(screenId);
             if (transition != null)
             {
                 // TODOJEF: ADD TRANSITION LOGIC
@@ -110,7 +110,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         }
         else
         {
-            CurrentScreen = parent.gameObject.GetComponent<ScreenTileVisual>();
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>();
         }
         Camera.main.backgroundColor = CurrentScreen.GroundColor;
     }
@@ -167,9 +167,9 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         string screenId = GetScreenId(worldMatter);
         PreviousScreen = CurrentScreen;
         BuildScreen(screenId, transition);
+        CurrentScreen.gameObject.SetActive(true);
         if (transition != null)
         {
-            CurrentScreen.gameObject.SetActive(true);
             if (transition.Name == Constants.TRANSITION_BACK)
             {
                 PreviousScreen.gameObject.SetActive(false);

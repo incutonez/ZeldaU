@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScreenTesting : MonoBehaviour
 {
-    public ScreenTileVisual ScreenTileVisual;
+    public WorldScreenTile ScreenTileVisual;
 
     private ScreenTile ScreenTile { get; set; }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Matter
 {
     public Matters type = Matters.None;
-    public WorldColors? color;
+    public WorldColors? color { get; set; }
     /// <summary>
     /// This is an override for the CanEnter method... by default, we have certain Matters that are considered
     /// something the player can enter, but there are some scenarios where that's not always true

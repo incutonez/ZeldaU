@@ -17,8 +17,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private int CurrentX { get; set; } = 8;
     private int CurrentY { get; set; } = 0;
     private Animator Animator { get; set; }
-    private WorldScreen CurrentScreen { get; set; }
-    private WorldScreen PreviousScreen { get; set; }
+    private ScreenTileVisual CurrentScreen { get; set; }
+    private ScreenTileVisual PreviousScreen { get; set; }
     private Transform ScenePrefab { get; set; }
 
     public new void Awake()
@@ -100,15 +100,17 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         if (parent == null)
         {
             parent = Instantiate(ScenePrefab);
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>().Initialize(screenId, ScreensContainer);
+            parent.SetParent(ScreensContainer);
+            CurrentScreen = parent.gameObject.GetComponent<ScreenTileVisual>().Initialize(screenId);
             if (transition != null)
             {
-                CurrentScreen.Build(transition);
+                // TODOJEF: ADD TRANSITION LOGIC
+                //CurrentScreen.Build(transition);
             }
         }
         else
         {
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
+            CurrentScreen = parent.gameObject.GetComponent<ScreenTileVisual>();
         }
         Camera.main.backgroundColor = CurrentScreen.GroundColor;
     }
@@ -133,7 +135,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     public IEnumerator EnterDoor(WorldMatter worldMatter)
     {
         SetScreenLoading(true);
-        CurrentScreen.ToggleDoor(true);
+        // TODOJEF: IMPL
+        //CurrentScreen.ToggleDoor(true);
         yield return StartCoroutine(GameHandler.Player.characterAnimation.Enter());
         yield return StartCoroutine(LoadScreen(worldMatter));
         // TODOJEF: I don't like dipping into the animator like this... figure out a better way
@@ -156,6 +159,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         yield return StartCoroutine(LoadScreenRoutine(new WorldMatter { Matter = new Matter { type = Matters.Transition }, Transition = new SceneViewModel { Name = screenId } }));
     }
 
+    // TODOJEF: Next step is to get transitions working, then doors
     public IEnumerator LoadScreenRoutine(WorldMatter worldMatter)
     {
         SetScreenLoading(true);
@@ -171,9 +175,10 @@ public class SceneBuilder : BaseManager<SceneBuilder>
                 PreviousScreen.gameObject.SetActive(false);
                 // Restore the player's previous position
                 GameHandler.Player.transform.localPosition = OverworldPosition;
-                CurrentScreen.ToggleDoor(true);
+                // TODOJEF: IMPL
+                //CurrentScreen.ToggleDoor(true);
                 yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
-                CurrentScreen.ToggleDoor(false);
+                //CurrentScreen.ToggleDoor(false);
             }
             else if (transition.Name == "Shop")
             {

@@ -64,7 +64,7 @@ public class ScreenGrid<T>
         }
     }
 
-    public Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(float x, float y)
     {
         return new Vector3(x, y) * CellSize + Origin;
     }
@@ -121,7 +121,7 @@ public class ScreenGrid<T>
         return default(T);
     }
 
-    public T GetValue(Vector3 position)
+    public T GetViewModel(Vector3 position)
     {
         int x;
         int y;

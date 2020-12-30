@@ -126,11 +126,6 @@ public class WorldScreenTile : MonoBehaviour
         gameObject.SetActive(active);
     }
 
-    //public IEnumerator PanToScreen(WorldScreenTile newScreen)
-    //{
-
-    //}
-
     public void ToggleDoor(bool active)
     {
         WorldDoor door = GetDoor();
@@ -248,7 +243,15 @@ public class WorldScreenTile : MonoBehaviour
             for (int e = 0; e < 3; e++)
             {
                 int vert1 = triangles[i + e];
-                int vert2 = triangles[i + e + 1 > i + 2 ? i : i + e + 1];
+                int vert2;
+                if (i + e + 1 > i + 2)
+                {
+                    vert2 = i;
+                }
+                else
+                {
+                    vert2 = i + e + 1;
+                }
                 string edge = Mathf.Min(vert1, vert2) + ":" + Mathf.Max(vert1, vert2);
                 if (edges.ContainsKey(edge))
                 {

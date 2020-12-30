@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
+using NPCs;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Taken from https://www.youtube.com/watch?v=mZzZXfySeFQ
+/// Idea taken from https://www.youtube.com/watch?v=mZzZXfySeFQ
 /// </summary>
 public class WorldScreen : MonoBehaviour
 {
@@ -99,7 +100,37 @@ public class WorldScreen : MonoBehaviour
                 }
             }
         }
-        // TODOJEF: Add for enemies, characters, and items
+        if (scene.Enemies != null)
+        {
+            System.Random r = new System.Random();
+            List<Vector3> openTiles = GetOpenTiles();
+            foreach (SceneEnemyViewModel viewModel in scene.Enemies)
+            {
+                Enemies enemyType = viewModel.Type;
+                // Randomly spawn enemies
+                for (int i = 0; i < viewModel.Count; i++)
+                {
+                    int index = r.Next(0, openTiles.Count);
+                    Vector3 position = openTiles[index];
+                    openTiles.RemoveAt(index);
+                    GameHandler.CharacterManager.SpawnEnemy(position, enemyType, transform);
+                }
+            }
+        }
+        if (scene.Items != null)
+        {
+            foreach (SceneItemViewModel item in scene.Items)
+            {
+                WorldItem.SpawnItem(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
+            }
+        }
+        if (scene.Characters != null)
+        {
+            foreach (SceneCharacterViewModel character in scene.Characters)
+            {
+                GameHandler.CharacterManager.SpawnCharacter(Grid.GetWorldPosition(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
+            }
+        }
     }
 
     public void ToggleActive(bool active = false)

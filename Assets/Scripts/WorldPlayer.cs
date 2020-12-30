@@ -48,7 +48,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
         {
             return;
         }
-        WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
+        WorldEnemy worldEnemy = collision.collider.GetComponent<WorldEnemy>();
         if (worldEnemy != null)
         {
             character.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);

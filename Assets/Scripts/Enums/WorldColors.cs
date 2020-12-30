@@ -2,6 +2,7 @@ using System.ComponentModel;
 
 public enum WorldColors
 {
+    None = 0,
     [Description("FFEFA6")]
     Tan = 1,
     [Description("00a800")]

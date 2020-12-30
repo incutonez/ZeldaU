@@ -10,7 +10,7 @@ public class Item
 
     public Sprite GetSprite()
     {
-        return ItemManager.Instance.LoadSpriteByItemType(Type);
+        return SpritesManager.GetItem(Type);
     }
 
     public void PlaySound()

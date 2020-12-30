@@ -3,26 +3,15 @@
 public class WorldCharacter<T> : MonoBehaviour where T : BaseCharacter
 {
     public T character;
-    public WorldObjectData worldObjectData;
     public SpriteRenderer sRenderer;
 
-    public void Awake()
+    public void SetCharacter(T character, Sprite sprite)
     {
-        worldObjectData = GetComponent<WorldObjectData>();
         sRenderer = transform.Find("Body").GetComponent<SpriteRenderer>();
-    }
-
-    public void SetCharacter(T character, Sprite sprite, bool updateCollider = true)
-    {
         this.character = character;
         character.Initialize();
         transform.name = character.characterType.GetDescription();
         sRenderer.sprite = sprite;
-        if (updateCollider)
-        {
-            // TODOJEF: COME BACK TO THIS
-            //worldObjectData.UpdatePolygonCollider2D();
-        }
     }
 
     public float GetTouchDamage()

@@ -28,7 +28,7 @@ public class GenericVisual : MonoBehaviour
             {
                 int index = i * height + j;
                 Vector3 quadSize = new Vector3(1, 1) * Grid.CellSize;
-                HeatMapGridObject gridValue = Grid.GetValue(i, j);
+                HeatMapGridObject gridValue = Grid.GetViewModel(i, j);
                 float gridVal = gridValue.GetNormalizedValue();
                 Vector2 gridValueUV = new Vector2(gridVal, 0f);
                 AddToMesh(vertices, uvs, triangles, index, Grid.GetWorldPosition(i, j) + quadSize * 0.5f, 0f, quadSize, gridValueUV, gridValueUV);

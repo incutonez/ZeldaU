@@ -15,16 +15,6 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
     private bool isAttacking = false;
     private float? lastAttack = 0f;
 
-    public new void Awake()
-    {
-        base.Awake();
-        characterAnimation = GetComponent<CharacterAnimation>();
-        inventory = new Inventory(UseItem);
-        uiInventory = GameHandler.Inventory;
-        uiInventory.SetInventory(inventory);
-        uiInventory.SetPlayer(this);
-    }
-
     private void Start()
     {
         // TODOJEF????
@@ -58,7 +48,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
         {
             return;
         }
-        WorldEnemy worldEnemy = collision.gameObject.GetComponent<WorldEnemy>();
+        WorldEnemy worldEnemy = collision.collider.GetComponent<WorldEnemy>();
         if (worldEnemy != null)
         {
             character.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);
@@ -83,6 +73,11 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     public void InitializedCharacter()
     {
+        characterAnimation = GetComponent<CharacterAnimation>();
+        inventory = new Inventory(UseItem);
+        uiInventory = GameHandler.Inventory;
+        uiInventory.SetInventory(inventory);
+        uiInventory.SetPlayer(this);
         OnInitialize?.Invoke(this, EventArgs.Empty);
     }
 

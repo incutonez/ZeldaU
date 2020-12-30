@@ -17,10 +17,10 @@ public class ShieldHandler : MonoBehaviour
     {
         shield.sprite = null;
         // Cache our images, so we're not loading them every time
-        shieldSprite = ItemManager.Instance.LoadSpriteByItemType(Items.Shield);
-        shieldSideSprite = ItemManager.Instance.LoadSprite("ShieldSide");
-        shieldMagicalSprite = ItemManager.Instance.LoadSpriteByItemType(Items.ShieldMagical);
-        shieldMagicalSideSprite = ItemManager.Instance.LoadSprite("ShieldMagicalSide");
+        shieldSprite = SpritesManager.GetItem(Items.Shield);
+        shieldSideSprite = SpritesManager.GetItem("ShieldSide");
+        shieldMagicalSprite = SpritesManager.GetItem(Items.ShieldMagical);
+        shieldMagicalSideSprite = SpritesManager.GetItem("ShieldMagicalSide");
     }
 
     public void ToggleShields(bool enabled = false, bool? rightShield = null, bool? leftShield = null)

@@ -22,7 +22,7 @@ public class Testing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            HeatMapGridObject obj = Grid.GetValue(position);
+            HeatMapGridObject obj = Grid.GetViewModel(position);
             if (obj != null)
             {
                 obj.AddValue(5);

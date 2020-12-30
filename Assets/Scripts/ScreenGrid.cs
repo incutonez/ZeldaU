@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -64,9 +65,42 @@ public class ScreenGrid<T>
         }
     }
 
-    public Vector3 GetWorldPosition(int x, int y)
+    public void EachCell(Action<T, int, int> func)
+    {
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                func(GetViewModel(x, y), x, y);
+            }
+        }
+    }
+
+    public Vector3 GetWorldPosition(float x, float y)
     {
         return new Vector3(x, y) * CellSize + Origin;
+    }
+
+    /// <summary>
+    /// This will return the x value only from GetWorldPosition... needed for times when our player is panning from
+    /// one screen to the other
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public float GetWorldPositionX(float x)
+    {
+        return GetWorldPosition(x, 0f).x;
+    }
+
+    /// <summary>
+    /// This will return the y value only from GetWorldPosition... needed for times when our player is panning from
+    /// one screen to the other
+    /// </summary>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public float GetWorldPositionY(float y)
+    {
+        return GetWorldPosition(0f, y).y;
     }
 
     public void GetXY(Vector3 position, out int x, out int y)
@@ -112,7 +146,7 @@ public class ScreenGrid<T>
         SetValue(x, y, value);
     }
 
-    public T GetValue(int x, int y)
+    public T GetViewModel(int x, int y)
     {
         if (IsValid(x, y))
         {
@@ -121,12 +155,12 @@ public class ScreenGrid<T>
         return default(T);
     }
 
-    public T GetValue(Vector3 position)
+    public T GetViewModel(Vector3 position)
     {
         int x;
         int y;
         GetXY(position, out x, out y);
-        return GetValue(x, y);
+        return GetViewModel(x, y);
     }
 
     // TODOJEF: THROWAWAY

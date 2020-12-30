@@ -1,50 +1,50 @@
 {
-  "x": 7,
-  "y": 0,
-  "accentColor": 2,
-  "groundColor": 1,
-  "matters": [
+  "X": 7,
+  "Y": 0,
+  "AccentColor": 2,
+  "GroundColor": 1,
+  "Tiles": [
     {
-      "type": 21,
-      "children": [
+      "Type": 21,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             2,
             5
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             5,
             5
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             8,
             5
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             8,
             7
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             8,
             3
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             10,
             4
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             10,
             6
           ]
@@ -52,10 +52,10 @@
       ]
     },
     {
-      "type": 39,
-      "children": [
+      "Type": 39,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             0,
             15,
@@ -63,7 +63,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             1,
             15,
@@ -71,13 +71,13 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             3
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             9,
             10,
@@ -85,13 +85,13 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             11,
             10
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             8,
             15,
@@ -99,7 +99,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             7
           ]
@@ -107,10 +107,10 @@
       ]
     },
     {
-      "type": 41,
-      "children": [
+      "Type": 41,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             11,
             9
           ]
@@ -118,16 +118,16 @@
       ]
     },
     {
-      "type": 43,
-      "children": [
+      "Type": 43,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             3
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             4
           ]
@@ -135,16 +135,16 @@
       ]
     },
     {
-      "type": 40,
-      "children": [
+      "Type": 40,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             6
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             7
           ]
@@ -152,10 +152,10 @@
       ]
     },
     {
-      "type": 42,
-      "children": [
+      "Type": 42,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             1,
             13,
@@ -165,22 +165,22 @@
       ]
     },
     {
-      "type": 100,
-      "children": [
+      "Type": 100,
+      "Children": [
         {
-          "transition": {
-            "x": 1
+          "Transition": {
+            "X": 1
           },
-          "coordinates": [
+          "Coordinates": [
             15,
             5
           ]
         },
         {
-          "transition": {
-            "x": -1
+          "Transition": {
+            "X": -1
           },
-          "coordinates": [
+          "Coordinates": [
             0,
             2,
             0,
@@ -188,10 +188,10 @@
           ]
         },
         {
-          "transition": {
-            "y": 1
+          "Transition": {
+            "Y": 1
           },
-          "coordinates": [
+          "Coordinates": [
             12,
             10,
             13,

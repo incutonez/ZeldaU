@@ -28,7 +28,7 @@ public class HeatmapVisual : MonoBehaviour
             {
                 int index = i * height + j;
                 Vector3 quadSize = new Vector3(1, 1) * Grid.CellSize;
-                int gridValue = Grid.GetValue(i, j);
+                int gridValue = Grid.GetViewModel(i, j);
                 float gridVal = (float)gridValue / ScreenGrid<int>.HEATMAP_MAX;
                 Vector2 gridValueUV = new Vector2(gridVal, 0f);
                 AddToMesh(vertices, uvs, triangles, index, Grid.GetWorldPosition(i, j) + quadSize * 0.5f, 0f, quadSize, gridValueUV, gridValueUV);

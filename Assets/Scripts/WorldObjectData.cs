@@ -22,22 +22,12 @@ public class WorldObjectData : MonoBehaviour
             transform.name = sprite.name;
             if (setSize)
             {
-                SetObjectSize(sprite.bounds.size);
+                if (transform != null)
+                {
+                    transform.sizeDelta = sprite.bounds.size;
+                }
+                UpdatePolygonCollider2D();
             }
-        }
-    }
-
-    public void SetObjectSize(Vector3 size)
-    {
-        SetTransformSize(size);
-        UpdatePolygonCollider2D();
-    }
-
-    public void SetTransformSize(Vector3 size)
-    {
-        if (transform != null)
-        {
-            transform.sizeDelta = size;
         }
     }
 

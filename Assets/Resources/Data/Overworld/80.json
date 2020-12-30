@@ -1,13 +1,13 @@
 {
-  "x": 8,
-  "y": 0,
-  "accentColor": 2,
-  "matters": [
+  "X": 8,
+  "Y": 0,
+  "AccentColor": 2,
+  "Tiles": [
     {
-      "type": 39,
-      "children": [
+      "Type": 39,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             0,
             15,
@@ -15,7 +15,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             1,
             1,
@@ -23,7 +23,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             1,
             15,
@@ -31,7 +31,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             6,
             0,
@@ -39,7 +39,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             1,
             7,
             1,
@@ -47,7 +47,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             2,
             8,
             2,
@@ -55,7 +55,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             3,
             9,
             3,
@@ -63,13 +63,13 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             4,
             10
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             5,
             9,
             5,
@@ -77,13 +77,13 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             6,
             10
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             9,
             7,
             15,
@@ -91,7 +91,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             10,
             6,
             15,
@@ -101,10 +101,10 @@
       ]
     },
     {
-      "type": 40,
-      "children": [
+      "Type": 40,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             9,
             6
           ]
@@ -112,28 +112,28 @@
       ]
     },
     {
-      "type": 41,
-      "children": [
+      "Type": 41,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             1,
             6
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             2,
             7
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             3,
             8
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             6,
             9
           ]
@@ -141,10 +141,10 @@
       ]
     },
     {
-      "type": 42,
-      "children": [
+      "Type": 42,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             4,
             15,
@@ -152,13 +152,13 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             4
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             2,
             1,
             13,
@@ -168,10 +168,10 @@
       ]
     },
     {
-      "type": 44,
-      "children": [
+      "Type": 44,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             1,
             4
           ]
@@ -179,31 +179,31 @@
       ]
     },
     {
-      "type": 100,
-      "children": [
+      "Type": 100,
+      "Children": [
         {
-          "transition": {
-            "x": -1
+          "Transition": {
+            "X": -1
           },
-          "coordinates": [
+          "Coordinates": [
             0,
             5
           ]
         },
         {
-          "transition": {
-            "x": 1
+          "Transition": {
+            "X": 1
           },
-          "coordinates": [
+          "Coordinates": [
             15,
             5
           ]
         },
         {
-          "transition": {
-            "y": 1
+          "Transition": {
+            "Y": 1
           },
-          "coordinates": [
+          "Coordinates": [
             7,
             10,
             8,
@@ -211,24 +211,22 @@
           ]
         },
         {
-          "matter": {
-            "type": 10
-          },
-          "transition": {
-            "name": "Shop",
-            "matters": [
+          "TileType": 10,
+          "Transition": {
+            "Name": "Shop",
+            "Tiles": [
               {
-                "type": 50,
-                "children": [
+                "Type": 50,
+                "Children": [
                   {
-                    "coordinates": [
+                    "Coordinates": [
                       4.5,
                       6
                     ]
                   },
                   {
-                    "coordinates": [
-                      10.5,
+                    "Coordinates": [
+                      11.5,
                       6
                     ]
                   }
@@ -252,7 +250,7 @@
                 ]
             }]
           },
-          "coordinates": [
+          "Coordinates": [
             4,
             9
           ]

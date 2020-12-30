@@ -16,6 +16,14 @@ public class GameHandler : MonoBehaviour
     public static bool IsTransitioning { get; set; }
     public static UIInventory Inventory { get; set; }
     public static Dictionary<Matters, TileUVs> TileCoordinates { get; set; }
+    public static Canvas MainCanvas { get; set; }
+
+    private void Awake()
+    {
+        PrefabsManager.LoadAll();
+        SpritesManager.LoadAll();
+        MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
+    }
 
     public void Start()
     {
@@ -24,16 +32,15 @@ public class GameHandler : MonoBehaviour
 
     public void StartScene()
     {
-        Inventory = GameObject.Find("Inventory").GetComponent<UIInventory>();
+        Inventory = gameObject.AddComponent<UIInventory>();
         CharacterManager = gameObject.AddComponent<CharacterManager>();
         SceneBuilder = gameObject.AddComponent<SceneBuilder>();
         TileCoordinates = new Dictionary<Matters, TileUVs>();
-        Sprite[] sprites = Resources.LoadAll<Sprite>($"{Constants.PATH_SPRITES}worldMatters");
         // TODOJEF: Fix these... get actual values from material
         int width = 176;
         int height = 116;
 
-        foreach (Sprite sprite in sprites)
+        foreach (Sprite sprite in SpritesManager.Tiles)
         {
             Rect rect = sprite.rect;
             Enum.TryParse(sprite.name, out Matters matterType);
@@ -47,13 +54,10 @@ public class GameHandler : MonoBehaviour
             }
         }
         Player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
-        Player.gameObject.SetActive(false);
         SceneBuilder.BuildScreen(new SceneViewModel { Name = "80" });
         ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);
         SwordHandler = Player.GetComponentInChildren<SwordHandler>(true);
         SuitHandler = Player.GetComponentInChildren<SuitHandler>(true);
-        // TODOJEF: Better way of doing this?
-        Inventory.HUD.gameObject.SetActive(true);
         Player.gameObject.SetActive(true);
     }
 }

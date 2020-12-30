@@ -4,39 +4,46 @@ using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
-    public Transform lifeContainer;
-    public Text rupeeCount;
-    public Text keyCount;
-    public Text bombCount;
-    public Image swordSlotSprite;
-    public Image itemSlotSprite;
-    public Transform HUD;
-
     private const float padding = 0.05f;
-    private Inventory inventory;
-    private WorldPlayer player;
-    private Transform heartTemplate;
-    private Sprite heartHalfSprite;
-    private Sprite heartEmptySprite;
+
+    public Transform LifeContainer { get; set; }
+    public Text RupeeCount { get; set; }
+    public Text KeyCount { get; set; }
+    public Text BombCount { get; set; }
+    public Image SwordSlotSprite { get; set; }
+    public Image ItemSlotSprite { get; set; }
+    public Transform HUD { get; set; }
+
+    private Inventory Inventory { get; set; }
+    private WorldPlayer Player { get; set; }
+    private Sprite HeartHalfSprite { get; set; }
+    private Sprite HeartEmptySprite { get; set; }
 
     private void Awake()
     {
-        heartTemplate = lifeContainer.Find("HeartTemplate");
-        heartHalfSprite = ItemManager.Instance.LoadSprite("HeartHalf");
-        heartEmptySprite = ItemManager.Instance.LoadSprite("HeartEmpty");
+        HeartHalfSprite = SpritesManager.GetItem("HeartHalf");
+        HeartEmptySprite = SpritesManager.GetItem("HeartEmpty");
+        HUD = GameHandler.MainCanvas.transform.Find("Hud");
+        LifeContainer = HUD.transform.Find("LifeContainer");
+        var countContainer = HUD.transform.Find("CountContainer").transform;
+        RupeeCount = countContainer.Find("RupeeContainer").transform.Find("Count").GetComponent<Text>();
+        KeyCount = countContainer.Find("KeyContainer").transform.Find("Count").GetComponent<Text>();
+        BombCount = countContainer.Find("BombContainer").transform.Find("Count").GetComponent<Text>();
+        ItemSlotSprite = HUD.transform.Find("BSlot").GetChild(2).GetComponent<Image>();
+        SwordSlotSprite = HUD.transform.Find("ASlot").GetChild(2).GetComponent<Image>();
     }
 
     public void SetInventory(Inventory inventory)
     {
-        this.inventory = inventory;
-        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        Inventory = inventory;
+        Inventory.OnItemListChanged += Inventory_OnItemListChanged;
     }
 
     public void SetPlayer(WorldPlayer player)
     {
-        this.player = player;
-        player.OnInitialize += Player_OnInitialize;
-        player.OnTakeDamage += Player_OnTakeDamage;
+        Player = player;
+        Player.OnInitialize += Player_OnInitialize;
+        Player.OnTakeDamage += Player_OnTakeDamage;
     }
 
     private void Player_OnInitialize(object sender, EventArgs args)
@@ -84,12 +91,12 @@ public class UIInventory : MonoBehaviour
             }
             else if (item.Type == Items.HeartContainer)
             {
-                player.character.AddHealth(Constants.HEART_REFILL, true);
+                Player.character.AddHealth(Constants.HEART_REFILL, true);
                 RefreshLifeUI();
             }
             else if (item.Type == Items.Heart)
             {
-                player.character.AddHealth(Constants.HEART_REFILL);
+                Player.character.AddHealth(Constants.HEART_REFILL);
                 RefreshLifeUI();
             }
         }
@@ -97,54 +104,53 @@ public class UIInventory : MonoBehaviour
 
     private void RefreshSwordUI()
     {
-        Sprite swordSprite = inventory.sword?.GetSprite();
-        swordSlotSprite.enabled = true;
-        swordSlotSprite.sprite = swordSprite;
-        swordSlotSprite.color = new Color(255, 255, 255, swordSprite != null ? 1 : 0);
+        Sprite swordSprite = Inventory.sword?.GetSprite();
+        SwordSlotSprite.enabled = true;
+        SwordSlotSprite.sprite = swordSprite;
+        SwordSlotSprite.color = new Color(255, 255, 255, swordSprite != null ? 1 : 0);
     }
 
     private void RefreshRupeeUI()
     {
-        rupeeCount.text = inventory.rupees.ToString();
+        RupeeCount.text = Inventory.rupees.ToString();
     }
 
     private void RefreshKeyUI()
     {
-        keyCount.text = inventory.keys.ToString();
+        KeyCount.text = Inventory.keys.ToString();
     }
 
     private void RefreshBombUI()
     {
-        bombCount.text = inventory.GetBombCount().ToString();
+        BombCount.text = Inventory.GetBombCount().ToString();
     }
 
     private void RefreshLifeUI()
     {
         int x = 0;
         int y = 0;
-        var health = player.GetHealth();
-        var maxHealth = player.GetMaxHealth();
-
+        var health = Player.GetHealth();
+        var maxHealth = Player.GetMaxHealth();
         for (int i = 0; i < maxHealth / 2; i++)
         {
-            RectTransform heart = Instantiate(heartTemplate, lifeContainer).GetComponent<RectTransform>();
+            RectTransform heart = Instantiate(PrefabsManager.UIHeart, LifeContainer).GetComponent<RectTransform>();
             heart.gameObject.SetActive(true);
             // Need to use the position of where the template is and add to it
-            Vector3 position = heartTemplate.position;
-            position.x += x * (heart.sizeDelta.x + padding);
-            position.y += y * (heart.sizeDelta.y + padding);
-            heart.position = position;
+            heart.localPosition += new Vector3(
+                x * (heart.sizeDelta.x + padding),
+                y * (heart.sizeDelta.y + padding)
+            );
             Image image = heart.GetComponent<Image>();
             var heartCount = (i + 1) * 2;
             if (heartCount > health)
             {
                 if (heartCount - health >= 2)
                 {
-                    image.sprite = heartEmptySprite;
+                    image.sprite = HeartEmptySprite;
                 }
                 else if (heartCount - health >= 1)
                 {
-                    image.sprite = heartHalfSprite;
+                    image.sprite = HeartHalfSprite;
                 }
             }
             x++;

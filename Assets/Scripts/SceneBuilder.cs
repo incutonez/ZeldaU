@@ -5,30 +5,24 @@ using UnityEngine;
 /// The camera is set to 7.5 for its size because it's Camera ortographic size = vertical resolution (240) / PPU (16) / 2 = 7.5
 /// per https://hackernoon.com/making-your-pixel-art-game-look-pixel-perfect-in-unity3d-3534963cad1d
 /// </summary>
-public class SceneBuilder : BaseManager<SceneBuilder>
+public class SceneBuilder : MonoBehaviour
 {
     public const int PAN_SPEED = 15;
     private const float TRANSITION_PADDING = 0.05f;
 
     public Transform ScreensContainer { get; set; }
-    public RectTransform WorldMatterPrefab { get; set; }
 
     private Vector3 OverworldPosition { get; set; } = Vector3.zero;
     private int CurrentX { get; set; } = 8;
     private int CurrentY { get; set; } = 0;
     private Animator Animator { get; set; }
-    private WorldScreenTile CurrentScreen { get; set; }
-    public WorldScreenTile PreviousScreen { get; set; }
-    private Transform ScenePrefab { get; set; }
+    private WorldScreen CurrentScreen { get; set; }
+    public WorldScreen PreviousScreen { get; set; }
 
-    public new void Awake()
+    public void Awake()
     {
-        base.Awake();
         Animator = transform.Find("Crossfade").GetComponent<Animator>();
         ScreensContainer = GameObject.Find("Screens").transform;
-        ScenePrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}Scene");
-        LoadSprites($"{Constants.PATH_SPRITES}worldMatters");
-        WorldMatterPrefab = LoadPrefab($"{Constants.PATH_PREFABS}WorldMatter");
     }
 
     /// <summary>
@@ -107,14 +101,14 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         // Parent has not been built, so let's build and cache it
         if (parent == null)
         {
-            parent = Instantiate(ScenePrefab);
+            parent = Instantiate(PrefabsManager.WorldScreen);
             parent.SetParent(ScreensContainer);
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>();
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
             CurrentScreen.Initialize(screenId, transition);
         }
         else
         {
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>();
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
         }
         CurrentScreen.ToggleActive(true);
         Camera.main.backgroundColor = CurrentScreen.GroundColor;

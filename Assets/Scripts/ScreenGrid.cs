@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -61,6 +62,17 @@ public class ScreenGrid<T>
             OnGridValueChanged += (object sender, OnGridValueChangedEventArgs eventArgs) => {
                 CellsText[eventArgs.x, eventArgs.y].text = Cells[eventArgs.x, eventArgs.y].ToString();
             };
+        }
+    }
+
+    public void EachCell(Action<T, int, int> func)
+    {
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                func(GetViewModel(x, y), x, y);
+            }
         }
     }
 

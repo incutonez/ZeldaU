@@ -20,7 +20,7 @@ public class SceneViewModel
     public int Y { get; set; }
     public WorldColors? AccentColor { get; set; }
     public WorldColors? GroundColor { get; set; }
-    public List<SceneMatterViewModel> Tiles { get; set; }
+    public List<ScreenTileViewModel> Tiles { get; set; }
     public List<SceneEnemyViewModel> Enemies { get; set; }
     public List<SceneCharacterViewModel> Characters { get; set; }
     public List<SceneItemViewModel> Items { get; set; }
@@ -51,19 +51,19 @@ public class SceneEnemyChildViewModel
     public Enemy Enemy { get; set; }
 }
 
-public class SceneMatterViewModel
+public class ScreenTileViewModel
 {
     public WorldColors? AccentColor { get; set; }
-    public List<SceneMatterChildViewModel> Children { get; set; }
+    public List<ScreenTileChildViewModel> Children { get; set; }
     public Matters Type { get; set; }
 }
 
-public class SceneMatterChildViewModel
+public class ScreenTileChildViewModel
 {
     /// <summary>
     /// This is a list of x, y coordinates, and if 4 values are specified, it becomes the max x, y range to keep adding this matter type
     /// </summary>
     public List<float> Coordinates { get; set; }
-    public Matter Matter { get; set; }
+    public Matters TileType { get; set; } = Matters.None;
     public SceneViewModel Transition { get; set; }
 }

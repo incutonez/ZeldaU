@@ -211,9 +211,7 @@
           ]
         },
         {
-          "Matter": {
-            "Type": 10
-          },
+          "TileType": 10,
           "Transition": {
             "Name": "Shop",
             "Tiles": [

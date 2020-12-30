@@ -1,77 +1,77 @@
 using Newtonsoft.Json;
-using NPCs;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Taken from https://www.youtube.com/watch?v=mZzZXfySeFQ
+/// </summary>
 public class WorldScreen : MonoBehaviour
 {
-    public SceneViewModel ViewModel { get; set; }
-    public Transform Parent { get; set; }
     public Color GroundColor { get; set; }
-    // This is a 2D array of rows (y-axis) x columns (x-axis)
-    public bool[,] Grid = new bool[Constants.GRID_ROWS, Constants.GRID_COLUMNS];
+    public ScreenGrid<ScreenGridTile> Grid { get; set; }
+    public bool GridNeedsRefresh { get; set; }
+    public string ScreenId { get; set; }
 
-    public WorldMatter GetDoor()
-    {
-        Transform door = transform.Find("door");
-        if (door == null)
-        {
-            return null;
-        }
-        Transform image = door.Find("Image");
-        return image == null ? null : image.gameObject.GetComponent<WorldMatter>();
-    }
+    private Mesh Mesh { get; set; }
+    private List<WorldDoor> WorldDoors { get; set; }
 
-    public void SetDoorColor(Color color)
+    public WorldScreen Initialize(string screenId, SceneViewModel transition)
     {
-        WorldMatter door = GetDoor();
-        if (door != null)
-        {
-            door.HiddenDoor.GetComponent<SpriteRenderer>().color = color;
-        }
-    }
+        Mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = Mesh;
 
-    public void ToggleDoor(bool active = false)
-    {
-        WorldMatter door = GetDoor();
-        if (door != null)
-        {
-            door.HiddenDoor.gameObject.SetActive(active);
-        }
-    }
+        Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
+        float width = texture.width;
+        float height = texture.height;
 
-    public WorldScreen Initialize(string screenId, Transform container)
-    {
+        WorldDoors = new List<WorldDoor>();
+        Grid = new ScreenGrid<ScreenGridTile>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenGridTile> grid, int x, int y) => new ScreenGridTile(grid, x, y));
+        Grid.OnGridValueChanged += Grid_OnValueChanged;
+        ScreenId = screenId;
         transform.name = screenId;
-        transform.SetParent(container);
-        transform.localPosition = Vector3.zero;
-        ViewModel = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{screenId}").text);
-        GroundColor = Utilities.HexToColor((ViewModel.GroundColor ?? WorldColors.Tan).GetDescription());
-        Build(ViewModel);
-        SetDoorColor(GroundColor);
+        SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
+        GroundColor = Utilities.HexToColor((scene.GroundColor ?? WorldColors.Tan).GetDescription());
+        Build(scene);
+        if (transition != null)
+        {
+            Build(transition);
+        }
         return this;
+    }
+
+    public List<Vector3> GetOpenTiles()
+    {
+        List<Vector3> result = new List<Vector3>();
+        Grid.EachCell((viewModel, x, y) =>
+        {
+            if (!viewModel.IsTile())
+            {
+                result.Add(Grid.GetWorldPosition(x, y));
+            }
+        });
+        return result;
     }
 
     public void Build(SceneViewModel scene)
     {
-        if (scene == null)
-        {
-            return;
-        }
         if (scene.Tiles != null)
         {
-            foreach (SceneMatterViewModel viewModel in scene.Tiles)
+            foreach (ScreenTileViewModel screenTile in scene.Tiles)
             {
-                Matters matterType = viewModel.Type;
+                Matters tileType = screenTile.Type;
                 // Order of priority
-                WorldColors? color = viewModel.AccentColor ?? scene.AccentColor;
-                foreach (SceneMatterChildViewModel child in viewModel.Children)
+                WorldColors color = screenTile.AccentColor ?? scene.AccentColor ?? WorldColors.White;
+                foreach (ScreenTileChildViewModel child in screenTile.Children)
                 {
                     List<float> coordinates = child.Coordinates;
                     float x = coordinates[0];
                     float y = coordinates[1];
                     float xMax = x;
                     float yMax = y;
+                    if (child.TileType != Matters.None)
+                    {
+                        tileType = child.TileType;
+                    }
                     if (coordinates.Count == 4)
                     {
                         xMax = coordinates[2];
@@ -81,100 +81,130 @@ public class WorldScreen : MonoBehaviour
                     {
                         for (float j = y; j <= yMax; j++)
                         {
-                            // i and j here are simple indices into our parent game object, which is set at our "0, 0" origin,
-                            // which is -8, -7.5
-                            SpawnMatter(child, i, j, matterType, color);
+                            Vector3 position = Grid.GetWorldPosition(i, j);
+                            if (tileType == Matters.door)
+                            {
+                                AddDoor(position, child.Transition);
+                            }
+                            else if (tileType == Matters.Transition)
+                            {
+                                AddTransition(position, child.Transition);
+                            }
+                            else
+                            {
+                                SetTileType(position, tileType, color);
+                            }
                         }
                     }
                 }
             }
         }
-        if (scene.Enemies != null)
+        // TODOJEF: Add for enemies, characters, and items
+    }
+
+    public void ToggleActive(bool active = false)
+    {
+        gameObject.SetActive(active);
+    }
+
+    public void ToggleDoor(bool active)
+    {
+        WorldDoor door = GetDoor();
+        if (door != null)
         {
-            System.Random r = new System.Random();
-            foreach (SceneEnemyViewModel viewModel in scene.Enemies)
-            {
-                Enemies enemyType = viewModel.Type;
-                // Randomly spawn enemies
-                for (int i = 0; i < viewModel.Count; i++)
-                {
-                    int xTemp = 0;
-                    int yTemp = 0;
-                    bool found = false;
-                    while (!found)
-                    {
-                        xTemp = r.Next(0, 16);
-                        yTemp = r.Next(0, 11);
-                        if (Grid[yTemp, xTemp] == false)
-                        {
-                            found = true;
-                        }
-                    }
-                    Grid[yTemp, xTemp] = true;
-                    GameHandler.CharacterManager.SpawnEnemy(new Vector3(xTemp, yTemp), enemyType, transform);
-                }
-            }
-        }
-        if (scene.Items != null)
-        {
-            foreach (SceneItemViewModel item in scene.Items)
-            {
-                WorldItem.SpawnItem(new Vector3(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
-            }
-        }
-        if (scene.Characters != null)
-        {
-            foreach (SceneCharacterViewModel character in scene.Characters)
-            {
-                GameHandler.CharacterManager.SpawnCharacter(new Vector3(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
-            }
+            door.ToggleHiddenDoor(active);
         }
     }
 
-    public RectTransform SpawnMatter(SceneMatterChildViewModel child, float column, float row, Matters matterType, WorldColors? color)
+    public WorldDoor GetDoor(int index = 0)
     {
-        SceneViewModel transition = child.Transition;
-        Matter matter = child.Matter ?? new Matter();
-        RectTransform transform = Instantiate(GameHandler.SceneBuilder.WorldMatterPrefab);
-        WorldMatter worldMatter = transform.Find("Image").GetComponent<WorldMatter>();
-        if (matter.type == Matters.None)
-        {
-            matter.type = matterType;
-        }
-        if (transition == null)
-        {
-            if (!matter.color.HasValue)
-            {
-                matter.color = color;
-            }
-            // We need to generate which cells the floating value takes up... this produces a 2x2 grid potentially, but it's
-            // usually a 1x1 grid
-            int rowUp = Mathf.CeilToInt(row);
-            int rowDown = Mathf.FloorToInt(row);
-            int colUp = Mathf.CeilToInt(column);
-            int colDown = Mathf.FloorToInt(column);
-            for (int i = rowDown; i <= rowUp; i++)
-            {
-                for (int j = colDown; j <= colUp; j++)
-                {
-                    Grid[i, j] = true;
-                }
-            }
-        }
-        else
-        {
-            column += transition.X;
-            row += transition.Y;
-        }
-        transform.SetParent(this.transform);
-        transform.localPosition = new Vector3(column, row);
-        transform.rotation = Quaternion.identity;
+        return WorldDoors[index];
+    }
 
-        worldMatter.SetMatter(matter);
-        worldMatter.Transition = transition;
-        // TODOJEF: Better way of doing this?
-        transform.name = worldMatter.GetSpriteName();
+    public void AddDoor(Vector3 position, SceneViewModel transition)
+    {
+        // Because our world has each position as being centered, we have to apply the offset... same
+        // as what we do in the AddToMesh method
+        Transform door = Instantiate(PrefabsManager.WorldDoor, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+        if (door != null)
+        {
+            WorldDoor worldDoor = door.GetComponent<WorldDoor>();
+            worldDoor.Initialize(GroundColor, transition);
+            WorldDoors.Add(worldDoor);
+        }
+    }
 
-        return transform;
+    public void AddTransition(Vector3 position, SceneViewModel transition)
+    {
+        Transform item = Instantiate(PrefabsManager.WorldTransition, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+        if (item != null)
+        {
+            WorldTransition worldItem = item.GetComponent<WorldTransition>();
+            worldItem.Initialize(transition);
+        }
+    }
+
+    public void SetTileType(Vector3 position, Matters matterType, WorldColors color)
+    {
+        ScreenGridTile viewModel = Grid.GetViewModel(position);
+        if (viewModel != null)
+        {
+            viewModel.Initialize(matterType, color);
+        }
+    }
+
+    public Vector3 GetQuadSize()
+    {
+        return Vector2.one * Grid.CellSize;
+    }
+
+    /// <summary>
+    /// This method is a little confusing but because our meshes and sprites are pivoted in the center, but our grid positions
+    /// them in the lower left of the cell, we need to adjust and center position the world position
+    /// </summary>
+    /// <param name="worldPosition"></param>
+    /// <param name="quadSize"></param>
+    /// <returns></returns>
+    public Vector3 GetWorldPositionOffset(Vector3 worldPosition, Vector3 quadSize)
+    {
+        return worldPosition + quadSize * 0.5f;
+    }
+
+    public void RefreshGrid()
+    {
+        int width = Grid.Width;
+        int height = Grid.Height;
+        PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
+        polygonCollider.pathCount = 0;
+        Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors);
+        Grid.EachCell((viewModel, x, y) =>
+        {
+            // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
+            Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors);
+            Vector2[] colliderShape = viewModel.GetColliderShape();
+            if (colliderShape != null)
+            {
+                polygonCollider.pathCount++;
+                polygonCollider.SetPath(polygonCollider.pathCount - 1, colliderShape);
+            }
+        });
+        Mesh.vertices = vertices;
+        Mesh.uv = uvs;
+        Mesh.triangles = triangles;
+        Mesh.colors = colors;
+    }
+
+    private void Grid_OnValueChanged(object sender, ScreenGrid<ScreenGridTile>.OnGridValueChangedEventArgs e)
+    {
+        GridNeedsRefresh = true;
+    }
+
+    private void LateUpdate()
+    {
+        if (GridNeedsRefresh)
+        {
+            RefreshGrid();
+            GridNeedsRefresh = false;
+        }
     }
 }

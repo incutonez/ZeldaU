@@ -10,7 +10,7 @@ public class WorldItem : MonoBehaviour
 
     public static WorldItem SpawnItem(Vector3 position, Item item, Transform parent)
     {
-        RectTransform transform = Instantiate(ItemManager.Instance.prefab);
+        RectTransform transform = Instantiate(PrefabsManager.Item);
         transform.SetParent(parent);
         transform.localPosition = position;
         transform.rotation = Quaternion.identity;
@@ -25,11 +25,6 @@ public class WorldItem : MonoBehaviour
     {
         worldObjectData = GetComponent<WorldObjectData>();
     }
-
-    //public static WorldItem DropItem(Vector3 dropPosition, Item item)
-    //{
-    //    return SpawnItem(dropPosition, item);
-    //}
 
     public void SetItem(Item item)
     {

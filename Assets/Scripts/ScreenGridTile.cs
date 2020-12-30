@@ -7,16 +7,16 @@ public struct TileUVs
     public Vector2 uv11;
 }
 
-public class ScreenTileViewModel
+public class ScreenGridTile
 {
     public Matters TileType { get; set; } = Matters.None;
 
-    private ScreenGrid<ScreenTileViewModel> Grid { get; set; }
+    private ScreenGrid<ScreenGridTile> Grid { get; set; }
     private int X { get; set; }
     private int Y { get; set; }
     private WorldColors Color { get; set; }
 
-    public ScreenTileViewModel(ScreenGrid<ScreenTileViewModel> grid, int x, int y)
+    public ScreenGridTile(ScreenGrid<ScreenGridTile> grid, int x, int y)
     {
         Grid = grid;
         X = x;
@@ -31,8 +31,31 @@ public class ScreenTileViewModel
         Grid.TriggerChange(X, Y);
     }
 
-    public Vector2[] GetCollider()
+    public bool IsTile()
     {
+        switch (TileType)
+        {
+            case Matters.Transition:
+            case Matters.None:
+            case Matters.door:
+                return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// A little inefficient with the collider shapes that we add, but it's okay because when we add them, the
+    /// composite collider on the Screen prefab takes care of actually creating the outlines based on all of our
+    /// polygons in the screen
+    /// </summary>
+    /// <returns></returns>
+    public Vector2[] GetColliderShape()
+    {
+        if (!IsTile())
+        {
+            return null;
+        }
+
         float cellSize = Grid.CellSize;
         Vector3 position = Grid.GetWorldPosition(X, Y);
         List<Vector2> points = new List<Vector2>();
@@ -52,11 +75,6 @@ public class ScreenTileViewModel
             x = position.x,
             y = position.y
         };
-
-        if (TileType == Matters.None)
-        {
-            return null;
-        }
 
         if (TileType == Matters.wallTR)
         {
@@ -96,15 +114,11 @@ public class ScreenTileViewModel
 
     public Color GetColor()
     {
-        if (TileType == Matters.Transition || TileType == Matters.door)
+        if (IsTile())
         {
-            Color = WorldColors.Black;
+            return Utilities.HexToColor(Color.GetDescription());
         }
-        else if (Color == WorldColors.None)
-        {
-            return Constants.COLOR_INVISIBLE;
-        }
-        return Utilities.HexToColor(Color.GetDescription());
+        return Constants.COLOR_INVISIBLE;
     }
 
     public float GetRotation()
@@ -117,13 +131,13 @@ public class ScreenTileViewModel
         return Grid.GetWorldPosition(X, Y) + GetQuadSize() * 0.5f;
     }
 
-    public void GetCoordinates(out Vector2 uv00, out Vector2 uv11)
+    public void GetUVCoordinates(out Vector2 uv00, out Vector2 uv11)
     {
         if (GameHandler.TileCoordinates.ContainsKey(TileType) && TileType != Matters.door)
         {
-            TileUVs coords = GameHandler.TileCoordinates[TileType];
-            uv00 = coords.uv00;
-            uv11 = coords.uv11;
+            TileUVs coordinates = GameHandler.TileCoordinates[TileType];
+            uv00 = coordinates.uv00;
+            uv11 = coordinates.uv11;
         }
         else
         {
@@ -134,18 +148,11 @@ public class ScreenTileViewModel
 
     public Vector3 GetQuadSize()
     {
-        switch (TileType)
+        if (IsTile())
         {
-            case Matters.door:
-            case Matters.None:
-                return Vector3.zero;
+            return Vector2.one * Grid.CellSize;
         }
-        return Vector2.one * Grid.CellSize;
-    }
-
-    public bool IsDoor()
-    {
-        return TileType == Matters.door;
+        return Vector3.zero;
     }
 
     public override string ToString()

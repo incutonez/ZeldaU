@@ -20,7 +20,7 @@ public class SceneViewModel
     public int Y { get; set; }
     public WorldColors? AccentColor { get; set; }
     public WorldColors? GroundColor { get; set; }
-    public List<SceneMatterViewModel> Matters { get; set; }
+    public List<SceneMatterViewModel> Tiles { get; set; }
     public List<SceneEnemyViewModel> Enemies { get; set; }
     public List<SceneCharacterViewModel> Characters { get; set; }
     public List<SceneItemViewModel> Items { get; set; }

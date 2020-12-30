@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,15 +22,57 @@ public class WorldScreenTile : MonoBehaviour
     private Dictionary<Matters, MatterCoords> Dictionary { get; set; }
     private Quaternion[] CachedQuaternionEulerArr { get; set; }
     private Mesh Mesh { get; set; }
+    // TODOJEF: Don't store in this class... store in Utilities?
     private Transform WorldDoorPrefab { get; set; }
+    private Transform WorldTransitionPrefab { get; set; }
+    private List<WorldDoor> WorldDoors { get; set; }
 
-    public void LoadWorld()
+    public WorldScreenTile Initialize(string screenId, SceneViewModel transition)
     {
+        Mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = Mesh;
+
+        Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
+        float width = texture.width;
+        float height = texture.height;
+
+        Dictionary = new Dictionary<Matters, MatterCoords>();
+        Sprite[] sprites = Resources.LoadAll<Sprite>($"{Constants.PATH_SPRITES}worldMatters");
+        foreach (Sprite sprite in sprites)
+        {
+            Rect rect = sprite.rect;
+            Enum.TryParse(sprite.name, out Matters matterType);
+            if (!Dictionary.ContainsKey(matterType))
+            {
+                Dictionary.Add(matterType, new MatterCoords
+                {
+                    uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
+                    uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
+                });
+            }
+        }
+        WorldDoors = new List<WorldDoor>();
+        WorldDoorPrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}WorldDoor");
+        WorldTransitionPrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}WorldTransition");
+        Grid = new ScreenGrid<ScreenTileViewModel>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenTileViewModel> grid, int x, int y) => new ScreenTileViewModel(grid, x, y));
+        Grid.OnGridValueChanged += Grid_OnValueChanged;
+        ScreenId = screenId;
+        transform.name = screenId;
         SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
         GroundColor = Utilities.HexToColor((scene.GroundColor ?? WorldColors.Tan).GetDescription());
-        if (scene.Matters != null)
+        Build(scene);
+        if (transition != null)
         {
-            foreach (SceneMatterViewModel sceneMatter in scene.Matters)
+            Build(transition);
+        }
+        return this;
+    }
+
+    public void Build(SceneViewModel scene)
+    {
+        if (scene.Tiles != null)
+        {
+            foreach (SceneMatterViewModel sceneMatter in scene.Tiles)
             {
                 Matters matterType = sceneMatter.Type;
                 // Order of priority
@@ -60,13 +103,11 @@ public class WorldScreenTile : MonoBehaviour
                             Vector3 position = Grid.GetWorldPosition(i, j);
                             if (matterType == Matters.door)
                             {
-                                // Because our world has each position as being centered, we have to apply the offset... same
-                                // as what we do in the AddToMesh method
-                                Instantiate(WorldDoorPrefab, position + GetQuadSize() * 0.5f, Quaternion.identity, transform);
+                                AddDoor(position, child.Transition);
                             }
                             else if (matterType == Matters.Transition)
                             {
-                                // TODOJEF: DO something
+                                AddTransition(position, child.Transition);
                             }
                             else
                             {
@@ -76,6 +117,54 @@ public class WorldScreenTile : MonoBehaviour
                     }
                 }
             }
+        }
+        // TODOJEF: Add for enemies, characters, and items
+    }
+
+    public void ToggleActive(bool active = false)
+    {
+        gameObject.SetActive(active);
+    }
+
+    //public IEnumerator PanToScreen(WorldScreenTile newScreen)
+    //{
+
+    //}
+
+    public void ToggleDoor(bool active)
+    {
+        WorldDoor door = GetDoor();
+        if (door != null)
+        {
+            door.ToggleHiddenDoor(active);
+        }
+    }
+
+    public WorldDoor GetDoor(int index = 0)
+    {
+        return WorldDoors[index];
+    }
+
+    public void AddDoor(Vector3 position, SceneViewModel transition)
+    {
+        // Because our world has each position as being centered, we have to apply the offset... same
+        // as what we do in the AddToMesh method
+        Transform door = Instantiate(WorldDoorPrefab, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+        if (door != null)
+        {
+            WorldDoor worldDoor = door.GetComponent<WorldDoor>();
+            worldDoor.Initialize(GroundColor, transition);
+            WorldDoors.Add(worldDoor);
+        }
+    }
+
+    public void AddTransition(Vector3 position, SceneViewModel transition)
+    {
+        Transform item = Instantiate(WorldTransitionPrefab, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+        if (item != null)
+        {
+            WorldTransition worldItem = item.GetComponent<WorldTransition>();
+            worldItem.Initialize(transition);
         }
     }
 
@@ -91,6 +180,18 @@ public class WorldScreenTile : MonoBehaviour
     public Vector3 GetQuadSize()
     {
         return Vector2.one * Grid.CellSize;
+    }
+
+    /// <summary>
+    /// This method is a little confusing but because our meshes and sprites are pivoted in the center, but our grid positions
+    /// them in the lower left of the cell, we need to adjust and center position the world position
+    /// </summary>
+    /// <param name="worldPosition"></param>
+    /// <param name="quadSize"></param>
+    /// <returns></returns>
+    public Vector3 GetWorldPositionOffset(Vector3 worldPosition, Vector3 quadSize)
+    {
+        return worldPosition + quadSize * 0.5f;
     }
 
     public void RefreshGrid()
@@ -123,7 +224,7 @@ public class WorldScreenTile : MonoBehaviour
                     localQuadSize = Vector3.zero;
                 }
                 // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
-                AddToMesh(vertices, uvs, triangles, index, Grid.GetWorldPosition(i, j) + localQuadSize * 0.5f, 0f, localQuadSize, uv00, uv11, tile.GetColor(), colors);
+                AddToMesh(vertices, uvs, triangles, index, GetWorldPositionOffset(Grid.GetWorldPosition(i, j), localQuadSize), 0f, localQuadSize, uv00, uv11, tile.GetColor(), colors);
             }
         }
         Mesh.vertices = vertices;
@@ -217,39 +318,6 @@ public class WorldScreenTile : MonoBehaviour
                 break;
             }
         }
-    }
-
-    public WorldScreenTile Initialize(string screenId)
-    {
-        Mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = Mesh;
-
-        Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
-        float width = texture.width;
-        float height = texture.height;
-
-        Dictionary = new Dictionary<Matters, MatterCoords>();
-        Sprite[] sprites = Resources.LoadAll<Sprite>($"{Constants.PATH_SPRITES}worldMatters");
-        foreach (Sprite sprite in sprites)
-        {
-            Rect rect = sprite.rect;
-            Enum.TryParse(sprite.name, out Matters matterType);
-            if (!Dictionary.ContainsKey(matterType))
-            {
-                Dictionary.Add(matterType, new MatterCoords
-                {
-                    uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
-                    uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
-                });
-            }
-        }
-        WorldDoorPrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}WorldDoor");
-        Grid = new ScreenGrid<ScreenTileViewModel>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenTileViewModel> grid, int x, int y) => new ScreenTileViewModel(grid, x, y));
-        Grid.OnGridValueChanged += Grid_OnValueChanged;
-        ScreenId = screenId;
-        transform.name = screenId;
-        LoadWorld();
-        return this;
     }
 
     private void Grid_OnValueChanged(object sender, ScreenGrid<ScreenTileViewModel>.OnGridValueChangedEventArgs e)

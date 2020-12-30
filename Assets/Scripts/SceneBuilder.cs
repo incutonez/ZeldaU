@@ -18,7 +18,7 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     private int CurrentY { get; set; } = 0;
     private Animator Animator { get; set; }
     private WorldScreenTile CurrentScreen { get; set; }
-    private WorldScreenTile PreviousScreen { get; set; }
+    public WorldScreenTile PreviousScreen { get; set; }
     private Transform ScenePrefab { get; set; }
 
     public new void Awake()
@@ -38,6 +38,8 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     /// <returns></returns>
     public IEnumerator PanScreen(SceneViewModel transition)
     {
+        SetScreenLoading(true);
+        var grid = PreviousScreen.Grid;
         int x = transition.X;
         int y = transition.Y;
         Transform currentTransform = CurrentScreen.transform;
@@ -45,39 +47,43 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         Transform player = GameHandler.Player.transform;
         float previousX = 0f;
         float previousY = 0f;
-        float playerX = player.localPosition.x;
-        float playerY = player.localPosition.y;
+        float playerX = player.position.x;
+        float playerY = player.position.y;
+        // Moving to right screen
         if (x == 1)
         {
             previousX = -Constants.GRID_COLUMNS;
-            playerX = TRANSITION_PADDING;
+            playerX = grid.GetWorldPositionX(TRANSITION_PADDING);
         }
+        // Moving to left screen
         else if (x == -1)
         {
             previousX = Constants.GRID_COLUMNS;
-            playerX = Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING;
+            playerX = grid.GetWorldPositionX(Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING);
         }
+        // Moving to top screen
         if (y == 1)
         {
             previousY = -Constants.GRID_ROWS;
-            playerY = TRANSITION_PADDING;
+            playerY = grid.GetWorldPositionY(TRANSITION_PADDING);
         }
+        // Moving to bottom screen
         else if (y == -1)
         {
             previousY = Constants.GRID_ROWS;
-            playerY = Constants.GRID_ROWS_ZERO - TRANSITION_PADDING;
+            playerY = grid.GetWorldPositionY(Constants.GRID_ROWS_ZERO - TRANSITION_PADDING);
         }
         Vector3 previousDestination = new Vector3(previousX, previousY);
         Vector3 playerDestination = new Vector3(playerX, playerY);
-        currentTransform.localPosition = new Vector3(-previousX, -previousY);
-        while (previousTransform.localPosition != previousDestination && currentTransform.localPosition != Vector3.zero)
+        currentTransform.position = new Vector3(-previousX, -previousY);
+        while (previousTransform.position != previousDestination && currentTransform.position != Vector3.zero)
         {
-            player.localPosition = Vector3.MoveTowards(player.localPosition, playerDestination, Time.deltaTime * PAN_SPEED);
-            previousTransform.localPosition = Vector3.MoveTowards(previousTransform.localPosition, previousDestination, Time.deltaTime * PAN_SPEED);
-            currentTransform.localPosition = Vector3.MoveTowards(currentTransform.localPosition, Vector3.zero, Time.deltaTime * PAN_SPEED);
+            player.position = Vector3.MoveTowards(player.position, playerDestination, Time.deltaTime * PAN_SPEED);
+            previousTransform.position = Vector3.MoveTowards(previousTransform.position, previousDestination, Time.deltaTime * PAN_SPEED);
+            currentTransform.position = Vector3.MoveTowards(currentTransform.position, Vector3.zero, Time.deltaTime * PAN_SPEED);
             yield return null;
         }
-        PreviousScreen.gameObject.SetActive(false);
+        PreviousScreen.ToggleActive();
         SetScreenLoading(false);
     }
 
@@ -93,31 +99,29 @@ public class SceneBuilder : BaseManager<SceneBuilder>
     /// </summary>
     /// <param name="screenId"></param>
     /// <param name="transition"></param>
-    public void BuildScreen(string screenId, SceneViewModel transition)
+    public void BuildScreen(SceneViewModel transition)
     {
+        string screenId = GetScreenId(transition);
+        PreviousScreen = CurrentScreen;
         Transform parent = GetScreen(screenId);
         // Parent has not been built, so let's build and cache it
         if (parent == null)
         {
             parent = Instantiate(ScenePrefab);
             parent.SetParent(ScreensContainer);
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>().Initialize(screenId);
-            if (transition != null)
-            {
-                // TODOJEF: ADD TRANSITION LOGIC
-                //CurrentScreen.Build(transition);
-            }
+            CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>();
+            CurrentScreen.Initialize(screenId, transition);
         }
         else
         {
             CurrentScreen = parent.gameObject.GetComponent<WorldScreenTile>();
         }
+        CurrentScreen.ToggleActive(true);
         Camera.main.backgroundColor = CurrentScreen.GroundColor;
     }
 
-    public string GetScreenId(WorldMatter worldMatter)
+    public string GetScreenId(SceneViewModel transition)
     {
-        SceneViewModel transition = worldMatter.Transition;
         string screenId = transition.Name;
         if (screenId == null)
         {
@@ -132,15 +136,42 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         return screenId;
     }
 
-    public IEnumerator EnterDoor(WorldMatter worldMatter)
+    /// <summary>
+    /// We have to have a "Start" method for our coroutine because if we're disabling the game object, we can't
+    /// spawn the StartCoroutine from a game object that will be soon disabled, as we'll get some strange effects
+    /// happening... per https://answers.unity.com/questions/1324429/coroutine-couldnt-be-started-because-the-the-game-4.html
+    /// </summary>
+    /// <param name="transition"></param>
+    public void StartExitDoor(SceneViewModel transition)
+    {
+        StartCoroutine(ExitDoor(transition));
+    }
+
+    public IEnumerator ExitDoor(SceneViewModel transition)
     {
         SetScreenLoading(true);
-        // TODOJEF: IMPL
-        //CurrentScreen.ToggleDoor(true);
+        BuildScreen(transition);
+        PreviousScreen.ToggleActive();
+        GameHandler.Player.transform.position = OverworldPosition;
+        yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
+        CurrentScreen.ToggleDoor(false);
+        SetScreenLoading(false);
+    }
+
+    public void StartEnterDoor(SceneViewModel transition)
+    {
+        StartCoroutine(EnterDoor(transition));
+    }
+
+    public IEnumerator EnterDoor(SceneViewModel transition)
+    {
+        SetScreenLoading(true);
         yield return StartCoroutine(GameHandler.Player.characterAnimation.Enter());
-        yield return StartCoroutine(LoadScreen(worldMatter));
-        // TODOJEF: I don't like dipping into the animator like this... figure out a better way
-        GameHandler.Player.characterAnimation.animator.SetBool("isEntering", false);
+        // Save off the player's current position, so we can restore it later
+        OverworldPosition = GameHandler.Player.transform.position;
+        BuildScreen(transition);
+        PreviousScreen.ToggleActive();
+        GameHandler.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TRANSITION_PADDING);
         SetScreenLoading(false);
     }
 
@@ -149,56 +180,9 @@ public class SceneBuilder : BaseManager<SceneBuilder>
         GameHandler.IsTransitioning = transitioning;
     }
 
-    public IEnumerator LoadScreen(WorldMatter worldMatter)
+    public void StartPanScreen(SceneViewModel transition)
     {
-        yield return StartCoroutine(LoadScreenRoutine(worldMatter));
-    }
-
-    public IEnumerator LoadScreen(string screenId)
-    {
-        yield return StartCoroutine(LoadScreenRoutine(new WorldMatter { Matter = new Matter { type = Matters.Transition }, Transition = new SceneViewModel { Name = screenId } }));
-    }
-
-    // TODOJEF: Next step is to get transitions working, then doors
-    public IEnumerator LoadScreenRoutine(WorldMatter worldMatter)
-    {
-        SetScreenLoading(true);
-        SceneViewModel transition = worldMatter.Transition;
-        string screenId = GetScreenId(worldMatter);
-        PreviousScreen = CurrentScreen;
-        BuildScreen(screenId, transition);
-        CurrentScreen.gameObject.SetActive(true);
-        if (transition != null)
-        {
-            if (transition.Name == Constants.TRANSITION_BACK)
-            {
-                PreviousScreen.gameObject.SetActive(false);
-                // Restore the player's previous position
-                GameHandler.Player.transform.localPosition = OverworldPosition;
-                // TODOJEF: IMPL
-                //CurrentScreen.ToggleDoor(true);
-                yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
-                //CurrentScreen.ToggleDoor(false);
-            }
-            else if (transition.Name == "Shop")
-            {
-                PreviousScreen.gameObject.SetActive(false);
-                if (worldMatter.CanEnter())
-                {
-                    // Save off the player's current position, so we can restore it later
-                    OverworldPosition = GameHandler.Player.transform.localPosition;
-                    GameHandler.Player.transform.localPosition = new Vector3(7f, TRANSITION_PADDING);
-                }
-            }
-            else if (PreviousScreen != null)
-            {
-                yield return StartCoroutine(PanScreen(transition));
-            }
-        }
-        else
-        {
-            yield return null;
-        }
-        SetScreenLoading(false);
+        BuildScreen(transition);
+        StartCoroutine(PanScreen(transition));
     }
 }

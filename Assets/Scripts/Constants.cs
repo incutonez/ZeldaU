@@ -7,6 +7,7 @@ public static class Constants
     public const string PATH_DATA = "Data/";
     public const string PATH_OVERWORLD = PATH_DATA + "Overworld/";
     public const string TRANSITION_BACK = "Back";
+    public const string PLAYER_TRANSITION = "TransitionCollider";
 
     public static readonly System.Random RANDOM_GENERATOR = new System.Random();
 

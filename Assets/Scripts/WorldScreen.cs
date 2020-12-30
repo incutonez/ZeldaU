@@ -58,9 +58,9 @@ public class WorldScreen : MonoBehaviour
         {
             return;
         }
-        if (scene.Matters != null)
+        if (scene.Tiles != null)
         {
-            foreach (SceneMatterViewModel viewModel in scene.Matters)
+            foreach (SceneMatterViewModel viewModel in scene.Tiles)
             {
                 Matters matterType = viewModel.Type;
                 // Order of priority

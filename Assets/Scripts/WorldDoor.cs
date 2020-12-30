@@ -3,12 +3,18 @@ using UnityEngine;
 public class WorldDoor : MonoBehaviour
 {
     public RectTransform HiddenDoor { get; set; }
+    public SceneViewModel Transition { get; set; }
 
-    private void Awake()
+    public void Initialize(Color groundColor, SceneViewModel transition)
     {
-        //HiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"));
-        //HiddenDoor.SetParent(transform);
-        //HiddenDoor.localPosition = new Vector3(0.5f, -1.75f);
+        Transition = transition;
+        HiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"), transform);
+        HiddenDoor.GetComponent<SpriteRenderer>().color = groundColor;
+    }
+
+    public void ToggleHiddenDoor(bool active)
+    {
+        HiddenDoor.gameObject.SetActive(active);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,12 +23,10 @@ public class WorldDoor : MonoBehaviour
         {
             return;
         }
-        WorldPlayerTransition player = collision.gameObject.GetComponent<WorldPlayerTransition>();
-        if (player != null)
+        if (collision.name == Constants.PLAYER_TRANSITION)
         {
-            //HiddenDoor.gameObject.SetActive(true);
-            // TODOJEF: Fix this... need to pass in transition
-            StartCoroutine(GameHandler.SceneBuilder.EnterDoor(new WorldMatter()));
+            ToggleHiddenDoor(true);
+            GameHandler.SceneBuilder.StartEnterDoor(Transition);
         }
     }
 }

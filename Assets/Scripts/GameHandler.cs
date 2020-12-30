@@ -17,17 +17,17 @@ public class GameHandler : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(StartScene());
+        StartScene();
     }
 
-    public IEnumerator StartScene()
+    public void StartScene()
     {
         Inventory = GameObject.Find("Inventory").GetComponent<UIInventory>();
         CharacterManager = gameObject.AddComponent<CharacterManager>();
         SceneBuilder = gameObject.AddComponent<SceneBuilder>();
         Player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
         Player.gameObject.SetActive(false);
-        yield return StartCoroutine(SceneBuilder.LoadScreen("80"));
+        SceneBuilder.BuildScreen(new SceneViewModel { Name = "80" });
         ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);
         SwordHandler = Player.GetComponentInChildren<SwordHandler>(true);
         SuitHandler = Player.GetComponentInChildren<SuitHandler>(true);

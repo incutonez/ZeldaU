@@ -52,6 +52,7 @@ public class CharacterAnimation : MonoBehaviour
         AudioManager.Instance.PlayFX(FX.Stairs);
         // We want to start the load of the new screen a little earlier, so we divide by 1.5
         yield return new WaitForSeconds(GetAnimationClipLength("Entering") / 1.5f);
+        animator.SetBool("isEntering", false);
     }
 
     public IEnumerator Exit()

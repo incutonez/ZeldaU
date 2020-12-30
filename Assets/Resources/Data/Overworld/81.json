@@ -1,62 +1,62 @@
 {
-  "x": 8,
-  "y": 1,
-  "accentColor": 2,
-  "groundColor": 1,
-  "matters": [
+  "X": 8,
+  "Y": 1,
+  "AccentColor": 2,
+  "GroundColor": 1,
+  "Tiles": [
     {
-      "type": 21,
-      "children": [
+      "Type": 21,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             3,
             3
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             3,
             5
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             3,
             7
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             5,
             3
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             5,
             5
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             5,
             7
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             12,
             3
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             12,
             5
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             12,
             7
           ]
@@ -64,10 +64,10 @@
       ]
     },
     {
-      "type": 39,
-      "children": [
+      "Type": 39,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             0,
             6,
@@ -75,7 +75,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             9,
             0,
             15,
@@ -83,7 +83,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             1,
             1,
@@ -91,7 +91,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             9,
             1,
             10,
@@ -99,7 +99,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             1,
             15,
@@ -107,31 +107,31 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             2
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             2
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             8
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             8
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             9,
             15,
@@ -141,22 +141,22 @@
       ]
     },
     {
-      "type": 40,
-      "children": [
+      "Type": 40,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             9,
             8
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             8
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             7
           ]
@@ -164,22 +164,22 @@
       ]
     },
     {
-      "type": 41,
-      "children": [
+      "Type": 41,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             7
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             1,
             8
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             10,
             8
           ]
@@ -187,10 +187,10 @@
       ]
     },
     {
-      "type": 42,
-      "children": [
+      "Type": 42,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             2,
             1,
             6,
@@ -198,7 +198,7 @@
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             11,
             1,
             13,
@@ -208,22 +208,22 @@
       ]
     },
     {
-      "type": 43,
-      "children": [
+      "Type": 43,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             9,
             2
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             14,
             2
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             15,
             3
           ]
@@ -231,22 +231,22 @@
       ]
     },
     {
-      "type": 44,
-      "children": [
+      "Type": 44,
+      "Children": [
         {
-          "coordinates": [
+          "Coordinates": [
             1,
             2
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             10,
             2
           ]
         },
         {
-          "coordinates": [
+          "Coordinates": [
             0,
             3
           ]
@@ -254,13 +254,13 @@
       ]
     },
     {
-      "type": 100,
-      "children": [
+      "Type": 100,
+      "Children": [
         {
-          "transition": {
-            "y": -1
+          "Transition": {
+            "Y": -1
           },
-          "coordinates": [
+          "Coordinates": [
             7,
             0,
             8,
@@ -268,10 +268,10 @@
           ]
         },
         {
-          "transition": {
-            "x": -1
+          "Transition": {
+            "X": -1
           },
-          "coordinates": [
+          "Coordinates": [
             0,
             4,
             0,
@@ -279,10 +279,10 @@
           ]
         },
         {
-          "transition": {
-            "x": 1
+          "Transition": {
+            "X": 1
           },
-          "coordinates": [
+          "Coordinates": [
             15,
             4,
             15,
@@ -292,10 +292,10 @@
       ]
     }
   ],
-  "enemies": [
+  "Enemies": [
     {
-      "type": 26,
-      "count": 4
+      "Type": 26,
+      "Count": 4
     }
   ]
 }

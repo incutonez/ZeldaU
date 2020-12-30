@@ -69,6 +69,28 @@ public class ScreenGrid<T>
         return new Vector3(x, y) * CellSize + Origin;
     }
 
+    /// <summary>
+    /// This will return the x value only from GetWorldPosition... needed for times when our player is panning from
+    /// one screen to the other
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public float GetWorldPositionX(float x)
+    {
+        return GetWorldPosition(x, 0f).x;
+    }
+
+    /// <summary>
+    /// This will return the y value only from GetWorldPosition... needed for times when our player is panning from
+    /// one screen to the other
+    /// </summary>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public float GetWorldPositionY(float y)
+    {
+        return GetWorldPosition(0f, y).y;
+    }
+
     public void GetXY(Vector3 position, out int x, out int y)
     {
         x = Mathf.FloorToInt((position - Origin).x / CellSize);

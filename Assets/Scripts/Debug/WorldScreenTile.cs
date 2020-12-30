@@ -1,6 +1,4 @@
 using Newtonsoft.Json;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,17 +7,11 @@ using UnityEngine;
 /// </summary>
 public class WorldScreenTile : MonoBehaviour
 {
-    private struct MatterCoords
-    {
-        public Vector2 uv00;
-        public Vector2 uv11;
-    }
     public Color GroundColor { get; set; }
     public ScreenGrid<ScreenTileViewModel> Grid { get; set; }
     public bool GridNeedsRefresh { get; set; }
     public string ScreenId { get; set; }
 
-    private Dictionary<Matters, MatterCoords> Dictionary { get; set; }
     private Quaternion[] CachedQuaternionEulerArr { get; set; }
     private Mesh Mesh { get; set; }
     // TODOJEF: Don't store in this class... store in Utilities?
@@ -36,21 +28,6 @@ public class WorldScreenTile : MonoBehaviour
         float width = texture.width;
         float height = texture.height;
 
-        Dictionary = new Dictionary<Matters, MatterCoords>();
-        Sprite[] sprites = Resources.LoadAll<Sprite>($"{Constants.PATH_SPRITES}worldMatters");
-        foreach (Sprite sprite in sprites)
-        {
-            Rect rect = sprite.rect;
-            Enum.TryParse(sprite.name, out Matters matterType);
-            if (!Dictionary.ContainsKey(matterType))
-            {
-                Dictionary.Add(matterType, new MatterCoords
-                {
-                    uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
-                    uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
-                });
-            }
-        }
         WorldDoors = new List<WorldDoor>();
         WorldDoorPrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}WorldDoor");
         WorldTransitionPrefab = Resources.Load<Transform>($"{Constants.PATH_PREFABS}WorldTransition");
@@ -195,130 +172,35 @@ public class WorldScreenTile : MonoBehaviour
         int height = Grid.Height;
 
         CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors);
-        Vector3 quadSize = GetQuadSize();
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                int index = i * height + j;
-                ScreenTileViewModel tile = Grid.GetValue(i, j);
-                Matters tileType = tile.TileType;
-                Vector2 uv00;
-                Vector2 uv11;
-                Vector3 localQuadSize = quadSize;
-                if (Dictionary.ContainsKey(tileType) && tileType != Matters.door)
-                {
-                    MatterCoords coords = Dictionary[tileType];
-                    uv00 = coords.uv00;
-                    uv11 = coords.uv11;
-                }
-                else
-                {
-                    uv00 = Vector2.zero;
-                    uv11 = Vector2.zero;
-                    localQuadSize = Vector3.zero;
-                }
                 // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
-                AddToMesh(vertices, uvs, triangles, index, GetWorldPositionOffset(Grid.GetWorldPosition(i, j), localQuadSize), 0f, localQuadSize, uv00, uv11, tile.GetColor(), colors);
+                AddToMesh(i * height + j, Grid.GetViewModel(i, j), vertices, uvs, triangles, colors);
             }
         }
         Mesh.vertices = vertices;
         Mesh.uv = uvs;
         Mesh.triangles = triangles;
         Mesh.colors = colors;
-        UpdateMeshCollider();
+        UpdatePolygonColliders();
     }
 
-    // TODOJEF: Need to refine this a bit... the diagonal corners don't necessarily work
-    public void UpdateMeshCollider()
+    public void UpdatePolygonColliders()
     {
-        // Get triangles and vertices from mesh
-        int[] triangles = Mesh.triangles;
-        Vector3[] vertices = Mesh.vertices;
-
-        // Get just the outer edges from the mesh's triangles (ignore or remove any shared edges)
-        Dictionary<string, KeyValuePair<int, int>> edges = new Dictionary<string, KeyValuePair<int, int>>();
-        for (int i = 0; i < triangles.Length; i += 3)
-        {
-            for (int e = 0; e < 3; e++)
-            {
-                int vert1 = triangles[i + e];
-                int vert2;
-                if (i + e + 1 > i + 2)
-                {
-                    vert2 = i;
-                }
-                else
-                {
-                    vert2 = i + e + 1;
-                }
-                string edge = Mathf.Min(vert1, vert2) + ":" + Mathf.Max(vert1, vert2);
-                if (edges.ContainsKey(edge))
-                {
-                    edges.Remove(edge);
-                }
-                else
-                {
-                    edges.Add(edge, new KeyValuePair<int, int>(vert1, vert2));
-                }
-            }
-        }
-
-        // Create edge lookup (Key is first vertex, Value is second vertex, of each edge)
-        Dictionary<int, int> lookup = new Dictionary<int, int>();
-        foreach (KeyValuePair<int, int> edge in edges.Values)
-        {
-            if (lookup.ContainsKey(edge.Key) == false)
-            {
-                lookup.Add(edge.Key, edge.Value);
-            }
-        }
-
-        // Get polygon collider
         PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
         polygonCollider.pathCount = 0;
-
-        // Loop through edge vertices in order
-        int startVert = 0;
-        int nextVert = startVert;
-        int highestVert = startVert;
-        List<Vector2> colliderPath = new List<Vector2>();
-        while (true)
+        for (int x = 0; x < Grid.Width; x++)
         {
-            // Add vertex to collider path
-            colliderPath.Add(vertices[nextVert]);
-
-            // Get next vertex
-            nextVert = lookup[nextVert];
-
-            // Store highest vertex (to know what shape to move to next)
-            if (nextVert > highestVert)
+            for (int y = 0; y < Grid.Height; y++)
             {
-                highestVert = nextVert;
-            }
-
-            // Shape complete
-            if (nextVert == startVert)
-            {
-                // Add path to polygon collider
-                polygonCollider.pathCount++;
-                polygonCollider.SetPath(polygonCollider.pathCount - 1, colliderPath.ToArray());
-                colliderPath.Clear();
-
-                // Go to next shape if one exists
-                if (lookup.ContainsKey(highestVert + 1))
+                Vector2[] collider = Grid.GetViewModel(x, y).GetCollider();
+                if (collider != null)
                 {
-
-                    // Set starting and next vertices
-                    startVert = highestVert + 1;
-                    nextVert = startVert;
-
-                    // Continue to next loop
-                    continue;
+                    polygonCollider.pathCount++;
+                    polygonCollider.SetPath(polygonCollider.pathCount - 1, collider);
                 }
-
-                // No more verts
-                break;
             }
         }
     }
@@ -348,26 +230,26 @@ public class WorldScreenTile : MonoBehaviour
 
     // Copied from CodeMonkey's MeshUtils and tweaked for colors
     public void AddToMesh(
+        int index,
+        ScreenTileViewModel tile,
         Vector3[] vertices,
         Vector2[] uvs,
         int[] triangles,
-        int index,
-        Vector3 position,
-        float rotation,
-        Vector3 baseSize,
-        Vector2 uv00,
-        Vector2 uv11,
-        Color color,
         Color[] colors
     )
     {
+        Vector3 baseSize = tile.GetQuadSize();
+        Vector3 position = tile.GetWorldPosition();
+        float rotation = tile.GetRotation();
+        Color color = tile.GetColor();
+        tile.GetCoordinates(out Vector2 uv00, out Vector2 uv11);
+
         //Relocate vertices
         int vIndex = index * 4;
         int vIndex0 = vIndex;
         int vIndex1 = vIndex + 1;
         int vIndex2 = vIndex + 2;
         int vIndex3 = vIndex + 3;
-
         baseSize *= 0.5f;
 
         bool skewed = baseSize.x != baseSize.y;
@@ -427,52 +309,5 @@ public class WorldScreenTile : MonoBehaviour
             }
         }
         return CachedQuaternionEulerArr[rotation];
-    }
-}
-
-public class ScreenTileViewModel
-{
-    public Matters TileType { get; set; } = Matters.None;
-
-    private ScreenGrid<ScreenTileViewModel> Grid { get; set; }
-    private int X { get; set; }
-    private int Y { get; set; }
-    private WorldColors Color { get; set; }
-
-    public ScreenTileViewModel(ScreenGrid<ScreenTileViewModel> grid, int x, int y)
-    {
-        Grid = grid;
-        X = x;
-        Y = y;
-    }
-
-    public void Initialize(Matters tileType, WorldColors color)
-    {
-        TileType = tileType;
-        Color = color;
-        Grid.TriggerChange(X, Y);
-    }
-
-    public Color GetColor()
-    {
-        if (TileType == Matters.Transition || TileType == Matters.door)
-        {
-            Color = WorldColors.Black;
-        }
-        else if (Color == WorldColors.None)
-        {
-            return Constants.COLOR_INVISIBLE;
-        }
-        return Utilities.HexToColor(Color.GetDescription());
-    }
-
-    public bool IsDoor()
-    {
-        return TileType == Matters.door;
-    }
-
-    public override string ToString()
-    {
-        return TileType.ToString();
     }
 }

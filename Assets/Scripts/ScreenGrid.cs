@@ -134,7 +134,7 @@ public class ScreenGrid<T>
         SetValue(x, y, value);
     }
 
-    public T GetValue(int x, int y)
+    public T GetViewModel(int x, int y)
     {
         if (IsValid(x, y))
         {
@@ -148,7 +148,7 @@ public class ScreenGrid<T>
         int x;
         int y;
         GetXY(position, out x, out y);
-        return GetValue(x, y);
+        return GetViewModel(x, y);
     }
 
     // TODOJEF: THROWAWAY

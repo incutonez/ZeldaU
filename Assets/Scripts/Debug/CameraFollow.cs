@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
     private Func<Vector3> GetCameraFollowPositionFunc;
     private Func<float> GetCameraZoomFunc;
     private Vector3 cameraPosition;
-    private float orthoSize = 7.5f;
+    private float orthoSize = 70f;
 
     public void Setup(Func<Vector3> GetCameraFollowPositionFunc, Func<float> GetCameraZoomFunc, bool teleportToFollowPosition, bool instantZoom)
     {

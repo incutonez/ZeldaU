@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Idea taken from https://www.youtube.com/watch?v=waEsGu--9P8
 /// </summary>
-// TODOJEF: DO https://www.youtube.com/watch?v=8jrAWtI8RXg
-// After this go back to https://www.youtube.com/watch?v=alU04hvz6L4
-// And then https://www.youtube.com/watch?v=db0KWYaWfeM
 public class ScreenGrid<T>
 {
     public const int HEATMAP_MAX = 100;
@@ -26,7 +22,7 @@ public class ScreenGrid<T>
     public T[,] Cells { get; set; }
     public TextMesh[,] CellsText { get; set; }
     public Vector3 Origin { get; set; }
-    public bool DebugMode { get; set; } = false;
+    public bool DebugMode { get; set; } = true;
 
     public ScreenGrid(int width, int height, float cellSize, Vector3 origin, Func<ScreenGrid<T>, int, int, T> createFunc)
     {

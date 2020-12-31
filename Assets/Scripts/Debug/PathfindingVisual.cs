@@ -6,7 +6,7 @@ using UnityEngine;
 public class PathfindingVisual : MonoBehaviour
 {
     private Quaternion[] cachedQuaternionEulerArr;
-    public ScreenGrid<PathNode> Grid { get; set; }
+    public ScreenGrid<ScreenGridNode> Grid { get; set; }
     private Mesh Mesh { get; set; }
     public bool UpdateMesh { get; set; }
 
@@ -28,7 +28,7 @@ public class PathfindingVisual : MonoBehaviour
             Vector3 quadSize = new Vector3(1, 1) * Grid.CellSize;
             Vector2 uv00 = Vector2.zero;
             Vector2 uv11 = Vector2.zero;
-            if (!node.IsWalkable)
+            if (!node.IsWalkable())
             {
                 quadSize = Vector3.zero;
             }
@@ -39,7 +39,7 @@ public class PathfindingVisual : MonoBehaviour
         Mesh.triangles = triangles;
     }
 
-    public void SetGrid(ScreenGrid<PathNode> grid)
+    public void SetGrid(ScreenGrid<ScreenGridNode> grid)
     {
         Grid = grid;
         RefreshGrid();
@@ -47,7 +47,7 @@ public class PathfindingVisual : MonoBehaviour
         Grid.OnGridValueChanged += Grid_OnValueChanged;
     }
 
-    private void Grid_OnValueChanged(object sender, ScreenGrid<PathNode>.OnGridValueChangedEventArgs e)
+    private void Grid_OnValueChanged(object sender, ScreenGrid<ScreenGridNode>.OnGridValueChangedEventArgs e)
     {
         UpdateMesh = true;
     }

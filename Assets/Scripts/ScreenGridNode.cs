@@ -7,40 +7,68 @@ public struct TileUVs
     public Vector2 uv11;
 }
 
-public class ScreenGridTile
+public class ScreenGridNode
 {
-    public Matters TileType { get; set; } = Matters.None;
+    public Tiles TileType { get; set; } = Tiles.None;
+    public int X { get; set; }
+    public int Y { get; set; }
+    public ScreenGridNode PreviousNode { get; set; }
+    /// <summary>
+    /// Also known as g cost
+    /// </summary>
+    public int WalkCost { get; set; }
+    /// <summary>
+    /// Also known as h cost (or heurstic cost)
+    /// </summary>
+    public int DistanceCost { get; set; }
+    /// <summary>
+    /// Also known as f cost
+    /// </summary>
+    public int TotalCost { get; set; }
+    public WorldColors Color { get; set; }
 
-    private ScreenGrid<ScreenGridTile> Grid { get; set; }
-    private int X { get; set; }
-    private int Y { get; set; }
-    private WorldColors Color { get; set; }
+    private ScreenGrid<ScreenGridNode> Grid { get; set; }
 
-    public ScreenGridTile(ScreenGrid<ScreenGridTile> grid, int x, int y)
+    public ScreenGridNode(ScreenGrid<ScreenGridNode> grid, int x, int y)
     {
         Grid = grid;
         X = x;
         Y = y;
     }
 
-    public void Initialize(Matters tileType, WorldColors color)
+    public void Initialize(Tiles tileType, WorldColors color)
     {
         // TODOJEF: Potentially cache getter values in here?
-        TileType = tileType;
         Color = color;
+        SetTileType(tileType);
+    }
+
+    public void SetTileType(Tiles tileType)
+    {
+        TileType = tileType;
         Grid.TriggerChange(X, Y);
+    }
+
+    public bool IsWalkable()
+    {
+        return TileType == Tiles.None;
     }
 
     public bool IsTile()
     {
         switch (TileType)
         {
-            case Matters.Transition:
-            case Matters.None:
-            case Matters.door:
+            case Tiles.Transition:
+            case Tiles.None:
+            case Tiles.Door:
                 return false;
         }
         return true;
+    }
+
+    public void CalculateTotalCost()
+    {
+        TotalCost = WalkCost + DistanceCost;
     }
 
     /// <summary>
@@ -76,19 +104,19 @@ public class ScreenGridTile
             y = position.y
         };
 
-        if (TileType == Matters.wallTR)
+        if (TileType == Tiles.WallTopRight)
         {
             topRight = Vector2.zero;
         }
-        else if (TileType == Matters.wallTL)
+        else if (TileType == Tiles.WallTopLeft)
         {
             topLeft = Vector2.zero;
         }
-        else if (TileType == Matters.wallBR)
+        else if (TileType == Tiles.WallBottomRight)
         {
             bottomRight = Vector2.zero;
         }
-        else if (TileType == Matters.wallBL)
+        else if (TileType == Tiles.WallBottomLeft)
         {
             bottomLeft = Vector2.zero;
         }
@@ -133,7 +161,8 @@ public class ScreenGridTile
 
     public void GetUVCoordinates(out Vector2 uv00, out Vector2 uv11)
     {
-        if (GameHandler.TileCoordinates.ContainsKey(TileType) && TileType != Matters.door)
+        // TODOJEF: Can potentially allow doors here, and then in the box collider just make it a 0?  Would have to fix the quadSize getter
+        if (GameHandler.TileCoordinates.ContainsKey(TileType) && TileType != Tiles.Door)
         {
             TileUVs coordinates = GameHandler.TileCoordinates[TileType];
             uv00 = coordinates.uv00;
@@ -157,6 +186,6 @@ public class ScreenGridTile
 
     public override string ToString()
     {
-        return TileType.ToString();
+        return string.Empty;
     }
 }

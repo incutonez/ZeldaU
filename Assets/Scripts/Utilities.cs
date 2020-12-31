@@ -44,7 +44,7 @@ public static class Utilities
     // Copied from CodeMonkey's MeshUtils and tweaked for colors
     public static void AddToMesh(
         int index,
-        ScreenGridTile tile,
+        ScreenGridNode tile,
         Vector3[] vertices,
         Vector2[] uvs,
         int[] triangles,

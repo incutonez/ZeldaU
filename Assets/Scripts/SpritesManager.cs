@@ -14,7 +14,7 @@ public static class SpritesManager
         Characters = LoadSprites("characters");
         Enemies = LoadSprites("enemies");
         Items = LoadSprites("items");
-        Tiles = LoadSprites("worldMatters");
+        Tiles = LoadSprites("tiles");
     }
 
     public static List<Sprite> LoadSprites(string name)

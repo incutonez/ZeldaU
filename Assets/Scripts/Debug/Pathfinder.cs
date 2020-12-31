@@ -17,19 +17,19 @@ public class Pathfinder
     // Mathematical value for diagonal... sqrt(200) ~ 14
     private const int MOVE_DIAGONAL_COST = 14;
 
-    public ScreenGrid<PathNode> Grid { get; set; }
+    public ScreenGrid<ScreenGridNode> Grid { get; set; }
     /// <summary>
     /// List for nodes to be searched
     /// </summary>
-    public List<PathNode> OpenList { get; set; }
+    public List<ScreenGridNode> OpenList { get; set; }
     /// <summary>
     /// List for nodes that have already been searched
     /// </summary>
-    public List<PathNode> ClosedList { get; set; }
+    public List<ScreenGridNode> ClosedList { get; set; }
 
     public Pathfinder(int width, int height)
     {
-        Grid = new ScreenGrid<PathNode>(width, height, 5f, Vector3.zero, (grid, x, y) => new PathNode(grid, x, y));
+        Grid = new ScreenGrid<ScreenGridNode>(width, height, 5f, Vector3.zero, (grid, x, y) => new ScreenGridNode(grid, x, y));
     }
 
     public Vector3 GetQuadSize()
@@ -53,27 +53,27 @@ public class Pathfinder
     {
         Grid.GetXY(start, out int startX, out int startY);
         Grid.GetXY(end, out int endX, out int endY);
-        List<PathNode> nodes = FindPath(startX, startY, endX, endY);
+        List<ScreenGridNode> nodes = FindPath(startX, startY, endX, endY);
         if (nodes == null)
         {
             return null;
         }
         List<Vector3> result = new List<Vector3>();
         Vector3 quadSize = GetQuadSize();
-        foreach (PathNode node in nodes)
+        foreach (ScreenGridNode node in nodes)
         {
             result.Add(GetWorldPositionOffset(Grid.GetWorldPosition(node.X, node.Y), quadSize));
         }
         return result;
     }
 
-    public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
+    public List<ScreenGridNode> FindPath(int startX, int startY, int endX, int endY)
     {
-        PathNode startNode = Grid.GetViewModel(startX, startY);
-        PathNode endNode = Grid.GetViewModel(endX, endY);
+        ScreenGridNode startNode = Grid.GetViewModel(startX, startY);
+        ScreenGridNode endNode = Grid.GetViewModel(endX, endY);
 
-        OpenList = new List<PathNode> { startNode };
-        ClosedList = new List<PathNode>();
+        OpenList = new List<ScreenGridNode> { startNode };
+        ClosedList = new List<ScreenGridNode>();
 
         Grid.EachCell((node, x, y) =>
         {
@@ -88,7 +88,7 @@ public class Pathfinder
 
         while (OpenList.Count > 0)
         {
-            PathNode currentNode = GetLowestTotalCostNode(OpenList);
+            ScreenGridNode currentNode = GetLowestTotalCostNode(OpenList);
             if (currentNode == endNode)
             {
                 return CalculatePath(currentNode);
@@ -96,14 +96,14 @@ public class Pathfinder
             OpenList.Remove(currentNode);
             ClosedList.Add(currentNode);
 
-            foreach (PathNode neighbor in GetNeighbors(currentNode))
+            foreach (ScreenGridNode neighbor in GetNeighbors(currentNode))
             {
                 // We've already searched this neighbor, so let's go to next neighbor
                 if (ClosedList.Contains(neighbor))
                 {
                     continue;
                 }
-                if (!neighbor.IsWalkable)
+                if (!neighbor.IsWalkable())
                 {
                     ClosedList.Add(neighbor);
                     continue;
@@ -130,9 +130,9 @@ public class Pathfinder
     }
 
     // TODO: Can optimize this by pre-calculating all of the neighbors as soon as we create the grid
-    private List<PathNode> GetNeighbors(PathNode node)
+    private List<ScreenGridNode> GetNeighbors(ScreenGridNode node)
     {
-        List<PathNode> neighbors = new List<PathNode>();
+        List<ScreenGridNode> neighbors = new List<ScreenGridNode>();
         if (node.X - 1 >= 0)
         {
             int localX = node.X - 1;
@@ -178,10 +178,10 @@ public class Pathfinder
         return neighbors;
     }
 
-    private List<PathNode> CalculatePath(PathNode endNode)
+    private List<ScreenGridNode> CalculatePath(ScreenGridNode endNode)
     {
-        List<PathNode> path = new List<PathNode> { endNode };
-        PathNode currentNode = endNode;
+        List<ScreenGridNode> path = new List<ScreenGridNode> { endNode };
+        ScreenGridNode currentNode = endNode;
         // While the current node has a parent
         while (currentNode.PreviousNode != null)
         {
@@ -193,7 +193,7 @@ public class Pathfinder
         return path;
     }
 
-    private int CalculateDistanceCost(PathNode a, PathNode b)
+    private int CalculateDistanceCost(ScreenGridNode a, ScreenGridNode b)
     {
         int xDistance = Mathf.Abs(a.X - b.X);
         int yDistance = Mathf.Abs(a.Y - b.Y);
@@ -202,10 +202,10 @@ public class Pathfinder
     }
 
     // TODO: It'd be more performant to use a binary tree
-    private PathNode GetLowestTotalCostNode(List<PathNode> nodes)
+    private ScreenGridNode GetLowestTotalCostNode(List<ScreenGridNode> nodes)
     {
-        PathNode lowestTotalCostNode = nodes[0];
-        foreach (PathNode node in nodes)
+        ScreenGridNode lowestTotalCostNode = nodes[0];
+        foreach (ScreenGridNode node in nodes)
         {
             if (node.TotalCost < lowestTotalCostNode.TotalCost)
             {

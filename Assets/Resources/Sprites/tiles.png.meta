@@ -4,163 +4,163 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 8518639827713111222
-    second: rock
+    second: Rock
   - first:
       213: -6253889087624368431
-    second: statue
+    second: Statue
   - first:
       213: 3191702778974358099
-    second: bush
+    second: Bush
   - first:
       213: 2695674270406432754
-    second: wallTL
+    second: WallTopLeft
   - first:
       213: 7068196587302356019
-    second: wallT
+    second: WallTop
   - first:
       213: 8085280823362815864
-    second: wallTR
+    second: WallTopRight
   - first:
       213: 1006196491347366825
-    second: treeTL
+    second: TreeTopLeft
   - first:
       213: -2735189169244824230
-    second: treeT
+    second: TreeTop
   - first:
       213: 8371661577571925076
-    second: treeTR
+    second: TreeTopRight
   - first:
       213: -4080059513915566121
-    second: stairsDown
+    second: StairsDown
   - first:
       213: -5142844195294041718
-    second: stairsUp
+    second: StairsUp
   - first:
       213: 4490829510226973348
-    second: door
+    second: Door
   - first:
       213: -478943163373133410
-    second: wallBL
+    second: WallBottomLeft
   - first:
       213: -8644593093484909340
-    second: wallB
+    second: WallBottom
   - first:
       213: -8719365409845621014
-    second: wallBR
+    second: WallBottomRight
   - first:
       213: 684212472578332464
-    second: treeBL
+    second: TreeBottomLeft
   - first:
       213: 3543559829158192265
-    second: treeBR
+    second: TreeBottomRight
   - first:
       213: 275931782737832653
-    second: pondTL
+    second: PondTopLeft
   - first:
       213: 8751719262902437736
-    second: pondT
+    second: PondTop
   - first:
       213: 1470436978323269833
-    second: pond
+    second: PondTopRight
   - first:
       213: 1281644425135866477
-    second: sandTL
+    second: SandTopLeft
   - first:
       213: -5458740393876003064
-    second: sandT
+    second: SandTop
   - first:
       213: -6805913185528210346
-    second: sandTR
+    second: SandTopRight
   - first:
       213: 2548211583851263412
-    second: castleTL
+    second: CastleTopLeft
   - first:
       213: 1826280107833444203
-    second: castleT
+    second: CastleTop
   - first:
       213: -6316070039206261184
-    second: castleTR
+    second: CastleTopRight
   - first:
       213: 85521303613447638
-    second: pondCL
+    second: PondCenterLeft
   - first:
       213: -5972597597297931649
-    second: pondC
+    second: PondCenter
   - first:
       213: 253980619748251851
-    second: pondCR
+    second: PondCenterRight
   - first:
       213: 1739609419887026453
-    second: sandCL
+    second: SandCenterLeft
   - first:
       213: 7130034617087426014
-    second: sandC
+    second: SandCenter
   - first:
       213: 8503986202999718202
-    second: sandCR
+    second: SandCenterRight
   - first:
       213: 6459640342561343018
-    second: castleBL
+    second: CastleBottomLeft
   - first:
       213: 4377219999084441888
-    second: castleBR
+    second: CastleBottomRight
   - first:
       213: -5701021625457352286
-    second: pondBL
+    second: PondBottomLeft
   - first:
       213: 8765707187099995131
-    second: pondB
+    second: PondBottom
   - first:
       213: -6905793694962314050
-    second: pondBR
+    second: PondBottomRight
   - first:
       213: -1702947949817587758
-    second: sandBL
+    second: SandBottomLeft
   - first:
       213: -3820175090990931687
-    second: sandB
+    second: SandBottom
   - first:
       213: -7928788362898456897
-    second: sandBR
+    second: SandBottomRight
   - first:
       213: -3739403658671949148
-    second: castleAltTL
+    second: CastleTopLeftAlt
   - first:
       213: -8932716285397574761
-    second: castleAltT
+    second: CastleTopAlt
   - first:
       213: 6109274510764188502
-    second: castleAltTR
+    second: CastleTopRightAlt
   - first:
       213: -7443896687371024656
-    second: waterTL
+    second: WaterBottomRight
   - first:
       213: -7851885782635189584
-    second: waterTR
+    second: WaterBottomLeft
   - first:
       213: 6795650602465171133
-    second: waterBL
+    second: WaterTopRight
   - first:
       213: -4963597067212377420
-    second: waterBR
+    second: WaterTopLeft
   - first:
       213: -3129611663839986212
-    second: water
+    second: Water
   - first:
       213: -9055754803560951540
-    second: dock
+    second: Dock
   - first:
       213: -5517558905484807295
-    second: grave
+    second: Grave
   - first:
       213: -4096046942592279390
-    second: transparent
+    second: Transparent
   - first:
       213: -3587646122709399558
     second: Fire
   - first:
       213: -889774518682723687
-    second: Fire2
+    second: FireAlt
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -250,7 +250,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rock
+      name: Rock
       rect:
         serializedVersion: 2
         x: 0
@@ -271,7 +271,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: statue
+      name: Statue
       rect:
         serializedVersion: 2
         x: 20
@@ -292,7 +292,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bush
+      name: Bush
       rect:
         serializedVersion: 2
         x: 40
@@ -313,7 +313,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallTL
+      name: WallTopLeft
       rect:
         serializedVersion: 2
         x: 60
@@ -334,7 +334,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallT
+      name: WallTop
       rect:
         serializedVersion: 2
         x: 80
@@ -355,7 +355,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallTR
+      name: WallTopRight
       rect:
         serializedVersion: 2
         x: 100
@@ -376,7 +376,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treeTL
+      name: TreeTopLeft
       rect:
         serializedVersion: 2
         x: 120
@@ -397,7 +397,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treeT
+      name: TreeTop
       rect:
         serializedVersion: 2
         x: 140
@@ -418,7 +418,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treeTR
+      name: TreeTopRight
       rect:
         serializedVersion: 2
         x: 160
@@ -439,7 +439,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stairsDown
+      name: StairsDown
       rect:
         serializedVersion: 2
         x: 0
@@ -460,7 +460,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stairsUp
+      name: StairsUp
       rect:
         serializedVersion: 2
         x: 20
@@ -481,7 +481,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door
+      name: Door
       rect:
         serializedVersion: 2
         x: 40
@@ -502,7 +502,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallBL
+      name: WallBottomLeft
       rect:
         serializedVersion: 2
         x: 60
@@ -523,7 +523,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallB
+      name: WallBottom
       rect:
         serializedVersion: 2
         x: 80
@@ -544,7 +544,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallBR
+      name: WallBottomRight
       rect:
         serializedVersion: 2
         x: 100
@@ -565,7 +565,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treeBL
+      name: TreeBottomLeft
       rect:
         serializedVersion: 2
         x: 120
@@ -586,7 +586,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treeBR
+      name: TreeBottomRight
       rect:
         serializedVersion: 2
         x: 160
@@ -607,7 +607,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondTL
+      name: PondTopLeft
       rect:
         serializedVersion: 2
         x: 0
@@ -628,7 +628,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondT
+      name: PondTop
       rect:
         serializedVersion: 2
         x: 20
@@ -649,7 +649,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pond
+      name: PondTopRight
       rect:
         serializedVersion: 2
         x: 40
@@ -670,7 +670,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandTL
+      name: SandTopLeft
       rect:
         serializedVersion: 2
         x: 60
@@ -691,7 +691,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandT
+      name: SandTop
       rect:
         serializedVersion: 2
         x: 80
@@ -712,7 +712,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandTR
+      name: SandTopRight
       rect:
         serializedVersion: 2
         x: 100
@@ -733,7 +733,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleTL
+      name: CastleTopLeft
       rect:
         serializedVersion: 2
         x: 120
@@ -754,7 +754,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleT
+      name: CastleTop
       rect:
         serializedVersion: 2
         x: 140
@@ -775,7 +775,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleTR
+      name: CastleTopRight
       rect:
         serializedVersion: 2
         x: 160
@@ -796,7 +796,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondCL
+      name: PondCenterLeft
       rect:
         serializedVersion: 2
         x: 0
@@ -817,7 +817,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondC
+      name: PondCenter
       rect:
         serializedVersion: 2
         x: 20
@@ -838,7 +838,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondCR
+      name: PondCenterRight
       rect:
         serializedVersion: 2
         x: 40
@@ -859,7 +859,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandCL
+      name: SandCenterLeft
       rect:
         serializedVersion: 2
         x: 60
@@ -880,7 +880,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandC
+      name: SandCenter
       rect:
         serializedVersion: 2
         x: 80
@@ -901,7 +901,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandCR
+      name: SandCenterRight
       rect:
         serializedVersion: 2
         x: 100
@@ -922,7 +922,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleBL
+      name: CastleBottomLeft
       rect:
         serializedVersion: 2
         x: 120
@@ -943,7 +943,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleBR
+      name: CastleBottomRight
       rect:
         serializedVersion: 2
         x: 160
@@ -964,7 +964,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondBL
+      name: PondBottomLeft
       rect:
         serializedVersion: 2
         x: 0
@@ -985,7 +985,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondB
+      name: PondBottom
       rect:
         serializedVersion: 2
         x: 20
@@ -1006,7 +1006,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pondBR
+      name: PondBottomRight
       rect:
         serializedVersion: 2
         x: 40
@@ -1027,7 +1027,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandBL
+      name: SandBottomLeft
       rect:
         serializedVersion: 2
         x: 60
@@ -1048,7 +1048,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandB
+      name: SandBottom
       rect:
         serializedVersion: 2
         x: 80
@@ -1069,7 +1069,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sandBR
+      name: SandBottomRight
       rect:
         serializedVersion: 2
         x: 100
@@ -1090,7 +1090,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleAltTL
+      name: CastleTopLeftAlt
       rect:
         serializedVersion: 2
         x: 120
@@ -1111,7 +1111,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleAltT
+      name: CastleTopAlt
       rect:
         serializedVersion: 2
         x: 140
@@ -1132,7 +1132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: castleAltTR
+      name: CastleTopRightAlt
       rect:
         serializedVersion: 2
         x: 160
@@ -1153,7 +1153,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterTL
+      name: WaterBottomRight
       rect:
         serializedVersion: 2
         x: 0
@@ -1174,7 +1174,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterTR
+      name: WaterBottomLeft
       rect:
         serializedVersion: 2
         x: 20
@@ -1195,7 +1195,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterBL
+      name: WaterTopRight
       rect:
         serializedVersion: 2
         x: 40
@@ -1216,7 +1216,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterBR
+      name: WaterTopLeft
       rect:
         serializedVersion: 2
         x: 60
@@ -1237,7 +1237,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water
+      name: Water
       rect:
         serializedVersion: 2
         x: 80
@@ -1258,7 +1258,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dock
+      name: Dock
       rect:
         serializedVersion: 2
         x: 100
@@ -1279,7 +1279,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grave
+      name: Grave
       rect:
         serializedVersion: 2
         x: 120
@@ -1300,7 +1300,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: transparent
+      name: Transparent
       rect:
         serializedVersion: 2
         x: 140
@@ -1342,7 +1342,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire2
+      name: FireAlt
       rect:
         serializedVersion: 2
         x: 140

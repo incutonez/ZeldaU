@@ -21,8 +21,11 @@ public class SceneBuilder : MonoBehaviour
 
     public void Awake()
     {
-        Animator = transform.Find("Crossfade").GetComponent<Animator>();
-        ScreensContainer = GameObject.Find("Screens").transform;
+        if (!GameHandler.DebugMode)
+        {
+            Animator = transform.Find("Crossfade").GetComponent<Animator>();
+            ScreensContainer = GameObject.Find("Screens").transform;
+        }
     }
 
     /// <summary>

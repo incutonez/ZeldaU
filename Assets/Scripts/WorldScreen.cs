@@ -9,7 +9,7 @@ using UnityEngine;
 public class WorldScreen : MonoBehaviour
 {
     public Color GroundColor { get; set; }
-    public ScreenGrid<ScreenGridTile> Grid { get; set; }
+    public ScreenGrid<ScreenGridNode> Grid { get; set; }
     public bool GridNeedsRefresh { get; set; }
     public string ScreenId { get; set; }
 
@@ -18,16 +18,8 @@ public class WorldScreen : MonoBehaviour
 
     public WorldScreen Initialize(string screenId, SceneViewModel transition)
     {
-        Mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = Mesh;
-
-        Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
-        float width = texture.width;
-        float height = texture.height;
-
+        SetGrid(new ScreenGrid<ScreenGridNode>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenGridNode> grid, int x, int y) => new ScreenGridNode(grid, x, y)));
         WorldDoors = new List<WorldDoor>();
-        Grid = new ScreenGrid<ScreenGridTile>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenGridTile> grid, int x, int y) => new ScreenGridTile(grid, x, y));
-        Grid.OnGridValueChanged += Grid_OnValueChanged;
         ScreenId = screenId;
         transform.name = screenId;
         SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
@@ -38,6 +30,18 @@ public class WorldScreen : MonoBehaviour
             Build(transition);
         }
         return this;
+    }
+
+    public void SetGrid(ScreenGrid<ScreenGridNode> grid, bool refreshGrid = false)
+    {
+        Mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = Mesh;
+        Grid = grid;
+        Grid.OnGridValueChanged += Grid_OnValueChanged;
+        if (refreshGrid)
+        {
+            RefreshGrid();
+        }
     }
 
     public List<Vector3> GetOpenTiles()
@@ -59,7 +63,7 @@ public class WorldScreen : MonoBehaviour
         {
             foreach (ScreenTileViewModel screenTile in scene.Tiles)
             {
-                Matters tileType = screenTile.Type;
+                Tiles tileType = screenTile.Type;
                 // Order of priority
                 WorldColors color = screenTile.AccentColor ?? scene.AccentColor ?? WorldColors.White;
                 foreach (ScreenTileChildViewModel child in screenTile.Children)
@@ -69,7 +73,7 @@ public class WorldScreen : MonoBehaviour
                     float y = coordinates[1];
                     float xMax = x;
                     float yMax = y;
-                    if (child.TileType != Matters.None)
+                    if (child.TileType != Tiles.None)
                     {
                         tileType = child.TileType;
                     }
@@ -83,11 +87,11 @@ public class WorldScreen : MonoBehaviour
                         for (float j = y; j <= yMax; j++)
                         {
                             Vector3 position = Grid.GetWorldPosition(i, j);
-                            if (tileType == Matters.door)
+                            if (tileType == Tiles.Door)
                             {
                                 AddDoor(position, child.Transition);
                             }
-                            else if (tileType == Matters.Transition)
+                            else if (tileType == Tiles.Transition)
                             {
                                 AddTransition(position, child.Transition);
                             }
@@ -175,9 +179,9 @@ public class WorldScreen : MonoBehaviour
         }
     }
 
-    public void SetTileType(Vector3 position, Matters matterType, WorldColors color)
+    public void SetTileType(Vector3 position, Tiles matterType, WorldColors color)
     {
-        ScreenGridTile viewModel = Grid.GetViewModel(position);
+        ScreenGridNode viewModel = Grid.GetViewModel(position);
         if (viewModel != null)
         {
             viewModel.Initialize(matterType, color);
@@ -225,7 +229,7 @@ public class WorldScreen : MonoBehaviour
         Mesh.colors = colors;
     }
 
-    private void Grid_OnValueChanged(object sender, ScreenGrid<ScreenGridTile>.OnGridValueChangedEventArgs e)
+    private void Grid_OnValueChanged(object sender, ScreenGrid<ScreenGridNode>.OnGridValueChangedEventArgs e)
     {
         GridNeedsRefresh = true;
     }
@@ -234,8 +238,8 @@ public class WorldScreen : MonoBehaviour
     {
         if (GridNeedsRefresh)
         {
-            RefreshGrid();
             GridNeedsRefresh = false;
+            RefreshGrid();
         }
     }
 }

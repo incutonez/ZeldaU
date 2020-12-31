@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class ScreenTile
 {
-    public ScreenGrid<ScreenGridTile> Grid { get; set; }
+    public ScreenGrid<ScreenGridNode> Grid { get; set; }
 
     public ScreenTile(int width, int height, float cellSize, Vector3 position)
     {
-        Grid = new ScreenGrid<ScreenGridTile>(width, height, cellSize, position, (ScreenGrid<ScreenGridTile> grid, int x, int y) => new ScreenGridTile(grid, x, y));
+        Grid = new ScreenGrid<ScreenGridNode>(width, height, cellSize, position, (ScreenGrid<ScreenGridNode> grid, int x, int y) => new ScreenGridNode(grid, x, y));
     }
 
-    public void SetTileType(Vector3 position, Matters matterType, WorldColors color)
+    public void SetTileType(Vector3 position, Tiles matterType, WorldColors color)
     {
-        ScreenGridTile viewModel = Grid.GetViewModel(position);
+        ScreenGridNode viewModel = Grid.GetViewModel(position);
         if (viewModel != null)
         {
             viewModel.Initialize(matterType, color);

@@ -15,19 +15,45 @@ public class GameHandler : MonoBehaviour
     public static SceneBuilder SceneBuilder { get; set; }
     public static bool IsTransitioning { get; set; }
     public static UIInventory Inventory { get; set; }
-    public static Dictionary<Matters, TileUVs> TileCoordinates { get; set; }
+    public static Dictionary<Tiles, TileUVs> TileCoordinates { get; set; }
     public static Canvas MainCanvas { get; set; }
+    public static bool DebugMode { get; set; } = true;
 
     private void Awake()
     {
         PrefabsManager.LoadAll();
         SpritesManager.LoadAll();
-        MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
+        TileCoordinates = new Dictionary<Tiles, TileUVs>();
+        // TODOJEF: Fix these... get actual values from material
+        //Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
+        int width = 176;
+        int height = 116;
+
+        foreach (Sprite sprite in SpritesManager.Tiles)
+        {
+            Rect rect = sprite.rect;
+            Enum.TryParse(sprite.name, out Tiles tileType);
+            if (!TileCoordinates.ContainsKey(tileType))
+            {
+                TileCoordinates.Add(tileType, new TileUVs
+                {
+                    uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
+                    uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
+                });
+            }
+        }
+        if (!DebugMode)
+        {
+            MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
+        }
     }
 
     public void Start()
     {
-        StartScene();
+        if (!DebugMode)
+        {
+            StartScene();
+        }
     }
 
     public void StartScene()
@@ -35,24 +61,6 @@ public class GameHandler : MonoBehaviour
         Inventory = gameObject.AddComponent<UIInventory>();
         CharacterManager = gameObject.AddComponent<CharacterManager>();
         SceneBuilder = gameObject.AddComponent<SceneBuilder>();
-        TileCoordinates = new Dictionary<Matters, TileUVs>();
-        // TODOJEF: Fix these... get actual values from material
-        int width = 176;
-        int height = 116;
-
-        foreach (Sprite sprite in SpritesManager.Tiles)
-        {
-            Rect rect = sprite.rect;
-            Enum.TryParse(sprite.name, out Matters matterType);
-            if (!TileCoordinates.ContainsKey(matterType))
-            {
-                TileCoordinates.Add(matterType, new TileUVs
-                {
-                    uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
-                    uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
-                });
-            }
-        }
         Player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
         SceneBuilder.BuildScreen(new SceneViewModel { Name = "80" });
         ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);

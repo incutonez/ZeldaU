@@ -55,7 +55,7 @@ public class ScreenTileViewModel
 {
     public WorldColors? AccentColor { get; set; }
     public List<ScreenTileChildViewModel> Children { get; set; }
-    public Matters Type { get; set; }
+    public Tiles Type { get; set; }
 }
 
 public class ScreenTileChildViewModel
@@ -64,6 +64,6 @@ public class ScreenTileChildViewModel
     /// This is a list of x, y coordinates, and if 4 values are specified, it becomes the max x, y range to keep adding this matter type
     /// </summary>
     public List<float> Coordinates { get; set; }
-    public Matters TileType { get; set; } = Matters.None;
+    public Tiles TileType { get; set; } = Tiles.None;
     public SceneViewModel Transition { get; set; }
 }

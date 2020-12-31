@@ -3,25 +3,23 @@ using UnityEngine;
 
 public class PathTesting : MonoBehaviour
 {
-    public PathfindingVisual Visual;
+    public WorldScreen Visual;
     public Pathfinder PathFinder { get; set; }
-    public PathfindingDebug PathfindingDebug;
 
     private void Start()
     {
         PathFinder = new Pathfinder(20, 10);
-        //PathfindingDebug.Setup(PathFinder.Grid);
-        Visual.SetGrid(PathFinder.Grid);
+        Visual.SetGrid(PathFinder.Grid, true);
     }
 
     private void Update()
     {
+        var grid = PathFinder.Grid;
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var grid = PathFinder.Grid;
             grid.GetXY(position, out int x, out int y);
-            List<PathNode> path = PathFinder.FindPath(0, 0, x, y);
+            List<ScreenGridNode> path = PathFinder.FindPath(0, 0, x, y);
             Vector3 quadSize = Vector2.one * grid.CellSize * 0.5f;
             if (path != null)
             {
@@ -36,8 +34,21 @@ public class PathTesting : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            PathNode node = PathFinder.Grid.GetViewModel(position);
-            node.SetWalkable(false);
+            ScreenGridNode node = grid.GetViewModel(position);
+            node.Color = WorldColors.Tan;
+            node.SetTileType(GetRandomTile());
         }
+    }
+
+    public Tiles GetRandomTile()
+    {
+        System.Random random = new System.Random();
+        List<Tiles> tiles = EnumExtensions.GetValues<Tiles>();
+        Tiles tile = tiles[random.Next(-1, tiles.Count - 1)];
+        while (tile == Tiles.None || tile == Tiles.Castle || tile == Tiles.Door || tile == Tiles.Transition)
+        {
+            tile = tiles[random.Next(-1, tiles.Count - 1)];
+        }
+        return tile;
     }
 }

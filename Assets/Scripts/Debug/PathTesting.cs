@@ -8,7 +8,7 @@ public class PathTesting : MonoBehaviour
 
     private void Start()
     {
-        PathFinder = new Pathfinder(20, 10);
+        PathFinder = GameHandler.Pathfinder;
         Visual.SetGrid(PathFinder.Grid, true);
     }
 
@@ -38,17 +38,22 @@ public class PathTesting : MonoBehaviour
             node.Color = WorldColors.Tan;
             node.SetTileType(GetRandomTile());
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            ScreenGridNode node = grid.GetViewModel(position);
+            GameHandler.CharacterManager.SpawnEnemy(Visual.GetWorldPositionOffset(grid.GetWorldPosition(node.X, node.Y), Visual.GetQuadSize()), NPCs.Enemies.Octorok, Visual.transform);
+        }
     }
 
     public Tiles GetRandomTile()
     {
         System.Random random = new System.Random();
         List<Tiles> tiles = EnumExtensions.GetValues<Tiles>();
-        Tiles tile = tiles[random.Next(-1, tiles.Count - 1)];
-        while (tile == Tiles.None || tile == Tiles.Castle || tile == Tiles.Door || tile == Tiles.Transition)
-        {
-            tile = tiles[random.Next(-1, tiles.Count - 1)];
-        }
-        return tile;
+        tiles.Remove(Tiles.None);
+        tiles.Remove(Tiles.Castle);
+        tiles.Remove(Tiles.Door);
+        tiles.Remove(Tiles.Transition);
+        return tiles[random.Next(0, tiles.Count - 1)];
     }
 }

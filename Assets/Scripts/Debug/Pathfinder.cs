@@ -29,13 +29,44 @@ public class Pathfinder
 
     public Pathfinder(int width, int height)
     {
-        Grid = new ScreenGrid<ScreenGridNode>(width, height, 5f, Vector3.zero, (grid, x, y) => new ScreenGridNode(grid, x, y));
+        Grid = new ScreenGrid<ScreenGridNode>(width, height, 1f, new Vector3(-8f, -7.5f), (grid, x, y) => new ScreenGridNode(grid, x, y));
     }
 
     public Vector3 GetQuadSize()
     {
         return Vector2.one * Grid.CellSize;
     }
+
+    public Vector3 GetRoamingPosition(Vector3 startingPosition)
+    {
+        System.Random random = new System.Random();
+        List<Vector3> openTiles = GetOpenTiles();
+        List<Vector3> path = null;
+        Vector3 position = Vector3.zero;
+        openTiles.Remove(startingPosition);
+        while ((path == null || path.Count == 1) && openTiles.Count > 0)
+        {
+            position = openTiles[random.Next(1, openTiles.Count)];
+            path = FindPath(startingPosition, position);
+            openTiles.Remove(position);
+        }
+        return position;
+    }
+
+    public List<Vector3> GetOpenTiles()
+    {
+        List<Vector3> result = new List<Vector3>();
+        Grid.EachCell((viewModel, x, y) =>
+        {
+            // If we have the default value, then there's nothing in this tile
+            if (viewModel.TileType == Tiles.None)
+            {
+                result.Add(Grid.GetWorldPosition(x, y));
+            }
+        });
+        return result;
+    }
+
 
     /// <summary>
     /// This method is a little confusing but because our meshes and sprites are pivoted in the center, but our grid positions

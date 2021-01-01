@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -60,6 +61,21 @@ public class ScreenGrid<T>
             };
         }
     }
+
+    // TODOJEF: COME BACK TO THIS
+    //public List<Vector3> GetOpenTiles()
+    //{
+    //    List<Vector3> result = new List<Vector3>();
+    //    EachCell((viewModel, x, y) =>
+    //    {
+    //        // If we have the default value, then there's nothing in this tile
+    //        if (EqualityComparer<T>.Default.Equals(viewModel, default(T)))
+    //        {
+    //            result.Add(GetWorldPosition(x, y));
+    //        }
+    //    });
+    //    return result;
+    //}
 
     public void EachCell(Action<T, int, int> func)
     {

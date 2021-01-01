@@ -17,12 +17,14 @@ public class GameHandler : MonoBehaviour
     public static UIInventory Inventory { get; set; }
     public static Dictionary<Tiles, TileUVs> TileCoordinates { get; set; }
     public static Canvas MainCanvas { get; set; }
+    public static Pathfinder Pathfinder { get; set; }
     public static bool DebugMode { get; set; } = true;
 
     private void Awake()
     {
         PrefabsManager.LoadAll();
         SpritesManager.LoadAll();
+        Pathfinder = new Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
         TileCoordinates = new Dictionary<Tiles, TileUVs>();
         // TODOJEF: Fix these... get actual values from material
         //Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
@@ -42,18 +44,12 @@ public class GameHandler : MonoBehaviour
                 });
             }
         }
-        if (!DebugMode)
-        {
-            MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
-        }
+        MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
     }
 
     public void Start()
     {
-        if (!DebugMode)
-        {
-            StartScene();
-        }
+        StartScene();
     }
 
     public void StartScene()
@@ -62,10 +58,13 @@ public class GameHandler : MonoBehaviour
         CharacterManager = gameObject.AddComponent<CharacterManager>();
         SceneBuilder = gameObject.AddComponent<SceneBuilder>();
         Player = CharacterManager.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
-        SceneBuilder.BuildScreen(new SceneViewModel { Name = "80" });
         ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);
         SwordHandler = Player.GetComponentInChildren<SwordHandler>(true);
         SuitHandler = Player.GetComponentInChildren<SuitHandler>(true);
+        if (!DebugMode)
+        {
+            SceneBuilder.BuildScreen(new SceneViewModel { Name = "80" });
+        }
         Player.gameObject.SetActive(true);
     }
 }

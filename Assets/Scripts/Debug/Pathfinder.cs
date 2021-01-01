@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TODOJEF: Switch to Unity dots?  https://www.youtube.com/watch?v=1bO1FdEThnU
+// TODOJEF: Or https://www.youtube.com/watch?v=ubUPVu_DeVk?
+// TODOJEF: Also move this class out of debug
 /// <summary>
 /// Idea taken from https://www.youtube.com/watch?v=alU04hvz6L4
 /// 

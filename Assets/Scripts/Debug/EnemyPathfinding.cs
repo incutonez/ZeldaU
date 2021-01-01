@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyPathfinding : MonoBehaviour
 {
-    private const float speed = 5f;
+    private const float speed = 3f;
 
     private int currentPathIndex;
     private List<Vector3> pathVectorList;

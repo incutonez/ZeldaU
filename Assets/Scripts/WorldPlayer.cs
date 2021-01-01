@@ -138,7 +138,7 @@ public class WorldPlayer : WorldCharacter<BaseCharacter>
 
     public Vector3 GetPosition()
     {
-        return GetComponent<RectTransform>().localPosition;
+        return transform.position;
     }
 
     private void FixedUpdate()

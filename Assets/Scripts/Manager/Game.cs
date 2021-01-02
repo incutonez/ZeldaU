@@ -10,6 +10,7 @@ namespace Manager
     public class Game : MonoBehaviour
     {
         public static World.Player Player { get; set; }
+        public static Audio Audio { get; set; }
         public static Shield Shield { get; set; }
         public static Sword Sword { get; set; }
         public static Suit Suit { get; set; }
@@ -59,8 +60,9 @@ namespace Manager
 
         public void StartScene()
         {
+            Audio = gameObject.AddComponent<Audio>();
             Inventory = gameObject.AddComponent<UIInventory>();
-            Character = gameObject.AddComponent<Manager.Character>();
+            Character = gameObject.AddComponent<Character>();
             Scene = gameObject.AddComponent<SceneBuilder>();
             Player = Character.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
             Shield = Player.GetComponentInChildren<Shield>(true);

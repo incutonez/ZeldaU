@@ -16,7 +16,6 @@ public class SceneBuilder : MonoBehaviour
     private Vector3 OverworldPosition { get; set; } = Vector3.zero;
     private int CurrentX { get; set; } = 8;
     private int CurrentY { get; set; } = 0;
-    private Animator Animator { get; set; }
     private World.Screen CurrentScreen { get; set; }
     private World.Screen PreviousScreen { get; set; }
 
@@ -24,7 +23,6 @@ public class SceneBuilder : MonoBehaviour
     {
         if (!Manager.Game.IsDebugMode)
         {
-            Animator = transform.Find("Crossfade").GetComponent<Animator>();
             ScreensContainer = GameObject.Find("Screens").transform;
         }
     }
@@ -152,7 +150,7 @@ public class SceneBuilder : MonoBehaviour
         BuildScreen(transition);
         PreviousScreen.ToggleActive();
         Manager.Game.Player.transform.position = OverworldPosition;
-        Manager.Audio.Instance.PlayFX(FX.Stairs);
+        Manager.Game.Audio.PlayFX(FX.Stairs);
         yield return StartCoroutine(Manager.Game.Player.AnimateExit());
         CurrentScreen.ToggleDoor(false);
         SetScreenLoading(false);
@@ -166,7 +164,7 @@ public class SceneBuilder : MonoBehaviour
     public IEnumerator EnterDoor(SceneViewModel transition)
     {
         SetScreenLoading(true);
-        Manager.Audio.Instance.PlayFX(FX.Stairs);
+        Manager.Game.Audio.PlayFX(FX.Stairs);
         yield return StartCoroutine(Manager.Game.Player.AnimateEnter());
         // Save off the player's current position, so we can restore it later
         OverworldPosition = Manager.Game.Player.transform.position;

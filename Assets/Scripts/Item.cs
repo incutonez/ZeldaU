@@ -32,7 +32,7 @@ public class Item
         }
         if (sound.HasValue)
         {
-            Manager.Audio.Instance.PlayFX(sound.Value);
+            Manager.Game.Audio.PlayFX(sound.Value);
         }
     }
 

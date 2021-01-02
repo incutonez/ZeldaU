@@ -23,11 +23,11 @@ namespace Manager
 
         public void Swing(Vector3 playerPosition)
         {
-            Manager.Game.Shield.ToggleShields(false);
+            Game.Shield.ToggleShields(false);
             ToggleSword(true);
             SetPosition(playerPosition);
             // TODOJEF: Have to determine which Sword FX should play... need to know if at full health
-            Manager.Audio.Instance.PlayFX(FX.SwordSlash);
+            Game.Audio.PlayFX(FX.SwordSlash);
         }
 
         public void ToggleSword(bool enabled = false)

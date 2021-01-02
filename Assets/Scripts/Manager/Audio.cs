@@ -6,14 +6,13 @@ namespace Manager
 {
     public class Audio : MonoBehaviour
     {
-        public AudioSource audioSource;
-        public static Audio Instance { get; private set; }
+        public AudioSource AudioSource { get; set; }
 
         private Dictionary<string, AudioClip> fx = new Dictionary<string, AudioClip>();
 
         private void Awake()
         {
-            Instance = this;
+            AudioSource = GetComponent<AudioSource>();
             AudioClip[] items = Resources.LoadAll<AudioClip>("Audio/FX");
             foreach (AudioClip item in items)
             {
@@ -31,13 +30,13 @@ namespace Manager
             {
                 if (loop)
                 {
-                    audioSource.clip = clip;
-                    audioSource.loop = true;
-                    audioSource.Play();
+                    AudioSource.clip = clip;
+                    AudioSource.loop = true;
+                    AudioSource.Play();
                 }
                 else
                 {
-                    audioSource.PlayOneShot(clip);
+                    AudioSource.PlayOneShot(clip);
                 }
                 length = clip.length;
             }
@@ -46,7 +45,7 @@ namespace Manager
 
         public void StopFX()
         {
-            audioSource.Stop();
+            AudioSource.Stop();
         }
     }
 }

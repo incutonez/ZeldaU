@@ -19,24 +19,24 @@ public class EnemyAI : MonoBehaviour
     private EnemyPathfinding EnemyPathfinding { get; set; }
     private ScreenGrid<ScreenGridNode> Grid { get; set; }
     private MovementState movementState { get; set; } = MovementState.Roaming;
-    private WorldEnemy WorldEnemy { get; set; }
+    private World.Enemy WorldEnemy { get; set; }
 
     private void Awake()
     {
         EnemyPathfinding = GetComponent<EnemyPathfinding>();
-        WorldEnemy = GetComponent<WorldEnemy>();
+        WorldEnemy = GetComponent<World.Enemy>();
     }
 
     private void Start()
     {
-        Grid = GameHandler.Pathfinder.Grid;
+        Grid = Manager.Game.Pathfinder.Grid;
         StartingPosition = transform.localPosition;
-        RoamingPosition = GameHandler.Pathfinder.GetRoamingPosition(StartingPosition);
+        RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(StartingPosition);
     }
 
     private void Update()
     {
-        if (GameHandler.IsTransitioning)
+        if (Manager.Game.IsTransitioning)
         {
             return;
         }
@@ -45,10 +45,10 @@ public class EnemyAI : MonoBehaviour
             case MovementState.Firing:
                 break;
             case MovementState.Chasing:
-                EnemyPathfinding.MoveTo(GameHandler.Player.GetPosition());
+                EnemyPathfinding.MoveTo(Manager.Game.Player.GetPosition());
 
                 // If within this range, then shoot
-                if (Vector3.Distance(transform.position, GameHandler.Player.GetPosition()) < 0.5f)
+                if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) < 0.5f)
                 {
                     //movementState = MovementState.Firing;
                     // When animation is done, then set this back to Chasing... can pass in a lambda function to fire when the animation is done
@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
                     //  Set this value to Time.time
                 }
 
-                if (Vector3.Distance(transform.position, GameHandler.Player.GetPosition()) > 5f)
+                if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) > 5f)
                 {
                     movementState = MovementState.Roaming;
                 }
@@ -68,7 +68,7 @@ public class EnemyAI : MonoBehaviour
                 EnemyPathfinding.MoveTo(RoamingPosition);
                 if (Vector3.Distance(transform.position, RoamingPosition) <= 1f)
                 {
-                    RoamingPosition = GameHandler.Pathfinder.GetRoamingPosition(RoamingPosition);
+                    RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(RoamingPosition);
                 }
                 if (CanChase())
                 {
@@ -80,7 +80,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FindTarget()
     {
-        if (Vector3.Distance(transform.position, GameHandler.Player.GetPosition()) < 4f)
+        if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) < 4f)
         {
             movementState = MovementState.Chasing;
         }

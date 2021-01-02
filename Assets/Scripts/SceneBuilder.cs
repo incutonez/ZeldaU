@@ -1,3 +1,4 @@
+using Audio;
 using System.Collections;
 using UnityEngine;
 
@@ -16,12 +17,12 @@ public class SceneBuilder : MonoBehaviour
     private int CurrentX { get; set; } = 8;
     private int CurrentY { get; set; } = 0;
     private Animator Animator { get; set; }
-    private WorldScreen CurrentScreen { get; set; }
-    public WorldScreen PreviousScreen { get; set; }
+    private World.Screen CurrentScreen { get; set; }
+    private World.Screen PreviousScreen { get; set; }
 
     public void Awake()
     {
-        if (!GameHandler.IsDebugMode)
+        if (!Manager.Game.IsDebugMode)
         {
             Animator = transform.Find("Crossfade").GetComponent<Animator>();
             ScreensContainer = GameObject.Find("Screens").transform;
@@ -41,7 +42,7 @@ public class SceneBuilder : MonoBehaviour
         int y = transition.Y;
         Transform currentTransform = CurrentScreen.transform;
         Transform previousTransform = PreviousScreen.transform;
-        Transform player = GameHandler.Player.transform;
+        Transform player = Manager.Game.Player.transform;
         float previousX = 0f;
         float previousY = 0f;
         float playerX = player.position.x;
@@ -104,16 +105,16 @@ public class SceneBuilder : MonoBehaviour
         // Parent has not been built, so let's build and cache it
         if (parent == null)
         {
-            parent = Instantiate(PrefabsManager.WorldScreen);
+            parent = Instantiate(Manager.Prefabs.WorldScreen);
             parent.SetParent(ScreensContainer);
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
+            CurrentScreen = parent.gameObject.GetComponent<World.Screen>();
             CurrentScreen.Initialize(screenId, transition);
         }
         else
         {
-            CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
+            CurrentScreen = parent.gameObject.GetComponent<World.Screen>();
         }
-        GameHandler.Pathfinder.Grid = CurrentScreen.Grid;
+        Manager.Game.Pathfinder.Grid = CurrentScreen.Grid;
         CurrentScreen.ToggleActive(true);
         Camera.main.backgroundColor = CurrentScreen.GroundColor;
     }
@@ -150,8 +151,9 @@ public class SceneBuilder : MonoBehaviour
         SetScreenLoading(true);
         BuildScreen(transition);
         PreviousScreen.ToggleActive();
-        GameHandler.Player.transform.position = OverworldPosition;
-        yield return StartCoroutine(GameHandler.Player.AnimateExit());
+        Manager.Game.Player.transform.position = OverworldPosition;
+        Manager.Audio.Instance.PlayFX(FX.Stairs);
+        yield return StartCoroutine(Manager.Game.Player.AnimateExit());
         CurrentScreen.ToggleDoor(false);
         SetScreenLoading(false);
     }
@@ -164,18 +166,19 @@ public class SceneBuilder : MonoBehaviour
     public IEnumerator EnterDoor(SceneViewModel transition)
     {
         SetScreenLoading(true);
-        yield return StartCoroutine(GameHandler.Player.AnimateEnter());
+        Manager.Audio.Instance.PlayFX(FX.Stairs);
+        yield return StartCoroutine(Manager.Game.Player.AnimateEnter());
         // Save off the player's current position, so we can restore it later
-        OverworldPosition = GameHandler.Player.transform.position;
+        OverworldPosition = Manager.Game.Player.transform.position;
         BuildScreen(transition);
         PreviousScreen.ToggleActive();
-        GameHandler.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TRANSITION_PADDING);
+        Manager.Game.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TRANSITION_PADDING);
         SetScreenLoading(false);
     }
 
     public void SetScreenLoading(bool transitioning)
     {
-        GameHandler.IsTransitioning = transitioning;
+        Manager.Game.IsTransitioning = transitioning;
     }
 
     public void StartPanScreen(SceneViewModel transition)

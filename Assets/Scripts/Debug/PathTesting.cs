@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PathTesting : MonoBehaviour
 {
-    public WorldScreen Visual;
+    public World.Screen Visual;
     public Pathfinder PathFinder { get; set; }
 
     private void Start()
     {
-        PathFinder = GameHandler.Pathfinder;
+        PathFinder = Manager.Game.Pathfinder;
         Visual.SetGrid(PathFinder.Grid, true);
     }
 
@@ -42,7 +42,7 @@ public class PathTesting : MonoBehaviour
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ScreenGridNode node = grid.GetViewModel(position);
-            GameHandler.CharacterManager.SpawnEnemy(Visual.GetWorldPositionOffset(grid.GetWorldPosition(node.X, node.Y), Visual.GetQuadSize()), NPCs.Enemies.Octorok, Visual.transform);
+            Manager.Game.Character.SpawnEnemy(Visual.GetWorldPositionOffset(grid.GetWorldPosition(node.X, node.Y), Visual.GetQuadSize()), NPCs.Enemies.Octorok, Visual.transform);
         }
     }
 

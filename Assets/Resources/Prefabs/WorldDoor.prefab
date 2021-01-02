@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1701386808228519381}
+  - component: {fileID: 763211543902098031}
   - component: {fileID: 3207472128281131829}
-  - component: {fileID: 3207472128281131831}
   - component: {fileID: 3207472128281131830}
   m_Layer: 11
   m_Name: WorldDoor
@@ -38,6 +38,18 @@ RectTransform:
   m_AnchoredPosition: {x: -8, y: 7.5}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &763211543902098031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207472128281131827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48d679dd8b1e2f49835ca9214815b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &3207472128281131829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,18 +102,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3207472128281131831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3207472128281131827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763e7297751dd7f4a80bdfa6b7f44300, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &3207472128281131830
 BoxCollider2D:
   m_ObjectHideFlags: 0

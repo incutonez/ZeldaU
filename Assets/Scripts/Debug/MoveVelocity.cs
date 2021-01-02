@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // TODOJEF: Come back to this https://www.youtube.com/watch?v=mJRc9kLxFSk 6 mins

@@ -162,9 +162,9 @@ public class ScreenGridNode
     public void GetUVCoordinates(out Vector2 uv00, out Vector2 uv11)
     {
         // TODOJEF: Can potentially allow doors here, and then in the box collider just make it a 0?  Would have to fix the quadSize getter
-        if (GameHandler.TileCoordinates.ContainsKey(TileType) && TileType != Tiles.Door)
+        if (Manager.Game.TileCoordinates.ContainsKey(TileType) && TileType != Tiles.Door)
         {
-            TileUVs coordinates = GameHandler.TileCoordinates[TileType];
+            TileUVs coordinates = Manager.Game.TileCoordinates[TileType];
             uv00 = coordinates.uv00;
             uv11 = coordinates.uv11;
         }

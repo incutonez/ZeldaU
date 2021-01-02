@@ -10,7 +10,7 @@ public class Item
 
     public Sprite GetSprite()
     {
-        return SpritesManager.GetItem(Type);
+        return Manager.Sprites.GetItem(Type);
     }
 
     public void PlaySound()
@@ -32,7 +32,7 @@ public class Item
         }
         if (sound.HasValue)
         {
-            AudioManager.Instance.PlayFX(sound.Value);
+            Manager.Audio.Instance.PlayFX(sound.Value);
         }
     }
 

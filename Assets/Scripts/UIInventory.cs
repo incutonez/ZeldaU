@@ -15,15 +15,15 @@ public class UIInventory : MonoBehaviour
     public Transform HUD { get; set; }
 
     private Inventory Inventory { get; set; }
-    private WorldPlayer Player { get; set; }
+    private World.Player Player { get; set; }
     private Sprite HeartHalfSprite { get; set; }
     private Sprite HeartEmptySprite { get; set; }
 
     private void Awake()
     {
-        HeartHalfSprite = SpritesManager.GetItem("HeartHalf");
-        HeartEmptySprite = SpritesManager.GetItem("HeartEmpty");
-        HUD = GameHandler.MainCanvas.transform.Find("Hud");
+        HeartHalfSprite = Manager.Sprites.GetItem("HeartHalf");
+        HeartEmptySprite = Manager.Sprites.GetItem("HeartEmpty");
+        HUD = Manager.Game.MainCanvas.transform.Find("Hud");
         LifeContainer = HUD.transform.Find("LifeContainer");
         var countContainer = HUD.transform.Find("CountContainer").transform;
         RupeeCount = countContainer.Find("RupeeContainer").transform.Find("Count").GetComponent<Text>();
@@ -39,7 +39,7 @@ public class UIInventory : MonoBehaviour
         Inventory.OnItemListChanged += Inventory_OnItemListChanged;
     }
 
-    public void SetPlayer(WorldPlayer player)
+    public void SetPlayer(World.Player player)
     {
         Player = player;
         Player.OnInitialize += Player_OnInitialize;
@@ -66,15 +66,15 @@ public class UIInventory : MonoBehaviour
         {
             if (item.IsRing())
             {
-                GameHandler.SuitHandler.SetSuitColor(item.Type);
+                Manager.Game.Suit.SetSuitColor(item.Type);
             }
             else if (item.IsShield())
             {
-                GameHandler.ShieldHandler.SetShield(item.Type);
+                Manager.Game.Shield.SetShield(item.Type);
             }
             else if (item.IsSword())
             {
-                GameHandler.SwordHandler.SetSword(item);
+                Manager.Game.Sword.SetSword(item);
                 Player.CanAttack = true;
                 RefreshSwordUI();
             }
@@ -92,12 +92,12 @@ public class UIInventory : MonoBehaviour
             }
             else if (item.Type == Items.HeartContainer)
             {
-                Player.character.AddHealth(Constants.HEART_REFILL, true);
+                Player.BaseCharacter.AddHealth(Constants.HEART_REFILL, true);
                 RefreshLifeUI();
             }
             else if (item.Type == Items.Heart)
             {
-                Player.character.AddHealth(Constants.HEART_REFILL);
+                Player.BaseCharacter.AddHealth(Constants.HEART_REFILL);
                 RefreshLifeUI();
             }
         }
@@ -134,7 +134,7 @@ public class UIInventory : MonoBehaviour
         var maxHealth = Player.GetMaxHealth();
         for (int i = 0; i < maxHealth / 2; i++)
         {
-            RectTransform heart = Instantiate(PrefabsManager.UIHeart, LifeContainer).GetComponent<RectTransform>();
+            RectTransform heart = Instantiate(Manager.Prefabs.UIHeart, LifeContainer).GetComponent<RectTransform>();
             heart.gameObject.SetActive(true);
             // Need to use the position of where the template is and add to it
             heart.localPosition += new Vector3(

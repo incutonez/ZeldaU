@@ -4,40 +4,40 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 7152930139536384079
-    second: down_idle
+    second: IdleDown
   - first:
       213: -5725962078152895296
-    second: left_idle
+    second: IdleLeft
   - first:
       213: -8401692288953904933
-    second: up_idle
+    second: IdleUp
   - first:
       213: 7888922196035610388
-    second: right_walk
+    second: WalkRight
   - first:
       213: -8090365562718305141
-    second: down_walk
+    second: WalkDown
   - first:
       213: 3445332486847661990
-    second: left_walk
+    second: WalkLeft
   - first:
       213: 7456334905099763947
-    second: up_walk
+    second: WalkUp
   - first:
       213: 5377859178988851676
-    second: right_idle
+    second: IdleRight
   - first:
       213: -4124168217499134943
-    second: down_action
+    second: ActionDown
   - first:
       213: 4620578802948863353
-    second: left_action
+    second: ActionLeft
   - first:
       213: -6835189599539173722
-    second: up_action
+    second: ActionUp
   - first:
       213: 679739729869728943
-    second: right_action
+    second: ActionRight
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,7 +127,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: down_idle
+      name: IdleDown
       rect:
         serializedVersion: 2
         x: 1
@@ -148,7 +148,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_idle
+      name: IdleLeft
       rect:
         serializedVersion: 2
         x: 30
@@ -169,7 +169,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: up_idle
+      name: IdleUp
       rect:
         serializedVersion: 2
         x: 62
@@ -190,7 +190,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: right_walk
+      name: WalkRight
       rect:
         serializedVersion: 2
         x: 91
@@ -211,7 +211,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: down_walk
+      name: WalkDown
       rect:
         serializedVersion: 2
         x: 1
@@ -232,7 +232,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_walk
+      name: WalkLeft
       rect:
         serializedVersion: 2
         x: 31
@@ -253,7 +253,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: up_walk
+      name: WalkUp
       rect:
         serializedVersion: 2
         x: 62
@@ -274,7 +274,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: right_idle
+      name: IdleRight
       rect:
         serializedVersion: 2
         x: 90
@@ -295,7 +295,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: down_action
+      name: ActionDown
       rect:
         serializedVersion: 2
         x: 0
@@ -316,7 +316,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_action
+      name: ActionLeft
       rect:
         serializedVersion: 2
         x: 30
@@ -337,7 +337,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: up_action
+      name: ActionUp
       rect:
         serializedVersion: 2
         x: 60
@@ -358,7 +358,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: right_action
+      name: ActionRight
       rect:
         serializedVersion: 2
         x: 90

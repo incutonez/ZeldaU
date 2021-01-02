@@ -18,10 +18,13 @@ public class GameHandler : MonoBehaviour
     public static Dictionary<Tiles, TileUVs> TileCoordinates { get; set; }
     public static Canvas MainCanvas { get; set; }
     public static Pathfinder Pathfinder { get; set; }
-    public static bool DebugMode { get; set; } = true;
+    public static bool IsDebugMode { get; set; }
+    public bool DebugMode;
+
 
     private void Awake()
     {
+        IsDebugMode = DebugMode;
         PrefabsManager.LoadAll();
         SpritesManager.LoadAll();
         Pathfinder = new Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
@@ -61,7 +64,7 @@ public class GameHandler : MonoBehaviour
         ShieldHandler = Player.GetComponentInChildren<ShieldHandler>(true);
         SwordHandler = Player.GetComponentInChildren<SwordHandler>(true);
         SuitHandler = Player.GetComponentInChildren<SuitHandler>(true);
-        if (!DebugMode)
+        if (!IsDebugMode)
         {
             SceneBuilder.BuildScreen(new SceneViewModel { Name = "80" });
         }

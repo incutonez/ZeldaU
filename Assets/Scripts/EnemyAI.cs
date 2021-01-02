@@ -19,21 +19,27 @@ public class EnemyAI : MonoBehaviour
     private EnemyPathfinding EnemyPathfinding { get; set; }
     private ScreenGrid<ScreenGridNode> Grid { get; set; }
     private MovementState movementState { get; set; } = MovementState.Roaming;
+    private WorldEnemy WorldEnemy { get; set; }
 
     private void Awake()
     {
         EnemyPathfinding = GetComponent<EnemyPathfinding>();
-        Grid = GameHandler.Pathfinder.Grid;
+        WorldEnemy = GetComponent<WorldEnemy>();
     }
 
     private void Start()
     {
+        Grid = GameHandler.Pathfinder.Grid;
         StartingPosition = transform.localPosition;
         RoamingPosition = GameHandler.Pathfinder.GetRoamingPosition(StartingPosition);
     }
 
     private void Update()
     {
+        if (GameHandler.IsTransitioning)
+        {
+            return;
+        }
         switch (movementState)
         {
             case MovementState.Firing:
@@ -64,7 +70,10 @@ public class EnemyAI : MonoBehaviour
                 {
                     RoamingPosition = GameHandler.Pathfinder.GetRoamingPosition(RoamingPosition);
                 }
-                FindTarget();
+                if (CanChase())
+                {
+                    FindTarget();
+                }
                 break;
         }
     }
@@ -75,5 +84,10 @@ public class EnemyAI : MonoBehaviour
         {
             movementState = MovementState.Chasing;
         }
+    }
+
+    private bool CanChase()
+    {
+        return false;
     }
 }

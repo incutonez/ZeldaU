@@ -21,7 +21,7 @@ public class SceneBuilder : MonoBehaviour
 
     public void Awake()
     {
-        if (!GameHandler.DebugMode)
+        if (!GameHandler.IsDebugMode)
         {
             Animator = transform.Find("Crossfade").GetComponent<Animator>();
             ScreensContainer = GameObject.Find("Screens").transform;
@@ -113,6 +113,7 @@ public class SceneBuilder : MonoBehaviour
         {
             CurrentScreen = parent.gameObject.GetComponent<WorldScreen>();
         }
+        GameHandler.Pathfinder.Grid = CurrentScreen.Grid;
         CurrentScreen.ToggleActive(true);
         Camera.main.backgroundColor = CurrentScreen.GroundColor;
     }
@@ -150,7 +151,7 @@ public class SceneBuilder : MonoBehaviour
         BuildScreen(transition);
         PreviousScreen.ToggleActive();
         GameHandler.Player.transform.position = OverworldPosition;
-        yield return StartCoroutine(GameHandler.Player.characterAnimation.Exit());
+        yield return StartCoroutine(GameHandler.Player.AnimateExit());
         CurrentScreen.ToggleDoor(false);
         SetScreenLoading(false);
     }
@@ -163,7 +164,7 @@ public class SceneBuilder : MonoBehaviour
     public IEnumerator EnterDoor(SceneViewModel transition)
     {
         SetScreenLoading(true);
-        yield return StartCoroutine(GameHandler.Player.characterAnimation.Enter());
+        yield return StartCoroutine(GameHandler.Player.AnimateEnter());
         // Save off the player's current position, so we can restore it later
         OverworldPosition = GameHandler.Player.transform.position;
         BuildScreen(transition);

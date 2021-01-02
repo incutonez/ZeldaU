@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WorldCharacter<T> : MonoBehaviour where T : BaseCharacter
+public class WorldCharacter<T> : PlayerBase where T : BaseCharacter
 {
     public T character;
     public SpriteRenderer sRenderer;
@@ -11,7 +11,10 @@ public class WorldCharacter<T> : MonoBehaviour where T : BaseCharacter
         this.character = character;
         character.Initialize();
         transform.name = character.characterType.GetDescription();
-        sRenderer.sprite = sprite;
+        if (sprite != null)
+        {
+            sRenderer.sprite = sprite;
+        }
     }
 
     public float GetTouchDamage()

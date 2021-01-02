@@ -10,6 +10,11 @@ public static class Utilities
         return Convert.ToInt32(hex, 16) / Constants.MAX_RGB;
     }
 
+    public static void SetInterval(Action action, float timeout)
+    {
+        SetIntervalHook.Create(action, timeout);
+    }
+
     /// <summary>
     /// This method takes in a hex string... meaning it looks like 000000, without the ampersand, and it returns
     /// the result Unity color.

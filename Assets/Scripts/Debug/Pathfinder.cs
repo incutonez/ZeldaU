@@ -171,15 +171,17 @@ public class Pathfinder
             int localX = node.X - 1;
             // Left
             neighbors.Add(Grid.GetViewModel(localX, node.Y));
-            // Left down
+            // Diagonal down to the left
             if (node.Y - 1 >= 0)
             {
-                neighbors.Add(Grid.GetViewModel(localX, node.Y - 1));
+                // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
+                //neighbors.Add(Grid.GetViewModel(localX, node.Y - 1));
             }
-            // Left up
+            // Diagonal up to the left
             if (node.Y + 1 < Grid.Height)
             {
-                neighbors.Add(Grid.GetViewModel(localX, node.Y + 1));
+                // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
+                //neighbors.Add(Grid.GetViewModel(localX, node.Y + 1));
             }
         }
         if (node.X + 1 < Grid.Width)
@@ -187,15 +189,17 @@ public class Pathfinder
             int localX = node.X + 1;
             // Right
             neighbors.Add(Grid.GetViewModel(localX, node.Y));
-            // Right down
+            // Diagonal down to the right
             if (node.Y - 1 >= 0)
             {
-                neighbors.Add(Grid.GetViewModel(localX, node.Y - 1));
+                // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
+                //neighbors.Add(Grid.GetViewModel(localX, node.Y - 1));
             }
-            // Right up
+            // Diagonal up to the right
             if (node.Y + 1 < Grid.Height)
             {
-                neighbors.Add(Grid.GetViewModel(localX, node.Y + 1));
+                // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
+                //neighbors.Add(Grid.GetViewModel(localX, node.Y + 1));
             }
         }
         // Down

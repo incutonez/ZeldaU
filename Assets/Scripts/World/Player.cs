@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace World
 {
     public class Player : Character<BaseCharacter>
     {
-        public UIInventory uiInventory;
         public const float SPEED = 5f;
+        public UIInventory uiInventory { get; set; }
         public event EventHandler OnInitialize;
         public event EventHandler OnTakeDamage;
 
-        private Inventory inventory;
+        private Inventory inventory { get; set; }
 
         private void Start()
         {
-            // TODOJEF: Pick up here, have to get sword rendering
-            CanAttack = false;
+            Animator.CanAttack = false;
             SpriteRenderer shield = transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
             shield.gameObject.SetActive(true);
         }
@@ -48,41 +48,20 @@ namespace World
             }
         }
 
-        public override void LoadSprites()
+        public IEnumerator AnimateEnter()
         {
-            Manager.Game.Sprites.GetPlayerSprites(
-                ActionUpAnimation,
-                ActionDownAnimation,
-                ActionRightAnimation,
-                ActionLeftAnimation,
-                IdleUpAnimation,
-                IdleDownAnimation,
-                IdleRightAnimation,
-                IdleLeftAnimation,
-                WalkUpAnimation,
-                WalkDownAnimation,
-                WalkRightAnimation,
-                WalkLeftAnimation
-            );
+            return Animator.AnimateEnter();
         }
 
-        public override void AnimateMove(Vector3 Movement)
+        public IEnumerator AnimateExit()
         {
-            base.AnimateMove(Movement);
-            Manager.Game.Shield.ToggleShields(LastMovement.y == -1f || LastMovement == Vector3.zero, LastMovement.x > 0f, LastMovement.x < 0f);
+            return Animator.AnimateExit();
         }
 
-        public override void AnimateAction()
+        public override void SetAnimationBase()
         {
-            base.AnimateAction();
-            Manager.Game.Sword.Swing(LastMovement);
-        }
-
-        public override void SpriteAnimator_OnAnimationStop(object sender, EventArgs e)
-        {
-            base.SpriteAnimator_OnAnimationStop(sender, e);
-            // TODOJEF: Don't like this... maybe make it specific to the action?
-            Manager.Game.Sword.ToggleSword(false);
+            Animator = gameObject.AddComponent<AnimatorPlayer>();
+            Animator.AnimationSprites = Manager.Game.Sprites.PlayerAnimations;
         }
 
         private void UseItem(global::Item item)

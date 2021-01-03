@@ -75,7 +75,7 @@ public class UIInventory : MonoBehaviour
             else if (item.IsSword())
             {
                 Manager.Game.Sword.SetSword(item);
-                Player.CanAttack = true;
+                Player.Animator.CanAttack = true;
                 RefreshSwordUI();
             }
             else if (item.IsRupee())

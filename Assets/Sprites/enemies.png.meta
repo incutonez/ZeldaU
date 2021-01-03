@@ -4,7 +4,7 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2731795287329381114
-    second: OctorokIdleDown
+    second: Octorok_IdleDown
   - first:
       213: -3351989875833439213
     second: OctorokBlue
@@ -28,7 +28,7 @@ TextureImporter:
     second: BubbleRed
   - first:
       213: -7994963395263852509
-    second: OctorokWalkDown
+    second: Octorok_WalkDown
   - first:
       213: -2653283651817642593
     second: OctorokBlue2
@@ -439,22 +439,22 @@ TextureImporter:
     second: PatraHead2
   - first:
       213: 3229708652140166120
-    second: OctorokIdleLeft
+    second: Octorok_IdleLeft
   - first:
       213: 876784968147787122
-    second: OctorokWalkLeft
+    second: Octorok_WalkLeft
   - first:
       213: 1961183383047197949
-    second: OctorokWalkUp
+    second: Octorok_WalkUp
   - first:
       213: -3029504926045522119
-    second: OctorokWalkRight
+    second: Octorok_WalkRight
   - first:
       213: -2782341204894616949
-    second: OctorokIdleRight
+    second: Octorok_IdleRight
   - first:
       213: 6230911579049521198
-    second: OctorokIdleUp
+    second: Octorok_IdleUp
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -544,7 +544,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OctorokIdleDown
+      name: Octorok_IdleDown
       rect:
         serializedVersion: 2
         x: 0
@@ -691,7 +691,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokWalkDown
+      name: Octorok_WalkDown
       rect:
         serializedVersion: 2
         x: 0
@@ -3547,7 +3547,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokIdleLeft
+      name: Octorok_IdleLeft
       rect:
         serializedVersion: 2
         x: 31
@@ -3568,7 +3568,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokWalkLeft
+      name: Octorok_WalkLeft
       rect:
         serializedVersion: 2
         x: 30
@@ -3589,7 +3589,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokWalkUp
+      name: Octorok_WalkUp
       rect:
         serializedVersion: 2
         x: 60
@@ -3610,7 +3610,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokWalkRight
+      name: Octorok_WalkRight
       rect:
         serializedVersion: 2
         x: 90
@@ -3631,7 +3631,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokIdleRight
+      name: Octorok_IdleRight
       rect:
         serializedVersion: 2
         x: 91
@@ -3652,7 +3652,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OctorokIdleUp
+      name: Octorok_IdleUp
       rect:
         serializedVersion: 2
         x: 60

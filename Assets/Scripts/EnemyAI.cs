@@ -45,10 +45,11 @@ public class EnemyAI : MonoBehaviour
             case MovementState.Firing:
                 break;
             case MovementState.Chasing:
-                EnemyPathfinding.MoveTo(Manager.Game.Player.GetPosition());
+                Vector3 playerPosition = Manager.Game.Player.GetPosition();
+                EnemyPathfinding.MoveTo(playerPosition);
 
                 // If within this range, then shoot
-                if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) < 0.5f)
+                if (Vector3.Distance(transform.position, playerPosition) < 0.5f)
                 {
                     //movementState = MovementState.Firing;
                     // When animation is done, then set this back to Chasing... can pass in a lambda function to fire when the animation is done
@@ -58,7 +59,7 @@ public class EnemyAI : MonoBehaviour
                     //  Set this value to Time.time
                 }
 
-                if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) > 5f)
+                if (Vector3.Distance(transform.position, playerPosition) > 5f)
                 {
                     movementState = MovementState.Roaming;
                 }

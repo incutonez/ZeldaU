@@ -129,7 +129,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1059629950730255075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,8 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a4c17eb95699a46a2cf9facdb828e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteAnimator: {fileID: 0}
-  CanAttack: 1
 --- !u!114 &5830525741213550255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08ba500e2cdf194f8adc755e6a71cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 3
+  Speed: 2
 --- !u!114 &3355261084656777336
 MonoBehaviour:
   m_ObjectHideFlags: 0

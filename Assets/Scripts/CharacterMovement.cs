@@ -5,25 +5,25 @@ public class CharacterMovement : MonoBehaviour
     public float Speed;
     public bool CanAttack { get; set; } = true;
     public Vector3 Movement { get; set; }
-    public World.PlayerBase PlayerBase { get; set; }
+    public World.AnimatorBase Animator { get; set; }
 
-    private void Awake()
+    private void Start()
     {
-        PlayerBase = GetComponent<World.PlayerBase>();
+        Animator = GetComponent<World.AnimatorBase>();
     }
 
     private void Update()
     {
-        if (PlayerBase.BlockAnimations)
+        if (Animator.IsBlocked())
         {
             return;
         }
-        PlayerBase.AnimateMove(Movement);
+        Animator.AnimateMove(Movement);
     }
 
     private void FixedUpdate()
     {
-        if (Manager.Game.IsTransitioning || PlayerBase.BlockAnimations)
+        if (Animator.IsBlocked())
         {
             return;
         }

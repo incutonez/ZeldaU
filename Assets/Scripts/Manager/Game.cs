@@ -44,7 +44,7 @@ namespace Manager
             int width = 176;
             int height = 116;
 
-            foreach (Sprite sprite in Sprites.LoadedSprites["tiles"])
+            foreach (Sprite sprite in Sprites.Tiles)
             {
                 Rect rect = sprite.rect;
                 Enum.TryParse(sprite.name, out Tiles tileType);

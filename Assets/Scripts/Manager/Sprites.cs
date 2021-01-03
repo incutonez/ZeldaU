@@ -1,9 +1,7 @@
 using NPCs;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -13,16 +11,15 @@ namespace Manager
     public class Sprites
     {
         public List<Sprite> Characters { get; set; }
-        public List<Sprite> Enemies { get; set; }
         public List<Sprite> Items { get; set; }
         public List<Sprite> Tiles { get; set; }
-        public List<Sprite> Player { get; set; }
-        public Dictionary<Enemies, List<Sprite>> EnemyAnimations { get; set; }
+        public List<Sprite> PlayerBase { get; set; }
+        public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
+        public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new Dictionary<Animations, List<Sprite>>();
         public List<AssetReference> AssetReferences { get; set; }
-        public Dictionary<string, List<Sprite>> LoadedSprites { get; set; } = new Dictionary<string, List<Sprite>>();
         public Dictionary<AssetReference, List<GameObject>> AssetSprites { get; set; } = new Dictionary<AssetReference, List<GameObject>>();
-        public Dictionary<AssetReference, AsyncOperationHandle<GameObject>> OperationHandles = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
-        public Dictionary<AssetReference, Queue<Vector3>> AssetQueue = new Dictionary<AssetReference, Queue<Vector3>>();
+        public Dictionary<AssetReference, AsyncOperationHandle<GameObject>> OperationHandles { get; set; } = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
+        public Dictionary<AssetReference, Queue<Vector3>> AssetQueue { get; set; } = new Dictionary<AssetReference, Queue<Vector3>>();
         private int LoadCount { get; set; } = 0;
 
         // Taken from https://www.youtube.com/watch?v=uNpBS0LPhaU
@@ -99,27 +96,102 @@ namespace Manager
 
         public void LoadAll()
         {
-            LoadSprites("character");
-            LoadSprites("characterBase");
-            LoadSprites("tiles");
-            LoadSprites("items");
-            LoadSprites("characters");
-            LoadSpriteDir("Enemies");
-            EnemyAnimations = new Dictionary<Enemies, List<Sprite>>();
-        }
-
-        public void LoadSpriteDir(string dirName)
-        {
-            DirectoryInfo dir = new DirectoryInfo($"Assets/Sprites/{dirName}");
-            FileInfo[] info = dir.GetFiles("*.png");
-            List<string> files = info.Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToList();
-            foreach (string file in files)
+            LoadSprites("character", (response) =>
             {
-                LoadSprites($"{dirName}/{file}");
-            }
+                PlayerAnimations = GetAnimations(response, "");
+                PlayerAnimations[Animations.Entering] = PlayerAnimations[Animations.WalkUp];
+                PlayerAnimations[Animations.Exiting] = PlayerAnimations[Animations.WalkDown];
+            });
+            LoadSprites("characterBase", (response) =>
+            {
+                PlayerBase = response;
+            });
+            LoadSprites("tiles", (response) =>
+            {
+                Tiles = response;
+            });
+            LoadSprites("items", (response) =>
+            {
+                Items = response;
+            });
+            LoadSprites("characters", (response) =>
+            {
+                Characters = response;
+            });
+            LoadSprites("enemies", (response) =>
+            {
+                List<Animations> animationsEnums = EnumExtensions.GetValues<Animations>();
+                foreach (Enemies enemy in EnumExtensions.GetValues<Enemies>())
+                {
+                    string enemyName = enemy.GetDescription() + "_";
+                    EnemyAnimations.Add(enemy, GetAnimations(response.Where(x => x.name.Contains(enemyName)).ToList(), enemyName));
+                }
+            });
         }
 
-        public void LoadSprites(string name)
+        public Dictionary<Animations, List<Sprite>> GetAnimations(List<Sprite> animations, string name)
+        {
+            Dictionary<Animations, List<Sprite>> dict = new Dictionary<Animations, List<Sprite>>();
+            foreach (Animations anim in EnumExtensions.GetValues<Animations>())
+            {
+                dict[anim] = new List<Sprite>();
+            }
+            foreach (Sprite sprite in animations)
+            {
+                string spriteName = sprite.name;
+                if (name != String.Empty)
+                {
+                    spriteName = spriteName.Replace(name, "");
+                }
+                Enum.TryParse(spriteName, out Animations value);
+                switch (value)
+                {
+                    case Animations.ActionUp:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.ActionDown:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.ActionRight:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.ActionLeft:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.IdleUp:
+                        dict[value].Add(sprite);
+                        dict[Animations.WalkUp].Add(sprite);
+                        break;
+                    case Animations.IdleDown:
+                        dict[value].Add(sprite);
+                        dict[Animations.WalkDown].Add(sprite);
+                        break;
+                    case Animations.IdleRight:
+                        dict[value].Add(sprite);
+                        dict[Animations.WalkRight].Add(sprite);
+                        break;
+                    case Animations.IdleLeft:
+                        dict[value].Add(sprite);
+                        dict[Animations.WalkLeft].Add(sprite);
+                        break;
+                    case Animations.WalkUp:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.WalkDown:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.WalkRight:
+                        dict[value].Add(sprite);
+                        break;
+                    case Animations.WalkLeft:
+                        dict[value].Add(sprite);
+                        break;
+                }
+            }
+            return dict;
+        }
+
+        public void LoadSprites(string name, Action<List<Sprite>> callback)
         {
             LoadCount++;
             var operation = Addressables.LoadAssetAsync<Sprite[]>($"{Constants.PATH_SPRITES}{name}");
@@ -129,7 +201,7 @@ namespace Manager
                 switch (response.Status)
                 {
                     case AsyncOperationStatus.Succeeded:
-                        LoadedSprites.Add(name, response.Result.ToList());
+                        callback(response.Result.ToList());
                         break;
                     case AsyncOperationStatus.Failed:
                         Debug.LogError("Failed to load sprite.");
@@ -147,162 +219,17 @@ namespace Manager
 
         public Sprite GetCharacter(string name)
         {
-            return LoadedSprites["characters"].Find(s => s.name == name);
+            return Characters.Find(s => s.name == name);
         }
-
-        //public Sprite GetEnemy(string name)
-        //{
-        //    return Enemies.Find(s => s.name == name);
-        //}
 
         public Sprite GetItem(string name)
         {
-            return LoadedSprites["items"].Find(s => s.name == name);
+            return Items.Find(s => s.name == name);
         }
 
         public Sprite GetItem(Items type)
         {
             return GetItem(type.GetCustomAttr("Resource"));
-        }
-
-        // TODOJEF: Need to fix this... there's some weird caching issue with Resources.LoadAll, and once I change the name,
-        // it actually copies to the resource itself and saves even on next play... maybe need to use Texture2D instead of loading
-        // sprites through the resources dir?  Might need to make a material?  Or potentially split the enemies into their own sprites?
-        // Look at https://learn.unity.com/tutorial/introduction-to-assetbundles#5eb00e8cedbc2a098f879179
-        public void GetEnemySprites(
-            Enemies enemy,
-            List<Sprite> actionUp,
-            List<Sprite> actionDown,
-            List<Sprite> actionRight,
-            List<Sprite> actionLeft,
-            List<Sprite> idleUp,
-            List<Sprite> idleDown,
-            List<Sprite> idleRight,
-            List<Sprite> idleLeft,
-            List<Sprite> walkUp,
-            List<Sprite> walkDown,
-            List<Sprite> walkRight,
-            List<Sprite> walkLeft
-        )
-        {
-            var enemyName = enemy.GetDescription();
-            if (enemy == NPCs.Enemies.Octorok)
-            {
-                enemyName = "OctorokBase";
-            }
-            var sprites = LoadedSprites[$"Enemies/{enemyName}"];
-            GetCharacterSprites(
-                sprites,
-                actionUp,
-                actionDown,
-                actionRight,
-                actionLeft,
-                idleUp,
-                idleDown,
-                idleRight,
-                idleLeft,
-                walkUp,
-                walkDown,
-                walkRight,
-                walkLeft
-            );
-        }
-
-        public void GetPlayerSprites(
-            List<Sprite> actionUp,
-            List<Sprite> actionDown,
-            List<Sprite> actionRight,
-            List<Sprite> actionLeft,
-            List<Sprite> idleUp,
-            List<Sprite> idleDown,
-            List<Sprite> idleRight,
-            List<Sprite> idleLeft,
-            List<Sprite> walkUp,
-            List<Sprite> walkDown,
-            List<Sprite> walkRight,
-            List<Sprite> walkLeft
-        )
-        {
-            GetCharacterSprites(
-                LoadedSprites["character"],
-                actionUp,
-                actionDown,
-                actionRight,
-                actionLeft,
-                idleUp,
-                idleDown,
-                idleRight,
-                idleLeft,
-                walkUp,
-                walkDown,
-                walkRight,
-                walkLeft
-            );
-        }
-
-        public void GetCharacterSprites(
-            List<Sprite> sprites,
-            List<Sprite> actionUp,
-            List<Sprite> actionDown,
-            List<Sprite> actionRight,
-            List<Sprite> actionLeft,
-            List<Sprite> idleUp,
-            List<Sprite> idleDown,
-            List<Sprite> idleRight,
-            List<Sprite> idleLeft,
-            List<Sprite> walkUp,
-            List<Sprite> walkDown,
-            List<Sprite> walkRight,
-            List<Sprite> walkLeft
-        )
-        {
-            foreach (Sprite sprite in sprites)
-            {
-                Enum.TryParse(sprite.name, out Animations value);
-                switch (value)
-                {
-                    case Animations.ActionUp:
-                        actionUp.Add(sprite);
-                        break;
-                    case Animations.ActionDown:
-                        actionDown.Add(sprite);
-                        break;
-                    case Animations.ActionRight:
-                        actionRight.Add(sprite);
-                        break;
-                    case Animations.ActionLeft:
-                        actionLeft.Add(sprite);
-                        break;
-                    case Animations.IdleUp:
-                        walkUp.Add(sprite);
-                        idleUp.Add(sprite);
-                        break;
-                    case Animations.IdleDown:
-                        walkDown.Add(sprite);
-                        idleDown.Add(sprite);
-                        break;
-                    case Animations.IdleRight:
-                        walkRight.Add(sprite);
-                        idleRight.Add(sprite);
-                        break;
-                    case Animations.IdleLeft:
-                        walkLeft.Add(sprite);
-                        idleLeft.Add(sprite);
-                        break;
-                    case Animations.WalkUp:
-                        walkUp.Add(sprite);
-                        break;
-                    case Animations.WalkDown:
-                        walkDown.Add(sprite);
-                        break;
-                    case Animations.WalkRight:
-                        walkRight.Add(sprite);
-                        break;
-                    case Animations.WalkLeft:
-                        walkLeft.Add(sprite);
-                        break;
-                }
-            }
         }
     }
 }

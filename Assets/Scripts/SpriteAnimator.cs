@@ -52,6 +52,11 @@ public class SpriteAnimator : MonoBehaviour
 
     public void PlayAnimation(List<Sprite> frames, float frameRate, bool loop = true)
     {
+        if (frames == null)
+        {
+            StopAnimation();
+            return;
+        }
         IsPlaying = true;
         Frames = frames;
         CurrentFrame = 0;

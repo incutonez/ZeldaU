@@ -8,23 +8,10 @@ namespace World
     /// </summary>
     public class Enemy : Character<global::Enemy>
     {
-        public override void LoadSprites()
+        public override void SetAnimationBase()
         {
-            Manager.Game.Sprites.GetEnemySprites(
-                (Enemies) BaseCharacter.characterType,
-                ActionUpAnimation,
-                ActionDownAnimation,
-                ActionRightAnimation,
-                ActionLeftAnimation,
-                IdleUpAnimation,
-                IdleDownAnimation,
-                IdleRightAnimation,
-                IdleLeftAnimation,
-                WalkUpAnimation,
-                WalkDownAnimation,
-                WalkRightAnimation,
-                WalkLeftAnimation
-            );
+            Animator = gameObject.AddComponent<AnimatorBase>();
+            Animator.AnimationSprites = Manager.Game.Sprites.EnemyAnimations[(Enemies)BaseCharacter.characterType];
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

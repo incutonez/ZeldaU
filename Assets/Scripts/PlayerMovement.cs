@@ -4,13 +4,13 @@ public class PlayerMovement : CharacterMovement
 {
     private void Update()
     {
-        if (PlayerBase.BlockAnimations)
+        if (Animator.BlockAnimations)
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.RightControl) && PlayerBase.CanAttack)
+        if (Input.GetKeyDown(KeyCode.RightControl) && Animator.CanAttack)
         {
-            PlayerBase.AnimateAction();
+            Animator.AnimateAction();
         }
         else
         {
@@ -34,17 +34,7 @@ public class PlayerMovement : CharacterMovement
             }
             Movement = new Vector3(moveX, moveY).normalized;
 
-            PlayerBase.AnimateMove(Movement);
+            Animator.AnimateMove(Movement);
         }
-    }
-
-    private void FixedUpdate()
-    {
-        if (Manager.Game.IsTransitioning || PlayerBase.BlockAnimations)
-        {
-            return;
-        }
-        // Good resource https://forum.unity.com/threads/the-proper-way-to-control-the-player.429459/
-        transform.Translate(Movement * Time.deltaTime * Speed);
     }
 }

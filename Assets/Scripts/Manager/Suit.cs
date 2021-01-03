@@ -16,9 +16,9 @@ namespace Manager
         private readonly static Color redSuit = new Color(248 / Constants.MAX_RGB, 56 / Constants.MAX_RGB, 0 / Constants.MAX_RGB);
         private Color[] baseColors;
 
-        private void Awake()
+        private void Start()
         {
-            baseColors = Resources.Load<Sprite>($"{Constants.PATH_SPRITES}characterBase").texture.GetPixels(0, 0, textureWidth, textureHeight);
+            baseColors = Manager.Game.Sprites.LoadedSprites["characterBase"][0].texture.GetPixels(0, 0, textureWidth, textureHeight);
             SetSuitColor(Items.RingGreen);
         }
 

@@ -1,0 +1,283 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: fb7b3a091f66a9e45b8b838b236b0617
+  m_SerializeEntries:
+  - m_GUID: 6d1d49868e739de47bc263893a9e396e
+    m_Address: Sprites/bosses
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: be7a69334aad2654fb09aa918c8b174c
+    m_Address: Sprites/character
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e3f03f89814b24c4cb211f3a6271dff9
+    m_Address: Sprites/characterBase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c052d672b24843a4daf02144595e10ad
+    m_Address: Sprites/characters
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4a56a07b6b8710f48a394dbd8820c055
+    m_Address: Sprites/items
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 21cfc19bec8e8064e94ee8e31accde29
+    m_Address: Sprites/tiles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5276670d02c1d614b9dadfadff441698
+    m_Address: Sprites/Enemies/Armos
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8b39fb92de0d6b24b8d3cea41fb1ef50
+    m_Address: Sprites/Enemies/Bubble
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 44a3cd81dde6749469203730838bd6b2
+    m_Address: Sprites/Enemies/Darknut
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5b96bfd0862e097428c507938b592bc6
+    m_Address: Sprites/Enemies/DarknutBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5030bdb358554464b80ddcc3be71ecc3
+    m_Address: Sprites/Enemies/Gel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 689759ef88116104b854d36e46567f2f
+    m_Address: Sprites/Enemies/Ghini
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 67999fb7698722d408042e737a84d896
+    m_Address: Sprites/Enemies/Gibdo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 20eac717e3b344143bd29f902c7dd5e4
+    m_Address: Sprites/Enemies/Goriya
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 9c81997e790f1824dbb43a31bc35bd20
+    m_Address: Sprites/Enemies/GoriyaBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 42155ce1643d69a408ab8327d73bf237
+    m_Address: Sprites/Enemies/KeeseBase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3e9074e8cb008aa43b42736249d13ac8
+    m_Address: Sprites/Enemies/Lanmola
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d7209af788026524ebf88c4ea8cb9b18
+    m_Address: Sprites/Enemies/LanmolaBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d64dd3c424df0d8439cb98b40afd4487
+    m_Address: Sprites/Enemies/Leever
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a12e830eab6dd894ab65ec330fce220a
+    m_Address: Sprites/Enemies/LeeverBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f42a5425d1389bb4c9efe2ebd292ec57
+    m_Address: Sprites/Enemies/LikeLike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ed318155d7fed834eb143add286beec3
+    m_Address: Sprites/Enemies/Lynel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 60f25a3b52529c84aaa382e9cbb63f2f
+    m_Address: Sprites/Enemies/LynelBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a8812c3122ce103489b49d433f4f0f7e
+    m_Address: Sprites/Enemies/Misc
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5b0f66e8e1245b547a17660865a46a2c
+    m_Address: Sprites/Enemies/Moblin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3b1596e4d282b804c9419a11b5652723
+    m_Address: Sprites/Enemies/MoblinBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 54749a4a8d1709a4e95c5df3defe431d
+    m_Address: Sprites/Enemies/Octorok
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c8529eb4df56bda47a4c6a624e7070f0
+    m_Address: Sprites/Enemies/OctorokBase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 97395127f1e8c844e8ce05c2bd680983
+    m_Address: Sprites/Enemies/OctorokBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b94d6a4f89f5eca4ab676f5f30f3b100
+    m_Address: Sprites/Enemies/Patra
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f807a2a43b14ac343aa0509ec6354b4f
+    m_Address: Sprites/Enemies/Peahat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5c333f5323129cd46be48136a733074d
+    m_Address: Sprites/Enemies/PolsVoice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 556327bfd5e45e74a8a08d370a914454
+    m_Address: Sprites/Enemies/Rock
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 6554b8bfbedbbe44ea3ce6322356501a
+    m_Address: Sprites/Enemies/Rope
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a2e82dfe64dc0dc40851b412359173c0
+    m_Address: Sprites/Enemies/Stalfos
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e4e0d202275caac419ffe1cae9804640
+    m_Address: Sprites/Enemies/Tektite
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3fcaf6786b994214fafd55a9327c3440
+    m_Address: Sprites/Enemies/TektiteBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5c82e2b462209904698a53cd366d6bfd
+    m_Address: Sprites/Enemies/Vire
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7e5c565d1e9ac92449fcf9539bf9b1f6
+    m_Address: Sprites/Enemies/Wallmaster
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 1c7c4a4a1962ec44e8f54d29d8fda640
+    m_Address: Sprites/Enemies/Wizzrobe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 0c859de07dfe282468c99aee7c54a98d
+    m_Address: Sprites/Enemies/WizzrobeBlue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2a2e6013c2065e4429772b803efc1cd3
+    m_Address: Sprites/Enemies/Zol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 23b93455a2a65dc4a96d01ca63493950
+    m_Address: Assets/Sprites/Enemies/Zora.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 47107e41f1307be4e837fab1b87c3b44, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 604dba5a4da48344ebf15d7bb3efc970, type: 2}
+    - {fileID: 11400000, guid: 3a55fe84e04677147b2391468a41042f, type: 2}

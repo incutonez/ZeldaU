@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 namespace Manager
@@ -30,10 +29,14 @@ namespace Manager
 
         private void Awake()
         {
-
             IsDebugMode = DebugMode;
-            Prefabs = new Prefabs();
+            Caching.ClearCache();
             Sprites = new Sprites();
+        }
+
+        public void Launch()
+        {
+            Prefabs = new Prefabs();
             Pathfinder = new Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
             TileCoordinates = new Dictionary<Tiles, TileUVs>();
             // TODOJEF: Fix these... get actual values from material
@@ -41,7 +44,7 @@ namespace Manager
             int width = 176;
             int height = 116;
 
-            foreach (Sprite sprite in Sprites.Tiles)
+            foreach (Sprite sprite in Sprites.LoadedSprites["tiles"])
             {
                 Rect rect = sprite.rect;
                 Enum.TryParse(sprite.name, out Tiles tileType);
@@ -55,15 +58,6 @@ namespace Manager
                 }
             }
             MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
-        }
-
-        public void Start()
-        {
-            StartScene();
-        }
-
-        public void StartScene()
-        {
             Audio = gameObject.AddComponent<Audio>();
             Inventory = gameObject.AddComponent<UIInventory>();
             Character = gameObject.AddComponent<Character>();

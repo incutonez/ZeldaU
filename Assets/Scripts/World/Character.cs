@@ -12,6 +12,7 @@ namespace World
             Renderer = transform.Find("Body").GetComponent<SpriteRenderer>();
             BaseCharacter = character;
             character.Initialize();
+            LoadSprites();
             transform.name = character.characterType.GetDescription();
             if (sprite != null)
             {

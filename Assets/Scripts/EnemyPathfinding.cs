@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class EnemyPathfinding : MonoBehaviour
 {
-    private const float speed = 3f;
-
     private int currentPathIndex;
     private List<Vector3> pathVectorList;
-    private Vector3 moveDir { get; set; }
+    private CharacterMovement CharacterMovement { get; set; }
+
+    private void Awake()
+    {
+        CharacterMovement = GetComponent<CharacterMovement>();
+    }
 
 
     private void Start()
@@ -18,7 +21,6 @@ public class EnemyPathfinding : MonoBehaviour
     private void Update()
     {
         HandleMovement();
-        transform.position += moveDir * speed * Time.deltaTime;
     }
 
     private void HandleMovement()
@@ -29,7 +31,7 @@ public class EnemyPathfinding : MonoBehaviour
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             if (Vector3.Distance(currentPosition, targetPosition) > 0.25f)
             {
-                moveDir = (targetPosition - currentPosition).normalized;
+                CharacterMovement.Movement = (targetPosition - currentPosition).normalized;
             }
             else
             {
@@ -50,7 +52,7 @@ public class EnemyPathfinding : MonoBehaviour
     private void StopMoving()
     {
         pathVectorList = null;
-        moveDir = Vector3.zero;
+        CharacterMovement.Movement = Vector3.zero;
     }
 
     public Vector3 GetPosition()

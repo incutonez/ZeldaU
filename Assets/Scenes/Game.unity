@@ -1443,6 +1443,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[0]
+      value: 
+      objectReference: {fileID: 2800000, guid: 21cfc19bec8e8064e94ee8e31accde29, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: 6d1d49868e739de47bc263893a9e396e, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: be7a69334aad2654fb09aa918c8b174c, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: e3f03f89814b24c4cb211f3a6271dff9, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[4]
+      value: 
+      objectReference: {fileID: 2800000, guid: c052d672b24843a4daf02144595e10ad, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[5]
+      value: 
+      objectReference: {fileID: 2800000, guid: baa414d173aadff4d985b807877dd9cd, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[6]
+      value: 
+      objectReference: {fileID: 2800000, guid: 4a56a07b6b8710f48a394dbd8820c055, type: 3}
+    - target: {fileID: 3235087164410379624, guid: 5ae6d3057c299f749a83ba8da2ec8151,
+        type: 3}
+      propertyPath: SpriteSheets.Array.data[7]
+      value: 
+      objectReference: {fileID: 2800000, guid: b1b7e2fa841e49043a4b0e9a57eff1e8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ae6d3057c299f749a83ba8da2ec8151, type: 3}
 --- !u!1001 &4778891701844410739

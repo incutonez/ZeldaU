@@ -1,17 +1,7 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : CharacterMovement
 {
-    public float Speed;
-    public bool CanAttack { get; set; } = true;
-    private Vector3 Movement { get; set; }
-    private World.PlayerBase PlayerBase { get; set; }
-
-    private void Awake()
-    {
-        PlayerBase = GetComponent<World.PlayerBase>();
-    }
-
     private void Update()
     {
         if (PlayerBase.BlockAnimations)

@@ -29,7 +29,6 @@ namespace World
         private void Awake()
         {
             SpriteAnimator = GetComponent<SpriteAnimator>();
-            LoadSprites();
             if (SpriteAnimator != null)
             {
                 SpriteAnimator.OnAnimationStop += SpriteAnimator_OnAnimationStop;
@@ -52,6 +51,7 @@ namespace World
             return transform.position;
         }
 
+        // TODO: Move to Player class?
         public IEnumerator AnimateEnter()
         {
             BlockAnimations = true;
@@ -66,6 +66,7 @@ namespace World
             BlockAnimations = false;
         }
 
+        // TODO: Move to Player class?
         public IEnumerator AnimateExit()
         {
             BlockAnimations = true;

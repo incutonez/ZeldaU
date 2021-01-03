@@ -103,7 +103,7 @@ public class SceneBuilder : MonoBehaviour
         // Parent has not been built, so let's build and cache it
         if (parent == null)
         {
-            parent = Instantiate(Manager.Prefabs.WorldScreen);
+            parent = Instantiate(Manager.Game.Prefabs.WorldScreen);
             parent.SetParent(ScreensContainer);
             CurrentScreen = parent.gameObject.GetComponent<World.Screen>();
             CurrentScreen.Initialize(screenId, transition);

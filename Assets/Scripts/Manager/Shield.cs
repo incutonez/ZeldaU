@@ -19,10 +19,10 @@ namespace Manager
         {
             shield.sprite = null;
             // Cache our images, so we're not loading them every time
-            shieldSprite = Sprites.GetItem(Items.Shield);
-            shieldSideSprite = Sprites.GetItem("ShieldSide");
-            shieldMagicalSprite = Sprites.GetItem(Items.ShieldMagical);
-            shieldMagicalSideSprite = Sprites.GetItem("ShieldMagicalSide");
+            shieldSprite = Manager.Game.Sprites.GetItem(Items.Shield);
+            shieldSideSprite = Manager.Game.Sprites.GetItem("ShieldSide");
+            shieldMagicalSprite = Manager.Game.Sprites.GetItem(Items.ShieldMagical);
+            shieldMagicalSideSprite = Manager.Game.Sprites.GetItem("ShieldMagicalSide");
         }
 
         public void ToggleShields(bool enabled = false, bool? rightShield = null, bool? leftShield = null)

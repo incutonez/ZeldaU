@@ -2,18 +2,23 @@ using UnityEngine;
 
 namespace Manager
 {
-    public static class Prefabs
+    public class Prefabs
     {
-        public static RectTransform WorldDoor { get; set; }
-        public static RectTransform WorldTransition { get; set; }
-        public static RectTransform WorldScreen { get; set; }
-        public static RectTransform Enemy { get; set; }
-        public static RectTransform NPC { get; set; }
-        public static RectTransform Item { get; set; }
-        public static RectTransform Player { get; set; }
-        public static RectTransform UIHeart { get; set; }
+        public RectTransform WorldDoor { get; set; }
+        public RectTransform WorldTransition { get; set; }
+        public RectTransform WorldScreen { get; set; }
+        public RectTransform Enemy { get; set; }
+        public RectTransform NPC { get; set; }
+        public RectTransform Item { get; set; }
+        public RectTransform Player { get; set; }
+        public RectTransform UIHeart { get; set; }
 
-        public static void LoadAll()
+        public Prefabs()
+        {
+            LoadAll();
+        }
+
+        public void LoadAll()
         {
             WorldDoor = LoadPrefab("WorldDoor");
             WorldTransition = LoadPrefab("WorldTransition");
@@ -25,7 +30,7 @@ namespace Manager
             UIHeart = LoadPrefab("HeartTemplate");
         }
 
-        public static RectTransform LoadPrefab(string name)
+        public RectTransform LoadPrefab(string name)
         {
             return Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}{name}");
         }

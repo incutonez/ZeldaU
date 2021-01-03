@@ -50,7 +50,7 @@ namespace World
 
         public override void LoadSprites()
         {
-            Manager.Sprites.GetPlayerSprites(
+            Manager.Game.Sprites.GetPlayerSprites(
                 ActionUpAnimation,
                 ActionDownAnimation,
                 ActionRightAnimation,

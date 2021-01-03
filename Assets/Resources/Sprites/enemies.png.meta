@@ -4,7 +4,7 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2731795287329381114
-    second: Octorok
+    second: OctorokIdleDown
   - first:
       213: -3351989875833439213
     second: OctorokBlue
@@ -28,7 +28,7 @@ TextureImporter:
     second: BubbleRed
   - first:
       213: -7994963395263852509
-    second: Octorok2
+    second: OctorokWalkDown
   - first:
       213: -2653283651817642593
     second: OctorokBlue2
@@ -437,6 +437,24 @@ TextureImporter:
   - first:
       213: 7855910036223631117
     second: PatraHead2
+  - first:
+      213: 3229708652140166120
+    second: OctorokIdleLeft
+  - first:
+      213: 876784968147787122
+    second: OctorokWalkLeft
+  - first:
+      213: 1961183383047197949
+    second: OctorokWalkUp
+  - first:
+      213: -3029504926045522119
+    second: OctorokWalkRight
+  - first:
+      213: -2782341204894616949
+    second: OctorokIdleRight
+  - first:
+      213: 6230911579049521198
+    second: OctorokIdleUp
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -526,7 +544,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Octorok
+      name: OctorokIdleDown
       rect:
         serializedVersion: 2
         x: 0
@@ -673,7 +691,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Octorok2
+      name: OctorokWalkDown
       rect:
         serializedVersion: 2
         x: 0
@@ -3524,6 +3542,132 @@ TextureImporter:
       bones: []
       spriteID: d0f19883e8cc50d60800000000000000
       internalID: 7855910036223631117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OctorokIdleLeft
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 330
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ebf1da48ea32dc20800000000000000
+      internalID: 3229708652140166120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OctorokWalkLeft
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 300
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27dd9da7847fa2c00800000000000000
+      internalID: 876784968147787122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OctorokWalkUp
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 300
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df45de565e5873b10800000000000000
+      internalID: 1961183383047197949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OctorokWalkRight
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 300
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937b2cd125905f5d0800000000000000
+      internalID: -3029504926045522119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OctorokIdleRight
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 330
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b82f2566a632369d0800000000000000
+      internalID: -2782341204894616949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OctorokIdleUp
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 331
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e207d108115a87650800000000000000
+      internalID: 6230911579049521198
       vertices: []
       indices: 
       edges: []

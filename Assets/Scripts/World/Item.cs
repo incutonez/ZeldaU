@@ -12,7 +12,7 @@ namespace World
 
         public static Item Spawn(Vector3 position, global::Item item, Transform parent)
         {
-            RectTransform transform = Instantiate(Manager.Prefabs.Item);
+            RectTransform transform = Instantiate(Manager.Game.Prefabs.Item);
             transform.SetParent(parent);
             transform.localPosition = position;
             transform.rotation = Quaternion.identity;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace Manager
@@ -21,15 +22,18 @@ namespace Manager
         public static Dictionary<Tiles, TileUVs> TileCoordinates { get; set; }
         public static Canvas MainCanvas { get; set; }
         public static Pathfinder Pathfinder { get; set; }
+        public static Sprites Sprites { get; set; }
+        public static Prefabs Prefabs { get; set; }
         public static bool IsDebugMode { get; set; }
         public bool DebugMode;
 
 
         private void Awake()
         {
+
             IsDebugMode = DebugMode;
-            Prefabs.LoadAll();
-            Sprites.LoadAll();
+            Prefabs = new Prefabs();
+            Sprites = new Sprites();
             Pathfinder = new Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
             TileCoordinates = new Dictionary<Tiles, TileUVs>();
             // TODOJEF: Fix these... get actual values from material

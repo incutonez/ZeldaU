@@ -4,31 +4,31 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 3083089168873209362
-    second: OldMan
+    second: OldMan_IdleDown
   - first:
       213: -517894308114096243
-    second: OldMan2
+    second: OldMan2_IdleDown
   - first:
       213: 7755224123621818408
-    second: OldWoman
+    second: OldWoman_IdleDown
   - first:
       213: -3557554893070573299
-    second: Merchant
+    second: Merchant_IdleDown
   - first:
       213: -4256427906160430202
-    second: Zelda
+    second: Zelda_IdleDown
   - first:
       213: -6066236442320969475
-    second: ZeldaTriforce1
+    second: ZeldaTriforce1_IdleDown
   - first:
       213: 1893670189769602202
-    second: ZeldaTriforce2
+    second: ZeldaTriforce2_IdleDown
   - first:
       213: -5691007311618604778
-    second: Fairy
+    second: Fairy_IdleDown
   - first:
       213: -417436994572597314
-    second: Fairy2
+    second: Fairy_WalkDown
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,7 +118,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OldMan
+      name: OldMan_IdleDown
       rect:
         serializedVersion: 2
         x: 0
@@ -139,7 +139,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OldMan2
+      name: OldMan2_IdleDown
       rect:
         serializedVersion: 2
         x: 30
@@ -160,11 +160,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OldWoman
+      name: OldWoman_IdleDown
       rect:
         serializedVersion: 2
         x: 61
-        y: 5
+        y: 6
         width: 14
         height: 16
       alignment: 1
@@ -181,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Merchant
+      name: Merchant_IdleDown
       rect:
         serializedVersion: 2
         x: 91
@@ -202,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zelda
+      name: Zelda_IdleDown
       rect:
         serializedVersion: 2
         x: 121
@@ -223,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZeldaTriforce1
+      name: ZeldaTriforce1_IdleDown
       rect:
         serializedVersion: 2
         x: 151
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ZeldaTriforce2
+      name: ZeldaTriforce2_IdleDown
       rect:
         serializedVersion: 2
         x: 181
@@ -265,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fairy
+      name: Fairy_IdleDown
       rect:
         serializedVersion: 2
         x: 214
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fairy2
+      name: Fairy_WalkDown
       rect:
         serializedVersion: 2
         x: 244

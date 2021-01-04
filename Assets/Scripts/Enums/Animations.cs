@@ -1,5 +1,6 @@
 public enum Animations
 {
+    Default,
     ActionUp,
     ActionDown,
     ActionRight,

@@ -7,8 +7,9 @@
         Link = 2,
         Merchant = 3,
         OldMan = 4,
-        OldWoman = 5,
-        Zelda = 6
+        OldMan2 = 5,
+        OldWoman = 6,
+        Zelda = 7
     }
 
     public enum Enemies

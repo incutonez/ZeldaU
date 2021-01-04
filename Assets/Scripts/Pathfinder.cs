@@ -92,10 +92,9 @@ public class Pathfinder
             return null;
         }
         List<Vector3> result = new List<Vector3>();
-        Vector3 quadSize = GetQuadSize();
         foreach (ScreenGridNode node in nodes)
         {
-            result.Add(GetWorldPositionOffset(Grid.GetWorldPosition(node.X, node.Y), quadSize));
+            result.Add(Grid.GetWorldPosition(node.X, node.Y));
         }
         return result;
     }
@@ -230,6 +229,7 @@ public class Pathfinder
         return path;
     }
 
+    // TODOJEF: Maybe look into this and not allowing diagonal?
     private int CalculateDistanceCost(ScreenGridNode a, ScreenGridNode b)
     {
         int xDistance = Mathf.Abs(a.X - b.X);

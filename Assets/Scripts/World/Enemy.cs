@@ -11,6 +11,7 @@ namespace World
         public override void SetAnimationBase()
         {
             Animator = gameObject.AddComponent<AnimatorBase>();
+            BaseCharacter.SetFrameRates(Animator);
             Animator.AnimationSprites = Manager.Game.Sprites.EnemyAnimations[(Enemies)BaseCharacter.characterType];
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,12 @@ public class PathTesting : MonoBehaviour
     public World.Screen Visual;
     public Pathfinder PathFinder { get; set; }
 
-    private void Start()
+    private void Awake()
+    {
+        Manager.Game.OnLaunch += Game_OnLaunch;
+    }
+
+    private void Game_OnLaunch(object sender, EventArgs e)
     {
         PathFinder = Manager.Game.Pathfinder;
         Visual.SetGrid(PathFinder.Grid, true);
@@ -14,6 +20,11 @@ public class PathTesting : MonoBehaviour
 
     private void Update()
     {
+        // Game hasn't launched yet
+        if (PathFinder == null)
+        {
+            return;
+        }
         var grid = PathFinder.Grid;
         if (Input.GetMouseButtonDown(0))
         {
@@ -42,7 +53,7 @@ public class PathTesting : MonoBehaviour
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ScreenGridNode node = grid.GetViewModel(position);
-            Manager.Game.Character.SpawnEnemy(Visual.GetWorldPositionOffset(grid.GetWorldPosition(node.X, node.Y), Visual.GetQuadSize()), NPCs.Enemies.Octorok, Visual.transform);
+            Manager.Game.Character.SpawnEnemy(grid.GetWorldPosition(node.X, node.Y), NPCs.Enemies.Octorok, Visual.transform);
         }
     }
 

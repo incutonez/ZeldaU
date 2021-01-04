@@ -12,12 +12,12 @@ namespace World
         public Dictionary<Animations, List<Sprite>> AnimationSprites { get; set; } = new Dictionary<Animations, List<Sprite>>();
         public bool BlockAnimations { get; set; }
         // By default, all enemies can attack, but this should be overriden if they can't
-        public bool CanAttack = true;
+        public bool CanAttack { get; set; } = true;
         public Vector3 LastMovement { get; set; }
         public Animations ActiveAnimation { get; set; } = Animations.IdleDown;
-        public virtual float WalkFrameRate => 0.3f;
-        public virtual float ActionFrameRate => 0.33f;
-        public virtual float IdleFrameRate => 1f;
+        public virtual float WalkFrameRate { get; set; } = 0f;
+        public virtual float ActionFrameRate { get; set; } = 0f;
+        public virtual float IdleFrameRate { get; set; } = 0f;
 
         private void Awake()
         {
@@ -26,6 +26,11 @@ namespace World
             {
                 SpriteAnimator.OnAnimationStop += SpriteAnimator_OnAnimationStop;
             }
+        }
+
+        public virtual Sprite GetDefaultSprite()
+        {
+            return AnimationSprites[Animations.Default][0];
         }
 
         public bool IsBlocked()

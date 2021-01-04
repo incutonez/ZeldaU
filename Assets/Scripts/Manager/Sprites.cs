@@ -14,6 +14,7 @@ namespace Manager
         public List<Sprite> Items { get; set; }
         public List<Sprite> Tiles { get; set; }
         public List<Sprite> PlayerBase { get; set; }
+        public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new Dictionary<Animations, List<Sprite>>();
         public List<AssetReference> AssetReferences { get; set; }
@@ -116,11 +117,14 @@ namespace Manager
             });
             LoadSprites("characters", (response) =>
             {
-                Characters = response;
+                foreach (Characters character in EnumExtensions.GetValues<Characters>())
+                {
+                    string name = character.GetDescription() + "_";
+                    NPCAnimations.Add(character, GetAnimations(response.Where(x => x.name.Contains(name)).ToList(), name));
+                }
             });
             LoadSprites("enemies", (response) =>
             {
-                List<Animations> animationsEnums = EnumExtensions.GetValues<Animations>();
                 foreach (Enemies enemy in EnumExtensions.GetValues<Enemies>())
                 {
                     string enemyName = enemy.GetDescription() + "_";
@@ -164,6 +168,7 @@ namespace Manager
                         break;
                     case Animations.IdleDown:
                         dict[value].Add(sprite);
+                        dict[Animations.Default].Add(sprite);
                         dict[Animations.WalkDown].Add(sprite);
                         break;
                     case Animations.IdleRight:

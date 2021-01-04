@@ -270,7 +270,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 23b93455a2a65dc4a96d01ca63493950
-    m_Address: Assets/Sprites/Enemies/Zora.png
+    m_Address: Sprites/Enemies/Zora
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 RoamingPosition { get; set; }
     private EnemyPathfinding EnemyPathfinding { get; set; }
     private ScreenGrid<ScreenGridNode> Grid { get; set; }
-    private MovementState movementState { get; set; } = MovementState.Roaming;
+    private MovementState State { get; set; } = MovementState.Roaming;
     private World.Enemy WorldEnemy { get; set; }
 
     private void Awake()
@@ -30,8 +30,9 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         Grid = Manager.Game.Pathfinder.Grid;
-        StartingPosition = transform.localPosition;
+        StartingPosition = transform.position;
         RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(StartingPosition);
+        EnemyPathfinding.MoveTo(RoamingPosition);
     }
 
     private void Update()
@@ -40,7 +41,7 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-        switch (movementState)
+        switch (State)
         {
             case MovementState.Firing:
                 break;
@@ -61,15 +62,16 @@ public class EnemyAI : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, playerPosition) > 5f)
                 {
-                    movementState = MovementState.Roaming;
+                    State = MovementState.Roaming;
                 }
                 break;
             case MovementState.Roaming:
             default:
-                EnemyPathfinding.MoveTo(RoamingPosition);
-                if (Vector3.Distance(transform.position, RoamingPosition) <= 1f)
+                if (Vector3.Distance(transform.position, RoamingPosition) < 1f)
                 {
+                    // TODOJEF: There's a weird issue here when we get a new position, the path finding allows them to move diagonally
                     RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(RoamingPosition);
+                    EnemyPathfinding.MoveTo(RoamingPosition);
                 }
                 if (CanChase())
                 {
@@ -83,7 +85,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) < 4f)
         {
-            movementState = MovementState.Chasing;
+            State = MovementState.Chasing;
         }
     }
 

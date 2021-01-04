@@ -19,7 +19,7 @@ namespace Manager
             RectTransform transform = Spawn(position, Game.Prefabs.Player, parent);
             World.Player worldCharacter = transform.GetComponent<World.Player>();
             BaseCharacter character = new BaseCharacter { characterType = Characters.Link };
-            worldCharacter.SetCharacter(character, null);
+            worldCharacter.SetCharacter(character);
             worldCharacter.InitializedCharacter();
             return worldCharacter;
         }
@@ -30,7 +30,7 @@ namespace Manager
 
             World.Character<BaseCharacter> worldCharacter = transform.GetComponent<World.Character<BaseCharacter>>();
             BaseCharacter character = new BaseCharacter { characterType = characterType };
-            worldCharacter.SetCharacter(character, Game.Sprites.GetCharacter(character.GetSpriteName()));
+            worldCharacter.SetCharacter(character);
         }
 
         public void SpawnEnemy(Vector3 position, Enemies enemyType, Transform parent)
@@ -39,7 +39,7 @@ namespace Manager
 
             World.Enemy worldCharacter = transform.GetComponent<World.Enemy>();
             Enemy character = new Enemy { characterType = enemyType };
-            worldCharacter.SetCharacter(character, null);
+            worldCharacter.SetCharacter(character);
         }
     }
 }

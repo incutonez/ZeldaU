@@ -9,6 +9,7 @@ namespace Manager
     /// </summary>
     public class Game : MonoBehaviour
     {
+        public static event EventHandler OnLaunch;
         public static World.Player Player { get; set; }
         public static Audio Audio { get; set; }
         public static Shield Shield { get; set; }
@@ -30,7 +31,6 @@ namespace Manager
         private void Awake()
         {
             IsDebugMode = DebugMode;
-            Caching.ClearCache();
             Sprites = new Sprites();
         }
 
@@ -71,6 +71,7 @@ namespace Manager
                 Scene.BuildScreen(new SceneViewModel { Name = "80" });
             }
             Player.gameObject.SetActive(true);
+            OnLaunch?.Invoke(this, EventArgs.Empty);
         }
     }
 }

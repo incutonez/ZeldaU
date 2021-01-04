@@ -25,11 +25,12 @@ public class EnemyPathfinding : MonoBehaviour
 
     private void HandleMovement()
     {
+        //PrintPathfindingPath();
         if (pathVectorList != null)
         {
             Vector3 currentPosition = GetPosition();
             Vector3 targetPosition = pathVectorList[currentPathIndex];
-            if (Vector3.Distance(currentPosition, targetPosition) > 0.25f)
+            if (Vector3.Distance(currentPosition, targetPosition) > 0.02)
             {
                 CharacterMovement.Movement = (targetPosition - currentPosition).normalized;
             }
@@ -40,6 +41,21 @@ public class EnemyPathfinding : MonoBehaviour
                 {
                     StopMoving();
                 }
+            }
+        }
+        else
+        {
+            StopMoving();
+        }
+    }
+
+    private void PrintPathfindingPath()
+    {
+        if (pathVectorList != null)
+        {
+            for (int i = 0; i < pathVectorList.Count - 1; i++)
+            {
+                Debug.DrawLine(pathVectorList[i], pathVectorList[i + 1], Color.green);
             }
         }
     }
@@ -64,7 +80,7 @@ public class EnemyPathfinding : MonoBehaviour
     {
         currentPathIndex = 0;
         pathVectorList = Manager.Game.Pathfinder.FindPath(GetPosition(), targetPosition);
-
+        Debug.Log($"{GetPosition()} {pathVectorList[0]}");
         if (pathVectorList != null && pathVectorList.Count > 1)
         {
             pathVectorList.RemoveAt(0);

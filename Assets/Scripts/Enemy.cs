@@ -55,4 +55,22 @@ public class Enemy : BaseCharacter
         }
         return false;
     }
+
+    public void SetFrameRates(World.AnimatorBase animator)
+    {
+        float action = 0f;
+        float idle = 0f;
+        float walk = 0f;
+        switch (characterType)
+        {
+            case Enemies.Octorok:
+                walk = 0.3f;
+                action = 0.33f;
+                idle = 1f;
+                break;
+        }
+        animator.ActionFrameRate = action;
+        animator.IdleFrameRate = idle;
+        animator.WalkFrameRate = walk;
+    }
 }

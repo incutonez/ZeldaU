@@ -23,7 +23,7 @@ public class ScreenGrid<T>
     public T[,] Cells { get; set; }
     public TextMesh[,] CellsText { get; set; }
     public Vector3 Origin { get; set; }
-    public bool DebugMode { get; set; } = false;
+    public bool DebugMode { get; set; } = true;
 
     public ScreenGrid(int width, int height, float cellSize, Vector3 origin, Func<ScreenGrid<T>, int, int, T> createFunc)
     {
@@ -48,7 +48,7 @@ public class ScreenGrid<T>
             {
                 for (int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    CellsText[i, j] = CreateWorldText(Cells[i, j]?.ToString(), null, GetWorldPosition(i, j) + new Vector3(CellSize, CellSize) * 0.5f);
+                    //CellsText[i, j] = CreateWorldText(Cells[i, j]?.ToString(), null, GetWorldPosition(i, j) + new Vector3(CellSize, CellSize) * 0.5f);
                     Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);
                     Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.white, 100f);
                 }
@@ -57,7 +57,7 @@ public class ScreenGrid<T>
             Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
 
             OnGridValueChanged += (object sender, OnGridValueChangedEventArgs eventArgs) => {
-                CellsText[eventArgs.x, eventArgs.y].text = Cells[eventArgs.x, eventArgs.y].ToString();
+                //CellsText[eventArgs.x, eventArgs.y].text = Cells[eventArgs.x, eventArgs.y].ToString();
             };
         }
     }
@@ -119,6 +119,14 @@ public class ScreenGrid<T>
     {
         x = Mathf.FloorToInt((position - Origin).x / CellSize);
         y = Mathf.FloorToInt((position - Origin).y / CellSize);
+        if (x < 0)
+        {
+            x = 0;
+        }
+        if (y < 0)
+        {
+            y = 0;
+        }
     }
 
     public void TriggerChange(int x, int y)

@@ -8,17 +8,14 @@ namespace World
         public SpriteRenderer Renderer { get; set; }
         public AnimatorBase Animator { get; set; }
 
-        public void SetCharacter(T character, Sprite sprite)
+        public void SetCharacter(T character)
         {
             Renderer = transform.Find("Body").GetComponent<SpriteRenderer>();
             BaseCharacter = character;
             character.Initialize();
             SetAnimationBase();
             transform.name = character.characterType.GetDescription();
-            if (sprite != null)
-            {
-                Renderer.sprite = sprite;
-            }
+            Renderer.sprite = Animator.GetDefaultSprite();
         }
 
         public virtual void SetAnimationBase() { }

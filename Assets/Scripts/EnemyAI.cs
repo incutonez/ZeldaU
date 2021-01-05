@@ -15,22 +15,13 @@ public class EnemyAI : MonoBehaviour
     }
 
     // TODOJEF: Add aiming script
-    private Vector3 RoamingPosition { get; set; }
-    private EnemyPathfinding EnemyPathfinding { get; set; }
-    private ScreenGrid<ScreenGridNode> Grid { get; set; }
+    public Vector3 RoamingPosition { get; set; }
+    private EnemyPathfinding Pathfinding { get; set; }
     private MovementState State { get; set; } = MovementState.Roaming;
-    private World.Enemy WorldEnemy { get; set; }
-    private bool HasStarted { get; set; }
 
     private void Awake()
     {
-        EnemyPathfinding = GetComponent<EnemyPathfinding>();
-        WorldEnemy = GetComponent<World.Enemy>();
-    }
-
-    private void Start()
-    {
-        Grid = Manager.Game.Pathfinder.Grid;
+        Pathfinding = GetComponent<EnemyPathfinding>();
     }
 
     private void Update()
@@ -60,21 +51,20 @@ public class EnemyAI : MonoBehaviour
                 {
                     State = MovementState.Roaming;
                     // Move back to the roaming position
-                    EnemyPathfinding.MoveTo(RoamingPosition);
+                    Pathfinding.MoveTo(RoamingPosition);
                 }
                 // Otherwise, continue pursuit and update with new position
                 else
                 {
-                    EnemyPathfinding.MoveTo(playerPosition);
+                    Pathfinding.MoveTo(playerPosition);
                 }
                 break;
             case MovementState.Roaming:
                 // Once we've reached the destination, let's pick a new one
-                if (!HasStarted || transform.position == RoamingPosition)
+                if (transform.position == RoamingPosition)
                 {
                     RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(RoamingPosition);
-                    EnemyPathfinding.MoveTo(RoamingPosition);
-                    HasStarted = true;
+                    Pathfinding.MoveTo(RoamingPosition);
                 }
                 if (CanChase())
                 {
@@ -91,7 +81,7 @@ public class EnemyAI : MonoBehaviour
         {
             State = MovementState.Chasing;
             // Let's start chasing toward the player
-            EnemyPathfinding.MoveTo(playerPosition);
+            Pathfinding.MoveTo(playerPosition);
         }
     }
 
@@ -103,5 +93,14 @@ public class EnemyAI : MonoBehaviour
     public Vector3 GetPlayerPosition()
     {
         return Manager.Game.Player.Animator.GetPosition();
+    }
+
+    /// <summary>
+    /// When reset is called, we need to generate a new roaming position and move the enemy toward it
+    /// </summary>
+    public void Reset()
+    {
+        RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(transform.position);
+        Pathfinding.MoveTo(RoamingPosition);
     }
 }

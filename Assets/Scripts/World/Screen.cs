@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using NPCs;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,12 +17,13 @@ namespace World
         public string ScreenId { get; set; }
 
         private Mesh Mesh { get; set; }
-        private List<World.Door> WorldDoors { get; set; }
+        private List<Door> WorldDoors { get; set; }
+        private List<Enemy> Enemies { get; set; } = new List<Enemy>();
 
         public Screen Initialize(string screenId, SceneViewModel transition)
         {
             SetGrid(new ScreenGrid<ScreenGridNode>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenGridNode> grid, int x, int y) => new ScreenGridNode(grid, x, y)));
-            WorldDoors = new List<World.Door>();
+            WorldDoors = new List<Door>();
             ScreenId = screenId;
             transform.name = screenId;
             SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
@@ -44,6 +46,20 @@ namespace World
             {
                 RefreshGrid();
             }
+        }
+
+        public List<Vector3> GetRandomPositions(int totalCount)
+        {
+            System.Random random = new System.Random();
+            List<Vector3> randomPositions = new List<Vector3>();
+            List<Vector3> openTiles = GetOpenTiles();
+            for (int i = 0; i < totalCount; i++)
+            {
+                int index = random.Next(0, openTiles.Count);
+                randomPositions.Add(openTiles[index]);
+                openTiles.RemoveAt(index);
+            }
+            return randomPositions;
         }
 
         public List<Vector3> GetOpenTiles()
@@ -108,18 +124,14 @@ namespace World
             }
             if (scene.Enemies != null)
             {
-                System.Random r = new System.Random();
-                List<Vector3> openTiles = GetOpenTiles();
                 foreach (SceneEnemyViewModel viewModel in scene.Enemies)
                 {
                     Enemies enemyType = viewModel.Type;
-                    // Randomly spawn enemies
                     for (int i = 0; i < viewModel.Count; i++)
                     {
-                        int index = r.Next(0, openTiles.Count);
-                        Vector3 position = openTiles[index];
-                        openTiles.RemoveAt(index);
-                        Manager.Character.SpawnEnemy(position, enemyType, transform);
+                        Enemy enemy = Manager.Character.SpawnEnemy(Vector3.zero, enemyType, transform);
+                        enemy.OnDestroy += Enemy_OnDestroy;
+                        Enemies.Add(enemy);
                     }
                 }
             }
@@ -139,9 +151,35 @@ namespace World
             }
         }
 
+        // Randomly spawn enemies when the scene is shown
+        public void SpawnEnemies()
+        {
+            List<Vector3> positions = GetRandomPositions(Enemies.Count);
+            for (int i = 0; i < positions.Count; i++)
+            {
+                Enemy enemy = Enemies[i];
+                enemy.transform.position = positions[i];
+                enemy.Enable();
+            }
+        }
+
+        /// <summary>
+        /// When the enemy is destroyed, we have to remove it from the world, so we don't try to re-spawn it when the screen is loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Enemy_OnDestroy(object sender, EventArgs e)
+        {
+            Enemies.Remove((Enemy) sender);
+        }
+
         public void ToggleActive(bool active = false)
         {
             gameObject.SetActive(active);
+            foreach (Enemy enemy in Enemies)
+            {
+                enemy.Disable();
+            }
         }
 
         public void ToggleDoor(bool active)

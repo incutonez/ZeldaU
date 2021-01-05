@@ -1,12 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace World
 {
     public class Character<T> : MonoBehaviour where T : BaseCharacter
     {
+        public event EventHandler OnDestroy;
         public T BaseCharacter { get; set; }
         public SpriteRenderer Renderer { get; set; }
         public AnimatorBase Animator { get; set; }
+        public EnemyAI AI { get; set; }
+
+        private void Awake()
+        {
+            AI = GetComponent<EnemyAI>();
+        }
 
         public void SetCharacter(T character)
         {
@@ -42,12 +50,24 @@ namespace World
 
         public void DestroySelf()
         {
+            OnDestroy?.Invoke(this, EventArgs.Empty);
             Destroy(gameObject);
         }
 
         public T GetCharacter()
         {
             return BaseCharacter;
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void Enable()
+        {
+            AI.Reset();
+            gameObject.SetActive(true);
         }
     }
 }

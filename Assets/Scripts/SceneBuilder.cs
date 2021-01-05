@@ -79,6 +79,7 @@ public class SceneBuilder : MonoBehaviour
             currentTransform.position = Vector3.MoveTowards(currentTransform.position, Vector3.zero, Time.deltaTime * PAN_SPEED);
             yield return null;
         }
+        CurrentScreen.SpawnEnemies();
         PreviousScreen.ToggleActive();
         SetScreenLoading(false);
     }

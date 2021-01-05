@@ -13,8 +13,8 @@ namespace World
             Renderer = transform.Find("Body").GetComponent<SpriteRenderer>();
             BaseCharacter = character;
             character.Initialize();
-            SetAnimationBase();
             transform.name = character.characterType.GetDescription();
+            SetAnimationBase();
             Renderer.sprite = Animator.GetDefaultSprite();
         }
 
@@ -48,11 +48,6 @@ namespace World
         public T GetCharacter()
         {
             return BaseCharacter;
-        }
-
-        public Vector3 GetPosition()
-        {
-            return Animator.GetPosition();
         }
     }
 }

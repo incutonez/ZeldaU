@@ -53,7 +53,7 @@ public class PathTesting : MonoBehaviour
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ScreenGridNode node = grid.GetViewModel(position);
-            Manager.Game.Character.SpawnEnemy(grid.GetWorldPosition(node.X, node.Y), NPCs.Enemies.Octorok, Visual.transform);
+            Manager.Character.SpawnEnemy(grid.GetWorldPosition(node.X, node.Y), NPCs.Enemies.Octorok, Visual.transform);
         }
     }
 

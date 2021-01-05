@@ -61,7 +61,7 @@ public class Pathfinder
         Grid.EachCell((viewModel, x, y) =>
         {
             // If we have the default value, then there's nothing in this tile
-            if (viewModel.TileType == Tiles.None)
+            if (viewModel.IsWalkable())
             {
                 result.Add(Grid.GetWorldPosition(x, y));
             }

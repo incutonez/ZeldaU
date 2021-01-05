@@ -18,10 +18,12 @@ namespace World
         public virtual float WalkFrameRate { get; set; } = 0f;
         public virtual float ActionFrameRate { get; set; } = 0f;
         public virtual float IdleFrameRate { get; set; } = 0f;
+        public CharacterMovement CharacterMovement { get; set; }
 
         private void Awake()
         {
             SpriteAnimator = GetComponent<SpriteAnimator>();
+            CharacterMovement = GetComponent<CharacterMovement>();
             if (SpriteAnimator != null)
             {
                 SpriteAnimator.OnAnimationStop += SpriteAnimator_OnAnimationStop;
@@ -35,7 +37,7 @@ namespace World
 
         public bool IsBlocked()
         {
-            return BlockAnimations || Manager.Game.IsTransitioning;
+            return BlockAnimations || Manager.Game.IsTransitioning || CharacterMovement.IsDisabled();
         }
 
         public virtual void SpriteAnimator_OnAnimationStop(object sender, EventArgs e)
@@ -48,7 +50,7 @@ namespace World
 
         public Vector3 GetPosition()
         {
-            return transform.position;
+            return CharacterMovement.GetPosition();
         }
 
         public virtual IEnumerator AnimateExit()

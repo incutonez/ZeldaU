@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class Character : MonoBehaviour
+    public static class Character
     {
-        public RectTransform Spawn(Vector3 position, RectTransform prefab, Transform parent)
+        public static RectTransform Spawn(Vector3 position, RectTransform prefab, Transform parent)
         {
-            RectTransform transform = Instantiate(prefab);
+            RectTransform transform = Object.Instantiate(prefab);
             transform.SetParent(parent);
             transform.localPosition = position;
             transform.rotation = Quaternion.identity;
             return transform;
         }
 
-        public World.Player SpawnPlayer(Vector3 position, Transform parent)
+        public static World.Player SpawnPlayer(Vector3 position, Transform parent)
         {
             RectTransform transform = Spawn(position, Game.Prefabs.Player, parent);
             World.Player worldCharacter = transform.GetComponent<World.Player>();
@@ -24,7 +24,7 @@ namespace Manager
             return worldCharacter;
         }
 
-        public void SpawnCharacter(Vector3 position, Characters characterType, Transform parent)
+        public static void SpawnCharacter(Vector3 position, Characters characterType, Transform parent)
         {
             RectTransform transform = Spawn(position, Game.Prefabs.NPC, parent);
 
@@ -33,7 +33,7 @@ namespace Manager
             worldCharacter.SetCharacter(character);
         }
 
-        public void SpawnEnemy(Vector3 position, Enemies enemyType, Transform parent)
+        public static void SpawnEnemy(Vector3 position, Enemies enemyType, Transform parent)
         {
             RectTransform transform = Spawn(position, Game.Prefabs.Enemy, parent);
 

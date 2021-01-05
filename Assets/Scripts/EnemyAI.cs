@@ -8,18 +8,19 @@ public class EnemyAI : MonoBehaviour
 {
     public enum MovementState
     {
-        Roaming = 0,
-        Chasing = 1,
-        Firing = 2
+        None = 0,
+        Roaming = 1,
+        Chasing = 2,
+        Firing = 3
     }
 
     // TODOJEF: Add aiming script
-    private Vector3 StartingPosition { get; set; }
     private Vector3 RoamingPosition { get; set; }
     private EnemyPathfinding EnemyPathfinding { get; set; }
     private ScreenGrid<ScreenGridNode> Grid { get; set; }
     private MovementState State { get; set; } = MovementState.Roaming;
     private World.Enemy WorldEnemy { get; set; }
+    private bool HasStarted { get; set; }
 
     private void Awake()
     {
@@ -30,9 +31,6 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         Grid = Manager.Game.Pathfinder.Grid;
-        StartingPosition = transform.position;
-        RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(StartingPosition);
-        EnemyPathfinding.MoveTo(RoamingPosition);
     }
 
     private void Update()
@@ -46,9 +44,7 @@ public class EnemyAI : MonoBehaviour
             case MovementState.Firing:
                 break;
             case MovementState.Chasing:
-                Vector3 playerPosition = Manager.Game.Player.GetPosition();
-                EnemyPathfinding.MoveTo(playerPosition);
-
+                Vector3 playerPosition = GetPlayerPosition();
                 // If within this range, then shoot
                 if (Vector3.Distance(transform.position, playerPosition) < 0.5f)
                 {
@@ -59,19 +55,26 @@ public class EnemyAI : MonoBehaviour
                     // Enemy has a float of the time in between firing, similar to the sword concept in WorldPlayer... compare with Time.time
                     //  Set this value to Time.time
                 }
-
-                if (Vector3.Distance(transform.position, playerPosition) > 5f)
+                // Otherwise, if player is too far, let's stop chasing
+                else if (Vector3.Distance(transform.position, playerPosition) > 5f)
                 {
                     State = MovementState.Roaming;
+                    // Move back to the roaming position
+                    EnemyPathfinding.MoveTo(RoamingPosition);
+                }
+                // Otherwise, continue pursuit and update with new position
+                else
+                {
+                    EnemyPathfinding.MoveTo(playerPosition);
                 }
                 break;
             case MovementState.Roaming:
-            default:
-                if (Vector3.Distance(transform.position, RoamingPosition) < 1f)
+                // Once we've reached the destination, let's pick a new one
+                if (!HasStarted || transform.position == RoamingPosition)
                 {
-                    // TODOJEF: There's a weird issue here when we get a new position, the path finding allows them to move diagonally
                     RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(RoamingPosition);
                     EnemyPathfinding.MoveTo(RoamingPosition);
+                    HasStarted = true;
                 }
                 if (CanChase())
                 {
@@ -83,14 +86,22 @@ public class EnemyAI : MonoBehaviour
 
     private void FindTarget()
     {
-        if (Vector3.Distance(transform.position, Manager.Game.Player.GetPosition()) < 4f)
+        Vector3 playerPosition = GetPlayerPosition();
+        if (Vector3.Distance(transform.position, playerPosition) < 4f)
         {
             State = MovementState.Chasing;
+            // Let's start chasing toward the player
+            EnemyPathfinding.MoveTo(playerPosition);
         }
     }
 
     private bool CanChase()
     {
         return false;
+    }
+
+    public Vector3 GetPlayerPosition()
+    {
+        return Manager.Game.Player.Animator.GetPosition();
     }
 }

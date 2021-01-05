@@ -15,7 +15,6 @@ namespace Manager
         public static Shield Shield { get; set; }
         public static Sword Sword { get; set; }
         public static Suit Suit { get; set; }
-        public static Character Character { get; set; }
         public static SceneBuilder Scene { get; set; }
         public static bool IsTransitioning { get; set; }
         public static UIInventory Inventory { get; set; }
@@ -60,7 +59,6 @@ namespace Manager
             MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
             Audio = gameObject.AddComponent<Audio>();
             Inventory = gameObject.AddComponent<UIInventory>();
-            Character = gameObject.AddComponent<Character>();
             Scene = gameObject.AddComponent<SceneBuilder>();
             Player = Character.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
             Shield = Player.GetComponentInChildren<Shield>(true);

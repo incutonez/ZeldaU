@@ -4,7 +4,7 @@ public class PlayerMovement : CharacterMovement
 {
     private void Update()
     {
-        if (Animator.BlockAnimations)
+        if (Animator.IsBlocked())
         {
             return;
         }

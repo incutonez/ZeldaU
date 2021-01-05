@@ -119,7 +119,7 @@ namespace World
                         int index = r.Next(0, openTiles.Count);
                         Vector3 position = openTiles[index];
                         openTiles.RemoveAt(index);
-                        Manager.Game.Character.SpawnEnemy(position, enemyType, transform);
+                        Manager.Character.SpawnEnemy(position, enemyType, transform);
                     }
                 }
             }
@@ -127,14 +127,14 @@ namespace World
             {
                 foreach (SceneItemViewModel item in scene.Items)
                 {
-                    World.Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
+                    Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
                 }
             }
             if (scene.Characters != null)
             {
                 foreach (SceneCharacterViewModel character in scene.Characters)
                 {
-                    Manager.Game.Character.SpawnCharacter(Grid.GetWorldPosition(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
+                    Manager.Character.SpawnCharacter(Grid.GetWorldPosition(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
                 }
             }
         }
@@ -146,14 +146,14 @@ namespace World
 
         public void ToggleDoor(bool active)
         {
-            World.Door door = GetDoor();
+            Door door = GetDoor();
             if (door != null)
             {
                 door.ToggleHiddenDoor(active);
             }
         }
 
-        public World.Door GetDoor(int index = 0)
+        public Door GetDoor(int index = 0)
         {
             return WorldDoors[index];
         }
@@ -165,7 +165,7 @@ namespace World
             Transform door = Instantiate(Manager.Game.Prefabs.WorldDoor, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
             if (door != null)
             {
-                World.Door worldDoor = door.GetComponent<World.Door>();
+                Door worldDoor = door.GetComponent<Door>();
                 worldDoor.Initialize(GroundColor, transition);
                 WorldDoors.Add(worldDoor);
             }

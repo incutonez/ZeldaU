@@ -9,7 +9,7 @@ using UnityEngine;
 public class SceneBuilder : MonoBehaviour
 {
     public const int PAN_SPEED = 15;
-    private const float TRANSITION_PADDING = 0.05f;
+    private const float TRANSITION_PADDING = 0.08f;
 
     public Transform ScreensContainer { get; set; }
 

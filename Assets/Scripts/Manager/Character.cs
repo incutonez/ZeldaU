@@ -19,7 +19,7 @@ namespace Manager
         {
             RectTransform transform = Spawn(position, Game.Prefabs.Player, parent, active);
             World.Player worldCharacter = transform.GetComponent<World.Player>();
-            BaseCharacter character = new BaseCharacter { characterType = Characters.Link };
+            Base.Character character = new Base.Character { characterType = Characters.Link };
             worldCharacter.SetCharacter(character);
             worldCharacter.InitializedCharacter();
             return worldCharacter;
@@ -29,8 +29,8 @@ namespace Manager
         {
             RectTransform transform = Spawn(position, Game.Prefabs.NPC, parent, active);
 
-            World.Character<BaseCharacter> worldCharacter = transform.GetComponent<World.Character<BaseCharacter>>();
-            BaseCharacter character = new BaseCharacter { characterType = characterType };
+            World.Character<Base.Character> worldCharacter = transform.GetComponent<World.Character<Base.Character>>();
+            Base.Character character = new Base.Character { characterType = characterType };
             worldCharacter.SetCharacter(character);
         }
 
@@ -39,7 +39,7 @@ namespace Manager
             RectTransform transform = Spawn(position, Game.Prefabs.Enemy, parent, active);
 
             World.Enemy worldCharacter = transform.GetComponent<World.Enemy>();
-            Enemy character = new Enemy { characterType = enemyType };
+            Base.Enemy character = new Base.Enemy { characterType = enemyType };
             worldCharacter.SetCharacter(character);
             return worldCharacter;
         }

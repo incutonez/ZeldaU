@@ -5,9 +5,9 @@ namespace World
     public class Door : MonoBehaviour
     {
         public RectTransform HiddenDoor { get; set; }
-        public SceneViewModel Transition { get; set; }
+        public ViewModel.Grid Transition { get; set; }
 
-        public void Initialize(Color groundColor, SceneViewModel transition)
+        public void Initialize(Color groundColor, ViewModel.Grid transition)
         {
             Transition = transition;
             HiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"), transform);

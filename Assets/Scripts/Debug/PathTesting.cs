@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathTesting : MonoBehaviour
 {
     public World.Screen Visual;
-    public Pathfinder PathFinder { get; set; }
+    public World.Pathfinder PathFinder { get; set; }
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class PathTesting : MonoBehaviour
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             grid.GetXY(position, out int x, out int y);
-            List<ScreenGridNode> path = PathFinder.FindPath(0, 0, x, y);
+            List<World.GridNode> path = PathFinder.FindPath(0, 0, x, y);
             Vector3 quadSize = Vector2.one * grid.CellSize * 0.5f;
             if (path != null)
             {
@@ -45,14 +45,14 @@ public class PathTesting : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            ScreenGridNode node = grid.GetViewModel(position);
+            World.GridNode node = grid.GetViewModel(position);
             node.Color = WorldColors.Tan;
             node.SetTileType(GetRandomTile());
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            ScreenGridNode node = grid.GetViewModel(position);
+            World.GridNode node = grid.GetViewModel(position);
             Manager.Character.SpawnEnemy(grid.GetWorldPosition(node.X, node.Y), NPCs.Enemies.Octorok, Visual.transform, true);
         }
     }

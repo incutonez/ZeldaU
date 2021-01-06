@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace World
 {
-    public class Character<T> : MonoBehaviour where T : BaseCharacter
+    public class Character<T> : MonoBehaviour where T : Base.Character
     {
         public event EventHandler OnDestroy;
         public T BaseCharacter { get; set; }
         public SpriteRenderer Renderer { get; set; }
-        public AnimatorBase Animator { get; set; }
-        public EnemyAI AI { get; set; }
+        public Base.Animation Animation { get; set; }
+        public Base.AI AI { get; set; }
 
         private void Awake()
         {
-            AI = GetComponent<EnemyAI>();
+            AI = GetComponent<Base.AI>();
         }
 
         public void SetCharacter(T character)
@@ -23,7 +23,7 @@ namespace World
             character.Initialize();
             transform.name = character.characterType.GetDescription();
             SetAnimationBase();
-            Renderer.sprite = Animator.GetDefaultSprite();
+            Renderer.sprite = Animation.GetDefaultSprite();
         }
 
         public virtual void SetAnimationBase() { }

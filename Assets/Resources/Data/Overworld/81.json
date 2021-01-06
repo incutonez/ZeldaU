@@ -295,7 +295,11 @@
   "Enemies": [
     {
       "Type": 26,
-      "Count": 4
+      "Count": 2
+    },
+    {
+      "Type": 27,
+      "Count": 2
     }
   ]
 }

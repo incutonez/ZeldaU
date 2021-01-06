@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace World
+namespace Animation
 {
-    public class AnimatorPlayer : AnimatorBase
+    public class Player : Base.Animation
     {
         public override float WalkFrameRate => 0.15f;
         public override float ActionFrameRate => 0.33f;

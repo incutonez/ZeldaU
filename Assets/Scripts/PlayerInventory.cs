@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
     private const float padding = 0.05f;
 
@@ -14,7 +14,7 @@ public class UIInventory : MonoBehaviour
     public Image ItemSlotSprite { get; set; }
     public Transform HUD { get; set; }
 
-    private Inventory Inventory { get; set; }
+    private Base.Inventory Inventory { get; set; }
     private World.Player Player { get; set; }
     private Sprite HeartHalfSprite { get; set; }
     private Sprite HeartEmptySprite { get; set; }
@@ -33,7 +33,7 @@ public class UIInventory : MonoBehaviour
         SwordSlotSprite = HUD.transform.Find("ASlot").GetChild(2).GetComponent<Image>();
     }
 
-    public void SetInventory(Inventory inventory)
+    public void SetInventory(Base.Inventory inventory)
     {
         Inventory = inventory;
         Inventory.OnItemListChanged += Inventory_OnItemListChanged;
@@ -59,9 +59,9 @@ public class UIInventory : MonoBehaviour
         RefreshLifeUI();
     }
 
-    private void Inventory_OnItemListChanged(object sender, InventoryChangeArgs args)
+    private void Inventory_OnItemListChanged(object sender, Base.InventoryChangeArgs args)
     {
-        Item item = args.item;
+        Base.Item item = args.item;
         if (item != null)
         {
             if (item.IsRing())
@@ -75,7 +75,7 @@ public class UIInventory : MonoBehaviour
             else if (item.IsSword())
             {
                 Manager.Game.Sword.SetSword(item);
-                Player.Animator.CanAttack = true;
+                Player.Animation.CanAttack = true;
                 RefreshSwordUI();
             }
             else if (item.IsRupee())

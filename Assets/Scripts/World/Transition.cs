@@ -4,7 +4,7 @@ namespace World
 {
     public class Transition : MonoBehaviour
     {
-        public SceneViewModel ViewModel { get; set; }
+        public ViewModel.Grid ViewModel { get; set; }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -25,7 +25,7 @@ namespace World
             }
         }
 
-        public void Initialize(SceneViewModel transition)
+        public void Initialize(ViewModel.Grid transition)
         {
             ViewModel = transition;
             // We have to make sure our position gets the offset by the x and y transition values... this is because we want

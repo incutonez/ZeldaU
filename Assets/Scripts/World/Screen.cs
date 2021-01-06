@@ -12,7 +12,7 @@ namespace World
     public class Screen : MonoBehaviour
     {
         public Color GroundColor { get; set; }
-        public ScreenGrid<ScreenGridNode> Grid { get; set; }
+        public Grid<GridNode> Grid { get; set; }
         public bool GridNeedsRefresh { get; set; }
         public string ScreenId { get; set; }
 
@@ -20,13 +20,13 @@ namespace World
         private List<Door> WorldDoors { get; set; }
         private List<Enemy> Enemies { get; set; } = new List<Enemy>();
 
-        public Screen Initialize(string screenId, SceneViewModel transition)
+        public Screen Initialize(string screenId, ViewModel.Grid transition)
         {
-            SetGrid(new ScreenGrid<ScreenGridNode>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (ScreenGrid<ScreenGridNode> grid, int x, int y) => new ScreenGridNode(grid, x, y)));
+            SetGrid(new Grid<GridNode>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (Grid<GridNode> grid, int x, int y) => new GridNode(grid, x, y)));
             WorldDoors = new List<Door>();
             ScreenId = screenId;
             transform.name = screenId;
-            SceneViewModel scene = JsonConvert.DeserializeObject<SceneViewModel>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
+            ViewModel.Grid scene = JsonConvert.DeserializeObject<ViewModel.Grid>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
             GroundColor = Utilities.HexToColor((scene.GroundColor ?? WorldColors.Tan).GetDescription());
             Build(scene);
             if (transition != null)
@@ -36,7 +36,7 @@ namespace World
             return this;
         }
 
-        public void SetGrid(ScreenGrid<ScreenGridNode> grid, bool refreshGrid = false)
+        public void SetGrid(Grid<GridNode> grid, bool refreshGrid = false)
         {
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
@@ -75,16 +75,16 @@ namespace World
             return result;
         }
 
-        public void Build(SceneViewModel scene)
+        public void Build(ViewModel.Grid scene)
         {
             if (scene.Tiles != null)
             {
-                foreach (ScreenTileViewModel screenTile in scene.Tiles)
+                foreach (ViewModel.Tile screenTile in scene.Tiles)
                 {
                     Tiles tileType = screenTile.Type;
                     // Order of priority
                     WorldColors color = screenTile.AccentColor ?? scene.AccentColor ?? WorldColors.White;
-                    foreach (ScreenTileChildViewModel child in screenTile.Children)
+                    foreach (ViewModel.TileChild child in screenTile.Children)
                     {
                         List<float> coordinates = child.Coordinates;
                         float x = coordinates[0];
@@ -124,7 +124,7 @@ namespace World
             }
             if (scene.Enemies != null)
             {
-                foreach (SceneEnemyViewModel viewModel in scene.Enemies)
+                foreach (ViewModel.Enemy viewModel in scene.Enemies)
                 {
                     Enemies enemyType = viewModel.Type;
                     for (int i = 0; i < viewModel.Count; i++)
@@ -137,14 +137,14 @@ namespace World
             }
             if (scene.Items != null)
             {
-                foreach (SceneItemViewModel item in scene.Items)
+                foreach (ViewModel.ItemViewModel item in scene.Items)
                 {
                     Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
                 }
             }
             if (scene.Characters != null)
             {
-                foreach (SceneCharacterViewModel character in scene.Characters)
+                foreach (ViewModel.Character character in scene.Characters)
                 {
                     Manager.Character.SpawnCharacter(Grid.GetWorldPosition(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
                 }
@@ -196,7 +196,7 @@ namespace World
             return WorldDoors[index];
         }
 
-        public void AddDoor(Vector3 position, SceneViewModel transition)
+        public void AddDoor(Vector3 position, ViewModel.Grid transition)
         {
             // Because our world has each position as being centered, we have to apply the offset... same
             // as what we do in the AddToMesh method
@@ -209,7 +209,7 @@ namespace World
             }
         }
 
-        public void AddTransition(Vector3 position, SceneViewModel transition)
+        public void AddTransition(Vector3 position, ViewModel.Grid transition)
         {
             Transform item = Instantiate(Manager.Game.Prefabs.WorldTransition, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
             if (item != null)
@@ -221,7 +221,7 @@ namespace World
 
         public void SetTileType(Vector3 position, Tiles matterType, WorldColors color)
         {
-            ScreenGridNode viewModel = Grid.GetViewModel(position);
+            GridNode viewModel = Grid.GetViewModel(position);
             if (viewModel != null)
             {
                 viewModel.Initialize(matterType, color);
@@ -269,7 +269,7 @@ namespace World
             Mesh.colors = colors;
         }
 
-        private void Grid_OnValueChanged(object sender, ScreenGrid<ScreenGridNode>.OnGridValueChangedEventArgs e)
+        private void Grid_OnValueChanged(object sender, Grid<GridNode>.OnGridValueChangedEventArgs e)
         {
             GridNeedsRefresh = true;
         }

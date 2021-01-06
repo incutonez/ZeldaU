@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TODO: I think this should have an interface, and all animation extensions can override them
-namespace World
+namespace Base
 {
-    public class AnimatorBase : MonoBehaviour
+    public class Animation : MonoBehaviour
     {
-        public SpriteAnimator SpriteAnimator { get; set; }
+        public global::Animation.Frames Frames { get; set; }
         public Dictionary<Animations, List<Sprite>> AnimationSprites { get; set; } = new Dictionary<Animations, List<Sprite>>();
         public bool BlockAnimations { get; set; }
         // By default, all enemies can attack, but this should be overriden if they can't
@@ -18,15 +18,15 @@ namespace World
         public virtual float WalkFrameRate { get; set; } = 0f;
         public virtual float ActionFrameRate { get; set; } = 0f;
         public virtual float IdleFrameRate { get; set; } = 0f;
-        public CharacterMovement CharacterMovement { get; set; }
+        public Movement CharacterMovement { get; set; }
 
         private void Awake()
         {
-            SpriteAnimator = GetComponent<SpriteAnimator>();
-            CharacterMovement = GetComponent<CharacterMovement>();
-            if (SpriteAnimator != null)
+            Frames = GetComponent<global::Animation.Frames>();
+            CharacterMovement = GetComponent<Movement>();
+            if (Frames != null)
             {
-                SpriteAnimator.OnAnimationStop += SpriteAnimator_OnAnimationStop;
+                Frames.OnAnimationStop += SpriteAnimator_OnAnimationStop;
             }
         }
 
@@ -166,7 +166,7 @@ namespace World
                         frameRate = WalkFrameRate;
                         break;
                 }
-                SpriteAnimator.PlayAnimation(AnimationSprites[type], frameRate, loop);
+                Frames.PlayAnimation(AnimationSprites[type], frameRate, loop);
                 ActiveAnimation = type;
             }
         }

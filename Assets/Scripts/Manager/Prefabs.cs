@@ -26,7 +26,7 @@ namespace Manager
             Enemy = LoadPrefab("Enemy");
             NPC = LoadPrefab("NPC");
             Item = LoadPrefab("Item");
-            Player = LoadPrefab("Character");
+            Player = LoadPrefab("Player");
             UIHeart = LoadPrefab("HeartTemplate");
         }
 

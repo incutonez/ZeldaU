@@ -18,7 +18,7 @@ namespace Manager
 
         private void Start()
         {
-            baseColors = Manager.Game.Sprites.PlayerBase[0].texture.GetPixels(0, 0, textureWidth, textureHeight);
+            baseColors = Game.Sprites.PlayerBase[0].texture.GetPixels(0, 0, textureWidth, textureHeight);
             SetSuitColor(Items.RingGreen);
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 // TODOJEF: https://www.youtube.com/watch?v=gD5EQyt7VPk&list=PLzDRvYVwl53uhO8yhqxcyjDImRjO9W722&index=5
 public class Testing : MonoBehaviour
 {
-    private ScreenGrid<HeatMapGridObject> Grid { get; set; }
+    private World.Grid<HeatMapGridObject> Grid { get; set; }
 
     public HeatmapVisual HeatMap;
     public BoolVisual HeatMapBool;
@@ -11,7 +11,7 @@ public class Testing : MonoBehaviour
 
     private void Start()
     {
-        Grid = new ScreenGrid<HeatMapGridObject>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, Vector3.zero, (ScreenGrid<HeatMapGridObject> grid, int x, int y) => new HeatMapGridObject(grid, x, y));
+        Grid = new World.Grid<HeatMapGridObject>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, Vector3.zero, (World.Grid<HeatMapGridObject> grid, int x, int y) => new HeatMapGridObject(grid, x, y));
         //HeatMap.SetGrid(Grid);
         //HeatMapBool.SetGrid(Grid);
         GenericVisual.SetGrid(Grid);
@@ -38,9 +38,9 @@ public class HeatMapGridObject
     public int Value { get; set; }
     public int X { get; set; }
     public int Y { get; set; }
-    public ScreenGrid<HeatMapGridObject> Grid { get; set; }
+    public World.Grid<HeatMapGridObject> Grid { get; set; }
 
-    public HeatMapGridObject(ScreenGrid<HeatMapGridObject> grid, int x, int y)
+    public HeatMapGridObject(World.Grid<HeatMapGridObject> grid, int x, int y)
     {
         Grid = grid;
         X = x;

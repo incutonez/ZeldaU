@@ -6,13 +6,13 @@ namespace World
     /// <summary>
     /// This class represents the Enemy class in the world
     /// </summary>
-    public class Enemy : Character<global::Enemy>
+    public class Enemy : Character<Base.Enemy>
     {
         public override void SetAnimationBase()
         {
-            Animator = gameObject.AddComponent<AnimatorBase>();
-            BaseCharacter.SetFrameRates(Animator);
-            Animator.AnimationSprites = Manager.Game.Sprites.EnemyAnimations[(Enemies)BaseCharacter.characterType];
+            Animation = gameObject.AddComponent<Base.Animation>();
+            BaseCharacter.SetFrameRates(Animation);
+            Animation.AnimationSprites = Manager.Game.Sprites.EnemyAnimations[(Enemies)BaseCharacter.characterType];
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

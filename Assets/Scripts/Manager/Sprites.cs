@@ -123,14 +123,38 @@ namespace Manager
                     NPCAnimations.Add(character, GetAnimations(response.Where(x => x.name.Contains(name)).ToList(), name));
                 }
             });
-            LoadSprites("enemies", (response) =>
+            LoadSprites("Enemies/OctorokBase", (response) =>
             {
-                foreach (Enemies enemy in EnumExtensions.GetValues<Enemies>())
+                Dictionary<Animations, List<Sprite>> animations = GetAnimations(response, "");
+                Dictionary<Animations, List<Sprite>> octorok = new Dictionary<Animations, List<Sprite>>();
+                Dictionary<Animations, List<Sprite>> octorokBlue = new Dictionary<Animations, List<Sprite>>();
+                Color baseColor = Color.black;
+                Color accentColor = Color.red;
+                Color octorokBase = Utilities.HexToColor("f83800");
+                Color octorokAccent = Utilities.HexToColor("ffa044");
+                Color octorokBlueBase = Utilities.HexToColor("0000bc");
+                Color octorokBlueAccent = Utilities.HexToColor("6888ff");
+                foreach (KeyValuePair<Animations, List<Sprite>> entry in animations)
                 {
-                    string enemyName = enemy.GetDescription() + "_";
-                    EnemyAnimations.Add(enemy, GetAnimations(response.Where(x => x.name.Contains(enemyName)).ToList(), enemyName));
+                    List<Sprite> octorokList = octorok[entry.Key] = new List<Sprite>();
+                    List<Sprite> octorokBlueList = octorokBlue[entry.Key] = new List<Sprite>();
+                    foreach (Sprite sprite in entry.Value)
+                    {
+                        octorokList.Add(Utilities.CloneSprite(sprite, new Color[] { baseColor, octorokBase, accentColor, octorokAccent }));
+                        octorokBlueList.Add(Utilities.CloneSprite(sprite, new Color[] { baseColor, octorokBlueBase, accentColor, octorokBlueAccent }));
+                    }
                 }
+                EnemyAnimations.Add(Enemies.Octorok, octorok);
+                EnemyAnimations.Add(Enemies.OctorokBlue, octorokBlue);
             });
+            //LoadSprites("enemies", (response) =>
+            //{
+            //    foreach (Enemies enemy in EnumExtensions.GetValues<Enemies>())
+            //    {
+            //        string enemyName = enemy.GetDescription() + "_";
+            //        EnemyAnimations.Add(enemy, GetAnimations(response.Where(x => x.name.Contains(enemyName)).ToList(), enemyName));
+            //    }
+            //});
         }
 
         public Dictionary<Animations, List<Sprite>> GetAnimations(List<Sprite> animations, string name)

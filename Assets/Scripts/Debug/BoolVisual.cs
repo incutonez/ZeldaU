@@ -6,7 +6,7 @@ using UnityEngine;
 public class BoolVisual : MonoBehaviour
 {
     private Quaternion[] cachedQuaternionEulerArr;
-    public ScreenGrid<bool> Grid { get; set; }
+    public World.Grid<bool> Grid { get; set; }
     private Mesh Mesh { get; set; }
     public bool UpdateMesh { get; set; }
 
@@ -39,7 +39,7 @@ public class BoolVisual : MonoBehaviour
         Mesh.triangles = triangles;
     }
 
-    public void SetGrid(ScreenGrid<bool> grid)
+    public void SetGrid(World.Grid<bool> grid)
     {
         Grid = grid;
         UpdateHeatmap();
@@ -47,7 +47,7 @@ public class BoolVisual : MonoBehaviour
         Grid.OnGridValueChanged += Grid_OnValueChanged;
     }
 
-    private void Grid_OnValueChanged(object sender, ScreenGrid<bool>.OnGridValueChangedEventArgs e)
+    private void Grid_OnValueChanged(object sender, World.Grid<bool>.OnGridValueChangedEventArgs e)
     {
         UpdateMesh = true;
     }

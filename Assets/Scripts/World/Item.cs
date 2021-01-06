@@ -5,12 +5,12 @@ namespace World
 {
     public class Item : MonoBehaviour
     {
-        public global::Item item;
+        public Base.Item BaseItem { get; set; }
         public SpriteRenderer Renderer { get; set; }
         public PolygonCollider2D Collider { get; set; }
         public RectTransform Transform { get; set; }
 
-        public static Item Spawn(Vector3 position, global::Item item, Transform parent)
+        public static Item Spawn(Vector3 position, Base.Item item, Transform parent)
         {
             RectTransform transform = Instantiate(Manager.Game.Prefabs.Item);
             transform.SetParent(parent);
@@ -30,9 +30,9 @@ namespace World
             Transform = GetComponent<RectTransform>();
         }
 
-        public void SetItem(global::Item item)
+        public void SetItem(Base.Item item)
         {
-            this.item = item;
+            BaseItem = item;
             Sprite sprite = item.GetSprite();
             if (sprite != null)
             {
@@ -56,9 +56,9 @@ namespace World
             }
         }
 
-        public global::Item GetItem()
+        public Base.Item GetItem()
         {
-            return item;
+            return BaseItem;
         }
 
         public void DestroySelf()

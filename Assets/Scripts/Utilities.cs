@@ -32,6 +32,40 @@ public static class Utilities
         return Constants.RANDOM_GENERATOR.Next(min, max);
     }
 
+    /// <summary>
+    /// When passing in replaceColors, it needs to be an even length, and it has to be:
+    /// even index contains the base color
+    /// odd index contains the replacement color
+    /// </summary>
+    /// <param name="oldSprite"></param>
+    /// <param name="replaceColors"></param>
+    /// <returns></returns>
+    public static Sprite CloneSprite(Sprite oldSprite, Color[] replaceColors = null)
+    {
+        Texture2D replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
+        if (replaceColors != null)
+        {
+            Color[] colors = replacement.GetPixels();
+            // Loops through all of the colors in the sprite's texture
+            for (int i = 0; i < colors.Length; i++)
+            {
+                Color color = colors[i];
+                // Check to see if this color matches any replacement colors
+                for (int j = 0; j < replaceColors.Length; j += 2)
+                {
+                    if (replaceColors[j] == color)
+                    {
+                        colors[i] = replaceColors[j + 1];
+                        break;
+                    }
+                }
+            }
+            replacement.SetPixels(colors);
+            replacement.Apply();
+        }
+        return Sprite.Create(replacement, oldSprite.rect, Constants.SPRITE_DEFAULT_PIVOT, oldSprite.pixelsPerUnit);
+    }
+
     public static Vector3 GetRandomCoordinates()
     {
         return new Vector3(GetRandomInt(Constants.GRID_COLUMNS), GetRandomInt(Constants.GRID_ROWS));
@@ -59,7 +93,7 @@ public static class Utilities
     // Copied from CodeMonkey's MeshUtils and tweaked for colors
     public static void AddToMesh(
         int index,
-        ScreenGridNode tile,
+        World.GridNode tile,
         Vector3[] vertices,
         Vector2[] uvs,
         int[] triangles,

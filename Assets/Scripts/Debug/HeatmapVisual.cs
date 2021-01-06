@@ -6,7 +6,7 @@ using UnityEngine;
 public class HeatmapVisual : MonoBehaviour
 {
     private Quaternion[] cachedQuaternionEulerArr;
-    public ScreenGrid<int> Grid { get; set; }
+    public World.Grid<int> Grid { get; set; }
     private Mesh Mesh { get; set; }
     public bool UpdateMesh { get; set; }
 
@@ -29,7 +29,7 @@ public class HeatmapVisual : MonoBehaviour
                 int index = i * height + j;
                 Vector3 quadSize = new Vector3(1, 1) * Grid.CellSize;
                 int gridValue = Grid.GetViewModel(i, j);
-                float gridVal = (float)gridValue / ScreenGrid<int>.HEATMAP_MAX;
+                float gridVal = (float)gridValue / World.Grid<int>.HEATMAP_MAX;
                 Vector2 gridValueUV = new Vector2(gridVal, 0f);
                 AddToMesh(vertices, uvs, triangles, index, Grid.GetWorldPosition(i, j) + quadSize * 0.5f, 0f, quadSize, gridValueUV, gridValueUV);
             }
@@ -39,7 +39,7 @@ public class HeatmapVisual : MonoBehaviour
         Mesh.triangles = triangles;
     }
 
-    public void SetGrid(ScreenGrid<int> grid)
+    public void SetGrid(World.Grid<int> grid)
     {
         Grid = grid;
         UpdateHeatmap();
@@ -47,7 +47,7 @@ public class HeatmapVisual : MonoBehaviour
         Grid.OnGridValueChanged += Grid_OnValueChanged;
     }
 
-    private void Grid_OnValueChanged(object sender, ScreenGrid<int>.OnGridValueChangedEventArgs e)
+    private void Grid_OnValueChanged(object sender, World.Grid<int>.OnGridValueChangedEventArgs e)
     {
         UpdateMesh = true;
     }

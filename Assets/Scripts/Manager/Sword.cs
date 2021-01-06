@@ -67,7 +67,7 @@ namespace Manager
             }
         }
 
-        public void SetSword(Item item)
+        public void SetSword(Base.Item item)
         {
             swordType = item.Type;
             damage = swordType.GetAttribute<DamageAttribute>();

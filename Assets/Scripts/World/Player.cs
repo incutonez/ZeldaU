@@ -1,17 +1,18 @@
-﻿using System;
+﻿using NPCs;
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace World
 {
-    public class Player : Character<Base.Character>
+    public class Player : Character<Characters>
     {
         public const float SPEED = 5f;
-        public PlayerInventory uiInventory { get; set; }
+        public PlayerInventory UiInventory { get; set; }
         public event EventHandler OnInitialize;
         public event EventHandler OnTakeDamage;
 
-        private Base.Inventory inventory { get; set; }
+        private Base.Inventory Inventory { get; set; }
 
         private void Start()
         {
@@ -25,7 +26,7 @@ namespace World
             Item itemWorld = collision.GetComponent<Item>();
             if (itemWorld != null)
             {
-                inventory.AddItem(itemWorld.GetItem());
+                Inventory.AddItem(itemWorld.GetItem());
                 itemWorld.DestroySelf();
             }
         }
@@ -39,9 +40,9 @@ namespace World
             Enemy worldEnemy = collision.collider.GetComponent<Enemy>();
             if (worldEnemy != null)
             {
-                BaseCharacter.TakeDamage(worldEnemy.GetTouchDamage() * inventory.damageModifier);
+                TakeDamage(worldEnemy.GetTouchDamage() * Inventory.damageModifier);
                 OnTakeDamage?.Invoke(this, EventArgs.Empty);
-                if (BaseCharacter.IsDead())
+                if (IsDead())
                 {
                     DestroySelf();
                 }
@@ -70,17 +71,18 @@ namespace World
             {
                 case Items.PotionBlue:
                     // TODOJEF: Flash character red
-                    inventory.RemoveItem(new Base.Item { Type = item.Type, Amount = 1 });
+                    Inventory.RemoveItem(new Base.Item { Type = item.Type, Amount = 1 });
                     break;
             }
         }
 
-        public void InitializedCharacter()
+        public override void Initialize(Characters characterType)
         {
-            inventory = new Base.Inventory(UseItem);
-            uiInventory = Manager.Game.Inventory;
-            uiInventory.SetInventory(inventory);
-            uiInventory.SetPlayer(this);
+            base.Initialize(characterType);
+            Inventory = new Base.Inventory(UseItem);
+            UiInventory = Manager.Game.Inventory;
+            UiInventory.SetInventory(Inventory);
+            UiInventory.SetPlayer(this);
             OnInitialize?.Invoke(this, EventArgs.Empty);
         }
     }

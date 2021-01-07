@@ -50,7 +50,7 @@ namespace ViewModel
     public class EnemyChild
     {
         public List<float> Coordinates { get; set; }
-        public Base.Enemy Enemy { get; set; }
+        public World.Enemy Enemy { get; set; }
     }
 
     public class Tile

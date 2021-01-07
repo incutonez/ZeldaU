@@ -92,12 +92,12 @@ public class PlayerInventory : MonoBehaviour
             }
             else if (item.Type == Items.HeartContainer)
             {
-                Player.BaseCharacter.AddHealth(Constants.HEART_REFILL, true);
+                Player.AddHealth(Constants.HEART_REFILL, true);
                 RefreshLifeUI();
             }
             else if (item.Type == Items.Heart)
             {
-                Player.BaseCharacter.AddHealth(Constants.HEART_REFILL);
+                Player.AddHealth(Constants.HEART_REFILL);
                 RefreshLifeUI();
             }
         }

@@ -12,8 +12,8 @@ namespace Manager
     {
         public List<Sprite> Characters { get; set; }
         public List<Sprite> Items { get; set; }
-        public List<Sprite> Tiles { get; set; }
         public List<Sprite> PlayerBase { get; set; }
+        public Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; } = new Dictionary<Tiles, World.TileUVs>();
         public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new Dictionary<Animations, List<Sprite>>();
@@ -109,7 +109,22 @@ namespace Manager
             });
             LoadSprites("tiles", (response) =>
             {
-                Tiles = response;
+                Texture2D parentTexture = response.First().texture;
+                int width = parentTexture.width;
+                int height = parentTexture.height;
+                foreach (Sprite sprite in response)
+                {
+                    Rect rect = sprite.rect;
+                    Enum.TryParse(sprite.name, out Tiles tileType);
+                    if (!TileCoordinates.ContainsKey(tileType))
+                    {
+                        TileCoordinates.Add(tileType, new World.TileUVs
+                        {
+                            uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
+                            uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
+                        });
+                    }
+                }
             });
             LoadSprites("items", (response) =>
             {
@@ -231,6 +246,7 @@ namespace Manager
                 {
                     case AsyncOperationStatus.Succeeded:
                         callback(response.Result.ToList());
+                        Addressables.Release(operation);
                         break;
                     case AsyncOperationStatus.Failed:
                         Debug.LogError("Failed to load sprite.");

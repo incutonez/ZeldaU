@@ -18,7 +18,6 @@ namespace Manager
         public static World.Builder Scene { get; set; }
         public static bool IsTransitioning { get; set; }
         public static PlayerInventory Inventory { get; set; }
-        public static Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; }
         public static Canvas MainCanvas { get; set; }
         public static World.Pathfinder Pathfinder { get; set; }
         public static Sprites Sprites { get; set; }
@@ -37,25 +36,6 @@ namespace Manager
         {
             Prefabs = new Prefabs();
             Pathfinder = new World.Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
-            TileCoordinates = new Dictionary<Tiles, World.TileUVs>();
-            // TODOJEF: Fix these... get actual values from material
-            //Texture texture = GetComponent<MeshRenderer>().material.mainTexture;
-            int width = 176;
-            int height = 116;
-
-            foreach (Sprite sprite in Sprites.Tiles)
-            {
-                Rect rect = sprite.rect;
-                Enum.TryParse(sprite.name, out Tiles tileType);
-                if (!TileCoordinates.ContainsKey(tileType))
-                {
-                    TileCoordinates.Add(tileType, new World.TileUVs
-                    {
-                        uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
-                        uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
-                    });
-                }
-            }
             MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
             Audio = gameObject.AddComponent<Audio>();
             Inventory = gameObject.AddComponent<PlayerInventory>();

@@ -21,6 +21,8 @@ namespace Manager
             ToggleSword(false);
         }
 
+        // TODOJEF: The sword moves occasionally if it collides with an enemy... I think because the player gets pushed back,
+        // but the sword's position isn't snapped to the player, so it stays where it was rendered
         public void Swing(Vector3 playerPosition)
         {
             Game.Shield.ToggleShields(false);

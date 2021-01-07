@@ -10,24 +10,20 @@ namespace World
         /// <summary>
         /// If this value is null, then that means the enemy cannot take any damage
         /// </summary>
-        public float? Health { get; set; }
-        public float? MaxHealth { get; set; }
-        public float HealthModifier { get; set; }
-        public DamageAttribute AttackStrength { get; set; }
+        public virtual float? Health { get; set; }
+        public virtual float? MaxHealth { get; set; }
+        public virtual float HealthModifier { get; set; } = 1f;
+        public virtual float TouchDamage { get; set; } = 0f;
+        public virtual float WeaponDamage { get; set; } = 0f;
         public SpriteRenderer Renderer { get; set; }
         public Base.Animation Animation { get; set; }
-        public Base.AI AI { get; set; }
-
-        private void Awake()
-        {
-            AI = GetComponent<Base.AI>();
-        }
 
         public virtual void Initialize(TEnum characterType)
         {
             Renderer = transform.Find("Body").GetComponent<SpriteRenderer>();
             CharacterType = characterType;
             SetHealth();
+            SetMaxHealth();
             SetAttackStrength();
             transform.name = CharacterType.GetDescription();
             SetAnimationBase();
@@ -36,45 +32,14 @@ namespace World
 
         public virtual void SetAnimationBase() { }
 
-        public float? GetHealth()
+        public virtual void SetHealth() { }
+
+        public virtual void SetMaxHealth()
         {
-            return Health;
+            MaxHealth = Health;
         }
 
-        public float? GetMaxHealth()
-        {
-            return MaxHealth;
-        }
-
-        public void SetHealth()
-        {
-            HealthAttribute healthAttribute = CharacterType.GetAttribute<HealthAttribute>();
-            if (healthAttribute != null)
-            {
-                int baseHealth = healthAttribute.Health;
-                if (baseHealth != 0)
-                {
-                    Health = baseHealth;
-                    MaxHealth = baseHealth;
-                    HealthModifier = healthAttribute.Modifier;
-                }
-            }
-        }
-
-        public void SetAttackStrength()
-        {
-            AttackStrength = CharacterType.GetAttribute<DamageAttribute>();
-        }
-
-        public float GetTouchDamage()
-        {
-            return AttackStrength?.TouchDamage ?? 0f;
-        }
-
-        public float GetWeaponDamage()
-        {
-            return AttackStrength?.WeaponDamage ?? 0f;
-        }
+        public virtual void SetAttackStrength() { }
 
         public bool IsDead()
         {
@@ -121,9 +86,8 @@ namespace World
             gameObject.SetActive(false);
         }
 
-        public void Enable()
+        public virtual void Enable()
         {
-            AI.Reset();
             gameObject.SetActive(true);
         }
     }

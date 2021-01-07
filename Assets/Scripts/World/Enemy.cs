@@ -8,10 +8,17 @@ namespace World
     /// </summary>
     public class Enemy : Character<Enemies>
     {
+        public Base.AI AI { get; set; }
+
+        private void Awake()
+        {
+            AI = GetComponent<Base.AI>();
+        }
+
         public override void SetAnimationBase()
         {
             Animation = gameObject.AddComponent<Base.Animation>();
-            SetFrameRates(Animation);
+            SetFrameRates();
             Animation.AnimationSprites = Manager.Game.Sprites.EnemyAnimations[CharacterType];
         }
 
@@ -28,23 +35,18 @@ namespace World
             }
         }
 
-        public void SetFrameRates(Base.Animation animator)
+        public override void Enable()
         {
-            float action = 0f;
-            float idle = 0f;
-            float walk = 0f;
-            switch (CharacterType)
-            {
-                case Enemies.OctorokBlue:
-                case Enemies.Octorok:
-                    walk = 0.3f;
-                    action = 0.33f;
-                    idle = 1f;
-                    break;
-            }
-            animator.ActionFrameRate = action;
-            animator.IdleFrameRate = idle;
-            animator.WalkFrameRate = walk;
+            base.Enable();
+            // TODO: Potentially generate random speeds here?
+            AI.Reset();
+        }
+
+        public virtual void SetFrameRates()
+        {
+            Animation.ActionFrameRate = 0f;
+            Animation.IdleFrameRate = 0f;
+            Animation.WalkFrameRate = 0f;
         }
     }
 }

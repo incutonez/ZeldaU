@@ -17,6 +17,16 @@ public class CustomAttribute : Attribute
     }
 }
 
+public class EnemyClassAttribute : Attribute
+{
+    public object EnemyClass { get; set; }
+
+    public EnemyClassAttribute(Type enemyClass)
+    {
+        EnemyClass = enemyClass;
+    }
+}
+
 public class DamageAttribute : Attribute
 {
     /// <summary>

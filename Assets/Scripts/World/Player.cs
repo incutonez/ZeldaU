@@ -40,7 +40,7 @@ namespace World
             Enemy worldEnemy = collision.collider.GetComponent<Enemy>();
             if (worldEnemy != null)
             {
-                TakeDamage(worldEnemy.GetTouchDamage() * Inventory.damageModifier);
+                TakeDamage(worldEnemy.TouchDamage * Inventory.damageModifier);
                 OnTakeDamage?.Invoke(this, EventArgs.Empty);
                 if (IsDead())
                 {
@@ -74,6 +74,11 @@ namespace World
                     Inventory.RemoveItem(new Base.Item { Type = item.Type, Amount = 1 });
                     break;
             }
+        }
+
+        public override void SetHealth()
+        {
+            Health = 32f;
         }
 
         public override void Initialize(Characters characterType)

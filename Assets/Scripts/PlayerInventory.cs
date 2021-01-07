@@ -130,8 +130,8 @@ public class PlayerInventory : MonoBehaviour
     {
         int x = 0;
         int y = 0;
-        var health = Player.GetHealth();
-        var maxHealth = Player.GetMaxHealth();
+        var health = Player.Health;
+        var maxHealth = Player.MaxHealth;
         for (int i = 0; i < maxHealth / 2; i++)
         {
             RectTransform heart = Instantiate(Manager.Game.Prefabs.UIHeart, LifeContainer).GetComponent<RectTransform>();

@@ -1,28 +1,21 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Manager
 {
     public class Suit : MonoBehaviour
     {
-        public Texture2D texture;
-        public Color CurrentColor { get; set; }
-
-        private int TextureWidth { get; set; }
-        private int TextureHeight { get; set; }
         // This is a reference to the green color in the baseTexture that we'll be searching for and replacing
-        private readonly static Color baseSuitColor = new Color(0f, 0f, 1f);
-        private readonly static Color greenSuit = new Color(184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB, 24 / Constants.MAX_RGB);
-        private readonly static Color blueSuit = new Color(184 / Constants.MAX_RGB, 184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB);
-        private readonly static Color redSuit = new Color(248 / Constants.MAX_RGB, 56 / Constants.MAX_RGB, 0 / Constants.MAX_RGB);
-        private Color[] baseColors;
+        public static readonly Color BaseColor = Color.blue;
+        public static readonly Color GreenSuit = new Color(184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB, 24 / Constants.MAX_RGB);
+        public static readonly Color BlueSuit = new Color(184 / Constants.MAX_RGB, 184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB);
+        public static readonly Color RedSuit = new Color(248 / Constants.MAX_RGB, 56 / Constants.MAX_RGB, 0 / Constants.MAX_RGB);
+
+        public Color CurrentColor { get; set; }
 
         private void Start()
         {
-            Texture2D texture = Game.Sprites.PlayerBase[0].texture;
-            TextureWidth = texture.width;
-            TextureHeight = texture.height;
-            baseColors = texture.GetPixels(0, 0, TextureWidth, TextureHeight);
+            // TODOJEF: Need to load this from file
             SetSuitColor(Items.RingGreen);
         }
 
@@ -31,29 +24,29 @@ namespace Manager
             switch (itemType)
             {
                 case Items.RingBlue:
-                    return blueSuit;
+                    return BlueSuit;
                 case Items.RingRed:
-                    return redSuit;
+                    return RedSuit;
                 default:
-                    return greenSuit;
+                    return GreenSuit;
             }
         }
 
-        // TODOJEF: Use Utilities method instead?
+        // TODOJEF: When this updates, also update raft, ladder, and PolsVoice?
         public void SetSuitColor(Items itemType)
         {
             CurrentColor = GetSuitColor(itemType);
-            Color[] colors = baseColors.ToArray();
-            for (int i = 0; i < colors.Length; i++)
-            {
-                Color color = colors[i];
-                if (color == baseSuitColor)
-                {
-                    colors[i] = CurrentColor;
+            List<Dictionary<Animations, List<Sprite>>> animationSprites = Utilities.ColorAnimations(
+                Game.Sprites.PlayerAnimations,
+                new List<Dictionary<Animations, List<Sprite>>> { new Dictionary<Animations, List<Sprite>>() },
+                new List<Color[]> {
+                    new Color[] { BaseColor, CurrentColor }
                 }
-            }
-            texture.SetPixels(0, 0, TextureWidth, TextureHeight, colors);
-            texture.Apply();
+            );
+            // Overwrite current sprites as we just updated their color
+            Game.Player.Animation.AnimationSprites = animationSprites[0];
+            // Update default sprite if not moving
+            Game.Player.Renderer.sprite = animationSprites[0][Animations.Default][0];
         }
     }
 }

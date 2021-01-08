@@ -12,7 +12,6 @@ namespace Manager
     {
         public List<Sprite> Characters { get; set; }
         public List<Sprite> Items { get; set; }
-        public List<Sprite> PlayerBase { get; set; }
         public Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; } = new Dictionary<Tiles, World.TileUVs>();
         public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
@@ -35,10 +34,6 @@ namespace Manager
                 PlayerAnimations = GetAnimations(response, "");
                 PlayerAnimations[Animations.Entering] = PlayerAnimations[Animations.WalkUp];
                 PlayerAnimations[Animations.Exiting] = PlayerAnimations[Animations.WalkDown];
-            });
-            LoadSprites("characterBase", (response) =>
-            {
-                PlayerBase = response;
             });
             LoadSprites("tiles", (response) =>
             {

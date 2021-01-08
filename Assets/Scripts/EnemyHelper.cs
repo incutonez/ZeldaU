@@ -38,19 +38,6 @@ public static class EnemyHelper
             allEnemies.Add(enemyType, animations);
             variants.Add(animations);
         }
-        foreach (KeyValuePair<Animations, List<Sprite>> entry in enemyAnimations)
-        {
-            Animations key = entry.Key;
-            List<Sprite> values = entry.Value;
-            for (int i = 0; i < variants.Count; i++)
-            {
-                Dictionary<Animations, List<Sprite>> variant = variants[i];
-                List<Sprite> temp = variant[key] = new List<Sprite>();
-                foreach (Sprite sprite in values)
-                {
-                    temp.Add(Utilities.CloneSprite(sprite, colors[i]));
-                }
-            }
-        }
+        Utilities.ColorAnimations(enemyAnimations, variants, colors);
     }
 }

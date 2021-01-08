@@ -29,12 +29,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: e3f03f89814b24c4cb211f3a6271dff9
-    m_Address: Sprites/characterBase
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: c052d672b24843a4daf02144595e10ad
     m_Address: Sprites/characters
     m_ReadOnly: 0

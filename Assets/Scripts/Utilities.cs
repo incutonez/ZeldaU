@@ -35,6 +35,29 @@ public static class Utilities
         return Constants.RANDOM_GENERATOR.Next(min, max);
     }
 
+    public static List<Dictionary<Animations, List<Sprite>>> ColorAnimations(
+        Dictionary<Animations, List<Sprite>> animations,
+        List<Dictionary<Animations, List<Sprite>>> variants,
+        List<Color[]> colors
+    )
+    {
+        foreach (KeyValuePair<Animations, List<Sprite>> entry in animations)
+        {
+            Animations key = entry.Key;
+            List<Sprite> values = entry.Value;
+            for (int i = 0; i < variants.Count; i++)
+            {
+                Dictionary<Animations, List<Sprite>> variant = variants[i];
+                List<Sprite> temp = variant[key] = new List<Sprite>();
+                foreach (Sprite sprite in values)
+                {
+                    temp.Add(CloneSprite(sprite, colors[i]));
+                }
+            }
+        }
+        return variants;
+    }
+
     /// <summary>
     /// When passing in replaceColors, it needs to be an even length, and it has to be:
     /// even index contains the base color

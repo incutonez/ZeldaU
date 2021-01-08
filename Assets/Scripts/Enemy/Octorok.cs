@@ -24,23 +24,21 @@ namespace Enemy
             Animation.WalkFrameRate = 1f;
         }
 
-        public static List<Enemies> GetSubTypes()
+        /// <summary>
+        /// This method is set in all of the enemy classes and called from EnemyHelper
+        /// </summary>
+        /// <param name="subTypes"></param>
+        /// <param name="colors"></param>
+        public static void GetConfig(List<Enemies> subTypes, List<Color[]> colors)
         {
-            return new List<Enemies> {
+            subTypes.AddRange(new List<Enemies> {
                 Enemies.Octorok,
                 Enemies.OctorokBlue
-            };
-        }
-
-        public static List<Color[]> GetSubTypeColors()
-        {
-            Color baseColor = Constants.ENEMY_BASE_COLOR;
-            Color accentColor = Constants.ENEMY_ACCENT_COLOR;
-            return new List<Color[]>
-            {
-                new Color[] { baseColor, Constants.OCTOROK_RED, accentColor, Constants.OCTOROK_RED_ACCENT },
-                new Color[] { baseColor, Constants.OCTOROK_BLUE, accentColor, Constants.OCTOROK_BLUE_ACCENT }
-            };
+            });
+            colors.AddRange(new List<Color[]> {
+                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_RED, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_ORANGE },
+                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_BLUE, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_BLUE_LIGHT }
+            });
         }
     }
 }

@@ -21,6 +21,8 @@
         Darknut = 5,
         DarknutBlue = 6,
         Gel = 7,
+        // TODOJEF: ADDRESS ENUM NUMBERS
+        GelBlue = 77,
         Ghini = 8,
         Gibdo = 9,
         GleeokHead = 10,
@@ -42,6 +44,7 @@
         Octorok = 26,
         OctorokBlue = 27,
         Patra = 28,
+        PatraHead = 200,
         Peahat = 29,
         PolsVoice = 30,
         Rope = 31,
@@ -55,6 +58,8 @@
         Wizzrobe = 39,
         WizzrobeBlue = 40,
         Zol = 41,
+        ZolGray = 410,
+        ZolGreen = 411,
         Zora = 42
     }
 

@@ -1,6 +1,7 @@
 using NPCs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Utilities
@@ -45,7 +46,7 @@ public static class Utilities
     public static Sprite CloneSprite(Sprite oldSprite, Color[] replaceColors = null)
     {
         Texture2D replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
-        if (replaceColors != null)
+        if (replaceColors != null && replaceColors.Any())
         {
             Color[] colors = replacement.GetPixels();
             // Loops through all of the colors in the sprite's texture

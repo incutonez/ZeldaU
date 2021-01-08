@@ -61,12 +61,4 @@ public static class Constants
     public static readonly Vector3 SWORD_COLLIDER_NEGATIVE = new Vector3(0f, -0.156f);
     public static readonly Quaternion SWORD_X_ROTATION = Quaternion.Euler(new Vector3(0, 0, -90));
     public static readonly Quaternion SWORD_Y_ROTATION = Quaternion.Euler(Vector3.zero);
-
-    // ENEMIES
-    public static readonly Color ENEMY_BASE_COLOR = Color.black;
-    public static readonly Color ENEMY_ACCENT_COLOR = Color.red;
-    public static readonly Color OCTOROK_RED = Utilities.HexToColor("f83800");
-    public static readonly Color OCTOROK_RED_ACCENT = Utilities.HexToColor("ffa044");
-    public static readonly Color OCTOROK_BLUE = Utilities.HexToColor("0000bc");
-    public static readonly Color OCTOROK_BLUE_ACCENT = Utilities.HexToColor("6888ff");
 }

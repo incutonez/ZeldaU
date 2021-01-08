@@ -6,9 +6,10 @@ namespace Manager
     public class Suit : MonoBehaviour
     {
         public Texture2D texture;
+        public Color CurrentColor { get; set; }
 
-        private const int textureWidth = 105;
-        private const int textureHeight = 76;
+        private int TextureWidth { get; set; }
+        private int TextureHeight { get; set; }
         // This is a reference to the green color in the baseTexture that we'll be searching for and replacing
         private readonly static Color baseSuitColor = new Color(0f, 0f, 1f);
         private readonly static Color greenSuit = new Color(184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB, 24 / Constants.MAX_RGB);
@@ -18,7 +19,10 @@ namespace Manager
 
         private void Start()
         {
-            baseColors = Game.Sprites.PlayerBase[0].texture.GetPixels(0, 0, textureWidth, textureHeight);
+            Texture2D texture = Game.Sprites.PlayerBase[0].texture;
+            TextureWidth = texture.width;
+            TextureHeight = texture.height;
+            baseColors = texture.GetPixels(0, 0, TextureWidth, TextureHeight);
             SetSuitColor(Items.RingGreen);
         }
 
@@ -35,19 +39,20 @@ namespace Manager
             }
         }
 
+        // TODOJEF: Use Utilities method instead?
         public void SetSuitColor(Items itemType)
         {
-            Color suit = GetSuitColor(itemType);
+            CurrentColor = GetSuitColor(itemType);
             Color[] colors = baseColors.ToArray();
             for (int i = 0; i < colors.Length; i++)
             {
                 Color color = colors[i];
                 if (color == baseSuitColor)
                 {
-                    colors[i] = suit;
+                    colors[i] = CurrentColor;
                 }
             }
-            texture.SetPixels(0, 0, textureWidth, textureHeight, colors);
+            texture.SetPixels(0, 0, TextureWidth, TextureHeight, colors);
             texture.Apply();
         }
     }

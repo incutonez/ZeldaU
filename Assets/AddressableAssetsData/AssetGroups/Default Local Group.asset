@@ -174,7 +174,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: c8529eb4df56bda47a4c6a624e7070f0
-    m_Address: Sprites/Enemies/OctorokBase
+    m_Address: Sprites/Enemies/Octorok
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

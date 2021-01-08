@@ -13,10 +13,6 @@
 
     public enum Enemies
     {
-        /// <summary>
-        /// Randomly spawn as very fast or slow
-        /// </summary>
-        [EnemyClass(typeof(Enemy.Armos))]
         Armos = 0,
         Rock = 1,
         Bubble = 2,
@@ -43,9 +39,7 @@
         Moblin = 23,
         MoblinBlue = 24,
         Moldorm = 25,
-        [EnemyClass(typeof(Enemy.Octorok))]
         Octorok = 26,
-        [EnemyClass(typeof(Enemy.OctorokBlue))]
         OctorokBlue = 27,
         Patra = 28,
         Peahat = 29,

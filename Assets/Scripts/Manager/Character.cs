@@ -34,7 +34,9 @@ namespace Manager
         public static World.Enemy SpawnEnemy(Vector3 position, Enemies enemyType, Transform parent, bool active = false)
         {
             RectTransform transform = Spawn(position, Game.Prefabs.Enemy, parent, active);
-            World.Enemy enemy = (World.Enemy) transform.gameObject.AddComponent((System.Type)enemyType.GetAttribute<EnemyClassAttribute>().EnemyClass);
+            // We grab the class's type based on the enum name, and the namespace we use for enemies
+            System.Type enemyClass = System.Type.GetType($"Enemy.{enemyType.GetDescription()}");
+            World.Enemy enemy = (World.Enemy) transform.gameObject.AddComponent(enemyClass);
             enemy.Initialize(enemyType);
             return enemy;
         }

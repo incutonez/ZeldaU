@@ -23,73 +23,6 @@ namespace Manager
         public Dictionary<AssetReference, Queue<Vector3>> AssetQueue { get; set; } = new Dictionary<AssetReference, Queue<Vector3>>();
         private int LoadCount { get; set; } = 0;
 
-        // Taken from https://www.youtube.com/watch?v=uNpBS0LPhaU
-        public void DoThing(int index)
-        {
-            AssetReference reference = AssetReferences[index];
-            if (!reference.RuntimeKeyIsValid())
-            {
-                Debug.Log("DANGER!");
-                return;
-            }
-
-            if (OperationHandles.ContainsKey(reference))
-            {
-                if (OperationHandles[reference].IsDone)
-                {
-                    SpawnObject(reference);
-                }
-                else
-                {
-                    //AssetQueue.Add(reference, )
-                }
-                return;
-            }
-
-            var op = Addressables.LoadAssetAsync<GameObject>(reference);
-            // TODO: Add to dictionary?
-            op.Completed += (operation) =>
-            {
-                if (AssetQueue.ContainsKey(reference))
-                {
-                    while (AssetQueue[reference]?.Any() == true)
-                    {
-                        Vector3 position = AssetQueue[reference].Dequeue();
-                        SpawnObject(reference);
-                    }
-                }
-            };
-        }
-
-        public void SpawnObject(AssetReference reference)
-        {
-            reference.InstantiateAsync().Completed += (operation) =>
-            {
-                if (!AssetSprites.ContainsKey(reference))
-                {
-                    AssetSprites.Add(reference, new List<GameObject>());
-                }
-                AssetSprites[reference].Add(operation.Result);
-                NotifyOnDestroy notify = operation.Result.AddComponent<NotifyOnDestroy>();
-                notify.Destroyed += Remove;
-                notify.AssetReference = reference;
-            };
-        }
-
-        private void Remove(AssetReference reference, NotifyOnDestroy obj)
-        {
-            Addressables.ReleaseInstance(obj.gameObject);
-            AssetSprites[reference].Remove(obj.gameObject);
-            if (AssetSprites[reference].Count == 0)
-            {
-                if (OperationHandles[reference].IsValid())
-                {
-                    Addressables.Release(OperationHandles[reference]);
-                }
-                OperationHandles.Remove(reference);
-            }
-        }
-
         public Sprites()
         {
             LoadAll();
@@ -138,38 +71,11 @@ namespace Manager
                     NPCAnimations.Add(character, GetAnimations(response.Where(x => x.name.Contains(name)).ToList(), name));
                 }
             });
-            LoadSprites("Enemies/OctorokBase", (response) =>
+            // TODOJEF: Potentially load the dir instead and loop through the enemies enum?  We'd have to get the class
+            LoadSprites("Enemies/Octorok", (response) =>
             {
-                Dictionary<Animations, List<Sprite>> animations = GetAnimations(response, "");
-                Dictionary<Animations, List<Sprite>> octorok = new Dictionary<Animations, List<Sprite>>();
-                Dictionary<Animations, List<Sprite>> octorokBlue = new Dictionary<Animations, List<Sprite>>();
-                Color baseColor = Color.black;
-                Color accentColor = Color.red;
-                Color octorokBase = Utilities.HexToColor("f83800");
-                Color octorokAccent = Utilities.HexToColor("ffa044");
-                Color octorokBlueBase = Utilities.HexToColor("0000bc");
-                Color octorokBlueAccent = Utilities.HexToColor("6888ff");
-                foreach (KeyValuePair<Animations, List<Sprite>> entry in animations)
-                {
-                    List<Sprite> octorokList = octorok[entry.Key] = new List<Sprite>();
-                    List<Sprite> octorokBlueList = octorokBlue[entry.Key] = new List<Sprite>();
-                    foreach (Sprite sprite in entry.Value)
-                    {
-                        octorokList.Add(Utilities.CloneSprite(sprite, new Color[] { baseColor, octorokBase, accentColor, octorokAccent }));
-                        octorokBlueList.Add(Utilities.CloneSprite(sprite, new Color[] { baseColor, octorokBlueBase, accentColor, octorokBlueAccent }));
-                    }
-                }
-                EnemyAnimations.Add(Enemies.Octorok, octorok);
-                EnemyAnimations.Add(Enemies.OctorokBlue, octorokBlue);
+                EnemyHelper.GetSubTypes(Enemies.Octorok, GetAnimations(response, ""), EnemyAnimations);
             });
-            //LoadSprites("enemies", (response) =>
-            //{
-            //    foreach (Enemies enemy in EnumExtensions.GetValues<Enemies>())
-            //    {
-            //        string enemyName = enemy.GetDescription() + "_";
-            //        EnemyAnimations.Add(enemy, GetAnimations(response.Where(x => x.name.Contains(enemyName)).ToList(), enemyName));
-            //    }
-            //});
         }
 
         public Dictionary<Animations, List<Sprite>> GetAnimations(List<Sprite> animations, string name)
@@ -262,11 +168,6 @@ namespace Manager
             };
         }
 
-        public Sprite GetCharacter(string name)
-        {
-            return Characters.Find(s => s.name == name);
-        }
-
         public Sprite GetItem(string name)
         {
             return Items.Find(s => s.name == name);
@@ -275,6 +176,73 @@ namespace Manager
         public Sprite GetItem(Items type)
         {
             return GetItem(type.GetCustomAttr("Resource"));
+        }
+
+        // Taken from https://www.youtube.com/watch?v=uNpBS0LPhaU
+        public void DoThing(int index)
+        {
+            AssetReference reference = AssetReferences[index];
+            if (!reference.RuntimeKeyIsValid())
+            {
+                Debug.Log("DANGER!");
+                return;
+            }
+
+            if (OperationHandles.ContainsKey(reference))
+            {
+                if (OperationHandles[reference].IsDone)
+                {
+                    SpawnObject(reference);
+                }
+                else
+                {
+                    //AssetQueue.Add(reference, )
+                }
+                return;
+            }
+
+            var op = Addressables.LoadAssetAsync<GameObject>(reference);
+            // TODO: Add to dictionary?
+            op.Completed += (operation) =>
+            {
+                if (AssetQueue.ContainsKey(reference))
+                {
+                    while (AssetQueue[reference]?.Any() == true)
+                    {
+                        Vector3 position = AssetQueue[reference].Dequeue();
+                        SpawnObject(reference);
+                    }
+                }
+            };
+        }
+
+        public void SpawnObject(AssetReference reference)
+        {
+            reference.InstantiateAsync().Completed += (operation) =>
+            {
+                if (!AssetSprites.ContainsKey(reference))
+                {
+                    AssetSprites.Add(reference, new List<GameObject>());
+                }
+                AssetSprites[reference].Add(operation.Result);
+                NotifyOnDestroy notify = operation.Result.AddComponent<NotifyOnDestroy>();
+                notify.Destroyed += Remove;
+                notify.AssetReference = reference;
+            };
+        }
+
+        private void Remove(AssetReference reference, NotifyOnDestroy obj)
+        {
+            Addressables.ReleaseInstance(obj.gameObject);
+            AssetSprites[reference].Remove(obj.gameObject);
+            if (AssetSprites[reference].Count == 0)
+            {
+                if (OperationHandles[reference].IsValid())
+                {
+                    Addressables.Release(OperationHandles[reference]);
+                }
+                OperationHandles.Remove(reference);
+            }
         }
     }
 }

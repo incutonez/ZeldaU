@@ -37,7 +37,7 @@ namespace Manager
         {
             CurrentColor = GetSuitColor(itemType);
             List<Dictionary<Animations, List<Sprite>>> animationSprites = Utilities.ColorAnimations(
-                Game.Sprites.PlayerAnimations,
+                Game.Graphics.PlayerAnimations,
                 new List<Dictionary<Animations, List<Sprite>>> { new Dictionary<Animations, List<Sprite>>() },
                 new List<Color[]> {
                     new Color[] { BaseColor, CurrentColor }

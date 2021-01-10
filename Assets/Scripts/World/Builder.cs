@@ -18,8 +18,8 @@ namespace World
         private Vector3 OverworldPosition { get; set; } = Vector3.zero;
         private int CurrentX { get; set; } = 8;
         private int CurrentY { get; set; } = 0;
-        private World.Screen CurrentScreen { get; set; }
-        private World.Screen PreviousScreen { get; set; }
+        private Screen CurrentScreen { get; set; }
+        private Screen PreviousScreen { get; set; }
 
         public void Awake()
         {
@@ -106,14 +106,14 @@ namespace World
             // Parent has not been built, so let's build and cache it
             if (parent == null)
             {
-                parent = Instantiate(Manager.Game.Prefabs.WorldScreen);
+                parent = Instantiate(Manager.Game.Graphics.WorldScreen);
                 parent.SetParent(ScreensContainer);
-                CurrentScreen = parent.gameObject.GetComponent<World.Screen>();
+                CurrentScreen = parent.gameObject.GetComponent<Screen>();
                 CurrentScreen.Initialize(screenId, transition);
             }
             else
             {
-                CurrentScreen = parent.gameObject.GetComponent<World.Screen>();
+                CurrentScreen = parent.gameObject.GetComponent<Screen>();
             }
             Manager.Game.Pathfinder.Grid = CurrentScreen.Grid;
             CurrentScreen.ToggleActive(true);

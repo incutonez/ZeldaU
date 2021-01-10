@@ -10,7 +10,7 @@ namespace World
         public void Initialize(Color groundColor, ViewModel.Grid transition)
         {
             Transition = transition;
-            HiddenDoor = Instantiate(Resources.Load<RectTransform>($"{Constants.PATH_PREFABS}DoorBlock"), transform);
+            HiddenDoor = Instantiate(Manager.Game.Graphics.DoorBlock, transform);
             HiddenDoor.GetComponent<SpriteRenderer>().color = groundColor;
         }
 

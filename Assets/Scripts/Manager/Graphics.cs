@@ -8,26 +8,42 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Manager
 {
-    public class Sprites
+    public class Graphics
     {
-        public List<Sprite> Characters { get; set; }
+        #region Sprites
         public List<Sprite> Items { get; set; }
         public Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; } = new Dictionary<Tiles, World.TileUVs>();
         public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new Dictionary<Animations, List<Sprite>>();
+        #endregion
+
+        #region Prefabs
+        public RectTransform WorldDoor { get; set; }
+        public RectTransform DoorBlock { get; set; }
+        public RectTransform WorldTransition { get; set; }
+        public RectTransform WorldScreen { get; set; }
+        public RectTransform Enemy { get; set; }
+        public RectTransform NPC { get; set; }
+        public RectTransform Item { get; set; }
+        public RectTransform Player { get; set; }
+        public RectTransform UIHeart { get; set; }
+        #endregion
+
         public List<AssetReference> AssetReferences { get; set; }
         public Dictionary<AssetReference, List<GameObject>> AssetSprites { get; set; } = new Dictionary<AssetReference, List<GameObject>>();
         public Dictionary<AssetReference, AsyncOperationHandle<GameObject>> OperationHandles { get; set; } = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
         public Dictionary<AssetReference, Queue<Vector3>> AssetQueue { get; set; } = new Dictionary<AssetReference, Queue<Vector3>>();
+
         private int LoadCount { get; set; } = 0;
 
-        public Sprites()
+        public Graphics()
         {
-            LoadAll();
+            LoadAllSprites();
+            LoadAllPrefabs();
         }
 
-        public void LoadAll()
+        public void LoadAllSprites()
         {
             LoadSprites("character", (response) =>
             {
@@ -71,6 +87,99 @@ namespace Manager
             {
                 EnemyHelper.GetSubTypes(Enemies.Octorok, GetAnimations(response, ""), EnemyAnimations);
             });
+        }
+
+        public void LoadAllPrefabs()
+        {
+            LoadPrefab("WorldDoor", (response) => {
+                WorldDoor = response;
+            });
+            LoadPrefab("DoorBlock", (response) =>
+            {
+                DoorBlock = response;
+            });
+            LoadPrefab("WorldTransition", (response) =>
+            {
+                WorldTransition = response;
+            });
+            LoadPrefab("WorldScreen", (response) =>
+            {
+                WorldScreen = response;
+            });
+            LoadPrefab("Enemy", (response) =>
+            {
+                Enemy = response;
+            });
+            LoadPrefab("NPC", (response) =>
+            {
+                NPC = response;
+            });
+            LoadPrefab("Item", (response) =>
+            {
+                Item = response;
+            });
+            LoadPrefab("Player", (response) =>
+            {
+                Player = response;
+            });
+            LoadPrefab("HeartTemplate", (response) =>
+            {
+                UIHeart = response;
+            });
+        }
+
+        public void LoadPrefab(string name, Action<RectTransform> callback)
+        {
+            LoadCount++;
+            var operation = Addressables.LoadAssetAsync<GameObject>($"{Constants.PATH_PREFABS}{name}");
+            operation.Completed += (response) =>
+            {
+                LoadCount--;
+                switch (response.Status)
+                {
+                    case AsyncOperationStatus.Succeeded:
+                        callback(response.Result.GetComponent<RectTransform>());
+                        Addressables.Release(operation);
+                        break;
+                    case AsyncOperationStatus.Failed:
+                        Debug.LogError("Failed to load prefab.");
+                        break;
+                    default:
+                        break;
+                }
+                if (LoadCount == 0)
+                {
+                    // All Assets loaded, so let's launch the game
+                    GameObject.Find("GameHandler").GetComponent<Game>().Launch();
+                }
+            };
+        }
+
+        public void LoadSprites(string name, Action<List<Sprite>> callback)
+        {
+            LoadCount++;
+            var operation = Addressables.LoadAssetAsync<Sprite[]>($"{Constants.PATH_SPRITES}{name}");
+            operation.Completed += (response) =>
+            {
+                LoadCount--;
+                switch (response.Status)
+                {
+                    case AsyncOperationStatus.Succeeded:
+                        callback(response.Result.ToList());
+                        Addressables.Release(operation);
+                        break;
+                    case AsyncOperationStatus.Failed:
+                        Debug.LogError("Failed to load sprite.");
+                        break;
+                    default:
+                        break;
+                }
+                if (LoadCount == 0)
+                {
+                    // All Assets loaded, so let's launch the game
+                    GameObject.Find("GameHandler").GetComponent<Game>().Launch();
+                }
+            };
         }
 
         public Dictionary<Animations, List<Sprite>> GetAnimations(List<Sprite> animations, string name)
@@ -134,33 +243,6 @@ namespace Manager
                 }
             }
             return dict;
-        }
-
-        public void LoadSprites(string name, Action<List<Sprite>> callback)
-        {
-            LoadCount++;
-            var operation = Addressables.LoadAssetAsync<Sprite[]>($"{Constants.PATH_SPRITES}{name}");
-            operation.Completed += (response) =>
-            {
-                LoadCount--;
-                switch (response.Status)
-                {
-                    case AsyncOperationStatus.Succeeded:
-                        callback(response.Result.ToList());
-                        Addressables.Release(operation);
-                        break;
-                    case AsyncOperationStatus.Failed:
-                        Debug.LogError("Failed to load sprite.");
-                        break;
-                    default:
-                        break;
-                }
-                if (LoadCount == 0)
-                {
-                    // All Assets loaded, so let's launch the game
-                    GameObject.Find("GameHandler").GetComponent<Game>().Launch();
-                }
-            };
         }
 
         public Sprite GetItem(string name)

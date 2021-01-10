@@ -200,7 +200,7 @@ namespace World
         {
             // Because our world has each position as being centered, we have to apply the offset... same
             // as what we do in the AddToMesh method
-            Transform door = Instantiate(Manager.Game.Prefabs.WorldDoor, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+            Transform door = Instantiate(Manager.Game.Graphics.WorldDoor, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
             if (door != null)
             {
                 Door worldDoor = door.GetComponent<Door>();
@@ -211,7 +211,7 @@ namespace World
 
         public void AddTransition(Vector3 position, ViewModel.Grid transition)
         {
-            Transform item = Instantiate(Manager.Game.Prefabs.WorldTransition, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+            Transform item = Instantiate(Manager.Game.Graphics.WorldTransition, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
             if (item != null)
             {
                 Transition worldItem = item.GetComponent<Transition>();

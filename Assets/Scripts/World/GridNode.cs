@@ -168,9 +168,9 @@ namespace World
         public void GetUVCoordinates(out Vector2 uv00, out Vector2 uv11)
         {
             // TODOJEF: Can potentially allow doors here, and then in the box collider just make it a 0?  Would have to fix the quadSize getter
-            if (Manager.Game.Sprites.TileCoordinates.ContainsKey(TileType) && TileType != Tiles.Door)
+            if (Manager.Game.Graphics.TileCoordinates.ContainsKey(TileType) && TileType != Tiles.Door)
             {
-                TileUVs coordinates = Manager.Game.Sprites.TileCoordinates[TileType];
+                TileUVs coordinates = Manager.Game.Graphics.TileCoordinates[TileType];
                 uv00 = coordinates.uv00;
                 uv11 = coordinates.uv11;
             }

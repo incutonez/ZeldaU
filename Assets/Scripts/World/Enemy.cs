@@ -19,7 +19,7 @@ namespace World
         {
             Animation = gameObject.AddComponent<Base.Animation>();
             SetFrameRates();
-            Animation.AnimationSprites = Manager.Game.Sprites.EnemyAnimations[CharacterType];
+            Animation.AnimationSprites = Manager.Game.Graphics.EnemyAnimations[CharacterType];
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

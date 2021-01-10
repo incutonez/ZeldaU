@@ -20,8 +20,7 @@ namespace Manager
         public static PlayerInventory Inventory { get; set; }
         public static Canvas MainCanvas { get; set; }
         public static World.Pathfinder Pathfinder { get; set; }
-        public static Sprites Sprites { get; set; }
-        public static Prefabs Prefabs { get; set; }
+        public static Graphics Graphics { get; set; }
         public static bool IsDebugMode { get; set; }
         public bool DebugMode;
 
@@ -29,12 +28,11 @@ namespace Manager
         private void Awake()
         {
             IsDebugMode = DebugMode;
-            Sprites = new Sprites();
+            Graphics = new Graphics();
         }
 
         public void Launch()
         {
-            Prefabs = new Prefabs();
             Pathfinder = new World.Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
             MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
             Audio = gameObject.AddComponent<Audio>();

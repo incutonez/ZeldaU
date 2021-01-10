@@ -46,7 +46,7 @@ namespace Animation
         public override void AnimateAction()
         {
             base.AnimateAction();
-            Manager.Game.Sword.Swing(LastMovement);
+            Manager.Game.Sword.Swing();
         }
 
         public override void SpriteAnimator_OnAnimationStop(object sender, EventArgs e)

@@ -7,7 +7,7 @@ namespace World
         public override void SetAnimationBase()
         {
             Animation = gameObject.AddComponent<Base.Animation>();
-            Animation.AnimationSprites = Manager.Game.Sprites.NPCAnimations[CharacterType];
+            Animation.AnimationSprites = Manager.Game.Graphics.NPCAnimations[CharacterType];
         }
     }
 }

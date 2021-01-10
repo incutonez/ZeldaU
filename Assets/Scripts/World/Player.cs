@@ -62,7 +62,7 @@ namespace World
         public override void SetAnimationBase()
         {
             Animation = gameObject.AddComponent<Animation.Player>();
-            Animation.AnimationSprites = Manager.Game.Sprites.PlayerAnimations;
+            Animation.AnimationSprites = Manager.Game.Graphics.PlayerAnimations;
         }
 
         private void UseItem(Base.Item item)

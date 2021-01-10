@@ -17,7 +17,7 @@ namespace Manager
 
         public static World.Player SpawnPlayer(Vector3 position, Transform parent, bool active = false)
         {
-            RectTransform transform = Spawn(position, Game.Prefabs.Player, parent, active);
+            RectTransform transform = Spawn(position, Game.Graphics.Player, parent, active);
             World.Player worldCharacter = transform.GetComponent<World.Player>();
             worldCharacter.Initialize(Characters.Link);
             return worldCharacter;
@@ -25,7 +25,7 @@ namespace Manager
 
         public static void SpawnCharacter(Vector3 position, Characters characterType, Transform parent, bool active = true)
         {
-            RectTransform transform = Spawn(position, Game.Prefabs.NPC, parent, active);
+            RectTransform transform = Spawn(position, Game.Graphics.NPC, parent, active);
 
             World.Character<Characters> worldCharacter = transform.GetComponent<World.Character<Characters>>();
             worldCharacter.Initialize(characterType);
@@ -33,7 +33,7 @@ namespace Manager
 
         public static World.Enemy SpawnEnemy(Vector3 position, Enemies enemyType, Transform parent, bool active = false)
         {
-            RectTransform transform = Spawn(position, Game.Prefabs.Enemy, parent, active);
+            RectTransform transform = Spawn(position, Game.Graphics.Enemy, parent, active);
             // We grab the class's type based on the enum name, and the namespace we use for enemies
             World.Enemy enemy = (World.Enemy) transform.gameObject.AddComponent(EnemyHelper.GetEnemyClass(enemyType));
             enemy.Initialize(enemyType);

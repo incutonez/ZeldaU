@@ -12,7 +12,7 @@ namespace Base
 
         public Sprite GetSprite()
         {
-            return Manager.Game.Sprites.GetItem(Type);
+            return Manager.Game.Graphics.GetItem(Type);
         }
 
         public void PlaySound()

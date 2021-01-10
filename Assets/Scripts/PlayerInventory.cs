@@ -21,8 +21,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void Awake()
     {
-        HeartHalfSprite = Manager.Game.Sprites.GetItem("HeartHalf");
-        HeartEmptySprite = Manager.Game.Sprites.GetItem("HeartEmpty");
+        HeartHalfSprite = Manager.Game.Graphics.GetItem("HeartHalf");
+        HeartEmptySprite = Manager.Game.Graphics.GetItem("HeartEmpty");
         HUD = Manager.Game.MainCanvas.transform.Find("Hud");
         LifeContainer = HUD.transform.Find("LifeContainer");
         var countContainer = HUD.transform.Find("CountContainer").transform;
@@ -134,7 +134,7 @@ public class PlayerInventory : MonoBehaviour
         var maxHealth = Player.MaxHealth;
         for (int i = 0; i < maxHealth / 2; i++)
         {
-            RectTransform heart = Instantiate(Manager.Game.Prefabs.UIHeart, LifeContainer).GetComponent<RectTransform>();
+            RectTransform heart = Instantiate(Manager.Game.Graphics.UIHeart, LifeContainer).GetComponent<RectTransform>();
             heart.gameObject.SetActive(true);
             // Need to use the position of where the template is and add to it
             heart.localPosition += new Vector3(

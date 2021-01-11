@@ -46,6 +46,7 @@ namespace World
                 if (item.Type == Items.Heart)
                 {
                     Animator anim = gameObject.AddComponent<Animator>();
+                    // TODO: Make a common blink controller
                     anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Controllers/HeartBlinkController");
                 }
                 else if (item.Type == Items.TriforceShard)

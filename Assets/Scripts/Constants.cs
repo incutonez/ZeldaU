@@ -4,6 +4,7 @@ public static class Constants
 {
     public const string PATH_SPRITES = "Sprites/";
     public const string PATH_PREFABS = "Prefabs/";
+    public const string PATH_AUDIO = "Audio/";
     public const string PATH_DATA = "Data/";
     public const string PATH_OVERWORLD = PATH_DATA + "Overworld/";
     public const string TRANSITION_BACK = "Back";
@@ -27,6 +28,8 @@ public static class Constants
     /// This represents the number of cells vertically, but the 0-based version
     /// </summary>
     public const int GRID_ROWS_ZERO = GRID_ROWS - 1;
+    public const float GRID_CELL_SIZE = 1f;
+    public static readonly Vector3 GRID_ORIGIN = new Vector3(-8f, -7.5f);
 
     public const float MAX_RGB = 255f;
 

@@ -8,24 +8,22 @@ namespace Manager
     {
         public AudioSource AudioSource { get; set; }
 
-        private Dictionary<string, AudioClip> fx = new Dictionary<string, AudioClip>();
+        private Dictionary<string, AudioClip> Effects = new Dictionary<string, AudioClip>();
 
         private void Awake()
         {
             AudioSource = GetComponent<AudioSource>();
-            AudioClip[] items = Resources.LoadAll<AudioClip>("Audio/FX");
-            foreach (AudioClip item in items)
+            FileSystem.LoadAudioClips("FX", (response) =>
             {
-
-                fx.Add(item.name, item);
-            }
+                Effects = response;
+            });
         }
 
         public float PlayFX(FX fxType, bool loop = false)
         {
             float length = 0f;
             string key = fxType.GetDescription();
-            AudioClip clip = fx[key];
+            AudioClip clip = Effects[key];
             if (clip != null)
             {
                 if (loop)

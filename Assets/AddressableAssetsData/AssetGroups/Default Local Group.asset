@@ -273,8 +273,10 @@ MonoBehaviour:
     m_Address: Prefabs/Enemy
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2227766466348373134, guid: d0567bf50685eb649b321c93ddc00105,
+      type: 3}
+    m_TargetAsset: {fileID: 2227766466348373134, guid: d0567bf50685eb649b321c93ddc00105,
+      type: 3}
   - m_GUID: 71a45733d799b8d4fa0020ed5e151bef
     m_Address: Prefabs/HeartTemplate
     m_ReadOnly: 0
@@ -315,6 +317,14 @@ MonoBehaviour:
     m_Address: Prefabs/WorldTransition
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 91ee69ca067aa3d4cb4ad9ec811a56fe
+    m_Address: Audio/FX
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+    - FX
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

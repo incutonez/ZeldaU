@@ -19,7 +19,8 @@ namespace Manager
             ToggleSword(false);
         }
 
-        private void Update()
+        // We use LateUpdate because the LastMovement property gets set in the Update of Base.Movement, so we want to ensure we have the latest value
+        private void LateUpdate()
         {
             // We call this in update for every frame because it's possible the player has been pushed, and if that's the
             // case, we want the sword to reposition to where the player is

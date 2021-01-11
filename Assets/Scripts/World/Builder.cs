@@ -1,5 +1,6 @@
 using Audio;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace World
@@ -37,6 +38,7 @@ namespace World
         public IEnumerator PanScreen(ViewModel.Grid transition)
         {
             SetScreenLoading(true);
+            yield return BuildScreen(transition);
             var grid = PreviousScreen.Grid;
             int x = transition.X;
             int y = transition.Y;
@@ -98,7 +100,7 @@ namespace World
         /// </summary>
         /// <param name="screenId"></param>
         /// <param name="transition"></param>
-        public void BuildScreen(ViewModel.Grid transition)
+        public IEnumerator BuildScreen(ViewModel.Grid transition)
         {
             string screenId = GetScreenId(transition);
             PreviousScreen = CurrentScreen;
@@ -109,7 +111,7 @@ namespace World
                 parent = Instantiate(Manager.Game.Graphics.WorldScreen);
                 parent.SetParent(ScreensContainer);
                 CurrentScreen = parent.gameObject.GetComponent<Screen>();
-                CurrentScreen.Initialize(screenId, transition);
+                yield return CurrentScreen.Initialize(screenId, transition);
             }
             else
             {
@@ -150,7 +152,7 @@ namespace World
         public IEnumerator ExitDoor(ViewModel.Grid transition)
         {
             SetScreenLoading(true);
-            BuildScreen(transition);
+            yield return BuildScreen(transition);
             PreviousScreen.ToggleActive();
             Manager.Game.Player.transform.position = OverworldPosition;
             Manager.Game.Audio.PlayFX(FX.Stairs);
@@ -171,7 +173,7 @@ namespace World
             yield return StartCoroutine(Manager.Game.Player.AnimateEnter());
             // Save off the player's current position, so we can restore it later
             OverworldPosition = Manager.Game.Player.transform.position;
-            BuildScreen(transition);
+            yield return BuildScreen(transition);
             PreviousScreen.ToggleActive();
             Manager.Game.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TRANSITION_PADDING);
             SetScreenLoading(false);
@@ -184,7 +186,6 @@ namespace World
 
         public void StartPanScreen(ViewModel.Grid transition)
         {
-            BuildScreen(transition);
             StartCoroutine(PanScreen(transition));
         }
     }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Manager
@@ -29,13 +29,18 @@ namespace Manager
         {
             IsDebugMode = DebugMode;
             Graphics = new Graphics();
+            Audio = gameObject.AddComponent<Audio>();
         }
 
-        public void Launch()
+        public void StartLaunch()
+        {
+            StartCoroutine(Launch());
+        }
+
+        public IEnumerator Launch()
         {
             Pathfinder = new World.Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
             MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
-            Audio = gameObject.AddComponent<Audio>();
             Inventory = gameObject.AddComponent<PlayerInventory>();
             Scene = gameObject.AddComponent<World.Builder>();
             Player = Character.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
@@ -44,7 +49,7 @@ namespace Manager
             Suit = Player.GetComponentInChildren<Suit>(true);
             if (!IsDebugMode)
             {
-                Scene.BuildScreen(new ViewModel.Grid { Name = "80" });
+                yield return Scene.BuildScreen(new ViewModel.Grid { Name = "80" });
             }
             Player.gameObject.SetActive(true);
             OnLaunch?.Invoke(this, EventArgs.Empty);

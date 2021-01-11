@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
 using NPCs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace World
@@ -20,20 +22,23 @@ namespace World
         private List<Door> WorldDoors { get; set; }
         private List<Enemy> Enemies { get; set; } = new List<Enemy>();
 
-        public Screen Initialize(string screenId, ViewModel.Grid transition)
+        public IEnumerator Initialize(string screenId, ViewModel.Grid transition)
         {
-            SetGrid(new Grid<GridNode>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, 1f, new Vector3(-8f, -7.5f), (Grid<GridNode> grid, int x, int y) => new GridNode(grid, x, y)));
+            SetGrid(new Grid<GridNode>(Constants.GRID_COLUMNS, Constants.GRID_ROWS, Constants.GRID_CELL_SIZE, Constants.GRID_ORIGIN, (Grid<GridNode> grid, int x, int y) => new GridNode(grid, x, y)));
             WorldDoors = new List<Door>();
             ScreenId = screenId;
             transform.name = screenId;
-            ViewModel.Grid scene = JsonConvert.DeserializeObject<ViewModel.Grid>(Resources.Load<TextAsset>($"{Constants.PATH_OVERWORLD}{ScreenId}").text);
+            ViewModel.Grid scene = null;
+            yield return Manager.FileSystem.LoadJson($"{Constants.PATH_OVERWORLD}{ScreenId}", (response) =>
+            {
+                scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
+            });
             GroundColor = Utilities.HexToColor((scene.GroundColor ?? WorldColors.Tan).GetDescription());
             Build(scene);
             if (transition != null)
             {
                 Build(transition);
             }
-            return this;
         }
 
         public void SetGrid(Grid<GridNode> grid, bool refreshGrid = false)

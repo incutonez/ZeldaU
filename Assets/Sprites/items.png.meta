@@ -34,7 +34,7 @@ TextureImporter:
     second: Heart
   - first:
       213: -2693009140137883590
-    second: Heart1
+    second: HeartAlt
   - first:
       213: -956252262595852801
     second: Compass
@@ -109,7 +109,7 @@ TextureImporter:
     second: ShieldSide
   - first:
       213: 5947598201806246533
-    second: TriforceShardBlue
+    second: TriforceShardAlt
   - first:
       213: 124106431076995637
     second: TriforceShard
@@ -436,7 +436,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heart1
+      name: HeartAlt
       rect:
         serializedVersion: 2
         x: 38
@@ -961,7 +961,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TriforceShardBlue
+      name: TriforceShardAlt
       rect:
         serializedVersion: 2
         x: 323

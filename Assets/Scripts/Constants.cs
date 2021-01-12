@@ -4,9 +4,7 @@ public static class Constants
 {
     public const string PATH_SPRITES = "Sprites/";
     public const string PATH_PREFABS = "Prefabs/";
-    public const string PATH_AUDIO = "Audio/";
-    public const string PATH_DATA = "Data/";
-    public const string PATH_OVERWORLD = PATH_DATA + "Overworld/";
+    public const string PATH_OVERWORLD = "Overworld/";
     public const string TRANSITION_BACK = "Back";
     public const string PLAYER_TRANSITION = "TransitionCollider";
 

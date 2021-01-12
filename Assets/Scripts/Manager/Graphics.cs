@@ -191,5 +191,26 @@ namespace Manager
         {
             return GetItem(type.GetCustomAttr("Resource"));
         }
+
+        public List<Sprite> GetAnimations(Items type)
+        {
+            switch (type)
+            {
+                case global::Items.Heart:
+                case global::Items.HeartAlt:
+                    return new List<Sprite> {
+                        GetItem(global::Items.Heart),
+                        GetItem(global::Items.HeartAlt)
+                    };
+                case global::Items.TriforceShard:
+                case global::Items.TriforceShardAlt:
+                    return new List<Sprite> {
+                        GetItem(global::Items.TriforceShard),
+                        GetItem(global::Items.TriforceShardAlt)
+                    };
+                default:
+                    return new List<Sprite>();
+            }
+        }
     }
 }

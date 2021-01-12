@@ -18,6 +18,7 @@
     Flute = 11,
     Food = 12,
     Heart = 13,
+    HeartAlt = 133,
     HeartContainer = 14,
     Key = 15,
     KeySkeleton = 16,
@@ -50,6 +51,8 @@
     SwordMagical = 34,
     // Split between Shard1 and 2
     TriforceShard = 35,
+    // Split between Shard1 and 2
+    TriforceShardAlt = 355,
     [Damage(0, 4)]
     Wand = 36
 }

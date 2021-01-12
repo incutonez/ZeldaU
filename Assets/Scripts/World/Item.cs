@@ -42,17 +42,11 @@ namespace World
                     Transform.name = sprite.name;
                     UpdatePolygonCollider2D();
                 }
-                // If we have a Heart, we need to make it blink, so let's add that animation
-                if (item.Type == Items.Heart)
+                // If we have a Heart or Triforce, we need to make it blink, so let's add the blink component
+                if (item.Type == Items.Heart || item.Type == Items.TriforceShard)
                 {
-                    Animator anim = gameObject.AddComponent<Animator>();
-                    // TODO: Make a common blink controller
-                    anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Controllers/HeartBlinkController");
-                }
-                else if (item.Type == Items.TriforceShard)
-                {
-                    Animator anim = gameObject.AddComponent<Animator>();
-                    anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Controllers/TriforceBlinkController");
+                    Animation.Blink blinkAnimation = gameObject.AddComponent<Animation.Blink>();
+                    blinkAnimation.Initialize(Manager.Game.Graphics.GetAnimations(item.Type));
                 }
             }
         }

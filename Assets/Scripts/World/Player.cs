@@ -7,7 +7,6 @@ namespace World
 {
     public class Player : Character<Characters>
     {
-        public const float SPEED = 5f;
         public PlayerInventory UiInventory { get; set; }
         public event EventHandler OnInitialize;
         public event EventHandler OnTakeDamage;

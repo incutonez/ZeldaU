@@ -19,9 +19,10 @@ namespace Enemy
 
         public override void SetFrameRates()
         {
-            Animation.ActionFrameRate = 0.3f;
-            Animation.IdleFrameRate = 0.33f;
-            Animation.WalkFrameRate = 1f;
+            // TODOJEF: Figure out a good multiplier for this... it's too fast, but we do need to speed up the animations slightly
+            Animation.ActionFrameRate = 0.33f / Movement.Speed;
+            Animation.IdleFrameRate = 1f;
+            Animation.WalkFrameRate = 0.3f / Movement.Speed;
         }
 
         /// <summary>

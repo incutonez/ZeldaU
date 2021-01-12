@@ -4,6 +4,13 @@ namespace Movement
 {
     public class Player : Base.Movement
     {
+        public override void Start()
+        {
+            // TODOJEF: Potentially figure out a better way of doing this?
+            Speed = 5f;
+            base.Start();
+        }
+
         private void Update()
         {
             if (Animator.IsBlocked())

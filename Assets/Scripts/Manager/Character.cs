@@ -36,7 +36,10 @@ namespace Manager
             RectTransform transform = Spawn(position, Game.Graphics.Enemy, parent, active);
             // We grab the class's type based on the enum name, and the namespace we use for enemies
             World.Enemy enemy = (World.Enemy) transform.gameObject.AddComponent(EnemyHelper.GetEnemyClass(enemyType));
-            enemy.Initialize(enemyType);
+            if (active)
+            {
+                enemy.Initialize(enemyType);
+            }
             return enemy;
         }
     }

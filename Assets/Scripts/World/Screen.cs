@@ -135,6 +135,8 @@ namespace World
                     for (int i = 0; i < viewModel.Count; i++)
                     {
                         Enemy enemy = Manager.Character.SpawnEnemy(Vector3.zero, enemyType, transform);
+                        enemy.SetSpeed(viewModel.Speed);
+                        enemy.Initialize(enemyType);
                         enemy.OnDestroy += Enemy_OnDestroy;
                         Enemies.Add(enemy);
                     }

@@ -9,12 +9,23 @@ namespace World
     public class Enemy : Character<Enemies>
     {
         public Base.AI AI { get; set; }
+        public Base.Movement Movement { get; set; }
 
         private void Awake()
         {
             AI = GetComponent<Base.AI>();
         }
 
+        public void SetSpeed(float speed = 3f)
+        {
+            if (Movement == null)
+            {
+                Movement = GetComponent<Base.Movement>();
+            }
+            Movement.Speed = speed; 
+        }
+
+        // This is called from Initialize in World.Character
         public override void SetAnimationBase()
         {
             Animation = gameObject.AddComponent<Base.Animation>();

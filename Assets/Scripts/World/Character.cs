@@ -18,6 +18,7 @@ namespace World
         public SpriteRenderer Renderer { get; set; }
         public Base.Animation Animation { get; set; }
 
+        // TODOJEF: Potentially add ability to pass in a config?
         public virtual void Initialize(TEnum characterType)
         {
             Renderer = transform.Find("Body").GetComponent<SpriteRenderer>();

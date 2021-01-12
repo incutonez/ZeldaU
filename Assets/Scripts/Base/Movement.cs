@@ -4,17 +4,17 @@ namespace Base
 {
     public class Movement : MonoBehaviour
     {
-        public float Speed;
+        public float Speed { get; set; } = 3f;
         public bool CanAttack { get; set; } = true;
         public Vector3 Direction { get; set; }
         public Vector3 Target { get; set; }
-        public Base.Animation Animator { get; set; }
+        public Animation Animator { get; set; }
         public bool MovementDisabled { get; set; }
         private bool UseTarget { get; set; }
 
-        private void Start()
+        public virtual void Start()
         {
-            Animator = GetComponent<Base.Animation>();
+            Animator = GetComponent<Animation>();
         }
 
         private void Update()

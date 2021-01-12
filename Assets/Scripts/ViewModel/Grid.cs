@@ -42,9 +42,10 @@ namespace ViewModel
 
     public class Enemy
     {
-        List<EnemyChild> Children { get; set; }
+        public List<EnemyChild> Children { get; set; }
         public int Count { get; set; }
         public Enemies Type { get; set; }
+        public float Speed { get; set; } = 3f;
     }
 
     public class EnemyChild

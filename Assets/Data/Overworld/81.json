@@ -299,7 +299,12 @@
     },
     {
       "Type": 27,
-      "Count": 2
+      "Count": 1
+    },
+    {
+      "Type": 27,
+      "Speed": 7,
+      "Count": 1
     }
   ]
 }

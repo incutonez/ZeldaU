@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using NPCs;
+using System.IO;
+using Audio;
 
 namespace Manager
 {
@@ -46,10 +49,10 @@ namespace Manager
             }
         }
 
-        public static void LoadAudioClips(string labelName, Action<Dictionary<string, AudioClip>> callback)
+        public static void LoadAudioClips(string labelName, Action<Dictionary<FX, AudioClip>> callback)
         {
             LoadCount++;
-            Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
+            Dictionary<FX, AudioClip> clips = new Dictionary<FX, AudioClip>();
             AsyncOperationHandle<IList<IResourceLocation>> labelOperation = Addressables.LoadResourceLocationsAsync(labelName);
             labelOperation.Completed += (labelResponse) => {
                 int totalCount = labelResponse.Result.Count;
@@ -62,7 +65,8 @@ namespace Manager
                         switch (labelResponse.Status)
                         {
                             case AsyncOperationStatus.Succeeded:
-                                clips.Add(result.Result.name, result.Result);
+                                Enum.TryParse(result.Result.name, out FX audioType);
+                                clips.Add(audioType, result.Result);
                                 Addressables.Release(resourceOperation);
                                 break;
                             case AsyncOperationStatus.Failed:
@@ -103,6 +107,44 @@ namespace Manager
                         break;
                 }
                 ShouldLaunch();
+            };
+        }
+
+        public static void LoadSpritesLabel(string label, Action<Dictionary<Enemies, List<Sprite>>> callback)
+        {
+            LoadCount++;
+            Dictionary<Enemies, List<Sprite>> items = new Dictionary<Enemies, List<Sprite>>();
+            AsyncOperationHandle<IList<IResourceLocation>> labelOperation = Addressables.LoadResourceLocationsAsync(label);
+            labelOperation.Completed += (labelResponse) => {
+                int totalCount = labelResponse.Result.Count;
+                foreach (IResourceLocation item in labelResponse.Result)
+                {
+                    AsyncOperationHandle<Sprite[]> resourceOperation = Addressables.LoadAssetAsync<Sprite[]>(item.PrimaryKey);
+                    resourceOperation.Completed += (result) =>
+                    {
+                        totalCount--;
+                        switch (labelResponse.Status)
+                        {
+                            case AsyncOperationStatus.Succeeded:
+                                Enum.TryParse(Path.GetFileNameWithoutExtension(item.PrimaryKey), out Enemies enemyType);
+                                items.Add(enemyType, result.Result.ToList());
+                                Addressables.Release(resourceOperation);
+                                break;
+                            case AsyncOperationStatus.Failed:
+                                Debug.LogError("Failed to load audio clips.");
+                                break;
+                            default:
+                                break;
+                        }
+                        // When we've finished loading all items in the directory, let's continue
+                        if (totalCount == 0)
+                        {
+                            LoadCount--;
+                            callback(items);
+                            ShouldLaunch();
+                        }
+                    };
+                }
             };
         }
 

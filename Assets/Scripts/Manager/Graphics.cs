@@ -73,10 +73,12 @@ namespace Manager
                     NPCAnimations.Add(character, GetAnimations(response.Where(x => x.name.Contains(name)).ToList(), name));
                 }
             });
-            // TODOJEF: Potentially load the dir instead and loop through the enemies enum?  We'd have to get the class
-            FileSystem.LoadSprites("Enemies/Octorok", (response) =>
+            FileSystem.LoadSpritesLabel("Enemies", (response) =>
             {
-                EnemyHelper.GetSubTypes(Enemies.Octorok, GetAnimations(response, ""), EnemyAnimations);
+                foreach (KeyValuePair<Enemies, List<Sprite>> enemy in response)
+                {
+                    EnemyHelper.GetSubTypes(enemy.Key, GetAnimations(enemy.Value, ""), EnemyAnimations);
+                }
             });
         }
 

@@ -24,12 +24,10 @@ namespace Enemy
         public static void GetConfig(List<Enemies> subTypes, List<Color[]> colors)
         {
             subTypes.AddRange(new List<Enemies> {
-                Enemies.Patra,
-                Enemies.PatraHead
+                Enemies.Patra
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_BLUE, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_BLUE_LIGHT },
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_RED, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_ORANGE }
+                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_BLUE_LIGHT, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_BLUE }
             });
         }
     }

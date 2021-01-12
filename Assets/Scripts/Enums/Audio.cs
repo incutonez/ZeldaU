@@ -1,33 +1,17 @@
-﻿using System.ComponentModel;
-
-namespace Audio
+﻿namespace Audio
 {
     public enum FX
     {
-        [Description("ArrowBoomerang")]
-        Arrow,
+        ArrowBoomerang,
         BombBlow,
         BombDrop,
-        [Description("ArrowBoomerang")]
-        Boomerang,
-        [Description("BossManhandlaDigdoggerPatra")]
-        BossDigdogger,
-        [Description("BossDodongoGohma")]
-        BossDodongo,
-        [Description("BossDragonGanon")]
-        BossDragon,
-        [Description("BossDragonGanon")]
-        BossGanon,
-        [Description("BossDodongoGohma")]
-        BossGohma,
+        BossManhandlaDigdoggerPatra,
+        BossDragonGanon,
+        BossDodongoGohma,
         BossHurt,
-        [Description("BossManhandlaDigdoggerPatra")]
-        BossManhandla,
         DoorUnlock,
         EnemyDie,
         EnemyHurt,
-        [Description("BossManhandlaDigdoggerPatra")]
-        EnemyPatra,
         Fire,
         Flute,
         HealthLow,

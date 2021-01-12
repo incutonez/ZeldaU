@@ -8,7 +8,7 @@ namespace Manager
     {
         public AudioSource AudioSource { get; set; }
 
-        private Dictionary<string, AudioClip> Effects = new Dictionary<string, AudioClip>();
+        private Dictionary<FX, AudioClip> Effects = new Dictionary<FX, AudioClip>();
 
         private void Awake()
         {
@@ -22,8 +22,7 @@ namespace Manager
         public float PlayFX(FX fxType, bool loop = false)
         {
             float length = 0f;
-            string key = fxType.GetDescription();
-            AudioClip clip = Effects[key];
+            AudioClip clip = Effects[fxType];
             if (clip != null)
             {
                 if (loop)

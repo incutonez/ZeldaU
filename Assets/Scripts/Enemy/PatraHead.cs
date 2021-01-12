@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class Wizzrobe : World.Enemy
+    public class PatraHead : World.Enemy
     {
         public override void SetHealth()
         {
-            Health = 6f;
+            // TODOJEF: GET?
+            Health = 20f;
         }
 
         public override void SetAttackStrength()
         {
-            TouchDamage = 2f;
-            WeaponDamage = 8f;
+            TouchDamage = 4f;
         }
 
         /// <summary>
@@ -25,12 +25,10 @@ namespace Enemy
         public static void GetConfig(List<Enemies> subTypes, List<Color[]> colors)
         {
             subTypes.AddRange(new List<Enemies> {
-                Enemies.Wizzrobe,
-                Enemies.WizzrobeBlue
+                Enemies.PatraHead
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_ORANGE, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_RED },
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_BLUE_LIGHT, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_BLUE }
+                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_ORANGE, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_RED }
             });
         }
     }

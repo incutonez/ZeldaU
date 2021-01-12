@@ -8,7 +8,7 @@ namespace Animation
     {
         public float FrameRate { get; set; }
         public List<Sprite> Frames { get; set; }
-        private int CurrentFrame { get; set; }
+        private int CurrentFrame { get; set; } = 0;
         private SpriteRenderer Renderer { get; set; }
 
         private void Awake()
@@ -25,10 +25,10 @@ namespace Animation
 
         private IEnumerator StartBlink()
         {
-            CurrentFrame = (CurrentFrame + 1) % Frames.Count;
             Renderer.sprite = Frames[CurrentFrame];
             yield return new WaitForSeconds(FrameRate);
             StartCoroutine(StartBlink());
+            CurrentFrame = ++CurrentFrame % Frames.Count;
         }
     }
 }

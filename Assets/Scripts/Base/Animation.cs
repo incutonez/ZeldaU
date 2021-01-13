@@ -37,7 +37,7 @@ namespace Base
 
         public bool IsBlocked()
         {
-            return BlockAnimations || Manager.Game.IsTransitioning || CharacterMovement.IsDisabled();
+            return BlockAnimations || Manager.Game.IsPaused || CharacterMovement.IsDisabled();
         }
 
         public virtual void SpriteAnimator_OnAnimationStop(object sender, EventArgs e)

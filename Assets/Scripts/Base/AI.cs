@@ -27,7 +27,7 @@ namespace Base
 
         private void Update()
         {
-            if (Manager.Game.IsTransitioning)
+            if (Manager.Game.IsPaused)
             {
                 return;
             }

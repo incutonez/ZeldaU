@@ -21,7 +21,7 @@ namespace World
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (Manager.Game.IsTransitioning)
+            if (Manager.Game.IsPaused)
             {
                 return;
             }

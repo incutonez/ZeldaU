@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,9 @@ public class PlayerInventory : MonoBehaviour
     public Text BombCount { get; set; }
     public Image SwordSlotSprite { get; set; }
     public Image ItemSlotSprite { get; set; }
-    public Transform HUD { get; set; }
+    public RectTransform InventoryUI { get; set; }
+    public RectTransform Hud { get; set; }
+    public bool IsMenuActive { get; set; }
 
     private Base.Inventory Inventory { get; set; }
     private World.Player Player { get; set; }
@@ -21,16 +24,46 @@ public class PlayerInventory : MonoBehaviour
 
     private void Awake()
     {
+        Transform mainCanvas = Manager.Game.MainCanvas.transform;
+        Hud = mainCanvas.Find("Hud").GetComponent<RectTransform>();
+        InventoryUI = mainCanvas.Find("Inventory").GetComponent<RectTransform>();
+
         HeartHalfSprite = Manager.Game.Graphics.GetItem("HeartHalf");
         HeartEmptySprite = Manager.Game.Graphics.GetItem("HeartEmpty");
-        HUD = Manager.Game.MainCanvas.transform.Find("Hud");
-        LifeContainer = HUD.transform.Find("LifeContainer");
-        var countContainer = HUD.transform.Find("CountContainer").transform;
+        LifeContainer = Hud.Find("LifeContainer");
+        Transform countContainer = Hud.Find("CountContainer").transform;
         RupeeCount = countContainer.Find("RupeeContainer").transform.Find("Count").GetComponent<Text>();
         KeyCount = countContainer.Find("KeyContainer").transform.Find("Count").GetComponent<Text>();
         BombCount = countContainer.Find("BombContainer").transform.Find("Count").GetComponent<Text>();
-        ItemSlotSprite = HUD.transform.Find("BSlot").GetChild(2).GetComponent<Image>();
-        SwordSlotSprite = HUD.transform.Find("ASlot").GetChild(2).GetComponent<Image>();
+        ItemSlotSprite = Hud.Find("BSlot").GetChild(2).GetComponent<Image>();
+        SwordSlotSprite = Hud.Find("ASlot").GetChild(2).GetComponent<Image>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Inventory"))
+        {
+            StartCoroutine(PanMenu());
+        }
+    }
+
+    public IEnumerator PanMenu()
+    {
+        Manager.Game.IsPaused = true;
+        Manager.Game.IsMenuShowing = !Manager.Game.IsMenuShowing;
+        Vector2 inventoryDestination = Manager.Game.IsMenuShowing ? new Vector2(0, 64) : new Vector2(0, 240);
+        Vector2 hudDestination = Manager.Game.IsMenuShowing ? Vector2.zero : new Vector2(0, 176);
+        while (InventoryUI.anchoredPosition != inventoryDestination)
+        {
+            InventoryUI.anchoredPosition = Vector2.MoveTowards(InventoryUI.anchoredPosition, inventoryDestination, 0.5f);
+            Hud.anchoredPosition = Vector2.MoveTowards(Hud.anchoredPosition, hudDestination, 0.5f);
+            yield return null;
+        }
+        // If the menu is currently active, we want to keep IsTransitioning, so the player and enemies can't move
+        if (!Manager.Game.IsMenuShowing)
+        {
+            Manager.Game.IsPaused = false;
+        }
     }
 
     public void SetInventory(Base.Inventory inventory)

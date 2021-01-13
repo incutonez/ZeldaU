@@ -16,7 +16,8 @@ namespace Manager
         public static Sword Sword { get; set; }
         public static Suit Suit { get; set; }
         public static World.Builder Scene { get; set; }
-        public static bool IsTransitioning { get; set; }
+        public static bool IsPaused { get; set; }
+        public static bool IsMenuShowing { get; set; }
         public static PlayerInventory Inventory { get; set; }
         public static Canvas MainCanvas { get; set; }
         public static World.Pathfinder Pathfinder { get; set; }
@@ -40,7 +41,7 @@ namespace Manager
         public IEnumerator Launch()
         {
             Pathfinder = new World.Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
-            MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
+            MainCanvas = GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<Canvas>();
             Inventory = gameObject.AddComponent<PlayerInventory>();
             Scene = gameObject.AddComponent<World.Builder>();
             Player = Character.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);

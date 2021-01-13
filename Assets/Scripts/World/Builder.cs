@@ -181,7 +181,7 @@ namespace World
 
         public void SetScreenLoading(bool transitioning)
         {
-            Manager.Game.IsTransitioning = transitioning;
+            Manager.Game.IsPaused = transitioning;
         }
 
         public void StartPanScreen(ViewModel.Grid transition)

@@ -9,13 +9,13 @@ namespace Animation
     {
         public event EventHandler OnAnimationStop;
         public float FrameRate { get; set; }
+        public bool IsPlaying { get; set; } = false;
 
         private List<Sprite> AnimationFrames;
         private int CurrentFrame { get; set; }
         private float Timer { get; set; }
         private SpriteRenderer Renderer { get; set; }
         private bool Loop { get; set; } = false;
-        private bool IsPlaying { get; set; } = false;
 
         private void Awake()
         {
@@ -24,7 +24,7 @@ namespace Animation
 
         private void Update()
         {
-            if (!IsPlaying)
+            if (!IsPlaying || Manager.Game.IsMenuShowing)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace Animation
             OnAnimationStop?.Invoke(this, EventArgs.Empty);
         }
 
-        public void PlayAnimation(List<UnityEngine.Sprite> frames, float frameRate, bool loop = true)
+        public void PlayAnimation(List<Sprite> frames, float frameRate, bool loop = true)
         {
             if (frames == null)
             {

@@ -32,7 +32,7 @@ namespace World
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (Manager.Game.IsTransitioning)
+            if (Manager.Game.IsPaused)
             {
                 return;
             }

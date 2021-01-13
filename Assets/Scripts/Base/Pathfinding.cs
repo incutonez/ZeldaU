@@ -16,7 +16,7 @@ namespace Base
 
         private void Update()
         {
-            if (Manager.Game.IsTransitioning || Movement.IsDisabled())
+            if (Manager.Game.IsPaused || Movement.IsDisabled())
             {
                 return;
             }

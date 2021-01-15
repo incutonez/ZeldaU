@@ -18,6 +18,8 @@
     Flute = 11,
     Food = 12,
     Heart = 13,
+    HeartHalf = 130,
+    HeartEmpty = 131,
     HeartAlt = 133,
     HeartContainer = 14,
     Key = 15,

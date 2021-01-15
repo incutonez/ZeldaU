@@ -19,6 +19,7 @@ public class PlayerInventory : MonoBehaviour
 
     private Base.Inventory Inventory { get; set; }
     private World.Player Player { get; set; }
+    private Sprite HeartSprite { get; set; }
     private Sprite HeartHalfSprite { get; set; }
     private Sprite HeartEmptySprite { get; set; }
 
@@ -28,13 +29,14 @@ public class PlayerInventory : MonoBehaviour
         Hud = mainCanvas.Find("Hud").GetComponent<RectTransform>();
         InventoryUI = mainCanvas.Find("Inventory").GetComponent<RectTransform>();
 
-        HeartHalfSprite = Manager.Game.Graphics.GetItem("HeartHalf");
-        HeartEmptySprite = Manager.Game.Graphics.GetItem("HeartEmpty");
-        LifeContainer = Hud.Find("LifeContainer");
+        HeartSprite = Manager.Game.Graphics.GetItem(Items.Heart);
+        HeartHalfSprite = Manager.Game.Graphics.GetItem(Items.HeartHalf);
+        HeartEmptySprite = Manager.Game.Graphics.GetItem(Items.HeartEmpty);
+        LifeContainer = Hud.Find("LifeContainer").Find("Life");
         Transform countContainer = Hud.Find("CountContainer").transform;
-        RupeeCount = countContainer.Find("RupeeContainer").transform.Find("Count").GetComponent<Text>();
-        KeyCount = countContainer.Find("KeyContainer").transform.Find("Count").GetComponent<Text>();
-        BombCount = countContainer.Find("BombContainer").transform.Find("Count").GetComponent<Text>();
+        RupeeCount = countContainer.Find("Rupees").transform.Find("Amount").GetComponent<Text>();
+        KeyCount = countContainer.Find("Keys").transform.Find("Amount").GetComponent<Text>();
+        BombCount = countContainer.Find("Bombs").transform.Find("Amount").GetComponent<Text>();
         ItemSlotSprite = Hud.Find("BSlot").GetChild(2).GetComponent<Image>();
         SwordSlotSprite = Hud.Find("ASlot").GetChild(2).GetComponent<Image>();
     }
@@ -50,9 +52,14 @@ public class PlayerInventory : MonoBehaviour
     public IEnumerator PanMenu()
     {
         Manager.Game.IsPaused = true;
-        Manager.Game.IsMenuShowing = !Manager.Game.IsMenuShowing;
-        Vector2 inventoryDestination = Manager.Game.IsMenuShowing ? new Vector2(0, 64) : new Vector2(0, 240);
-        Vector2 hudDestination = Manager.Game.IsMenuShowing ? Vector2.zero : new Vector2(0, 176);
+        bool showMenu = !Manager.Game.IsMenuShowing;
+        // Set right away to pause any movements
+        if (showMenu)
+        {
+            Manager.Game.IsMenuShowing = showMenu;
+        }
+        Vector2 inventoryDestination = showMenu ? new Vector2(InventoryUI.anchoredPosition.x, -176) : new Vector2(InventoryUI.anchoredPosition.x, 0);
+        Vector2 hudDestination = showMenu ? new Vector2(Hud.anchoredPosition.x, -240) : new Vector2(Hud.anchoredPosition.x, -64);
         while (InventoryUI.anchoredPosition != inventoryDestination)
         {
             InventoryUI.anchoredPosition = Vector2.MoveTowards(InventoryUI.anchoredPosition, inventoryDestination, 0.5f);
@@ -60,9 +67,10 @@ public class PlayerInventory : MonoBehaviour
             yield return null;
         }
         // If the menu is currently active, we want to keep IsTransitioning, so the player and enemies can't move
-        if (!Manager.Game.IsMenuShowing)
+        if (!showMenu)
         {
             Manager.Game.IsPaused = false;
+            Manager.Game.IsMenuShowing = false;
         }
     }
 
@@ -161,37 +169,38 @@ public class PlayerInventory : MonoBehaviour
 
     private void RefreshLifeUI()
     {
-        int x = 0;
-        int y = 0;
-        var health = Player.Health;
-        var maxHealth = Player.MaxHealth;
-        for (int i = 0; i < maxHealth / 2; i++)
+        float? health = Player.Health;
+        // 0-based value
+        float? maxHealth = (Player.MaxHealth / 2) - 1;
+        for (int i = 0; i < LifeContainer.childCount; i++)
         {
-            RectTransform heart = Instantiate(Manager.Game.Graphics.UIHeart, LifeContainer).GetComponent<RectTransform>();
-            heart.gameObject.SetActive(true);
-            // Need to use the position of where the template is and add to it
-            heart.localPosition += new Vector3(
-                x * (heart.sizeDelta.x + padding),
-                y * (heart.sizeDelta.y + padding)
-            );
-            Image image = heart.GetComponent<Image>();
-            var heartCount = (i + 1) * 2;
-            if (heartCount > health)
+            RectTransform heart = LifeContainer.GetChild(i).GetComponent<RectTransform>();
+            if (i > maxHealth)
             {
-                if (heartCount - health >= 2)
-                {
-                    image.sprite = HeartEmptySprite;
-                }
-                else if (heartCount - health >= 1)
-                {
-                    image.sprite = HeartHalfSprite;
-                }
+                heart.gameObject.SetActive(false);
             }
-            x++;
-            if (x > 7)
+            else
             {
-                x = 0;
-                y++;
+                heart.gameObject.SetActive(true);
+                Image image = heart.GetComponent<Image>();
+                int heartCount = (i + 1) * 2;
+                // This means we should either show a half heart or empty heart
+                if (heartCount > health)
+                {
+                    if (heartCount - health >= 2)
+                    {
+                        image.sprite = HeartEmptySprite;
+                    }
+                    else if (heartCount - health >= 1)
+                    {
+                        image.sprite = HeartHalfSprite;
+                    }
+                }
+                // Otherwise, we're still at a full heart
+                else
+                {
+                    image.sprite = HeartSprite;
+                }
             }
         }
     }

@@ -77,7 +77,12 @@ namespace World
 
         public override void SetHealth()
         {
-            Health = 32f;
+            Health = 6f;
+        }
+
+        public override void SetMaxHealth()
+        {
+            MaxHealth = 16f;
         }
 
         public override void Initialize(Characters characterType)

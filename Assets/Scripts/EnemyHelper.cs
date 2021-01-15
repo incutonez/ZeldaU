@@ -15,6 +15,7 @@ public static class EnemyHelper
     public static readonly Color COMMON_TEAL = Utilities.HexToColor("008888");
     public static readonly Color COMMON_GRAY = Utilities.HexToColor("7c7c7c");
     public static readonly Color COMMON_GREEN = Utilities.HexToColor("005800");
+    public static readonly Color COMMON_WATER = Utilities.HexToColor("2038ec");
 
     public static System.Type GetEnemyClass(Enemies type)
     {

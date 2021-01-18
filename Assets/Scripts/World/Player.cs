@@ -7,7 +7,7 @@ namespace World
 {
     public class Player : Character<Characters>
     {
-        public PlayerInventory UiInventory { get; set; }
+        public UI.Hud UiInventory { get; set; }
         public event EventHandler OnInitialize;
         public event EventHandler OnTakeDamage;
 
@@ -89,9 +89,7 @@ namespace World
         {
             base.Initialize(characterType);
             Inventory = new Base.Inventory(UseItem);
-            UiInventory = Manager.Game.Inventory;
-            UiInventory.SetInventory(Inventory);
-            UiInventory.SetPlayer(this);
+            Manager.Game.Inventory.Initialize(Inventory, this);
             OnInitialize?.Invoke(this, EventArgs.Empty);
         }
     }

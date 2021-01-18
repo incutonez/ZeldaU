@@ -25,21 +25,21 @@ namespace Movement
             {
                 float moveX = 0f;
                 float moveY = 0f;
-                if (Input.GetKey(KeyCode.UpArrow))
+                if (Controls.IsUpKey())
                 {
                     moveY = 1f;
                 }
-                if (Input.GetKey(KeyCode.DownArrow))
+                if (Controls.IsDownKey())
                 {
                     moveY = -1f;
                 }
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    moveX = -1f;
-                }
-                if (Input.GetKey(KeyCode.RightArrow))
+                if (Controls.IsRightKey())
                 {
                     moveX = 1f;
+                }
+                if (Controls.IsLeftKey())
+                {
+                    moveX = -1f;
                 }
                 Direction = new Vector3(moveX, moveY).normalized;
 

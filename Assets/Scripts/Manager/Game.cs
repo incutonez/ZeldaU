@@ -18,7 +18,8 @@ namespace Manager
         public static World.Builder Scene { get; set; }
         public static bool IsPaused { get; set; }
         public static bool IsMenuShowing { get; set; }
-        public static PlayerInventory Inventory { get; set; }
+        // TODOJEF: Potentially move to the canvas hud?
+        public static UI.Hud Inventory { get; set; }
         public static Canvas MainCanvas { get; set; }
         public static World.Pathfinder Pathfinder { get; set; }
         public static Graphics Graphics { get; set; }
@@ -42,7 +43,7 @@ namespace Manager
         {
             Pathfinder = new World.Pathfinder(Constants.GRID_COLUMNS, Constants.GRID_ROWS);
             MainCanvas = GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<Canvas>();
-            Inventory = gameObject.AddComponent<PlayerInventory>();
+            Inventory = gameObject.AddComponent<UI.Hud>();
             Scene = gameObject.AddComponent<World.Builder>();
             Player = Character.SpawnPlayer(Constants.STARTING_POSITION, GameObject.Find("Screens").transform);
             Shield = Player.GetComponentInChildren<Shield>(true);

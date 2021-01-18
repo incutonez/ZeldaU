@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Animation
 {
     public class Blink : MonoBehaviour
     {
-        public float FrameRate { get; set; }
-        public List<Sprite> Frames { get; set; }
+        public float FrameRate;
+        public List<Sprite> Frames;
         private int CurrentFrame { get; set; } = 0;
         private SpriteRenderer Renderer { get; set; }
+        private Image Image { get; set; }
 
         private void Awake()
         {
             Renderer = GetComponent<SpriteRenderer>();
-            StartCoroutine(StartBlink());
+            if (Renderer == null)
+            {
+                Image = GetComponent<Image>();
+            }
         }
 
         public void Initialize(List<Sprite> frames, float frameRate = 0.25f)
@@ -25,10 +30,22 @@ namespace Animation
 
         private IEnumerator StartBlink()
         {
-            Renderer.sprite = Frames[CurrentFrame];
+            if (Renderer != null)
+            {
+                Renderer.sprite = Frames[CurrentFrame];
+            }
+            else if (Image != null)
+            {
+                Image.sprite = Frames[CurrentFrame];
+            }
             yield return new WaitForSeconds(FrameRate);
             StartCoroutine(StartBlink());
             CurrentFrame = ++CurrentFrame % Frames.Count;
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine(StartBlink());
         }
     }
 }

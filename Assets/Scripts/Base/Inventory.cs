@@ -17,11 +17,11 @@ namespace Base
 
     public class Inventory
     {
-        public event Action<Inventory, InventoryChangeArgs> OnItemListChanged;
-        public Item sword = null;
-        public float damageModifier = 1f;
-        public int rupees = 0;
-        public int keys = 0;
+        public event Action<Inventory, InventoryChangeArgs> OnChanged;
+        public Item Sword { get; set; } = null;
+        public float DamageModifier { get; set; } = 1f;
+        public int Rupees { get; set; } = 0;
+        public int Keys { get; set; } = 0;
 
         private Action<Item> _useItemAction;
         private List<Item> items;
@@ -32,12 +32,12 @@ namespace Base
             items = new List<Item>();
         }
 
-        public int GetBombCount()
+        public int GetItemCount(Items it)
         {
             int count = 0;
             foreach (Item item in items)
             {
-                if (item.Type == Items.Bomb)
+                if (item.Type == it)
                 {
                     count = item.Amount;
                     break;
@@ -52,11 +52,11 @@ namespace Base
             {
                 if (item.IsRupee())
                 {
-                    rupees += item.GetPickupAmount();
+                    Rupees += item.GetPickupAmount();
                 }
                 else if (item.Type == Items.Key)
                 {
-                    keys += item.GetPickupAmount();
+                    Keys += item.GetPickupAmount();
                 }
                 else if (item.IsStackable())
                 {
@@ -83,14 +83,14 @@ namespace Base
                 }
                 if (item.IsSword())
                 {
-                    sword = item;
+                    Sword = item;
                 }
                 else if (item.IsRing())
                 {
-                    damageModifier = item.Type.GetAttribute<DamageAttribute>().TouchDamage;
+                    DamageModifier = item.Type.GetAttribute<DamageAttribute>().TouchDamage;
                 }
                 item.PlaySound();
-                OnItemListChanged(this, new InventoryChangeArgs(item));
+                OnChanged(this, new InventoryChangeArgs(item));
             }
         }
 
@@ -119,9 +119,9 @@ namespace Base
             }
             if (item.IsSword())
             {
-                sword = null;
+                Sword = null;
             }
-            OnItemListChanged(this, new InventoryChangeArgs(item, true));
+            OnChanged(this, new InventoryChangeArgs(item, true));
         }
 
         public void UseItem(Item item)

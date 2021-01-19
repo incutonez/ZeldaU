@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI
@@ -6,24 +7,42 @@ namespace UI
     public class Menu : MonoBehaviour
     {
         public bool IsTransitioning { get; set; }
+
+        private Base.Inventory Inventory { get; set; }
         private RectTransform Renderer { get; set; }
         private RectTransform Cursor { get; set; }
         private RectTransform ItemsGrid { get; set; }
         private int CurrentIndex { get; set; }
         private float Timer { get; set; }
         private const float DELAY = 0.4f;
+        private int ActiveItems { get; set; }
+        private List<Items> Items { get; set; } = new List<Items> {
+            global::Items.Boomerang,
+            global::Items.Bomb,
+            global::Items.Bow,
+            global::Items.Candle,
+            global::Items.Flute,
+            global::Items.Food,
+            global::Items.PotionBlue,
+            global::Items.Wand
+        };
+        private GameObject[] ItemRefs { get; set; }
+        private int MAX_ITEMS { get; set; }
 
         private void Awake()
         {
             Renderer = GetComponent<RectTransform>();
-            Cursor = GameObject.Find("Selection").GetComponent<RectTransform>();
-            ItemsGrid = GameObject.Find("ItemsGrid").GetComponent<RectTransform>();
+            MAX_ITEMS = Items.Count - 1;
             MoveCursor(0, false);
         }
 
         private void Update()
         {
-            if (Manager.Game.IsMenuShowing)
+            if (ActiveItems < 2 || IsTransitioning)
+            {
+                return;
+            }
+            if (gameObject.activeSelf)
             {
                 if (Timer > 0)
                 {
@@ -41,14 +60,26 @@ namespace UI
             }
         }
 
+        public void Initialize(Base.Inventory inventory)
+        {
+            Inventory = inventory;
+            ItemsGrid = Manager.Game.MainCanvas.transform.Find("Inventory/ItemsContainer/ItemsGrid").GetComponent<RectTransform>();
+            Cursor = ItemsGrid.Find("Selection").GetComponent<RectTransform>();
+            ItemRefs = new GameObject[Items.Count];
+            foreach (Items item in Items)
+            {
+                SetItemActive(item);
+            }
+        }
+
         public void MoveCursor(int direction, bool playSound = true)
         {
             CurrentIndex += direction;
             if (CurrentIndex < 0)
             {
-                CurrentIndex = 7;
+                CurrentIndex = MAX_ITEMS;
             }
-            else if (CurrentIndex > 7)
+            else if (CurrentIndex > MAX_ITEMS)
             {
                 CurrentIndex = 0;
             }
@@ -56,20 +87,41 @@ namespace UI
             {
                 Manager.Game.Audio.PlayFX(Audio.FX.Rupee);
             }
-            Cursor.position = ItemsGrid.GetChild(CurrentIndex).GetComponent<RectTransform>().position;
+            Cursor.localPosition = ItemRefs[CurrentIndex].transform.parent.localPosition;
             Timer = DELAY;
+        }
+
+        public void SetItemActive(Items item)
+        {
+            int index = Items.IndexOf(item);
+            if (index != -1)
+            {
+                GameObject go = ItemRefs[index];
+                if (go == null)
+                {
+                    go = ItemRefs[index] = ItemsGrid.GetChild(index).transform.Find("Image").gameObject;
+                }
+                bool isActive = Inventory.GetItemCount(item) != 0;
+                go.SetActive(isActive);
+                if (isActive)
+                {
+                    ActiveItems++;
+                }
+                else if (ActiveItems > 0)
+                {
+                    ActiveItems--;
+                }
+            }
         }
 
         public IEnumerator Pan(RectTransform hud)
         {
             Manager.Game.IsPaused = true;
             IsTransitioning = true;
-            bool showMenu = !Manager.Game.IsMenuShowing;
+            bool showMenu = !gameObject.activeSelf;
             // Set right away to pause any movements
             if (showMenu)
             {
-                // TODOJEF: Potentially change to use if the menu is active
-                Manager.Game.IsMenuShowing = showMenu;
                 gameObject.SetActive(true);
             }
             Vector2 inventoryDestination = showMenu ? new Vector2(Renderer.anchoredPosition.x, -176) : new Vector2(Renderer.anchoredPosition.x, 0);
@@ -84,7 +136,6 @@ namespace UI
             if (!showMenu)
             {
                 Manager.Game.IsPaused = false;
-                Manager.Game.IsMenuShowing = false;
                 gameObject.SetActive(false);
             }
             IsTransitioning = false;

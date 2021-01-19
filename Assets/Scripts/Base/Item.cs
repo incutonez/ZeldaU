@@ -8,7 +8,7 @@ namespace Base
     public class Item
     {
         public Items Type { get; set; }
-        public int Amount { get; set; }
+        public int Amount { get; set; } = 1;
 
         public Sprite GetSprite()
         {
@@ -107,6 +107,17 @@ namespace Base
             {
                 case Items.Shield:
                 case Items.ShieldMagical:
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsKey()
+        {
+            switch (Type)
+            {
+                case Items.Key:
+                case Items.KeySkeleton:
                     return true;
             }
             return false;

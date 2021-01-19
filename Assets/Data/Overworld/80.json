@@ -257,5 +257,70 @@
         }
       ]
     }
-  ]
+  ],
+  "Items": [{
+    "Item": {
+      "Type": 3
+    },
+    "Coordinates": [
+      5,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 4
+    },
+    "Coordinates": [
+      6,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 6
+    },
+    "Coordinates": [
+      7,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 7
+    },
+    "Coordinates": [
+      8,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 11
+    },
+    "Coordinates": [
+      9,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 12
+    },
+    "Coordinates": [
+      10,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 21
+    },
+    "Coordinates": [
+      11,
+      4
+    ]
+  }, {
+    "Item": {
+      "Type": 36
+    },
+    "Coordinates": [
+      12,
+      4
+    ]
+  }]
 }

@@ -39,7 +39,7 @@ namespace World
             Enemy worldEnemy = collision.collider.GetComponent<Enemy>();
             if (worldEnemy != null)
             {
-                TakeDamage(worldEnemy.TouchDamage * Inventory.damageModifier);
+                TakeDamage(worldEnemy.TouchDamage * Inventory.DamageModifier);
                 OnTakeDamage?.Invoke(this, EventArgs.Empty);
                 if (IsDead())
                 {

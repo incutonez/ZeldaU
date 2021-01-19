@@ -24,7 +24,7 @@ namespace Animation
 
         private void Update()
         {
-            if (!IsPlaying || Manager.Game.IsMenuShowing)
+            if (!IsPlaying || Manager.Game.IsMenuShowing())
             {
                 return;
             }

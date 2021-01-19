@@ -40,7 +40,6 @@ namespace World
                 if (sprite != null)
                 {
                     Transform.name = sprite.name;
-                    UpdatePolygonCollider2D();
                 }
                 // If we have a Heart or Triforce, we need to make it blink, so let's add the blink component
                 if (item.Type == Items.Heart || item.Type == Items.TriforceShard)
@@ -59,21 +58,6 @@ namespace World
         public void DestroySelf()
         {
             Destroy(gameObject);
-        }
-
-        // Taken from http://answers.unity.com/answers/1771248/view.html
-        public void UpdatePolygonCollider2D(float tolerance = 0.5f)
-        {
-            List<Vector2> points = new List<Vector2>();
-            List<Vector2> simplifiedPoints = new List<Vector2>();
-            var sprite = Renderer.sprite;
-            Collider.pathCount = sprite.GetPhysicsShapeCount();
-            for (int i = 0; i < Collider.pathCount; i++)
-            {
-                sprite.GetPhysicsShape(i, points);
-                LineUtility.Simplify(points, tolerance, simplifiedPoints);
-                Collider.SetPath(i, simplifiedPoints);
-            }
         }
     }
 }

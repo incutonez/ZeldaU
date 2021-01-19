@@ -50,10 +50,11 @@ namespace UI
         public void Initialize(Base.Inventory inventory, World.Player player)
         {
             Inventory = inventory;
-            Inventory.OnItemListChanged += Inventory_OnItemListChanged;
+            Inventory.OnChanged += Inventory_OnChanged;
             Player = player;
             Player.OnInitialize += Player_OnInitialize;
             Player.OnTakeDamage += Player_OnTakeDamage;
+            Menu.Initialize(inventory);
         }
 
         private void Player_OnInitialize(object sender, EventArgs args)
@@ -69,7 +70,7 @@ namespace UI
             RefreshLifeUI();
         }
 
-        private void Inventory_OnItemListChanged(object sender, Base.InventoryChangeArgs args)
+        private void Inventory_OnChanged(object sender, Base.InventoryChangeArgs args)
         {
             Base.Item item = args.item;
             if (item != null)
@@ -96,7 +97,7 @@ namespace UI
                 {
                     RefreshBombUI();
                 }
-                else if (item.Type == Items.Key)
+                else if (item.IsKey())
                 {
                     RefreshKeyUI();
                 }
@@ -110,12 +111,13 @@ namespace UI
                     Player.AddHealth(Constants.HEART_REFILL);
                     RefreshLifeUI();
                 }
+                Menu.SetItemActive(item.Type);
             }
         }
 
         private void RefreshSwordUI()
         {
-            Sprite swordSprite = Inventory.sword?.GetSprite();
+            Sprite swordSprite = Inventory.Sword?.GetSprite();
             SwordSlotSprite.enabled = true;
             SwordSlotSprite.sprite = swordSprite;
             SwordSlotSprite.color = new Color(255, 255, 255, swordSprite != null ? 1 : 0);
@@ -123,17 +125,19 @@ namespace UI
 
         private void RefreshRupeeUI()
         {
-            RupeeCount.text = Inventory.rupees.ToString();
+            RupeeCount.text = Inventory.Rupees.ToString();
         }
 
         private void RefreshKeyUI()
         {
-            KeyCount.text = Inventory.keys.ToString();
+            KeyCount.text = Inventory.Keys.ToString();
         }
 
         private void RefreshBombUI()
         {
-            BombCount.text = Inventory.GetBombCount().ToString();
+            int count = Inventory.GetItemCount(Items.Bomb);
+            BombCount.text = count.ToString();
+            Menu.SetItemActive(Items.Bomb);
         }
 
         private void RefreshLifeUI()

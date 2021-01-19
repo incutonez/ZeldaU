@@ -17,7 +17,6 @@ namespace Manager
         public static Suit Suit { get; set; }
         public static World.Builder Scene { get; set; }
         public static bool IsPaused { get; set; }
-        public static bool IsMenuShowing { get; set; }
         // TODOJEF: Potentially move to the canvas hud?
         public static UI.Hud Inventory { get; set; }
         public static Canvas MainCanvas { get; set; }
@@ -55,6 +54,11 @@ namespace Manager
             }
             Player.gameObject.SetActive(true);
             OnLaunch?.Invoke(this, EventArgs.Empty);
+        }
+
+        public static bool IsMenuShowing()
+        {
+            return Inventory.Menu.gameObject.activeSelf;
         }
     }
 }

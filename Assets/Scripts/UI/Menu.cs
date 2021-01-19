@@ -7,25 +7,57 @@ namespace UI
     {
         public bool IsTransitioning { get; set; }
         private RectTransform Renderer { get; set; }
+        private RectTransform Cursor { get; set; }
+        private RectTransform ItemsGrid { get; set; }
+        private int CurrentIndex { get; set; }
+        private float Timer { get; set; }
+        private const float DELAY = 0.4f;
 
         private void Awake()
         {
             Renderer = GetComponent<RectTransform>();
+            Cursor = GameObject.Find("Selection").GetComponent<RectTransform>();
+            ItemsGrid = GameObject.Find("ItemsGrid").GetComponent<RectTransform>();
+            MoveCursor(0, false);
         }
 
         private void Update()
         {
             if (Manager.Game.IsMenuShowing)
             {
+                if (Timer > 0)
+                {
+                    Timer -= Time.deltaTime;
+                    return;
+                }
                 if (Controls.IsRightKey())
                 {
-                    Debug.Log("RIGHT");
+                    MoveCursor(1);
                 }
                 else if (Controls.IsLeftKey())
                 {
-                    Debug.Log("LEFT");
+                    MoveCursor(-1);
                 }
             }
+        }
+
+        public void MoveCursor(int direction, bool playSound = true)
+        {
+            CurrentIndex += direction;
+            if (CurrentIndex < 0)
+            {
+                CurrentIndex = 7;
+            }
+            else if (CurrentIndex > 7)
+            {
+                CurrentIndex = 0;
+            }
+            if (playSound)
+            {
+                Manager.Game.Audio.PlayFX(Audio.FX.Rupee);
+            }
+            Cursor.position = ItemsGrid.GetChild(CurrentIndex).GetComponent<RectTransform>().position;
+            Timer = DELAY;
         }
 
         public IEnumerator Pan(RectTransform hud)

@@ -7,6 +7,17 @@ public static class Constants
     public const string PATH_OVERWORLD = "Overworld/";
     public const string TRANSITION_BACK = "Back";
     public const string PLAYER_TRANSITION = "TransitionCollider";
+    public const string COUNT_CONTAINER_REF = "CountContainer";
+    public static Items[] SelectableItems { get; set; } = new Items[] {
+            Items.Boomerang,
+            Items.Bomb,
+            Items.Bow,
+            Items.Candle,
+            Items.Flute,
+            Items.Food,
+            Items.PotionBlue,
+            Items.Wand
+        };
 
     public static readonly System.Random RANDOM_GENERATOR = new System.Random();
 

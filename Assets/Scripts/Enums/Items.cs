@@ -1,5 +1,6 @@
 ﻿public enum Items
 {
+    None = 0,
     [Damage(0, 4)]
     Arrow = 1,
     [Damage(0, 8)]

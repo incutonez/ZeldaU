@@ -24,7 +24,7 @@ namespace World
         public T[,] Cells { get; set; }
         public TextMesh[,] CellsText { get; set; }
         public Vector3 Origin { get; set; }
-        public bool DebugMode { get; set; } = true;
+        public bool DebugMode { get; set; } = false;
 
         public Grid(int width, int height, float cellSize, Vector3 origin, Func<Grid<T>, int, int, T> createFunc)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Base;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ namespace UI
         public Image ItemSlotSprite { get; set; }
         public Menu Menu { get; set; }
         public RectTransform Renderer { get; set; }
+        public Items BItem { get; set; }
 
         private Base.Inventory Inventory { get; set; }
         private World.Player Player { get; set; }
@@ -30,27 +32,27 @@ namespace UI
             HeartSprite = Manager.Game.Graphics.GetItem(Items.Heart);
             HeartHalfSprite = Manager.Game.Graphics.GetItem(Items.HeartHalf);
             HeartEmptySprite = Manager.Game.Graphics.GetItem(Items.HeartEmpty);
-            LifeContainer = Renderer.Find("LifeContainer").Find("Life");
-            Transform countContainer = Renderer.Find("CountContainer").transform;
-            RupeeCount = countContainer.Find("Rupees").transform.Find("Amount").GetComponent<Text>();
-            KeyCount = countContainer.Find("Keys").transform.Find("Amount").GetComponent<Text>();
-            BombCount = countContainer.Find("Bombs").transform.Find("Amount").GetComponent<Text>();
-            ItemSlotSprite = Renderer.Find("BSlot").GetChild(2).GetComponent<Image>();
-            SwordSlotSprite = Renderer.Find("ASlot").GetChild(2).GetComponent<Image>();
+            LifeContainer = Renderer.Find("LifeContainer/Life");
+            RupeeCount = Renderer.Find($"{Constants.COUNT_CONTAINER_REF}/Rupees/Amount").GetComponent<Text>();
+            KeyCount = Renderer.Find($"{Constants.COUNT_CONTAINER_REF}/Keys/Amount").GetComponent<Text>();
+            BombCount = Renderer.Find($"{Constants.COUNT_CONTAINER_REF}/Bombs/Amount").GetComponent<Text>();
+            ItemSlotSprite = Renderer.Find("BSlot/BImage").GetComponent<Image>();
+            SwordSlotSprite = Renderer.Find("ASlot/AImage").GetComponent<Image>();
         }
 
         private void Update()
         {
             if (!Menu.IsTransitioning && Controls.IsInventoryKeyDown())
             {
-                StartCoroutine(Menu.Pan(Renderer));
+                StartCoroutine(Menu.Pan(this));
             }
         }
 
-        public void Initialize(Base.Inventory inventory, World.Player player)
+        public void Initialize(Inventory inventory, World.Player player)
         {
             Inventory = inventory;
             Inventory.OnChanged += Inventory_OnChanged;
+            Inventory.ChangeSelection += Inventory_OnChangeSelection;
             Player = player;
             Player.OnInitialize += Player_OnInitialize;
             Player.OnTakeDamage += Player_OnTakeDamage;
@@ -70,9 +72,15 @@ namespace UI
             RefreshLifeUI();
         }
 
-        private void Inventory_OnChanged(object sender, Base.InventoryChangeArgs args)
+        private void Inventory_OnChangeSelection(Items item, EventArgs arg2)
         {
-            Base.Item item = args.item;
+            ItemSlotSprite.sprite = Manager.Game.Graphics.GetItem(item);
+            ItemSlotSprite.rectTransform.sizeDelta = ItemSlotSprite.sprite.rect.size / 2;
+        }
+
+        private void Inventory_OnChanged(Inventory inventory, InventoryChangeArgs args)
+        {
+            Item item = args.item;
             if (item != null)
             {
                 if (item.IsRing())
@@ -111,7 +119,10 @@ namespace UI
                     Player.AddHealth(Constants.HEART_REFILL);
                     RefreshLifeUI();
                 }
-                Menu.SetItemActive(item.Type);
+                if (item.IsSelectable())
+                {
+                    Menu.SetItemActive(item.Type);
+                }
             }
         }
 
@@ -121,6 +132,12 @@ namespace UI
             SwordSlotSprite.enabled = true;
             SwordSlotSprite.sprite = swordSprite;
             SwordSlotSprite.color = new Color(255, 255, 255, swordSprite != null ? 1 : 0);
+        }
+
+        public void ToggleSlots(bool enabled)
+        {
+            ItemSlotSprite.enabled = enabled;
+            SwordSlotSprite.gameObject.SetActive(enabled);
         }
 
         private void RefreshRupeeUI()

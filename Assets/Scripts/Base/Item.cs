@@ -1,5 +1,6 @@
 ﻿using Audio;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Base
@@ -51,6 +52,16 @@ namespace Base
                     return true;
             }
             return false;
+        }
+
+        public bool IsSelectable()
+        {
+            return Constants.SelectableItems.Contains(Type);
+        }
+
+        public static int GetItemIndex(Items item)
+        {
+            return Array.IndexOf(Constants.SelectableItems, item);
         }
 
         public bool CanAddToInventory()

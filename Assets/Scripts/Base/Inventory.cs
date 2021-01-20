@@ -17,11 +17,13 @@ namespace Base
 
     public class Inventory
     {
+        public event Action<Items, EventArgs> ChangeSelection;
         public event Action<Inventory, InventoryChangeArgs> OnChanged;
         public Item Sword { get; set; } = null;
         public float DamageModifier { get; set; } = 1f;
         public int Rupees { get; set; } = 0;
         public int Keys { get; set; } = 0;
+        public Items SelectedItem { get; set; } = Items.None;
 
         private Action<Item> _useItemAction;
         private List<Item> items;
@@ -44,6 +46,15 @@ namespace Base
                 }
             }
             return count;
+        }
+
+        public void UpdateSelectedItem(Items item)
+        {
+            if (SelectedItem != item)
+            {
+                SelectedItem = item;
+                ChangeSelection?.Invoke(item, EventArgs.Empty);
+            }
         }
 
         public void AddItem(Item item)

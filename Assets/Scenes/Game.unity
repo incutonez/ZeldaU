@@ -4441,6 +4441,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76896539}
     m_Modifications:
+    - target: {fileID: 4834579501703693845, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -851246318378289833, guid: 4a56a07b6b8710f48a394dbd8820c055,
+        type: 3}
+    - target: {fileID: 4834579501703693845, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834579501703693851, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Name
+      value: AImage
+      objectReference: {fileID: 0}
     - target: {fileID: 4834579501719198576, guid: 835423bd5ce116546a4870f03a6aea2d,
         type: 3}
       propertyPath: m_Name
@@ -5937,6 +5953,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 76896539}
     m_Modifications:
+    - target: {fileID: 4834579501703693844, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834579501703693844, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834579501703693844, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834579501703693844, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834579501703693845, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -851246318378289833, guid: 4a56a07b6b8710f48a394dbd8820c055,
+        type: 3}
+    - target: {fileID: 4834579501703693845, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834579501703693851, guid: 835423bd5ce116546a4870f03a6aea2d,
+        type: 3}
+      propertyPath: m_Name
+      value: BImage
+      objectReference: {fileID: 0}
     - target: {fileID: 4834579501719198576, guid: 835423bd5ce116546a4870f03a6aea2d,
         type: 3}
       propertyPath: m_Name

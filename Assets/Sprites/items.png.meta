@@ -137,6 +137,9 @@ TextureImporter:
   - first:
       213: 6314550479633173585
     second: HeartHalf
+  - first:
+      213: -851246318378289833
+    second: None
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1166,6 +1169,27 @@ TextureImporter:
       bones: []
       spriteID: 15ccece843ac1a750800000000000000
       internalID: 6314550479633173585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: None
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 120
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 755f3b8cbf3cf24f0800000000000000
+      internalID: -851246318378289833
       vertices: []
       indices: 
       edges: []

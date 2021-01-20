@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -15,30 +17,30 @@ namespace UI
         private int CurrentIndex { get; set; }
         private float Timer { get; set; }
         private const float DELAY = 0.4f;
-        private int ActiveItems { get; set; }
-        private List<Items> Items { get; set; } = new List<Items> {
-            global::Items.Boomerang,
-            global::Items.Bomb,
-            global::Items.Bow,
-            global::Items.Candle,
-            global::Items.Flute,
-            global::Items.Food,
-            global::Items.PotionBlue,
-            global::Items.Wand
+        private Image BSlotImage { get; set; }
+        private Items[] OrderedItems { get; set; } = new Items[] {
+            Items.Boomerang,
+            Items.Bomb,
+            Items.Bow,
+            Items.Candle,
+            Items.Flute,
+            Items.Food,
+            Items.PotionBlue,
+            Items.Wand
         };
+        private bool[] ActiveItems { get; set; }
         private GameObject[] ItemRefs { get; set; }
         private int MAX_ITEMS { get; set; }
 
         private void Awake()
         {
             Renderer = GetComponent<RectTransform>();
-            MAX_ITEMS = Items.Count - 1;
-            MoveCursor(0, false);
+            MAX_ITEMS = OrderedItems.Length - 1;
         }
 
         private void Update()
         {
-            if (ActiveItems < 2 || IsTransitioning)
+            if (OrderedItems.Length < 2 || IsTransitioning)
             {
                 return;
             }
@@ -63,55 +65,88 @@ namespace UI
         public void Initialize(Base.Inventory inventory)
         {
             Inventory = inventory;
+            BSlotImage = Manager.Game.MainCanvas.transform.Find("Inventory/BSlot/Image").GetComponent<Image>();
             ItemsGrid = Manager.Game.MainCanvas.transform.Find("Inventory/ItemsContainer/ItemsGrid").GetComponent<RectTransform>();
             Cursor = ItemsGrid.Find("Selection").GetComponent<RectTransform>();
-            ItemRefs = new GameObject[Items.Count];
-            foreach (Items item in Items)
+            ItemRefs = new GameObject[OrderedItems.Length];
+            ActiveItems = new bool[OrderedItems.Length];
+            for (int i = 0; i < OrderedItems.Length; i++)
             {
-                SetItemActive(item);
+                SetItemActive(OrderedItems[i], i);
             }
+        }
+
+        public int GetActiveCount()
+        {
+            return ActiveItems.Count(x => x);
+        }
+
+        public int GetFirstActiveItem()
+        {
+            return ActiveItems.ToList().FindIndex(x => x);
         }
 
         public void MoveCursor(int direction, bool playSound = true)
         {
-            CurrentIndex += direction;
-            if (CurrentIndex < 0)
-            {
-                CurrentIndex = MAX_ITEMS;
-            }
-            else if (CurrentIndex > MAX_ITEMS)
+            bool isFound = false;
+            int count = GetActiveCount();
+            // We have no items
+            if (count == 0)
             {
                 CurrentIndex = 0;
             }
-            if (playSound)
+            else if (count == 1)
             {
-                Manager.Game.Audio.PlayFX(Audio.FX.Rupee);
+                isFound = true;
+                CurrentIndex = GetFirstActiveItem();
             }
-            Cursor.localPosition = ItemRefs[CurrentIndex].transform.parent.localPosition;
+            else
+            {
+                // Find the next slot that our cursor can go to
+                while (!isFound)
+                {
+                    CurrentIndex += direction;
+                    if (CurrentIndex < 0)
+                    {
+                        CurrentIndex = MAX_ITEMS;
+                    }
+                    else if (CurrentIndex > MAX_ITEMS)
+                    {
+                        CurrentIndex = 0;
+                    }
+                    isFound = ActiveItems[CurrentIndex];
+                }
+                if (playSound)
+                {
+                    Manager.Game.Audio.PlayFX(Audio.FX.Rupee);
+                }
+            }
+            GameObject go = ItemRefs[CurrentIndex];
+            Cursor.localPosition = go.transform.parent.localPosition;
+            BSlotImage.gameObject.SetActive(isFound);
+            if (isFound)
+            {
+                BSlotImage.sprite = go.GetComponent<Image>().sprite;
+                BSlotImage.rectTransform.sizeDelta = go.GetComponent<RectTransform>().sizeDelta;
+            }
             Timer = DELAY;
         }
 
-        public void SetItemActive(Items item)
+        public void SetItemActive(Items itemType)
         {
-            int index = Items.IndexOf(item);
-            if (index != -1)
+            SetItemActive(itemType, Array.IndexOf(OrderedItems, itemType));
+        }
+
+        public void SetItemActive(Items itemType, int index)
+        {
+            GameObject go = ItemRefs[index];
+            if (go == null)
             {
-                GameObject go = ItemRefs[index];
-                if (go == null)
-                {
-                    go = ItemRefs[index] = ItemsGrid.GetChild(index).transform.Find("Image").gameObject;
-                }
-                bool isActive = Inventory.GetItemCount(item) != 0;
-                go.SetActive(isActive);
-                if (isActive)
-                {
-                    ActiveItems++;
-                }
-                else if (ActiveItems > 0)
-                {
-                    ActiveItems--;
-                }
+                go = ItemRefs[index] = ItemsGrid.GetChild(index).transform.Find("Image").gameObject;
             }
+            bool isActive = Inventory.GetItemCount(itemType) != 0;
+            go.SetActive(isActive);
+            ActiveItems[index] = isActive;
         }
 
         public IEnumerator Pan(RectTransform hud)
@@ -139,6 +174,11 @@ namespace UI
                 gameObject.SetActive(false);
             }
             IsTransitioning = false;
+        }
+
+        private void OnEnable()
+        {
+            MoveCursor(0, false);
         }
     }
 }

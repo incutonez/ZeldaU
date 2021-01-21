@@ -119,6 +119,10 @@ namespace UI
                     Player.AddHealth(Constants.HEART_REFILL);
                     RefreshLifeUI();
                 }
+                else if (item.Type == Items.TriforceShard)
+                {
+                    Menu.SetTriforceActive(item.Amount);
+                }
                 if (item.IsSelectable())
                 {
                     Menu.SetItemActive(item.Type);

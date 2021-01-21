@@ -9,6 +9,11 @@ namespace Base
     public class Item
     {
         public Items Type { get; set; }
+        /// <summary>
+        /// This is a slightly overloaded property... it typically means the number of this particularly item, but
+        /// in the case of Triforce Shards, it means which castle it came from, so we can use that proper position
+        /// in the Menu's Triforce
+        /// </summary>
         public int Amount { get; set; } = 1;
 
         public Sprite GetSprite()

@@ -3,7 +3,6 @@ using NPCs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace World
@@ -11,6 +10,7 @@ namespace World
     /// <summary>
     /// Idea taken from https://www.youtube.com/watch?v=mZzZXfySeFQ
     /// </summary>
+    /// TODO: Use https://www.zeldadungeon.net/the-legend-of-zelda-walkthrough/level-1-the-eagle/ to generate enemies in levels
     public class Screen : MonoBehaviour
     {
         public Color GroundColor { get; set; }

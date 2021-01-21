@@ -57,6 +57,9 @@ namespace Base
             }
         }
 
+        // TODO: REMOVE
+        public List<int> THROWAWAY { get; set; } = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
+
         public void AddItem(Item item)
         {
             if (item != null)
@@ -88,8 +91,16 @@ namespace Base
                         items.Add(item);
                     }
                 }
-                else if (item.CanAddToInventory())
+                if (item.CanAddToInventory())
                 {
+                    if (item.Type == Items.TriforceShard)
+                    {
+                        var index = Constants.RANDOM_GENERATOR.Next(0, THROWAWAY.Count);
+                        // We use the amount as the shard's castle number
+                        // TODO: Have to get this from the screen we're in when it's picked up at the castle
+                        item.Amount = THROWAWAY[index];
+                        THROWAWAY.RemoveAt(index);
+                    }
                     items.Add(item);
                 }
                 if (item.IsSword())

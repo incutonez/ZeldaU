@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +5,39 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    /// <summary>
+    /// Triforce positions:
+    /// 9.6 width x 7.68 height
+    /// Shard 1:
+    /// -4.8x, -7.68y
+    /// top center
+    /// Shard 2:
+    /// 4.8x, -7.68y
+    /// 180x, 180z rot
+    /// top center
+    /// Shard 3:
+    /// 14.4x, 7.68y
+    /// bottom left
+    /// Shard 4:
+    /// -14.4x, 7.68y
+    /// 180x, 180z rot
+    /// bottom right
+    /// Shard 5:
+    /// -4.7x, 7.68y
+    /// 180x, 180z rot
+    /// bottom center
+    /// Shard 6:
+    /// 4.8x, 7.68y
+    /// bottom center
+    /// Shard 7:
+    /// -4.7x, -3.8y
+    /// 180x rot
+    /// middle center
+    /// Shard 8:
+    /// 4.9x, -3.8y
+    /// 180z rot
+    /// middle center
+    /// </summary>
     public class Menu : MonoBehaviour
     {
         public bool IsTransitioning { get; set; }
@@ -21,6 +53,7 @@ namespace UI
         private bool[] ActiveItems { get; set; }
         private GameObject[] ItemRefs { get; set; }
         private int MAX_ITEMS { get; set; }
+        private RectTransform Triforce { get; set; }
 
         private void Awake()
         {
@@ -55,9 +88,11 @@ namespace UI
         public void Initialize(Base.Inventory inventory)
         {
             Inventory = inventory;
-            BSlotImage = Manager.Game.MainCanvas.transform.Find("Inventory/BSlot/Image").GetComponent<Image>();
-            ItemsGrid = Manager.Game.MainCanvas.transform.Find("Inventory/ItemsContainer/ItemsGrid").GetComponent<RectTransform>();
-            Cursor = ItemsGrid.Find("Selection").GetComponent<RectTransform>();
+            Transform mainCanvas = Manager.Game.MainCanvas.transform;
+            Triforce = mainCanvas.Find("Inventory/Triforce").GetComponent<RectTransform>();
+            BSlotImage = mainCanvas.Find("Inventory/BSlot/Image").GetComponent<Image>();
+            ItemsGrid = mainCanvas.Find("Inventory/ItemsContainer/ItemsGrid").GetComponent<RectTransform>();
+            Cursor = ItemsGrid.Find("Cursor").GetComponent<RectTransform>();
             int count = Constants.SelectableItems.Length;
             ItemRefs = new GameObject[count];
             ActiveItems = new bool[count];
@@ -121,6 +156,16 @@ namespace UI
                 BSlotImage.rectTransform.sizeDelta = go.GetComponent<RectTransform>().sizeDelta;
             }
             Timer = DELAY;
+        }
+
+        public void SetTriforceActive(int index)
+        {
+            // We only have 8 shards, but this should never happen
+            if (index <= 0 || index >= 9)
+            {
+                return;
+            }
+            Triforce.Find($"Shard{index}").gameObject.SetActive(true);
         }
 
         public void SetItemActive(Items itemType)

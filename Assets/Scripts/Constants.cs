@@ -57,8 +57,9 @@ public static class Constants
     /// </summary>
     public const float HEART_REFILL = 2f;
     public const int MAX_HEARTS = 32;
-
     public const int MAX_RUPEES = 255;
+    // We don't make this a const or readonly because it can increase to 16
+    public static int MAX_BOMBS = 8;
 
     public static readonly Color COLOR_INVISIBLE = new Color(1f, 1f, 1f, 0f);
 

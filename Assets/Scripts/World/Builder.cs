@@ -20,6 +20,8 @@ namespace World
         private int CurrentY { get; set; } = 0;
         private Screen CurrentScreen { get; set; }
         private Screen PreviousScreen { get; set; }
+        // TODO: Figure out how to dynamically set this
+        private bool InCastle { get; set; } = true;
 
         public void Awake()
         {
@@ -133,6 +135,14 @@ namespace World
             else if (screenId == Constants.TRANSITION_BACK)
             {
                 screenId = $"{CurrentX}{CurrentY}";
+            }
+            if (InCastle)
+            {
+                screenId = $"{Constants.PATH_CASTLE}{screenId}";
+            }
+            else
+            {
+                screenId = $"{Constants.PATH_OVERWORLD}{screenId}";
             }
             return screenId;
         }

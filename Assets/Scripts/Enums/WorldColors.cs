@@ -18,5 +18,7 @@ public enum WorldColors
     [Description("7c0800")]
     Red = 7,
     [Description("000000")]
-    Black = 8
+    Black = 8,
+    [Description("008088")]
+    Castle1 = 9
 }

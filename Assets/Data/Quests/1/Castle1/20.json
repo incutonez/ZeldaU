@@ -1,0 +1,21 @@
+{
+  "X": 2,
+  "Y": 0,
+  "GroundColor": 9,
+  "AccentColor": 4,
+  "Tiles": [
+    {
+      "Type": 55,
+      "Children": [
+        {
+          "Coordinates": [
+            2,
+            2,
+            13,
+            8
+          ]
+        }
+      ]
+    }
+  ]
+}

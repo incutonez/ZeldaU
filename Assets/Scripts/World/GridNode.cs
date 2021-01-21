@@ -29,9 +29,9 @@ namespace World
         public int TotalCost { get; set; }
         public WorldColors Color { get; set; }
 
-        private World.Grid<GridNode> Grid { get; set; }
+        private Grid<GridNode> Grid { get; set; }
 
-        public GridNode(World.Grid<GridNode> grid, int x, int y)
+        public GridNode(Grid<GridNode> grid, int x, int y)
         {
             Grid = grid;
             X = x;
@@ -41,6 +41,7 @@ namespace World
         public void Initialize(Tiles tileType, WorldColors color)
         {
             // TODOJEF: Potentially cache getter values in here?
+            // TODO: We can have multiple colors for castles
             Color = color;
             SetTileType(tileType);
         }
@@ -68,6 +69,25 @@ namespace World
             return true;
         }
 
+        public bool IsBackgroundTile()
+        {
+            switch (TileType)
+            {
+                case Tiles.SandBottom:
+                case Tiles.SandBottomLeft:
+                case Tiles.SandBottomRight:
+                case Tiles.SandCenter:
+                case Tiles.SandCenterLeft:
+                case Tiles.SandCenterRight:
+                case Tiles.SandTop:
+                case Tiles.SandTopLeft:
+                case Tiles.SandTopRight:
+                case Tiles.GroundTile:
+                    return true;
+            }
+            return false;
+        }
+
         public void CalculateTotalCost()
         {
             TotalCost = WalkCost + DistanceCost;
@@ -81,7 +101,7 @@ namespace World
         /// <returns></returns>
         public Vector2[] GetColliderShape()
         {
-            if (!IsTile())
+            if (!IsTile() || IsBackgroundTile())
             {
                 return null;
             }
@@ -146,8 +166,12 @@ namespace World
             return points.ToArray();
         }
 
-        public Color GetColor()
+        public Color? GetColor()
         {
+            //if (IsBackgroundTile())
+            //{
+            //    return null;
+            //}
             if (IsTile())
             {
                 return Utilities.HexToColor(Color.GetDescription());

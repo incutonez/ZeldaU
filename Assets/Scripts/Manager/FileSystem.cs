@@ -148,6 +148,29 @@ namespace Manager
             };
         }
 
+        public static void LoadMaterial(string name, Action<Material> callback)
+        {
+            LoadCount++;
+            var operation = Addressables.LoadAssetAsync<Material>($"{Constants.PATH_MATERIALS}{name}");
+            operation.Completed += (response) =>
+            {
+                LoadCount--;
+                switch (response.Status)
+                {
+                    case AsyncOperationStatus.Succeeded:
+                        callback(response.Result);
+                        Addressables.Release(operation);
+                        break;
+                    case AsyncOperationStatus.Failed:
+                        Debug.LogError("Failed to load sprite.");
+                        break;
+                    default:
+                        break;
+                }
+                ShouldLaunch();
+            };
+        }
+
         public static void LoadSprites(string name, Action<List<Sprite>> callback)
         {
             LoadCount++;

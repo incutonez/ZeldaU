@@ -29,7 +29,7 @@ namespace World
             ScreenId = screenId;
             transform.name = screenId;
             ViewModel.Grid scene = null;
-            yield return Manager.FileSystem.LoadJson($"{Constants.PATH_OVERWORLD}{ScreenId}", (response) =>
+            yield return Manager.FileSystem.LoadJson($"{ScreenId}", (response) =>
             {
                 scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
             });
@@ -45,6 +45,8 @@ namespace World
         {
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
+            // TODOJEF: Have to know if this screen is a castle or an overview, then swap here
+            GetComponent<MeshRenderer>().material = Manager.Game.Graphics.Materials[0];
             Grid = grid;
             Grid.OnGridValueChanged += Grid_OnValueChanged;
             if (refreshGrid)
@@ -100,6 +102,7 @@ namespace World
                         {
                             tileType = child.TileType;
                         }
+                        // If we have an array of 4, then we want to duplicate this tile across that range
                         if (coordinates.Count == 4)
                         {
                             xMax = coordinates[2];

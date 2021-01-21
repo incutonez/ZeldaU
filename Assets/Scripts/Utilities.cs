@@ -129,7 +129,8 @@ public static class Utilities
         Vector3 baseSize = tile.GetQuadSize();
         Vector3 position = tile.GetWorldPosition();
         float rotation = tile.GetRotation();
-        Color color = tile.GetColor();
+        // TODO: How does this work if we have multiple colors?
+        Color? color = tile.GetColor();
         tile.GetUVCoordinates(out Vector2 uv00, out Vector2 uv11);
 
         //Relocate vertices
@@ -162,11 +163,14 @@ public static class Utilities
         uvs[vIndex2] = new Vector2(uv11.x, uv00.y);
         uvs[vIndex3] = new Vector2(uv11.x, uv11.y);
 
-        // Set vertex colors
-        colors[vIndex0] = color;
-        colors[vIndex1] = color;
-        colors[vIndex2] = color;
-        colors[vIndex3] = color;
+        if (color.HasValue)
+        {
+            // Set vertex colors
+            colors[vIndex0] = color.Value;
+            colors[vIndex1] = color.Value;
+            colors[vIndex2] = color.Value;
+            colors[vIndex3] = color.Value;
+        }
 
         //Create triangles
         int tIndex = index * 6;

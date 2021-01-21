@@ -58,5 +58,22 @@ public enum Tiles
     WaterBottomRight = 47,
     WaterTopLeft = 48,
     WaterTopRight = 49,
+    // Castle Items
+    Block = 50,
+    CastleWater = 51,
+    DoorClosed = 52,
+    DoorLocked = 53,
+    DoorUnlocked = 54,
+    GroundTile = 55,
+    StairsKeep = 56,
+    Statue1 = 57,
+    Statue2 = 58,
+    Wall = 59,
+    WallHole = 60,
+    WallHorizontalLeft = 61,
+    WallHorizontalRight = 62,
+    WallKeep = 63,
+    WallVerticalBottom = 64,
+    WallVerticalTop = 65,
     Transition = 100
 }

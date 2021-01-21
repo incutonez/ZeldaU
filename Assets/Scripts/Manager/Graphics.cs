@@ -10,6 +10,7 @@ namespace Manager
     {
         #region Sprites
         public List<Sprite> Items { get; set; }
+        public List<Material> Materials { get; set; } = new List<Material>();
         public Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; } = new Dictionary<Tiles, World.TileUVs>();
         public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
         public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
@@ -42,6 +43,25 @@ namespace Manager
                 PlayerAnimations[Animations.Entering] = PlayerAnimations[Animations.WalkUp];
                 PlayerAnimations[Animations.Exiting] = PlayerAnimations[Animations.WalkDown];
             });
+            FileSystem.LoadSprites("castle", (response) =>
+            {
+                Texture2D parentTexture = response.First().texture;
+                int width = parentTexture.width;
+                int height = parentTexture.height;
+                foreach (Sprite sprite in response)
+                {
+                    Rect rect = sprite.rect;
+                    Enum.TryParse(sprite.name, out Tiles tileType);
+                    if (!TileCoordinates.ContainsKey(tileType))
+                    {
+                        TileCoordinates.Add(tileType, new World.TileUVs
+                        {
+                            uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
+                            uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
+                        });
+                    }
+                }
+            });
             FileSystem.LoadSprites("tiles", (response) =>
             {
                 Texture2D parentTexture = response.First().texture;
@@ -51,6 +71,8 @@ namespace Manager
                 {
                     Rect rect = sprite.rect;
                     Enum.TryParse(sprite.name, out Tiles tileType);
+                    // TODOJEF: PICK UP HERE.  What's wrong is we have 2 different sprites, and the textures aren't the same...
+                    // have to change the WorldScreen's prefab material somehow... I guess combine the two sprites?
                     if (!TileCoordinates.ContainsKey(tileType))
                     {
                         TileCoordinates.Add(tileType, new World.TileUVs
@@ -79,6 +101,14 @@ namespace Manager
                 {
                     EnemyHelper.GetSubTypes(enemy.Key, GetAnimations(enemy.Value, ""), EnemyAnimations);
                 }
+            });
+            FileSystem.LoadMaterial("Castle", (response) =>
+            {
+                Materials.Add(response);
+            });
+            FileSystem.LoadMaterial("OverworldTiles", (response) =>
+            {
+                Materials.Add(response);
             });
         }
 

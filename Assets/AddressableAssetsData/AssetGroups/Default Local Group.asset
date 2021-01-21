@@ -52,8 +52,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Enemies
-    m_MainAsset: {fileID: 102900000, guid: dcf81fc91b5bcb649ac1211412c38a10, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: dcf81fc91b5bcb649ac1211412c38a10, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 6670692bce31ebd48ac00d8d28d47b6b
     m_Address: Prefabs/DoorBlock
     m_ReadOnly: 0
@@ -136,6 +136,30 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2bcbbaf26ae22de4ebb75c69c701b306
     m_Address: Overworld/Shop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 97d1ac71e9f658a4cb19fce5a1883240
+    m_Address: Sprites/castle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 9d62231365b174f42b6111e128553fc4
+    m_Address: Quests/1/Castle1/20
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 85ebfaacc8986734d9d158a557c3fb9d
+    m_Address: Materials/Castle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 61e0f99e8c32883438069bbab3554c00
+    m_Address: Materials/OverworldTiles
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

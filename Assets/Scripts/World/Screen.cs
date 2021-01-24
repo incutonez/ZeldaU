@@ -3,6 +3,7 @@ using NPCs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace World
@@ -29,7 +30,7 @@ namespace World
             ScreenId = screenId;
             transform.name = screenId;
             ViewModel.Grid scene = null;
-            yield return Manager.FileSystem.LoadJson($"{ScreenId}", (response) =>
+            yield return Manager.FileSystem.LoadJson(ScreenId, (response) =>
             {
                 scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
             });
@@ -45,8 +46,37 @@ namespace World
         {
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
-            // TODOJEF: Have to know if this screen is a castle or an overview, then swap here
-            GetComponent<MeshRenderer>().material = Manager.Game.Graphics.Materials[0];
+            Material material = Manager.Game.Scene.InCastle ? Manager.Game.Graphics.CastleMaterials : Manager.Game.Graphics.WorldMaterials;
+            // TODO: Maybe revisit how this is determined?
+            GetComponent<MeshRenderer>().material = material;
+            Texture2D texture = Instantiate(GetComponent<MeshRenderer>().material.mainTexture as Texture2D);
+            var replaceColors = new Color[] {
+                EnemyHelper.ACCENT_COLOR, Utilities.HexToColor("008088"),
+                EnemyHelper.ACCENT_COLOR_2, Utilities.HexToColor("183c5c"),
+                EnemyHelper.BODY_COLOR, Utilities.HexToColor("00e8d8")
+            };
+            // TODO: There's an issue here with not all colors being replaced properly... not sure why
+            Color[] colors = ((Texture2D)material.mainTexture).GetPixels();
+            if (replaceColors != null && replaceColors.Any())
+            {
+                // Loops through all of the colors in the sprite's texture
+                for (int i = 0; i < colors.Length; i++)
+                {
+                    Color color = colors[i];
+                    // Check to see if this color matches any replacement colors
+                    for (int j = 0; j < replaceColors.Length; j += 2)
+                    {
+                        if (replaceColors[j] == color)
+                        {
+                            colors[i] = replaceColors[j + 1];
+                            break;
+                        }
+                    }
+                }
+            }
+            texture.SetPixels(colors);
+            texture.Apply();
+            GetComponent<MeshRenderer>().material.mainTexture = texture;
             Grid = grid;
             Grid.OnGridValueChanged += Grid_OnValueChanged;
             if (refreshGrid)
@@ -123,7 +153,8 @@ namespace World
                                 }
                                 else
                                 {
-                                    SetTileType(position, tileType, color);
+                                    // TODO: Will I ever need to pass in a color?
+                                    SetTileType(position, tileType, null);
                                 }
                             }
                         }
@@ -229,7 +260,7 @@ namespace World
             }
         }
 
-        public void SetTileType(Vector3 position, Tiles matterType, WorldColors color)
+        public void SetTileType(Vector3 position, Tiles matterType, WorldColors? color)
         {
             GridNode viewModel = Grid.GetViewModel(position);
             if (viewModel != null)
@@ -261,11 +292,11 @@ namespace World
             int height = Grid.Height;
             PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
             polygonCollider.pathCount = 0;
-            Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors);
+            Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors2, out Vector3[] normals);
             Grid.EachCell((viewModel, x, y) =>
             {
                 // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
-                Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors);
+                Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors2, normals);
                 Vector2[] colliderShape = viewModel.GetColliderShape();
                 if (colliderShape != null)
                 {
@@ -273,10 +304,22 @@ namespace World
                     polygonCollider.SetPath(polygonCollider.pathCount - 1, colliderShape);
                 }
             });
+            //Mesh.colors = colors;
+            // TODO: Change mesh colors
+            // Kinda close https://forum.unity.com/threads/custom-mesh-lighting.598936/#post-4010545
+            Mesh.Clear();
             Mesh.vertices = vertices;
             Mesh.uv = uvs;
             Mesh.triangles = triangles;
-            Mesh.colors = colors;
+            //Mesh.normals = normals;
+            // TODO: Look into seams for meshes?
+            //Mesh.RecalculateBounds();
+            Mesh.RecalculateNormals();
+            //Mesh.RecalculateTangents();
+            //Mesh.RecalculateUVDistributionMetrics();
+            // Tried multiple materials https://answers.unity.com/questions/1436857/small-submesh-example.html
+            //Mesh.Optimize();
+            //Mesh.colors = colors2;
         }
 
         private void Grid_OnValueChanged(object sender, Grid<GridNode>.OnGridValueChangedEventArgs e)

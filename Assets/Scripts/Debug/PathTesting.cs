@@ -47,7 +47,7 @@ public class PathTesting : MonoBehaviour
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             World.GridNode node = grid.GetViewModel(position);
             node.Color = WorldColors.Tan;
-            node.SetTileType(GetRandomTile());
+            node.SetTileType(Tiles.GroundTile);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {

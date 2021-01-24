@@ -69,9 +69,15 @@ public static class Utilities
     public static Sprite CloneSprite(Sprite oldSprite, Color[] replaceColors = null)
     {
         Texture2D replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
+        ReplaceColors(replacement, replaceColors);
+        return Sprite.Create(replacement, oldSprite.rect, Constants.SPRITE_DEFAULT_PIVOT, oldSprite.pixelsPerUnit);
+    }
+
+    public static void ReplaceColors(Texture2D texture, Color[] replaceColors = null)
+    {
         if (replaceColors != null && replaceColors.Any())
         {
-            Color[] colors = replacement.GetPixels();
+            Color[] colors = texture.GetPixels();
             // Loops through all of the colors in the sprite's texture
             for (int i = 0; i < colors.Length; i++)
             {
@@ -86,10 +92,9 @@ public static class Utilities
                     }
                 }
             }
-            replacement.SetPixels(colors);
-            replacement.Apply();
+            texture.SetPixels(colors);
+            texture.Apply();
         }
-        return Sprite.Create(replacement, oldSprite.rect, Constants.SPRITE_DEFAULT_PIVOT, oldSprite.pixelsPerUnit);
     }
 
     public static Vector3 GetRandomCoordinates()
@@ -108,12 +113,13 @@ public static class Utilities
     }
 
     // Copied from CodeMonkey's MeshUtils
-    public static void CreateEmptyMesh(int quadCount, out Vector3[] verts, out Vector2[] uvs, out int[] triangles, out Color[] colors)
+    public static void CreateEmptyMesh(int quadCount, out Vector3[] verts, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals)
     {
         verts = new Vector3[4 * quadCount];
-        uvs = new Vector2[4 * quadCount];
+        uvs = new Vector2[verts.Length];
         triangles = new int[6 * quadCount];
         colors = new Color[verts.Length];
+        normals = new Vector3[verts.Length];
     }
 
     // Copied from CodeMonkey's MeshUtils and tweaked for colors
@@ -123,7 +129,8 @@ public static class Utilities
         Vector3[] vertices,
         Vector2[] uvs,
         int[] triangles,
-        Color[] colors
+        Color[] colors,
+        Vector3[] normals
     )
     {
         Vector3 baseSize = tile.GetQuadSize();
@@ -141,27 +148,22 @@ public static class Utilities
         int vIndex3 = vIndex + 3;
         baseSize *= 0.5f;
 
-        bool skewed = baseSize.x != baseSize.y;
-        if (skewed)
-        {
-            vertices[vIndex0] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x, baseSize.y);
-            vertices[vIndex1] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x, -baseSize.y);
-            vertices[vIndex2] = position + GetQuaternionEuler(rotation) * new Vector3(baseSize.x, -baseSize.y);
-            vertices[vIndex3] = position + GetQuaternionEuler(rotation) * baseSize;
-        }
-        else
-        {
-            vertices[vIndex0] = position + GetQuaternionEuler(rotation - 270) * baseSize;
-            vertices[vIndex1] = position + GetQuaternionEuler(rotation - 180) * baseSize;
-            vertices[vIndex2] = position + GetQuaternionEuler(rotation - 90) * baseSize;
-            vertices[vIndex3] = position + GetQuaternionEuler(rotation - 0) * baseSize;
-        }
+        // TODO: This really is just -0.5, 0.5... could cache it
+        vertices[vIndex0] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x, baseSize.y);
+        vertices[vIndex1] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x, -baseSize.y);
+        vertices[vIndex2] = position + GetQuaternionEuler(rotation) * new Vector3(baseSize.x, -baseSize.y);
+        vertices[vIndex3] = position + GetQuaternionEuler(rotation) * baseSize;
 
         //Relocate UVs
         uvs[vIndex0] = new Vector2(uv00.x, uv11.y);
         uvs[vIndex1] = new Vector2(uv00.x, uv00.y);
         uvs[vIndex2] = new Vector2(uv11.x, uv00.y);
         uvs[vIndex3] = new Vector2(uv11.x, uv11.y);
+
+        normals[vIndex0] = Vector3.up;
+        normals[vIndex1] = Vector3.up;
+        normals[vIndex2] = Vector3.up;
+        normals[vIndex3] = Vector3.up;
 
         if (color.HasValue)
         {

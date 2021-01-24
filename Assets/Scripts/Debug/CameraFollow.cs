@@ -47,7 +47,7 @@ public class CameraFollow : MonoBehaviour
     {
         myCamera = transform.GetComponent<Camera>();
         cameraPosition = Vector3.zero;
-        Setup(() => cameraPosition, () => orthoSize, true, true);
+        Setup(() => cameraPosition, () => Camera.main.orthographicSize, true, true);
     }
 
     public void SetCameraFollowPosition(Vector3 cameraFollowPosition)
@@ -73,7 +73,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        float cameraSpeed = 100f;
+        float cameraSpeed = 10f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             cameraPosition += new Vector3(-1, 0) * cameraSpeed * Time.deltaTime;

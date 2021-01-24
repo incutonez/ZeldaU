@@ -14,14 +14,14 @@ namespace World
         private const float TRANSITION_PADDING = 0.08f;
 
         public Transform ScreensContainer { get; set; }
+        // TODO: Figure out how to dynamically set this
+        public bool InCastle { get; set; } = true;
 
         private Vector3 OverworldPosition { get; set; } = Vector3.zero;
         private int CurrentX { get; set; } = 8;
         private int CurrentY { get; set; } = 0;
         private Screen CurrentScreen { get; set; }
         private Screen PreviousScreen { get; set; }
-        // TODO: Figure out how to dynamically set this
-        private bool InCastle { get; set; } = true;
 
         public void Awake()
         {

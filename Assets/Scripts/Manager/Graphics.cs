@@ -10,6 +10,8 @@ namespace Manager
     {
         #region Sprites
         public List<Sprite> Items { get; set; }
+        public Material CastleMaterials { get; set; }
+        public Material WorldMaterials { get; set; }
         public List<Material> Materials { get; set; } = new List<Material>();
         public Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; } = new Dictionary<Tiles, World.TileUVs>();
         public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
@@ -104,11 +106,11 @@ namespace Manager
             });
             FileSystem.LoadMaterial("Castle", (response) =>
             {
-                Materials.Add(response);
+                CastleMaterials = response;
             });
             FileSystem.LoadMaterial("OverworldTiles", (response) =>
             {
-                Materials.Add(response);
+                WorldMaterials = response;
             });
         }
 

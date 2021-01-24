@@ -27,7 +27,7 @@ namespace World
         /// Also known as f cost
         /// </summary>
         public int TotalCost { get; set; }
-        public WorldColors Color { get; set; }
+        public WorldColors? Color { get; set; }
 
         private Grid<GridNode> Grid { get; set; }
 
@@ -38,7 +38,7 @@ namespace World
             Y = y;
         }
 
-        public void Initialize(Tiles tileType, WorldColors color)
+        public void Initialize(Tiles tileType, WorldColors? color)
         {
             // TODOJEF: Potentially cache getter values in here?
             // TODO: We can have multiple colors for castles
@@ -168,15 +168,11 @@ namespace World
 
         public Color? GetColor()
         {
-            //if (IsBackgroundTile())
-            //{
-            //    return null;
-            //}
-            if (IsTile())
+            if (Color.HasValue)
             {
                 return Utilities.HexToColor(Color.GetDescription());
             }
-            return Constants.COLOR_INVISIBLE;
+            return IsTile() ? null : (Color?) Constants.COLOR_INVISIBLE;
         }
 
         public float GetRotation()

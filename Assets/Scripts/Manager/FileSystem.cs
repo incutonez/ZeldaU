@@ -32,7 +32,7 @@ namespace Manager
                     Addressables.Release(handle);
                     break;
                 case AsyncOperationStatus.Failed:
-                    Debug.LogError("Failed to load json file.");
+                    Debug.LogError($"Failed to load json file. {path}");
                     break;
                 default:
                     break;

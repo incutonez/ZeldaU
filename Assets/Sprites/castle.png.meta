@@ -4,13 +4,13 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -5119980863986964875
-    second: WallVerticalTop
+    second: WallRightY
   - first:
       213: -145931186996790647
-    second: WallHorizontalLeft
+    second: WallLeftX
   - first:
       213: -6713637968961796653
-    second: WallHorizontalRight
+    second: WallRightX
   - first:
       213: 8274383364455029367
     second: Block
@@ -25,34 +25,55 @@ TextureImporter:
     second: GroundTile
   - first:
       213: -3623823689492173423
-    second: WallHole
+    second: WallY
   - first:
       213: -4930899982216085204
-    second: CastleWater
+    second: WallY
   - first:
       213: -8338805312295432353
-    second: StairsKeep
+    second: WallY
   - first:
       213: -5853191270310667760
-    second: WallKeep
+    second: WallY
   - first:
       213: -3912771823451007086
-    second: WallVerticalBottom
+    second: WallLeftY
   - first:
       213: 1012419091630331881
-    second: DoorLocked
+    second: DoorLockedY
   - first:
       213: -6442752708971868256
-    second: DoorUnlocked
+    second: DoorUnlockedY
   - first:
       213: -5853110265339956700
-    second: DoorClosed
+    second: DoorClosedY
   - first:
       213: -1275497654853739782
-    second: Wall
+    second: WallHoleY
   - first:
       213: -7743775136136695913
-    second: CastleSand
+    second: WallY
+  - first:
+      213: -3479832052722871984
+    second: DoorLockedX
+  - first:
+      213: -3259637682033831952
+    second: DoorUnlockedX
+  - first:
+      213: -4860844454453048527
+    second: DoorClosedX
+  - first:
+      213: 1726393260581370977
+    second: WallHoleX
+  - first:
+      213: 777967326503817377
+    second: WallX
+  - first:
+      213: -2754428959235553714
+    second: WallRightYFlip
+  - first:
+      213: 1793556096956993585
+    second: WallLeftYFlip
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -93,7 +114,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -116,7 +137,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -128,7 +149,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -142,7 +163,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WallVerticalTop
+      name: WallRightY
       rect:
         serializedVersion: 2
         x: 0
@@ -163,7 +184,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallHorizontalLeft
+      name: WallLeftX
       rect:
         serializedVersion: 2
         x: 43
@@ -184,7 +205,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallHorizontalRight
+      name: WallRightX
       rect:
         serializedVersion: 2
         x: 134
@@ -289,31 +310,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallHole
+      name: CastleWater
       rect:
         serializedVersion: 2
-        x: 159
-        y: 74
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19d6c23ed8795bdc0800000000000000
-      internalID: -3623823689492173423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: StairsKeep
-      rect:
-        serializedVersion: 2
-        x: 67
+        x: 43
         y: 76
         width: 16
         height: 16
@@ -324,8 +324,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5f8d75dfbc964c80800000000000000
-      internalID: -8338805312295432353
+      spriteID: 19d6c23ed8795bdc0800000000000000
+      internalID: -3623823689492173423
       vertices: []
       indices: 
       edges: []
@@ -345,6 +345,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+      spriteID: f5f8d75dfbc964c80800000000000000
+      internalID: -8338805312295432353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CastleSand
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 76
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
       spriteID: 01a17ba1d8945cea0800000000000000
       internalID: -5853191270310667760
       vertices: []
@@ -352,7 +373,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallVerticalBottom
+      name: WallLeftY
       rect:
         serializedVersion: 2
         x: 0
@@ -373,11 +394,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoorLocked
+      name: DoorLockedY
       rect:
         serializedVersion: 2
         x: 43
-        y: 33
+        y: 39
         width: 32
         height: 32
       alignment: 0
@@ -394,11 +415,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoorUnlocked
+      name: DoorUnlockedY
       rect:
         serializedVersion: 2
-        x: 82
-        y: 33
+        x: 81
+        y: 39
         width: 32
         height: 32
       alignment: 0
@@ -415,11 +436,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoorClosed
+      name: DoorClosedY
       rect:
         serializedVersion: 2
-        x: 121
-        y: 33
+        x: 120
+        y: 39
         width: 32
         height: 32
       alignment: 0
@@ -436,11 +457,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wall
+      name: WallHoleY
       rect:
         serializedVersion: 2
         x: 159
-        y: 33
+        y: 39
         width: 32
         height: 32
       alignment: 0
@@ -457,10 +478,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CastleWater
+      name: StairsKeep
       rect:
         serializedVersion: 2
-        x: 43
+        x: 67
         y: 76
         width: 16
         height: 16
@@ -478,15 +499,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CastleSand
+      name: WallY
       rect:
         serializedVersion: 2
-        x: 114
-        y: 76
-        width: 16
-        height: 16
+        x: 198
+        y: 39
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -494,6 +515,153 @@ TextureImporter:
       bones: []
       spriteID: 79fe11eba85988490800000000000000
       internalID: -7743775136136695913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoorLockedX
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0515f6b5f2725bfc0800000000000000
+      internalID: -3479832052722871984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoorUnlockedX
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ff45e96cc073c2d0800000000000000
+      internalID: -3259637682033831952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoorClosedX
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b06e7f8bfca8cb0800000000000000
+      internalID: -4860844454453048527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallHoleX
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16cb49f068165f710800000000000000
+      internalID: 1726393260581370977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallX
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a0de1f5925ebca00800000000000000
+      internalID: 777967326503817377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallRightYFlip
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 83
+        width: 32
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4647b5847d46c9d0800000000000000
+      internalID: -2754428959235553714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallLeftYFlip
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 0
+        width: 32
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1309bdb74cdf3e810800000000000000
+      internalID: 1793556096956993585
       vertices: []
       indices: 
       edges: []

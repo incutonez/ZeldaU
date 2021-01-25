@@ -72,8 +72,36 @@ namespace World
         {
             switch (TileType)
             {
-                case Tiles.WallHorizontalLeft:
-                case Tiles.WallHorizontalRight:
+                case Tiles.WallLeftX:
+                case Tiles.WallRightX:
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsVerticalDoor()
+        {
+            switch (TileType)
+            {
+                case Tiles.DoorClosedY:
+                case Tiles.DoorLockedY:
+                case Tiles.DoorUnlockedY:
+                case Tiles.WallHoleY:
+                case Tiles.WallY:
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsHorizontalDoor()
+        {
+            switch (TileType)
+            {
+                case Tiles.DoorClosedX:
+                case Tiles.DoorLockedX:
+                case Tiles.DoorUnlockedX:
+                case Tiles.WallHoleX:
+                case Tiles.WallX:
                     return true;
             }
             return false;
@@ -83,8 +111,10 @@ namespace World
         {
             switch (TileType)
             {
-                case Tiles.WallVerticalBottom:
-                case Tiles.WallVerticalTop:
+                case Tiles.WallLeftY:
+                case Tiles.WallRightY:
+                case Tiles.WallRightYFlip:
+                case Tiles.WallLeftYFlip:
                     return true;
             }
             return false;
@@ -239,7 +269,15 @@ namespace World
             }
             else if (IsHorizontalCastleWall())
             {
-                return new Vector2(4.5f, 2f) * Grid.CellSize;
+                return new Vector2(5f, 2f) * Grid.CellSize;
+            }
+            else if (IsVerticalDoor())
+            {
+                return new Vector2(2f, 2f) * Grid.CellSize;
+            }
+            else if (IsHorizontalDoor())
+            {
+                return new Vector2(2f, 2f) * Grid.CellSize;
             }
             if (IsTile())
             {

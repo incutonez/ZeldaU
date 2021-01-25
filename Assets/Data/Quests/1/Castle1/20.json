@@ -116,18 +116,16 @@
         ]
       }]
     }, {
-      "Type": 64,
+      "Type": 73,
       "Children": [{
-        "FlipX": true,
         "Coordinates": [
           14,
           0
         ]
       }]
     }, {
-      "Type": 65,
+      "Type": 72,
       "Children": [{
-        "FlipX": true,
         "Coordinates": [
           14,
           6.5
@@ -141,19 +139,7 @@
           2,
           0
         ]
-      }]
-    }, {
-      "Type": 62,
-      "Children": [{
-        "FlipY": true,
-        "Coordinates": [
-          9.5,
-          0
-        ]
-      }]
-    }, {
-      "Type": 61,
-      "Children": [{
+      }, {
         "Coordinates": [
           2,
           9
@@ -162,9 +148,43 @@
     }, {
       "Type": 62,
       "Children": [{
+        "FlipY": true,
         "Coordinates": [
-          9.5,
+          9,
+          0
+        ]
+      }, {
+        "Coordinates": [
+          9,
           9
+        ]
+      }]
+    }, {
+      "Type": 54,
+      "Children": [{
+        "FlipY": true,
+        "Coordinates": [
+          7,
+          0
+        ]
+      }, {
+        "Coordinates": [
+          7,
+          9
+        ]
+      }]
+    }, {
+      "Type": 69,
+      "Children": [{
+        "Coordinates": [
+          0,
+          4.5
+        ]
+      }, {
+        "FlipX": true,
+        "Coordinates": [
+          14,
+          4.5
         ]
       }]
     }

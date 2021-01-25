@@ -126,6 +126,9 @@ namespace World
                         List<float> coordinates = child.Coordinates;
                         float x = coordinates[0];
                         float y = coordinates[1];
+                        int rotation = child.Rotation;
+                        bool flipY = child.FlipY;
+                        bool flipX = child.FlipX;
                         float xMax = x;
                         float yMax = y;
                         if (child.TileType != Tiles.None)
@@ -153,8 +156,12 @@ namespace World
                                 }
                                 else
                                 {
-                                    // TODO: Will I ever need to pass in a color?
-                                    SetTileType(position, tileType, null);
+                                    GridNode viewModel = Grid.GetViewModel(position);
+                                    if (viewModel != null)
+                                    {
+                                        // TODO: Will I ever need to pass in a color?
+                                        viewModel.Initialize(tileType, color, i, j, rotation, flipX, flipY);
+                                    }
                                 }
                             }
                         }
@@ -260,15 +267,6 @@ namespace World
             }
         }
 
-        public void SetTileType(Vector3 position, Tiles matterType, WorldColors? color)
-        {
-            GridNode viewModel = Grid.GetViewModel(position);
-            if (viewModel != null)
-            {
-                viewModel.Initialize(matterType, color);
-            }
-        }
-
         public Vector3 GetQuadSize()
         {
             return Vector2.one * Grid.CellSize;
@@ -304,22 +302,11 @@ namespace World
                     polygonCollider.SetPath(polygonCollider.pathCount - 1, colliderShape);
                 }
             });
-            //Mesh.colors = colors;
-            // TODO: Change mesh colors
-            // Kinda close https://forum.unity.com/threads/custom-mesh-lighting.598936/#post-4010545
             Mesh.Clear();
             Mesh.vertices = vertices;
             Mesh.uv = uvs;
             Mesh.triangles = triangles;
-            //Mesh.normals = normals;
-            // TODO: Look into seams for meshes?
-            //Mesh.RecalculateBounds();
-            Mesh.RecalculateNormals();
-            //Mesh.RecalculateTangents();
-            //Mesh.RecalculateUVDistributionMetrics();
-            // Tried multiple materials https://answers.unity.com/questions/1436857/small-submesh-example.html
-            //Mesh.Optimize();
-            //Mesh.colors = colors2;
+            Mesh.normals = normals;
         }
 
         private void Grid_OnValueChanged(object sender, Grid<GridNode>.OnGridValueChangedEventArgs e)

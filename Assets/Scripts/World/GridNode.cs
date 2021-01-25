@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace World
         public Tiles TileType { get; set; } = Tiles.None;
         public int X { get; set; }
         public int Y { get; set; }
+        public float PosX { get; set; }
+        public float PosY { get; set; }
         public GridNode PreviousNode { get; set; }
         /// <summary>
         /// Also known as g cost
@@ -28,6 +31,9 @@ namespace World
         /// </summary>
         public int TotalCost { get; set; }
         public WorldColors? Color { get; set; }
+        public int Rotation { get; set; }
+        public bool FlipY { get; set; }
+        public bool FlipX { get; set; }
 
         private Grid<GridNode> Grid { get; set; }
 
@@ -38,12 +44,17 @@ namespace World
             Y = y;
         }
 
-        public void Initialize(Tiles tileType, WorldColors? color)
+        public void Initialize(Tiles tileType, WorldColors? color, float x, float y, int rotation, bool flipX, bool flipY)
         {
             // TODOJEF: Potentially cache getter values in here?
             // TODO: We can have multiple colors for castles
             Color = color;
             SetTileType(tileType);
+            PosX = x;
+            PosY = y;
+            Rotation = rotation;
+            FlipX = flipX;
+            FlipY = flipY;
         }
 
         public void SetTileType(Tiles tileType)
@@ -55,6 +66,28 @@ namespace World
         public bool IsWalkable()
         {
             return TileType == Tiles.None;
+        }
+
+        public bool IsHorizontalCastleWall()
+        {
+            switch (TileType)
+            {
+                case Tiles.WallHorizontalLeft:
+                case Tiles.WallHorizontalRight:
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsVerticalCastleWall()
+        {
+            switch (TileType)
+            {
+                case Tiles.WallVerticalBottom:
+                case Tiles.WallVerticalTop:
+                    return true;
+            }
+            return false;
         }
 
         public bool IsTile()
@@ -73,6 +106,7 @@ namespace World
         {
             switch (TileType)
             {
+                case Tiles.CastleSand:
                 case Tiles.SandBottom:
                 case Tiles.SandBottomLeft:
                 case Tiles.SandBottomRight:
@@ -175,14 +209,10 @@ namespace World
             return IsTile() ? null : (Color?) Constants.COLOR_INVISIBLE;
         }
 
-        public float GetRotation()
-        {
-            return 0f;
-        }
-
+        // TODO: Can cache this?
         public Vector3 GetWorldPosition()
         {
-            return Grid.GetWorldPosition(X, Y) + GetQuadSize() * 0.5f;
+            return Grid.GetWorldPosition(PosX, PosY) + GetQuadSize() * 0.5f;
         }
 
         public void GetUVCoordinates(out Vector2 uv00, out Vector2 uv11)
@@ -203,6 +233,14 @@ namespace World
 
         public Vector3 GetQuadSize()
         {
+            if (IsVerticalCastleWall())
+            {
+                return new Vector2(2f, 4.5f) * Grid.CellSize;
+            }
+            else if (IsHorizontalCastleWall())
+            {
+                return new Vector2(4.5f, 2f) * Grid.CellSize;
+            }
             if (IsTile())
             {
                 return Vector2.one * Grid.CellSize;

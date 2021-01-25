@@ -50,6 +50,9 @@ TextureImporter:
   - first:
       213: -1275497654853739782
     second: Wall
+  - first:
+      213: -7743775136136695913
+    second: CastleSand
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -462,7 +465,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -470,6 +473,27 @@ TextureImporter:
       bones: []
       spriteID: c21c709579ce19bb0800000000000000
       internalID: -4930899982216085204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CastleSand
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 76
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79fe11eba85988490800000000000000
+      internalID: -7743775136136695913
       vertices: []
       indices: 
       edges: []

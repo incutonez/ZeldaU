@@ -75,5 +75,6 @@ public enum Tiles
     WallKeep = 63,
     WallVerticalBottom = 64,
     WallVerticalTop = 65,
+    CastleSand = 66,
     Transition = 100
 }

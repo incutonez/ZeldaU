@@ -69,5 +69,8 @@ namespace ViewModel
         public List<float> Coordinates { get; set; }
         public Tiles TileType { get; set; } = Tiles.None;
         public Grid Transition { get; set; }
+        public int Rotation { get; set; }
+        public bool FlipY { get; set; }
+        public bool FlipX { get; set; }
     }
 }

@@ -135,7 +135,7 @@ public static class Utilities
     {
         Vector3 baseSize = tile.GetQuadSize();
         Vector3 position = tile.GetWorldPosition();
-        float rotation = tile.GetRotation();
+        float rotation = tile.Rotation;
         // TODO: How does this work if we have multiple colors?
         Color? color = tile.GetColor();
         tile.GetUVCoordinates(out Vector2 uv00, out Vector2 uv11);
@@ -148,11 +148,13 @@ public static class Utilities
         int vIndex3 = vIndex + 3;
         baseSize *= 0.5f;
 
+        int xMod = tile.FlipX ? -1 : 1;
+        int yMod = tile.FlipY ? -1 : 1;
         // TODO: This really is just -0.5, 0.5... could cache it
-        vertices[vIndex0] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x, baseSize.y);
-        vertices[vIndex1] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x, -baseSize.y);
-        vertices[vIndex2] = position + GetQuaternionEuler(rotation) * new Vector3(baseSize.x, -baseSize.y);
-        vertices[vIndex3] = position + GetQuaternionEuler(rotation) * baseSize;
+        vertices[vIndex0] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x * xMod, baseSize.y * yMod);
+        vertices[vIndex1] = position + GetQuaternionEuler(rotation) * new Vector3(-baseSize.x * xMod, -baseSize.y * yMod);
+        vertices[vIndex2] = position + GetQuaternionEuler(rotation) * new Vector3(baseSize.x * xMod, -baseSize.y * yMod);
+        vertices[vIndex3] = position + GetQuaternionEuler(rotation) * new Vector3(baseSize.x * xMod, baseSize.y * yMod);
 
         //Relocate UVs
         uvs[vIndex0] = new Vector2(uv00.x, uv11.y);

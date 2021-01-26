@@ -6,21 +6,21 @@ public static class EnemyHelper
 {
     // TODO: Move these colors to constants
     /// <summary>
-    /// This is used as the "body" color for enemies, as well as the primary color in CastleMaterials
+    /// This is used as the "body" color for enemies, as well as the primary color in CastleMaterials... it's white.
     /// </summary>
     public static readonly Color BODY_COLOR = Color.white;
     /// <summary>
-    /// This is used as the "base" color for enemies
+    /// This is used as the "base" color for enemies... it's black.
     /// </summary>
     public static readonly Color BASE_COLOR = Color.black;
     /// <summary>
-    /// This is used as the "accent" color for enemies, and also as a secondary color in CastleMaterials
+    /// This is used as the "accent" color for enemies, and also as a secondary color in CastleMaterials... it's red.
     /// </summary>
     public static readonly Color ACCENT_COLOR = Color.red;
     /// <summary>
-    /// This is used as the 3rd color that can be replaced in CastleMaterials
+    /// This is used as the 3rd color that can be replaced in CastleMaterials... it's blue.
     /// </summary>
-    public static readonly Color ACCENT_COLOR_2 = Color.blue;
+    public static readonly Color CASTLE_DOOR_COLOR = Color.blue;
     public static readonly Color COMMON_RED = Utilities.HexToColor("f83800");
     public static readonly Color COMMON_ORANGE = Utilities.HexToColor("ffa044");
     public static readonly Color COMMON_ORANGE_DARK = Utilities.HexToColor("e45c10");

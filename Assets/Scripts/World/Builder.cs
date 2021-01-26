@@ -1,5 +1,6 @@
 using Audio;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace World
@@ -14,8 +15,8 @@ namespace World
         private const float TRANSITION_PADDING = 0.08f;
 
         public Transform ScreensContainer { get; set; }
-        // TODO: Figure out how to dynamically set this
-        public bool InCastle { get; set; } = true;
+        public bool InCastle { get; set; }
+        public string CurrentCastle { get; set; }
 
         private Vector3 OverworldPosition { get; set; } = Vector3.zero;
         private int CurrentX { get; set; } = 8;
@@ -91,6 +92,8 @@ namespace World
 
         public Transform GetScreen(string screenId)
         {
+            // TODO: Have to fix this... for castles, it generates a new one each time because the find is trying to find the slashes for
+            // a nested child, but that's not how it is... need to figure out like a common name or something
             return screenId != null ? ScreensContainer.Find(screenId) : null;
         }
 
@@ -120,12 +123,35 @@ namespace World
             }
             Manager.Game.Pathfinder.Grid = CurrentScreen.Grid;
             CurrentScreen.ToggleActive(true);
-            Camera.main.backgroundColor = CurrentScreen.GroundColor;
+        }
+
+        public void SetCastleMaterial()
+        {
+            // We have to copy the material here, so it doesn't overwrite the resource
+            Material material = new Material(Manager.Game.Graphics.CastleMaterials);
+            Texture2D texture = Instantiate(material.mainTexture as Texture2D);
+            Utilities.ReplaceColors(texture, new Color[] {
+                // TODO: Use CurrentCastle to determine these colors
+                EnemyHelper.ACCENT_COLOR, Utilities.HexToColor("008088"),
+                EnemyHelper.CASTLE_DOOR_COLOR, Utilities.HexToColor("183c5c"),
+                EnemyHelper.BODY_COLOR, Utilities.HexToColor("00e8d8")
+            });
+            material.mainTexture = texture;
+            Manager.Game.Graphics.CurrentCastleMaterial = material;
         }
 
         public string GetScreenId(ViewModel.Grid transition)
         {
             string screenId = transition.Name;
+            if (transition.IsCastle)
+            {
+                InCastle = true;
+                CurrentCastle = screenId;
+                CurrentX = transition.X;
+                CurrentY = transition.Y;
+                screenId = $"{CurrentX}{CurrentY}";
+                SetCastleMaterial();
+            }
             if (screenId == null)
             {
                 CurrentX += transition.X;
@@ -134,14 +160,16 @@ namespace World
             }
             else if (screenId == Constants.TRANSITION_BACK)
             {
+                InCastle = false;
                 screenId = $"{CurrentX}{CurrentY}";
             }
             if (InCastle)
             {
-                screenId = $"{Constants.PATH_CASTLE}{screenId}";
+                screenId = $"{Constants.PATH_CASTLE}{CurrentCastle}/{screenId}";
             }
             else
             {
+                InCastle = false;
                 screenId = $"{Constants.PATH_OVERWORLD}{screenId}";
             }
             return screenId;

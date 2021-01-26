@@ -146,10 +146,11 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 9d62231365b174f42b6111e128553fc4
-    m_Address: Quests/1/Castle1/20
+  - m_GUID: d4deb2e30a642834d85bf4757e886b25
+    m_Address: Data/ScreenTemplates
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - ScreenTemplates
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 85ebfaacc8986734d9d158a557c3fb9d
@@ -160,6 +161,24 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: 61e0f99e8c32883438069bbab3554c00
     m_Address: Materials/OverworldTiles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 01492079565385c4dab9dff6816dbc57
+    m_Address: Castles/Q1C1/20
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a6e1dda887d724140888dc260d9d3368
+    m_Address: Castles/Q1C1/10
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c922d61102744244f92e5e6a73bb01bd
+    m_Address: Castles/Q1C1/30
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

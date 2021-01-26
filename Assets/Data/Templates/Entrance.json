@@ -1,0 +1,107 @@
+{
+  "Tiles": [
+    {
+      "Type": 66,
+      "Children": [
+        {
+          "Coordinates": [
+            5,
+            2,
+            10,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            7,
+            4,
+            8,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 57,
+      "Children": [
+        {
+          "Coordinates": [
+            3,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 58,
+      "Children": [
+        {
+          "Coordinates": [
+            9,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            7
+          ]
+        }
+      ]
+    }
+  ]
+}

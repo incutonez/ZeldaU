@@ -12,12 +12,16 @@ namespace ViewModel
         public string Name { get; set; }
         /// <summary>
         /// This is only used for Transition matters... it's the x value for the next screen... if this is a positive value, then
-        /// that means this transition is on the right side of the screen, and if it's negative, then it's on the left side
+        /// that means this transition is on the right side of the screen, and if it's negative, then it's on the left side.
+        /// 
+        /// When this is set in a castle file, it means it's the starting x coordinate.
         /// </summary>
         public int X { get; set; }
         /// <summary>
         /// This is only used for Transition matters... it's the y value for the next screen... if this is a positive value, then
         /// that means this transition is on the top of the screen, and if it's negative, then it's on the bottom
+        /// 
+        /// When this is set in a castle file, it means it's the starting y coordinate... almost always 0.
         /// </summary>
         public int Y { get; set; }
         public WorldColors? AccentColor { get; set; }
@@ -26,6 +30,8 @@ namespace ViewModel
         public List<Enemy> Enemies { get; set; }
         public List<Character> Characters { get; set; }
         public List<ItemViewModel> Items { get; set; }
+        public bool IsCastle { get; set; }
+        public ScreenTemplates? Template { get; set; }
     }
 
     public class ItemViewModel

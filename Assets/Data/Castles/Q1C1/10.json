@@ -1,0 +1,33 @@
+{
+  "X": 1,
+  "Y": 0,
+  "Template": 0,
+  "Tiles": [
+    {
+      "Type": 69,
+      "Children": [
+        {
+          "FlipX": true,
+          "Coordinates": [
+            14,
+            4.5
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 100,
+      "Children": [
+        {
+          "Transition": {
+            "X": 1
+          },
+          "Coordinates": [
+            15,
+            5
+          ]
+        }
+      ]
+    }
+  ]
+}

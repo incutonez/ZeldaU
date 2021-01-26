@@ -4,7 +4,7 @@ Sprites
 -- http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/link.png
 - Items
 -- http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/items.png
-- Castles (Master Mike)
+- Castles (Master Mike and Goombario of Zants Zebeth for map layout)
 -- http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/tiles-dungeon-2.png
 Sounds
 - https://www.sounds-resource.com/nes/legendofzelda/sound/4590/

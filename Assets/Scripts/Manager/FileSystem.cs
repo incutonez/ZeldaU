@@ -20,6 +20,15 @@ namespace Manager
         private static Dictionary<AssetReference, AsyncOperationHandle<GameObject>> OperationHandles { get; set; } = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
         private static Dictionary<AssetReference, Queue<Vector3>> AssetQueue { get; set; } = new Dictionary<AssetReference, Queue<Vector3>>();
 
+        public static void ShouldLaunch()
+        {
+            if (LoadCount == 0)
+            {
+                // All Assets loaded, so let's launch the game
+                GameObject.Find("GameHandler").GetComponent<Game>().StartLaunch();
+            }
+        }
+
         public static IEnumerator LoadJson(string path, Action<string> callback)
         {
             string result = String.Empty;
@@ -40,13 +49,42 @@ namespace Manager
             callback(result);
         }
 
-        public static void ShouldLaunch()
+        // TODO: Need to figure out a better way of codifying all of these methods that are eerily similar
+        public static void LoadJsonByLabel(string label, Action<Dictionary<string, string>> callback)
         {
-            if (LoadCount == 0)
-            {
-                // All Assets loaded, so let's launch the game
-                GameObject.Find("GameHandler").GetComponent<Game>().StartLaunch();
-            }
+            LoadCount++;
+            AsyncOperationHandle<IList<IResourceLocation>> labelOperation = Addressables.LoadResourceLocationsAsync(label);
+            Dictionary<string, string> items = new Dictionary<string, string>();
+            labelOperation.Completed += (labelResponse) => {
+                int totalCount = labelResponse.Result.Count;
+                foreach (IResourceLocation item in labelResponse.Result)
+                {
+                    AsyncOperationHandle<TextAsset> resourceOperation = Addressables.LoadAssetAsync<TextAsset>(item.PrimaryKey);
+                    resourceOperation.Completed += (result) =>
+                    {
+                        totalCount--;
+                        switch (labelResponse.Status)
+                        {
+                            case AsyncOperationStatus.Succeeded:
+                                items.Add(Path.GetFileNameWithoutExtension(item.PrimaryKey), result.Result.text);
+                                Addressables.Release(resourceOperation);
+                                break;
+                            case AsyncOperationStatus.Failed:
+                                Debug.LogError($"Failed to load json for {label}.");
+                                break;
+                            default:
+                                break;
+                        }
+                        // When we've finished loading all items in the directory, let's continue
+                        if (totalCount == 0)
+                        {
+                            LoadCount--;
+                            callback(items);
+                            ShouldLaunch();
+                        }
+                    };
+                }
+            };
         }
 
         public static void LoadAudioClips(string labelName, Action<Dictionary<FX, AudioClip>> callback)

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using NPCs;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Manager
     {
         #region Sprites
         public List<Sprite> Items { get; set; }
+        public Material CurrentCastleMaterial { get; set; }
         public Material CastleMaterials { get; set; }
         public Material WorldMaterials { get; set; }
         public List<Material> Materials { get; set; } = new List<Material>();
@@ -30,6 +32,8 @@ namespace Manager
         public RectTransform Player { get; set; }
         public RectTransform UIHeart { get; set; }
         #endregion
+
+        public Dictionary<ScreenTemplates, ViewModel.Grid> Templates { get; set; } = new Dictionary<ScreenTemplates, ViewModel.Grid>();
 
         public Graphics()
         {
@@ -111,6 +115,14 @@ namespace Manager
             FileSystem.LoadMaterial("OverworldTiles", (response) =>
             {
                 WorldMaterials = response;
+            });
+            FileSystem.LoadJsonByLabel("ScreenTemplates", (response) =>
+            {
+                foreach (KeyValuePair<string, string> item in response)
+                {
+                    Enum.TryParse(item.Key, out ScreenTemplates value);
+                    Templates.Add(value, JsonConvert.DeserializeObject<ViewModel.Grid>(item.Value));
+                }
             });
         }
 

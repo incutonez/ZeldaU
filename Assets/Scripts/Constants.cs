@@ -6,7 +6,7 @@ public static class Constants
     public const string PATH_MATERIALS = "Materials/";
     public const string PATH_PREFABS = "Prefabs/";
     public const string PATH_OVERWORLD = "Overworld/";
-    public const string PATH_CASTLE = "Quests/1/Castle1/";
+    public const string PATH_CASTLE = "Castles/";
     public const string TRANSITION_BACK = "Back";
     public const string PLAYER_TRANSITION = "TransitionCollider";
     public const string COUNT_CONTAINER_REF = "CountContainer";

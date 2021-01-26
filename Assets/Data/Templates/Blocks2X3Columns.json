@@ -1,0 +1,25 @@
+{
+  "Tiles": [
+    {
+      "Type": 50,
+      "Children": [
+        {
+          "Coordinates": [
+            4,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            4,
+            11,
+            6
+          ]
+        }
+      ]
+    }
+  ]
+}

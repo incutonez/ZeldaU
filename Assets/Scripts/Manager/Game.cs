@@ -50,7 +50,12 @@ namespace Manager
             Suit = Player.GetComponentInChildren<Suit>(true);
             if (!IsDebugMode)
             {
-                yield return Scene.BuildScreen(new ViewModel.Grid { Name = "20" });
+                yield return Scene.BuildScreen(new ViewModel.Grid {
+                    //Name = "80",
+                    Name = "Q1C1",
+                    IsCastle = true,
+                    X = 2
+                });
             }
             Player.gameObject.SetActive(true);
             OnLaunch?.Invoke(this, EventArgs.Empty);

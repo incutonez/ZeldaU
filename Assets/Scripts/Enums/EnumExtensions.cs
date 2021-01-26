@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 // Idea taken from https://codereview.stackexchange.com/questions/5352/getting-the-value-of-a-custom-attribute-from-an-enum
 public class CustomAttribute : Attribute
@@ -14,6 +15,16 @@ public class CustomAttribute : Attribute
     {
         Name = name;
         Value = value;
+    }
+}
+
+public class ColorAttribute : Attribute
+{
+    public Color Color { get; set; }
+
+    public ColorAttribute(string color)
+    {
+        Color = Utilities.HexToColor(color);
     }
 }
 
@@ -68,6 +79,11 @@ public static class EnumExtensions
     public static List<T> GetValues<T>()
     {
         return Enum.GetValues(typeof(T)).Cast<T>().ToList();
+    }
+
+    public static Color GetColor(this Enum value)
+    {
+        return GetAttribute<ColorAttribute>(value).Color;
     }
 
     public static string GetDescription(this Enum value)

@@ -3,7 +3,6 @@ using NPCs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace World
@@ -34,7 +33,15 @@ namespace World
             {
                 scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
             });
-            GroundColor = Utilities.HexToColor((scene.GroundColor ?? WorldColors.Tan).GetDescription());
+            if (scene.Template.HasValue && scene.Template.Value != ScreenTemplates.Plain)
+            {
+                scene.Tiles.AddRange(Manager.Game.Graphics.Templates[scene.Template.Value].Tiles);
+            }
+            if (Manager.Game.Scene.InCastle)
+            {
+                scene.Tiles.InsertRange(0, Manager.Game.Graphics.Templates[ScreenTemplates.Base].Tiles);
+            }
+            GroundColor = (scene.GroundColor ?? WorldColors.Tan).GetColor();
             Build(scene);
             if (transition != null)
             {
@@ -46,37 +53,7 @@ namespace World
         {
             Mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = Mesh;
-            Material material = Manager.Game.Scene.InCastle ? Manager.Game.Graphics.CastleMaterials : Manager.Game.Graphics.WorldMaterials;
-            // TODO: Maybe revisit how this is determined?
-            GetComponent<MeshRenderer>().material = material;
-            Texture2D texture = Instantiate(GetComponent<MeshRenderer>().material.mainTexture as Texture2D);
-            var replaceColors = new Color[] {
-                EnemyHelper.ACCENT_COLOR, Utilities.HexToColor("008088"),
-                EnemyHelper.ACCENT_COLOR_2, Utilities.HexToColor("183c5c"),
-                EnemyHelper.BODY_COLOR, Utilities.HexToColor("00e8d8")
-            };
-            // TODO: There's an issue here with not all colors being replaced properly... not sure why
-            Color[] colors = ((Texture2D)material.mainTexture).GetPixels();
-            if (replaceColors != null && replaceColors.Any())
-            {
-                // Loops through all of the colors in the sprite's texture
-                for (int i = 0; i < colors.Length; i++)
-                {
-                    Color color = colors[i];
-                    // Check to see if this color matches any replacement colors
-                    for (int j = 0; j < replaceColors.Length; j += 2)
-                    {
-                        if (replaceColors[j] == color)
-                        {
-                            colors[i] = replaceColors[j + 1];
-                            break;
-                        }
-                    }
-                }
-            }
-            texture.SetPixels(colors);
-            texture.Apply();
-            GetComponent<MeshRenderer>().material.mainTexture = texture;
+            GetComponent<MeshRenderer>().material = Manager.Game.Scene.InCastle ? Manager.Game.Graphics.CurrentCastleMaterial : Manager.Game.Graphics.WorldMaterials;
             Grid = grid;
             Grid.OnGridValueChanged += Grid_OnValueChanged;
             if (refreshGrid)
@@ -259,7 +236,7 @@ namespace World
 
         public void AddTransition(Vector3 position, ViewModel.Grid transition)
         {
-            Transform item = Instantiate(Manager.Game.Graphics.WorldTransition, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+            Transform item = Instantiate(Manager.Game.Graphics.WorldTransition, position, Quaternion.identity, transform);
             if (item != null)
             {
                 Transition worldItem = item.GetComponent<Transition>();

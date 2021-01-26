@@ -1,0 +1,137 @@
+{
+  "X": 2,
+  "Y": 0,
+  "GroundColor": 9,
+  "AccentColor": 4,
+  "Tiles": [
+    {
+      "Type": 55,
+      "Children": [
+        {
+          "Coordinates": [
+            2,
+            2,
+            13,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 64,
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 65,
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            6.5
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 73,
+      "Children": [
+        {
+          "Coordinates": [
+            14,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 72,
+      "Children": [
+        {
+          "Coordinates": [
+            14,
+            6.5
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 61,
+      "Children": [
+        {
+          "FlipY": true,
+          "Coordinates": [
+            2,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 62,
+      "Children": [
+        {
+          "FlipY": true,
+          "Coordinates": [
+            9,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 59,
+      "Children": [
+        {
+          "FlipY": true,
+          "Coordinates": [
+            7,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            7,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "Type": 70,
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            4.5
+          ]
+        },
+        {
+          "FlipX": true,
+          "Coordinates": [
+            14,
+            4.5
+          ]
+        }
+      ]
+    }
+  ]
+}

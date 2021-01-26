@@ -234,7 +234,7 @@ namespace World
         {
             if (Color.HasValue)
             {
-                return Utilities.HexToColor(Color.GetDescription());
+                return Color.GetColor();
             }
             return IsTile() ? null : (Color?) Constants.COLOR_INVISIBLE;
         }

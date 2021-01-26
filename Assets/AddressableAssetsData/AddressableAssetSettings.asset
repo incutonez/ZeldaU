@@ -71,6 +71,7 @@ MonoBehaviour:
     - default
     - FX
     - Enemies
+    - ScreenTemplates
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 53ba59b40236e764abd1b98c1d0e5597, type: 2}

@@ -31,6 +31,11 @@ namespace ViewModel
         public List<Character> Characters { get; set; }
         public List<ItemViewModel> Items { get; set; }
         public bool IsCastle { get; set; }
+        /// <summary>
+        /// This property is used to tell the screen builder to not attempt loading a file, as this is a template that
+        /// we'll be pulling from to generate our world
+        /// </summary>
+        public bool IsFloating { get; set; }
         public ScreenTemplates? Template { get; set; }
     }
 

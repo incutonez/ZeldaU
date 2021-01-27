@@ -59,5 +59,6 @@ public enum ScreenTemplates
     BlocksArrow = 42,
     WaterHAlt = 43,
     KeepItem = 44,
-    KeepPath = 45
+    KeepPath = 45,
+    Shop = 46
 }

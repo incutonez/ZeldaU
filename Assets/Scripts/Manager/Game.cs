@@ -51,10 +51,7 @@ namespace Manager
             if (!IsDebugMode)
             {
                 yield return Scene.BuildScreen(new ViewModel.Grid {
-                    Name = "80",
-                    //Name = "Q1C1",
-                    //IsCastle = true,
-                    //X = 2
+                    Name = "80"
                 });
             }
             Player.gameObject.SetActive(true);

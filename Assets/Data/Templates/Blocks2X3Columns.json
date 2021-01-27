@@ -1,7 +1,7 @@
 {
   "Tiles": [
     {
-      "Type": 50,
+      "Type": "Block",
       "Children": [
         {
           "Coordinates": [

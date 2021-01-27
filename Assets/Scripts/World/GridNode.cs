@@ -160,6 +160,7 @@ namespace World
                 case Tiles.SandTopLeft:
                 case Tiles.SandTopRight:
                 case Tiles.GroundTile:
+                case Tiles.Dock:
                     return true;
             }
             return false;
@@ -308,8 +309,31 @@ namespace World
             return points.ToArray();
         }
 
+        public bool IsWater()
+        {
+            switch (TileType)
+            {
+                case Tiles.PondBottom:
+                case Tiles.PondBottomLeft:
+                case Tiles.PondBottomRight:
+                case Tiles.PondCenter:
+                case Tiles.PondCenterLeft:
+                case Tiles.PondCenterRight:
+                case Tiles.PondTop:
+                case Tiles.PondTopLeft:
+                case Tiles.PondTopRight:
+                    return true;
+            }
+            return false;
+        }
+
         public Color? GetColor()
         {
+            // TODO: Why is this necessary?
+            if (TileType == Tiles.Fire || IsWater())
+            {
+                return UnityEngine.Color.white;
+            }
             if (Color.HasValue)
             {
                 return Color.GetColor();

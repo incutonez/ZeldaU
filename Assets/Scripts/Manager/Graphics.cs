@@ -34,6 +34,7 @@ namespace Manager
         #endregion
 
         public Dictionary<ScreenTemplates, ViewModel.Grid> Templates { get; set; } = new Dictionary<ScreenTemplates, ViewModel.Grid>();
+        public Dictionary<string, string> Screens { get; set; } = new Dictionary<string, string>();
 
         public Graphics()
         {
@@ -122,6 +123,13 @@ namespace Manager
                 {
                     Enum.TryParse(item.Key, out ScreenTemplates value);
                     Templates.Add(value, JsonConvert.DeserializeObject<ViewModel.Grid>(item.Value));
+                }
+            });
+            FileSystem.LoadJsonByLabel("Overworld", (response) =>
+            {
+                foreach (KeyValuePair<string, string> item in response)
+                {
+                    Screens.Add($"{Constants.PATH_OVERWORLD}{item.Key}", item.Value);
                 }
             });
         }

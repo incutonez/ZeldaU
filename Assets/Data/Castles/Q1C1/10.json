@@ -4,7 +4,7 @@
   "Template": 0,
   "Tiles": [
     {
-      "Type": 69,
+      "Type": "DoorUnlockedY",
       "Children": [
         {
           "FlipX": true,
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "Type": 100,
+      "Type": "Transition",
       "Children": [
         {
           "Transition": {

@@ -5,7 +5,7 @@
   "AccentColor": 4,
   "Tiles": [
     {
-      "Type": 55,
+      "Type": "GroundTile",
       "Children": [
         {
           "Coordinates": [
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "Type": 64,
+      "Type": "WallLeftY",
       "Children": [
         {
           "Coordinates": [
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "Type": 65,
+      "Type": "WallRightY",
       "Children": [
         {
           "Coordinates": [
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "Type": 73,
+      "Type": "WallLeftYFlip",
       "Children": [
         {
           "Coordinates": [
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "Type": 72,
+      "Type": "WallRightYFlip",
       "Children": [
         {
           "Coordinates": [
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "Type": 61,
+      "Type": "WallLeftX",
       "Children": [
         {
           "FlipY": true,
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "Type": 62,
+      "Type": "WallRightX",
       "Children": [
         {
           "FlipY": true,
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "Type": 59,
+      "Type": "WallX",
       "Children": [
         {
           "FlipY": true,
@@ -116,7 +116,7 @@
       ]
     },
     {
-      "Type": 70,
+      "Type": "WallY",
       "Children": [
         {
           "Coordinates": [

@@ -1,0 +1,130 @@
+{
+  "X": 8,
+  "Y": 4,
+  "GroundColor": 1,
+  "AccentColor": 2,
+  "Tiles": [
+    {
+      "Type": "PondCenter",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            0,
+            0,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            0,
+            15,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            6,
+            15,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Dock",
+      "Children": [
+        {
+          "Coordinates": [
+            15,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottom",
+      "Children": [
+        {
+          "Coordinates": [
+            1,
+            0,
+            14,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            1,
+            1,
+            1,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            1,
+            14,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            1,
+            9,
+            14,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTop",
+      "Children": [
+        {
+          "Coordinates": [
+            2,
+            1,
+            13,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "Transition": {
+            "X": 1
+          },
+          "Coordinates": [
+            15,
+            5
+          ]
+        },
+        {
+          "TileType": "Door",
+          "Transition": {
+            "Name": "Q1C1",
+            "IsCastle": true,
+            "X": 2
+          },
+          "Coordinates": [
+            7,
+            6
+          ]
+        }
+      ]
+    }
+  ]
+}

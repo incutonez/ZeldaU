@@ -116,30 +116,6 @@ MonoBehaviour:
     - FX
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 01aa2bbae40031041a8b545cde1f6a00
-    m_Address: Overworld_70
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 487fc687338845b449778519d7ddd8f7
-    m_Address: Overworld_80
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: d4b1387edea50c24c9c765abe2f8b939
-    m_Address: Overworld_81
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 2bcbbaf26ae22de4ebb75c69c701b306
-    m_Address: OverworldShop
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 97d1ac71e9f658a4cb19fce5a1883240
     m_Address: Sprites/castle
     m_ReadOnly: 0
@@ -181,6 +157,13 @@ MonoBehaviour:
     m_Address: Castles_Q1C1_30
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 22c78fedc87646649bcfd0f6fa7bd59c
+    m_Address: Data/Overworld
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Overworld
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

@@ -1,0 +1,141 @@
+{
+  "X": 9,
+  "Y": 3,
+  "GroundColor": 1,
+  "AccentColor": 2,
+  "Tiles": [
+    {
+      "Type": "Bush",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            0,
+            6,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            0,
+            15,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            2,
+            2,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            2,
+            15,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            9,
+            15,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "PondCenter",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            7,
+            5,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "PondBottom",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            6,
+            5,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "PondCenterRight",
+      "Children": [
+        {
+          "Coordinates": [
+            6,
+            7,
+            6,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "PondBottomRight",
+      "Children": [
+        {
+          "Coordinates": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "Transition": {
+            "X": -1
+          },
+          "Coordinates": [
+            0,
+            4,
+            0,
+            5
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            7,
+            0,
+            8,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            7,
+            10,
+            8,
+            10
+          ]
+        }
+      ]
+    }
+  ]
+}

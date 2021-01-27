@@ -29,10 +29,24 @@ namespace World
             ScreenId = screenId;
             transform.name = screenId;
             ViewModel.Grid scene = null;
-            yield return Manager.FileSystem.LoadJson(ScreenId, (response) =>
+            if (Manager.Game.Graphics.Screens.ContainsKey(screenId))
             {
-                scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
-            });
+                scene = JsonConvert.DeserializeObject<ViewModel.Grid>(Manager.Game.Graphics.Screens[screenId]);
+            }
+            // If we don't have a transition OR the transition isn't floating, then we've got a scene to load
+            else if (transition == null || !transition.IsFloating)
+            {
+                yield return Manager.FileSystem.LoadJson(ScreenId, (response) =>
+                {
+                    scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
+                });
+            }
+            /* Otherwise, let's use the transition's template as our base scene... this is for things like shops and castle keeps...
+             * they're disconnected from the rest of the level and floating in the nebula */
+            else if (transition.Template.HasValue)
+            {
+                scene = Manager.Game.Graphics.Templates[transition.Template.Value];
+            }
             if (scene.Template.HasValue && scene.Template.Value != ScreenTemplates.Plain)
             {
                 scene.Tiles.AddRange(Manager.Game.Graphics.Templates[scene.Template.Value].Tiles);
@@ -273,6 +287,7 @@ namespace World
             Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals);
             Grid.EachCell((viewModel, x, y) =>
             {
+                // TODO: Potentially don't generate meshes for non-view models?
                 // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
                 Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
                 Vector2[] colliderShape = viewModel.GetColliderShape();

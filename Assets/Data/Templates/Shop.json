@@ -3,7 +3,7 @@
   "GroundColor": 8,
   "Tiles": [
     {
-      "Type": 39,
+      "Type": "WallBottom",
       "Children": [
         {
           "Coordinates": [
@@ -48,7 +48,7 @@
       ]
     },
     {
-      "Type": 42,
+      "Type": "WallTop",
       "Children": [
         {
           "Coordinates": [
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "Type": 100,
+      "Type": "Transition",
       "Children": [
         {
           "Transition": {

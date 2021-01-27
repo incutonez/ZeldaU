@@ -5,7 +5,7 @@
   "GroundColor": 1,
   "Tiles": [
     {
-      "Type": 21,
+      "Type": "Rock",
       "Children": [
         {
           "Coordinates": [
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "Type": 39,
+      "Type": "WallBottom",
       "Children": [
         {
           "Coordinates": [
@@ -107,7 +107,7 @@
       ]
     },
     {
-      "Type": 41,
+      "Type": "WallBottomRight",
       "Children": [
         {
           "Coordinates": [
@@ -118,7 +118,7 @@
       ]
     },
     {
-      "Type": 43,
+      "Type": "WallTopLeft",
       "Children": [
         {
           "Coordinates": [
@@ -135,7 +135,7 @@
       ]
     },
     {
-      "Type": 40,
+      "Type": "WallBottomLeft",
       "Children": [
         {
           "Coordinates": [
@@ -152,7 +152,7 @@
       ]
     },
     {
-      "Type": 42,
+      "Type": "WallTop",
       "Children": [
         {
           "Coordinates": [
@@ -165,7 +165,7 @@
       ]
     },
     {
-      "Type": 100,
+      "Type": "Transition",
       "Children": [
         {
           "Transition": {
@@ -201,69 +201,78 @@
       ]
     }
   ],
-  "Items": [{
-    "Item": {
-      "Type": 35
+  "Items": [
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        1,
+        4
+      ]
     },
-    "Coordinates": [
-      1,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        2,
+        4
+      ]
     },
-    "Coordinates": [
-      2,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        3,
+        4
+      ]
     },
-    "Coordinates": [
-      3,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        4,
+        4
+      ]
     },
-    "Coordinates": [
-      4,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        5,
+        4
+      ]
     },
-    "Coordinates": [
-      5,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        6,
+        4
+      ]
     },
-    "Coordinates": [
-      6,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        7,
+        4
+      ]
     },
-    "Coordinates": [
-      7,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 35
-    },
-    "Coordinates": [
-      8,
-      4
-    ]
-  }]
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        8,
+        4
+      ]
+    }
+  ]
 }

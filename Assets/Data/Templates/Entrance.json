@@ -1,7 +1,7 @@
 {
   "Tiles": [
     {
-      "Type": 66,
+      "Type": "CastleSand",
       "Children": [
         {
           "Coordinates": [
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "Type": 57,
+      "Type": "Statue1",
       "Children": [
         {
           "Coordinates": [
@@ -63,7 +63,7 @@
       ]
     },
     {
-      "Type": 58,
+      "Type": "Statue2",
       "Children": [
         {
           "Coordinates": [

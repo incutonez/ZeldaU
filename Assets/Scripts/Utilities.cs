@@ -133,12 +133,13 @@ public static class Utilities
         Vector3[] normals
     )
     {
-        Vector3 baseSize = tile.GetQuadSize();
-        Vector3 position = tile.GetWorldPosition();
+        Vector3 baseSize = tile.QuadSize;
+        Vector3 position = tile.CenterPosition;
         float rotation = tile.Rotation;
+        Vector2 uv00 = tile.UV00;
+        Vector2 uv11 = tile.UV11;
         // TODO: How does this work if we have multiple colors?
         Color? color = tile.GetColor();
-        tile.GetUVCoordinates(out Vector2 uv00, out Vector2 uv11);
 
         //Relocate vertices
         int vIndex = index * 4;

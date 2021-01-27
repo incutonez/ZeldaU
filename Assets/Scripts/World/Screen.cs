@@ -137,7 +137,7 @@ namespace World
                                     if (viewModel != null)
                                     {
                                         // TODO: Will I ever need to pass in a color?
-                                        viewModel.Initialize(tileType, color, i, j, rotation, flipX, flipY);
+                                        viewModel.Initialize(tileType, color, position, rotation, flipX, flipY);
                                     }
                                 }
                             }

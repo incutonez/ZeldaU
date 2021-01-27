@@ -1,6 +1,5 @@
 using Audio;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace World
@@ -121,6 +120,10 @@ namespace World
             {
                 CurrentScreen = parent.gameObject.GetComponent<Screen>();
             }
+            if (CurrentScreen.GroundColor.HasValue)
+            {
+                Camera.main.backgroundColor = CurrentScreen.GroundColor.Value;
+            }
             Manager.Game.Pathfinder.Grid = CurrentScreen.Grid;
             CurrentScreen.ToggleActive(true);
         }
@@ -165,7 +168,7 @@ namespace World
             }
             if (InCastle)
             {
-                screenId = $"{Constants.PATH_CASTLE}{CurrentCastle}/{screenId}";
+                screenId = $"{Constants.PATH_CASTLE}{CurrentCastle}_{screenId}";
             }
             else
             {

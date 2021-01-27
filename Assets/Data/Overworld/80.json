@@ -1,6 +1,7 @@
 {
   "X": 8,
   "Y": 0,
+  "GroundColor": 1,
   "AccentColor": 2,
   "Tiles": [
     {
@@ -233,22 +234,26 @@
                 ]
               }
             ],
-            "Items": [{
+            "Items": [
+              {
                 "Item": {
-                    "Type": 32
+                  "Type": 32
                 },
                 "Coordinates": [
-                    8,
-                    5
+                  8,
+                  5
                 ]
-            }],
-            "Characters": [{
+              }
+            ],
+            "Characters": [
+              {
                 "Type": 4,
                 "Coordinates": [
-                    7.5,
-                    6
+                  7.5,
+                  6
                 ]
-            }]
+              }
+            ]
           },
           "Coordinates": [
             4,
@@ -258,69 +263,78 @@
       ]
     }
   ],
-  "Items": [{
-    "Item": {
-      "Type": 3
+  "Items": [
+    {
+      "Item": {
+        "Type": 3
+      },
+      "Coordinates": [
+        5,
+        4
+      ]
     },
-    "Coordinates": [
-      5,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 4
+    {
+      "Item": {
+        "Type": 4
+      },
+      "Coordinates": [
+        6,
+        4
+      ]
     },
-    "Coordinates": [
-      6,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 6
+    {
+      "Item": {
+        "Type": 6
+      },
+      "Coordinates": [
+        7,
+        4
+      ]
     },
-    "Coordinates": [
-      7,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 7
+    {
+      "Item": {
+        "Type": 7
+      },
+      "Coordinates": [
+        8,
+        4
+      ]
     },
-    "Coordinates": [
-      8,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 11
+    {
+      "Item": {
+        "Type": 11
+      },
+      "Coordinates": [
+        9,
+        4
+      ]
     },
-    "Coordinates": [
-      9,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 12
+    {
+      "Item": {
+        "Type": 12
+      },
+      "Coordinates": [
+        10,
+        4
+      ]
     },
-    "Coordinates": [
-      10,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 21
+    {
+      "Item": {
+        "Type": 21
+      },
+      "Coordinates": [
+        11,
+        4
+      ]
     },
-    "Coordinates": [
-      11,
-      4
-    ]
-  }, {
-    "Item": {
-      "Type": 36
-    },
-    "Coordinates": [
-      12,
-      4
-    ]
-  }]
+    {
+      "Item": {
+        "Type": 36
+      },
+      "Coordinates": [
+        12,
+        4
+      ]
+    }
+  ]
 }

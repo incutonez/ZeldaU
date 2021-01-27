@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8c52899-ae3e-4585-986e-61d91aaa7db4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Quests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Quests/1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Quests/1/Castle1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Quests/1/Castle1/20.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Quests/1/Castle1/20.json.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Quests/2.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scripts/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scripts/EnemyHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/EnemyHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scripts/Enums/WorldColors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/Enums/WorldColors.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Overworld/80.json" beforeDir="false" afterPath="$PROJECT_DIR$/Overworld/80.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scripts/Manager/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/Manager/Game.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scripts/ViewModel/Grid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/ViewModel/Grid.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scripts/World/Builder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/World/Builder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scripts/World/Screen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/World/Screen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sprites/castle.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Sprites/castle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +44,8 @@
       <workItem from="1611618947986" duration="26000" />
       <workItem from="1611618999751" duration="4174000" />
       <workItem from="1611628897232" duration="3753000" />
+      <workItem from="1611706596188" duration="9000" />
+      <workItem from="1611706627845" duration="13000" />
     </task>
     <servers />
   </component>

@@ -117,25 +117,25 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 01aa2bbae40031041a8b545cde1f6a00
-    m_Address: Overworld/70
+    m_Address: Overworld_70
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 487fc687338845b449778519d7ddd8f7
-    m_Address: Overworld/80
+    m_Address: Overworld_80
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: d4b1387edea50c24c9c765abe2f8b939
-    m_Address: Overworld/81
+    m_Address: Overworld_81
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 2bcbbaf26ae22de4ebb75c69c701b306
-    m_Address: Overworld/Shop
+    m_Address: OverworldShop
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
@@ -166,19 +166,19 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 01492079565385c4dab9dff6816dbc57
-    m_Address: Castles/Q1C1/20
+    m_Address: Castles_Q1C1_20
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: a6e1dda887d724140888dc260d9d3368
-    m_Address: Castles/Q1C1/10
+    m_Address: Castles_Q1C1_10
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: c922d61102744244f92e5e6a73bb01bd
-    m_Address: Castles/Q1C1/30
+    m_Address: Castles_Q1C1_30
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

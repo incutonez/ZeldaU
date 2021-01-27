@@ -13,7 +13,7 @@ namespace World
     /// TODO: Use https://www.zeldadungeon.net/the-legend-of-zelda-walkthrough/level-1-the-eagle/ to generate enemies in levels
     public class Screen : MonoBehaviour
     {
-        public Color GroundColor { get; set; }
+        public Color? GroundColor { get; set; }
         public Grid<GridNode> Grid { get; set; }
         public bool GridNeedsRefresh { get; set; }
         public string ScreenId { get; set; }
@@ -41,7 +41,10 @@ namespace World
             {
                 scene.Tiles.InsertRange(0, Manager.Game.Graphics.Templates[ScreenTemplates.Base].Tiles);
             }
-            GroundColor = (scene.GroundColor ?? WorldColors.Tan).GetColor();
+            if (scene.GroundColor.HasValue)
+            {
+                GroundColor = scene.GroundColor.GetColor();
+            }
             Build(scene);
             if (transition != null)
             {
@@ -97,7 +100,7 @@ namespace World
                 {
                     Tiles tileType = screenTile.Type;
                     // Order of priority
-                    WorldColors color = screenTile.AccentColor ?? scene.AccentColor ?? WorldColors.White;
+                    WorldColors? color = screenTile.AccentColor ?? scene.AccentColor;
                     foreach (ViewModel.TileChild child in screenTile.Children)
                     {
                         List<float> coordinates = child.Coordinates;
@@ -229,7 +232,7 @@ namespace World
             if (door != null)
             {
                 Door worldDoor = door.GetComponent<Door>();
-                worldDoor.Initialize(GroundColor, transition);
+                worldDoor.Initialize(GroundColor.Value, transition);
                 WorldDoors.Add(worldDoor);
             }
         }
@@ -267,11 +270,11 @@ namespace World
             int height = Grid.Height;
             PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
             polygonCollider.pathCount = 0;
-            Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors2, out Vector3[] normals);
+            Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals);
             Grid.EachCell((viewModel, x, y) =>
             {
                 // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
-                Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors2, normals);
+                Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
                 Vector2[] colliderShape = viewModel.GetColliderShape();
                 if (colliderShape != null)
                 {
@@ -283,6 +286,7 @@ namespace World
             Mesh.vertices = vertices;
             Mesh.uv = uvs;
             Mesh.triangles = triangles;
+            Mesh.colors = colors;
             Mesh.normals = normals;
         }
 

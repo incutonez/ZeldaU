@@ -6,6 +6,9 @@ Sprites
 -- http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/items.png
 - Castles (Master Mike and Goombario of Zants Zebeth for map layout)
 -- http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/tiles-dungeon-2.png
+- Overworld
+-- https://nesmaps.com/maps/Zelda/ZeldaOverworldQ1.html
+-- https://nesmaps.com/maps/Zelda/ZeldaOverworldQ2.html
 Sounds
 - https://www.sounds-resource.com/nes/legendofzelda/sound/4590/
 - http://noproblo.dayjo.org/ZeldaSounds/ (for naming sound effects)

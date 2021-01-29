@@ -2,7 +2,7 @@
   "X": 8,
   "Y": 4,
   "GroundColor": 1,
-  "AccentColor": 2,
+  "AccentColor": 3,
   "Tiles": [
     {
       "Type": "PondCenter",
@@ -78,6 +78,14 @@
             14,
             10
           ]
+        },
+        {
+          "Coordinates": [
+            14,
+            6,
+            14,
+            8
+          ]
         }
       ]
     },
@@ -96,6 +104,157 @@
           "Coordinates": [
             14,
             4
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeTopLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            4,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeTopRight",
+      "Children": [
+        {
+          "Coordinates": [
+            5,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            8,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeBottomRight",
+      "Children": [
+        {
+          "Coordinates": [
+            5,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            8,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeBottomLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            4,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeTop",
+      "Children": [
+        {
+          "Coordinates": [
+            7,
+            7
           ]
         }
       ]

@@ -28,9 +28,12 @@ namespace World
         public void Initialize(ViewModel.Grid transition)
         {
             ViewModel = transition;
-            // We have to make sure our position gets the offset by the x and y transition values... this is because we want
-            // the transition just outside of the world space, really in the "negative" world space
-            transform.position += new Vector3(transition.X, transition.Y);
+            if (transition.Name != Constants.TRANSITION_BACK)
+            {
+                // We have to make sure our position gets the offset by the x and y transition values... this is because we want
+                // the transition just outside of the world space, really in the "negative" world space
+                transform.position += new Vector3(transition.X, transition.Y);
+            }
         }
     }
 }

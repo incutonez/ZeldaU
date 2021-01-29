@@ -217,6 +217,8 @@
             "Name": "WoodenSwordShop",
             "Template": "Shop",
             "IsFloating": true,
+            "X": 8,
+            "Y": 0,
             "Tiles": [
               {
                 "Type": "Fire",

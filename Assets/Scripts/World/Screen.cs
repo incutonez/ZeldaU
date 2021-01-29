@@ -17,6 +17,7 @@ namespace World
         public Grid<GridNode> Grid { get; set; }
         public bool GridNeedsRefresh { get; set; }
         public string ScreenId { get; set; }
+        public ViewModel.Grid ViewModel { get; set; }
 
         private Mesh Mesh { get; set; }
         private List<Door> WorldDoors { get; set; }
@@ -28,40 +29,42 @@ namespace World
             WorldDoors = new List<Door>();
             ScreenId = screenId;
             transform.name = screenId;
-            ViewModel.Grid scene = null;
             if (Manager.Game.Graphics.Screens.ContainsKey(screenId))
             {
-                scene = JsonConvert.DeserializeObject<ViewModel.Grid>(Manager.Game.Graphics.Screens[screenId]);
+                ViewModel = JsonConvert.DeserializeObject<ViewModel.Grid>(Manager.Game.Graphics.Screens[screenId]);
             }
             // If we don't have a transition OR the transition isn't floating, then we've got a scene to load
             else if (transition == null || !transition.IsFloating)
             {
                 yield return Manager.FileSystem.LoadJson(ScreenId, (response) =>
                 {
-                    scene = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
+                    ViewModel = JsonConvert.DeserializeObject<ViewModel.Grid>(response);
                 });
             }
             /* Otherwise, let's use the transition's template as our base scene... this is for things like shops and castle keeps...
              * they're disconnected from the rest of the level and floating in the nebula */
             else if (transition.Template.HasValue)
             {
-                scene = Manager.Game.Graphics.Templates[transition.Template.Value];
+                ViewModel = Manager.Game.Graphics.Templates[transition.Template.Value];
             }
-            if (scene.Template.HasValue && scene.Template.Value != ScreenTemplates.Plain)
+            if (ViewModel.Template.HasValue && ViewModel.Template.Value != ScreenTemplates.Plain)
             {
-                scene.Tiles.AddRange(Manager.Game.Graphics.Templates[scene.Template.Value].Tiles);
+                ViewModel.Tiles.AddRange(Manager.Game.Graphics.Templates[ViewModel.Template.Value].Tiles);
             }
             if (Manager.Game.Scene.InCastle)
             {
-                scene.Tiles.InsertRange(0, Manager.Game.Graphics.Templates[ScreenTemplates.Base].Tiles);
+                ViewModel.Tiles.InsertRange(0, Manager.Game.Graphics.Templates[ScreenTemplates.Base].Tiles);
             }
-            if (scene.GroundColor.HasValue)
+            if (ViewModel.GroundColor.HasValue)
             {
-                GroundColor = scene.GroundColor.GetColor();
+                GroundColor = ViewModel.GroundColor.GetColor();
             }
-            Build(scene);
+            Build(ViewModel);
             if (transition != null)
             {
+                ViewModel.X = transition.X;
+                ViewModel.Y = transition.Y;
+                ViewModel.IsFloating = transition.IsFloating;
                 Build(transition);
             }
         }

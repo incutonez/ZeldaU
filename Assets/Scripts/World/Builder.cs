@@ -16,10 +16,10 @@ namespace World
         public Transform ScreensContainer { get; set; }
         public bool InCastle { get; set; }
         public string CurrentCastle { get; set; }
+        public int CurrentX { get; set; }
+        public int CurrentY { get; set; }
 
         private Vector3 OverworldPosition { get; set; } = Vector3.zero;
-        private int CurrentX { get; set; } = 8;
-        private int CurrentY { get; set; } = 0;
         private Screen CurrentScreen { get; set; }
         private Screen PreviousScreen { get; set; }
 
@@ -164,6 +164,16 @@ namespace World
             else if (screenId == Constants.TRANSITION_BACK)
             {
                 InCastle = false;
+                if (CurrentScreen.ViewModel.IsFloating)
+                {
+                    CurrentX = CurrentScreen.ViewModel.X;
+                    CurrentY = CurrentScreen.ViewModel.Y;
+                }
+                else
+                {
+                    CurrentX = transition.X;
+                    CurrentY = transition.Y;
+                }
                 screenId = $"{CurrentX}{CurrentY}";
             }
             if (InCastle)

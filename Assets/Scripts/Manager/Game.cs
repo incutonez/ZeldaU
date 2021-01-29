@@ -54,6 +54,8 @@ namespace Manager
                     Name = "80"
                 });
             }
+            Scene.CurrentX = 8;
+            Scene.CurrentY = 0;
             Player.gameObject.SetActive(true);
             OnLaunch?.Invoke(this, EventArgs.Empty);
         }

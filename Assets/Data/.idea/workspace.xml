@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8c52899-ae3e-4585-986e-61d91aaa7db4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Overworld/90.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Overworld/90.json.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Overworld/91.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Overworld/91.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Castles/Q1C1/10.json" beforeDir="false" afterPath="$PROJECT_DIR$/Castles/Q1C1/10.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Castles/Q1C1/20.json" beforeDir="false" afterPath="$PROJECT_DIR$/Castles/Q1C1/20.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Castles/Q1C1/30.json" beforeDir="false" afterPath="$PROJECT_DIR$/Castles/Q1C1/30.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Overworld/70.json" beforeDir="false" afterPath="$PROJECT_DIR$/Overworld/70.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Overworld/80.json" beforeDir="false" afterPath="$PROJECT_DIR$/Overworld/80.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Overworld/81.json" beforeDir="false" afterPath="$PROJECT_DIR$/Overworld/81.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Overworld/Shop.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Overworld/Shop.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Overworld/84.json" beforeDir="false" afterPath="$PROJECT_DIR$/Overworld/84.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Templates/Base.json" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/Base.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Templates/Blocks2X3Columns.json" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/Blocks2X3Columns.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Templates/Entrance.json" beforeDir="false" afterPath="$PROJECT_DIR$/Templates/Entrance.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scripts/Enums/Tiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Scripts/Enums/Tiles.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +15,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1nMQjQ4Hv6IWGmxqK4zfym1AtZV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -59,7 +54,8 @@
       <workItem from="1611628897232" duration="3753000" />
       <workItem from="1611706596188" duration="9000" />
       <workItem from="1611706627845" duration="2409000" />
-      <workItem from="1611716316277" duration="7387000" />
+      <workItem from="1611716316277" duration="7678000" />
+      <workItem from="1611877469919" duration="4578000" />
     </task>
     <servers />
   </component>

@@ -162,6 +162,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -171,8 +172,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1204,6 +1205,53 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Food: 6395214293025444372
+      HeartHalf: 6314550479633173585
+      Bomb: 6099581493293703690
+      Letter: -4058434812019303673
+      ShieldMagicalSide: 3864835576925441180
+      MagicBook: -5428206428529569624
+      Heart: 2614870373251885436
+      PowerBracelet: 8391431092616798930
+      Fairy1: 6738218706411903907
+      Ladder: 1122774824596591943
+      Raft: 6077338267653451029
+      RupeeFive: -6102374392529501751
+      Map: 8436657204533251546
+      BoomerangMagical: 6355480216337973169
+      Clock: -7583409310137716746
+      KeySkeleton: -9098891631924085042
+      ShieldMagical: -4278747916818796210
+      PotionRed: 6761164967045977113
+      ArrowSilver: -732356172534689064
+      SwordWhite: 7306274148607722714
+      HeartContainer: -4538752222985096420
+      SwordMagical: -7121528990389113491
+      RingRed: 9216205297631055959
+      HeartAlt: -2693009140137883590
+      Boomerang: -7833671090200325546
+      PotionBlue: 8132948862792318974
+      Candle: 5508725064705088119
+      CandleRed: -8561806557982860685
+      Arrow: 980155311395259703
+      SwordMagicalPickup: 6191716412420617325
+      Wand: 1784186740104572286
+      HeartEmpty: -2291968272303781032
+      RingBlue: -68751727340038015
+      Sword: -7162647019817104946
+      RingGreen: 3158488010477605343
+      None: -851246318378289833
+      Flute: 7911235102323647998
+      TriforceShardAlt: 5947598201806246533
+      Compass: -956252262595852801
+      TriforceShard: 124106431076995637
+      Fairy2: -6338023803479276477
+      Shield: 6908069387385937300
+      Bow: 5860025163644826426
+      Key: 4533227004153260592
+      ShieldSide: 9130684549513820550
+      RupeeOne: 2586642229955333766
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

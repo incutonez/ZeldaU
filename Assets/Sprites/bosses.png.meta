@@ -183,6 +183,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -192,8 +193,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1372,6 +1373,60 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      DodongoDown1: 2064433155502169310
+      DodongoUp2: -3948276405869350730
+      Ganon2: -1245093218990706483
+      Aquamentus1: -7593777287308456034
+      Digdogger1: 3568442513025048780
+      DodongoUpBomb: -871959816945802432
+      Gleeok3: -4556899741528890791
+      GohmaOpen: -765296428086621284
+      Digdogger2: 6113965770452055580
+      DigdoggerPiece2: -6306598192752602289
+      Manhandla3: 3166690293335779682
+      DodongoDownBomb: -7123484847485939441
+      GohmaBlue1: 180437529711045322
+      Gleeok2: -4960432042422834291
+      GanonRed1: -5681876435324643791
+      DodongoRight1: -5173363477203909298
+      Gleeok1: -5710202363144185006
+      Aquamentus3: 4246582678940652525
+      GleeokHead: 6105738643464739629
+      DodongoLeftBomb: -3927680372460468211
+      GanonGibs: 5068177111274062500
+      Ganon5: 3664271616263302216
+      Manhandla4: 6947155645052117052
+      Aquamentus4: 6232865802514645271
+      DodongoLeft1: 8796537411668001247
+      Manhandla8: -6147682794847314380
+      DodongoUp1: -4093085320923484961
+      GohmaBlueOpening: -577954158761651032
+      GohmaOpening: -521403183828226010
+      Gohma1: 8516660908276426063
+      GleeokHeadFloating: -5421599474841123167
+      GohmaBlueOpen: 3895467382594329204
+      DodongoRightBomb: -2349548215765263666
+      Manhandla2: 5410969864187538442
+      DodongoLeft2: -1669125294780471889
+      Manhandla9: 4700113224682058695
+      Ganon3: -7285216882985631334
+      Manhandla5: 447957217150679854
+      Manhandla7: -447695437470004435
+      DodongoRight2: -8859655405251010893
+      GleeokNeck: 2764767178426016382
+      Manhandla1: -7145520778489453487
+      Ganon1: -2996767656989867865
+      Manhandla6: -2226534019134032359
+      Triforce1: 7403276703900467889
+      Ganon4: -8839098342761418118
+      Triforce2: 4195642441725766518
+      DodongoDown2: -1585361144359886926
+      GohmaBlue2: -9066361492974771114
+      DigdoggerPiece1: 7090703288174320326
+      Aquamentus2: -8050505381868735831
+      GanonRed2: 6032609180534333008
+      Gohma2: 4008449916828762133
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -105,8 +106,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -514,7 +515,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 79fe11eba85988490800000000000000
-      internalID: -7743775136136695913
+      internalID: -1989942068965715067
       vertices: []
       indices: 
       edges: []
@@ -676,6 +677,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      GroundTile: -4158710450684444814
+      WallRightY: -5119980863986964875
+      WallKeep: -8338805312295432353
+      WallLeftY: -3912771823451007086
+      DoorClosedX: -4860844454453048527
+      CastleSand: -5853191270310667760
+      WallLeftX: -145931186996790647
+      WallRightYFlip: -2754428959235553714
+      CastleWater: -3623823689492173423
+      DoorLockedY: 1012419091630331881
+      DoorUnlockedY: -6442752708971868256
+      DoorLockedX: -3479832052722871984
+      StairsKeep: -4930899982216085204
+      WallX: 777967326503817377
+      WallRightX: -6713637968961796653
+      DoorClosedY: -5853110265339956700
+      Statue1: 4466985803740509904
+      WallHoleY: -1275497654853739782
+      Statue2: -3866869904939141465
+      WallHoleX: 1726393260581370977
+      WallLeftYFlip: 1793556096956993585
+      Block: 8274383364455029367
+      DoorUnlockedX: -3259637682033831952
+      WallY: -1989942068965715067
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

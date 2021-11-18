@@ -183,6 +183,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -192,8 +193,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1372,6 +1373,60 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      SandTop: -5458740393876003064
+      WallBottom: -8644593093484909340
+      CastleTop: 1826280107833444203
+      PondBottomRight: -6905793694962314050
+      PondCenter: -5972597597297931649
+      WaterTopLeft: -4963597067212377420
+      TreeBottomLeft: 684212472578332464
+      Water: -3129611663839986212
+      WaterBottomLeft: -7851885782635189584
+      PondTopRight: 1470436978323269833
+      SandBottom: -3820175090990931687
+      SandCenter: 7130034617087426014
+      Door: 4490829510226973348
+      PondCenterLeft: 85521303613447638
+      SandTopRight: -6805913185528210346
+      TreeTopRight: 8371661577571925076
+      TreeBottomRight: 3543559829158192265
+      Grave: -5517558905484807295
+      PondTop: 8751719262902437736
+      CastleTopLeft: 2548211583851263412
+      WallBottomLeft: -478943163373133410
+      WallTopLeft: 2695674270406432754
+      TreeTopLeft: 1006196491347366825
+      CastleBottomRight: 4377219999084441888
+      CastleBottomLeft: 6459640342561343018
+      SandCenterLeft: 1739609419887026453
+      CastleTopLeftAlt: -3739403658671949148
+      CastleTopRight: -6316070039206261184
+      WallTop: 7068196587302356019
+      Transparent: -4096046942592279390
+      StairsUp: -5142844195294041718
+      WallTopRight: 8085280823362815864
+      TreeTop: -2735189169244824230
+      StairsDown: -4080059513915566121
+      PondTopLeft: 275931782737832653
+      SandTopLeft: 1281644425135866477
+      Fire: -3587646122709399558
+      Dock: -9055754803560951540
+      Rock: 8518639827713111222
+      Statue: -6253889087624368431
+      WaterTopRight: 6795650602465171133
+      SandCenterRight: 8503986202999718202
+      PondBottom: 8765707187099995131
+      Bush: 3191702778974358099
+      WallBottomRight: -8719365409845621014
+      PondBottomLeft: -5701021625457352286
+      CastleTopRightAlt: 6109274510764188502
+      SandBottomLeft: -1702947949817587758
+      WaterBottomRight: -7443896687371024656
+      PondCenterRight: 253980619748251851
+      SandBottomRight: -7928788362898456897
+      FireAlt: -889774518682723687
+      CastleTopAlt: -8932716285397574761
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

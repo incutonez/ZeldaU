@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -60,8 +61,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -316,6 +317,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ZeldaTriforce1_IdleDown: -6066236442320969475
+      ZeldaTriforce2_IdleDown: 1893670189769602202
+      OldMan2_IdleDown: -517894308114096243
+      Merchant_IdleDown: -3557554893070573299
+      Fairy_WalkDown: -417436994572597314
+      Fairy_IdleDown: -5691007311618604778
+      OldWoman_IdleDown: 7755224123621818408
+      OldMan_IdleDown: 3083089168873209362
+      Zelda_IdleDown: -4256427906160430202
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

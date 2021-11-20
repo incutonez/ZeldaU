@@ -1,0 +1,216 @@
+﻿{
+  "X": 1,
+  "Y": 0,
+  "AccentColor": "Brown",
+  "GroundColor": "Tan",
+  "Tiles": [
+    {
+      "Type": "WallBottom",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            0,
+            15,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            1,
+            15,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            2,
+            15,
+            2
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            8,
+            15,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            9,
+            15,
+            9
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            10,
+            9,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            10,
+            15,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            9,
+            2,
+            9
+          ]
+        },
+        {
+          "Coordinates": [
+            5,
+            9,
+            8,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTop",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            1,
+            12,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTopLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            13,
+            2
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTopRight",
+      "Children": [
+        {
+          "Coordinates": [
+            15,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomRight",
+      "Children": [
+        {
+          "Coordinates": [
+            15,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            9
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            4,
+            9
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            9
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "Transition": {
+            "X": -1
+          },
+          "Coordinates": [
+            0,
+            2,
+            0,
+            8
+          ]
+        },
+        {
+          "Transition": {
+            "X": 1
+          },
+          "Coordinates": [
+            15,
+            4,
+            15,
+            6
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            10,
+            10,
+            11,
+            10
+          ]
+        }
+      ]
+    }
+  ]
+}

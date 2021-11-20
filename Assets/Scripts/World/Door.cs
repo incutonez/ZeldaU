@@ -25,7 +25,7 @@ namespace World
             {
                 return;
             }
-            if (collision.name == Constants.PLAYER_TRANSITION)
+            if (collision.name == Constants.PlayerTransition)
             {
                 ToggleHiddenDoor(true);
                 Manager.Game.Scene.StartEnterDoor(Transition);

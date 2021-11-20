@@ -129,7 +129,7 @@ namespace Manager
             {
                 foreach (KeyValuePair<string, string> item in response)
                 {
-                    Screens.Add($"{Constants.PATH_OVERWORLD}{item.Key}", item.Value);
+                    Screens.Add($"{Constants.PathOverworld}{item.Key}", item.Value);
                 }
             });
         }

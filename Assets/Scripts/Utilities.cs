@@ -10,7 +10,7 @@ public static class Utilities
 
     public static float HexToDec(string hex)
     {
-        return Convert.ToInt32(hex, 16) / Constants.MAX_RGB;
+        return Convert.ToInt32(hex, 16) / Constants.MaxRGB;
     }
 
     public static void SetInterval(Action action, float timeout)
@@ -32,7 +32,7 @@ public static class Utilities
 
     public static int GetRandomInt(int max = 0, int min = 0)
     {
-        return Constants.RANDOM_GENERATOR.Next(min, max);
+        return Constants.RandomGenerator.Next(min, max);
     }
 
     public static List<Dictionary<Animations, List<Sprite>>> ColorAnimations(
@@ -70,7 +70,7 @@ public static class Utilities
     {
         Texture2D replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
         ReplaceColors(replacement, replaceColors);
-        return Sprite.Create(replacement, oldSprite.rect, Constants.SPRITE_DEFAULT_PIVOT, oldSprite.pixelsPerUnit);
+        return Sprite.Create(replacement, oldSprite.rect, Constants.SpriteDefaultPivot, oldSprite.pixelsPerUnit);
     }
 
     public static void ReplaceColors(Texture2D texture, Color[] replaceColors = null)
@@ -99,7 +99,7 @@ public static class Utilities
 
     public static Vector3 GetRandomCoordinates()
     {
-        return new Vector3(GetRandomInt(Constants.GRID_COLUMNS), GetRandomInt(Constants.GRID_ROWS));
+        return new Vector3(GetRandomInt(Constants.GridColumns), GetRandomInt(Constants.GridRows));
     }
 
     public static Vector3 GetRandomDir()
@@ -125,7 +125,7 @@ public static class Utilities
     // Copied from CodeMonkey's MeshUtils and tweaked for colors
     public static void AddToMesh(
         int index,
-        World.GridNode tile,
+        World.GridCell tile,
         Vector3[] vertices,
         Vector2[] uvs,
         int[] triangles,

@@ -1,236 +1,191 @@
 {
-  "X": 9,
-  "Y": 0,
+  "X": 8,
+  "Y": 2,
   "GroundColor": 1,
   "AccentColor": 2,
   "Tiles": [
-    {
-      "Type": "WallBottom",
-      "Children": [
-        {
-          "Coordinates": [
-            0,
-            0,
-            1,
-            2
-          ]
-        },
-        {
-          "Coordinates": [
-            0,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
-            0,
-            8,
-            1,
-            10
-          ]
-        },
-        {
-          "Coordinates": [
-            0,
-            7
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "WallTopRight",
-      "Children": [
-        {
-          "Coordinates": [
-            0,
-            4
-          ]
-        },
-        {
-          "Coordinates": [
-            1,
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "WallBottomRight",
-      "Children": [
-        {
-          "Coordinates": [
-            0,
-            6
-          ]
-        },
-        {
-          "Coordinates": [
-            1,
-            7
-          ]
-        }
-      ]
-    },
     {
       "Type": "Bush",
       "Children": [
         {
           "Coordinates": [
-            2,
             0,
-            15,
+            0,
+            2,
             1
           ]
         },
         {
           "Coordinates": [
-            2,
-            4
-          ]
-        },
-        {
-          "Coordinates": [
-            2,
-            6
-          ]
-        },
-        {
-          "Coordinates": [
-            2,
-            9,
-            2,
-            10
-          ]
-        },
-        {
-          "Coordinates": [
             4,
-            4
-          ]
-        },
-        {
-          "Coordinates": [
+            0,
             4,
-            6
-          ]
-        },
-        {
-          "Coordinates": [
-            4,
-            9,
-            4,
-            10
+            1
           ]
         },
         {
           "Coordinates": [
             6,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
+            0,
             6,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            6,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            6,
-            9,
-            6,
-            10
+            1
           ]
         },
         {
           "Coordinates": [
             9,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
+            0,
             9,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            9,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            9,
-            9,
-            9,
-            10
+            1
           ]
         },
         {
           "Coordinates": [
             11,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
+            0,
             11,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            11,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            11,
-            9,
-            11,
-            10
+            1
           ]
         },
         {
           "Coordinates": [
             13,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
+            0,
             13,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            13,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            13,
-            9,
-            13,
-            10
+            1
           ]
         },
         {
           "Coordinates": [
             15,
-            9,
+            0,
             15,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            7,
+            15,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            9,
+            6,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            9,
+            14,
             10
           ]
         }
@@ -241,29 +196,58 @@
       "Children": [
         {
           "Transition": {
-            "X": -1
-          },
-          "Coordinates": [
-            0,
-            5
-          ]
-        },
-        {
-          "Transition": {
-            "Y": 1
+            "Y": -1
           },
           "Coordinates": [
             3,
-            10
+            0
           ]
         },
         {
           "Transition": {
-            "Y": 1
+            "Y": -1
           },
           "Coordinates": [
             5,
-            10
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            7,
+            0,
+            8,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            10,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            12,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            14,
+            0
           ]
         },
         {
@@ -279,29 +263,49 @@
         },
         {
           "Transition": {
-            "Y": 1
+            "X": -1
           },
           "Coordinates": [
-            10,
-            10
+            0,
+            2
           ]
         },
         {
           "Transition": {
-            "Y": 1
+            "X": -1
           },
           "Coordinates": [
-            12,
-            10
+            0,
+            4
           ]
         },
         {
           "Transition": {
-            "Y": 1
+            "X": -1
           },
           "Coordinates": [
-            14,
-            10
+            0,
+            6
+          ]
+        },
+        {
+          "Transition": {
+            "X": -1
+          },
+          "Coordinates": [
+            0,
+            8
+          ]
+        },
+        {
+          "Transition": {
+            "X": 1
+          },
+          "Coordinates": [
+            15,
+            4,
+            15,
+            6
           ]
         }
       ]

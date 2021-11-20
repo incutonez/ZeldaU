@@ -1,8 +1,8 @@
-{
-  "X": 9,
-  "Y": 3,
-  "GroundColor": 1,
-  "AccentColor": 2,
+﻿{
+  "X": 3,
+  "Y": 0,
+  "AccentColor": "Brown",
+  "GroundColor": "Tan",
   "Tiles": [
     {
       "Type": "Bush",
@@ -11,14 +11,6 @@
           "Coordinates": [
             0,
             0,
-            6,
-            1
-          ]
-        },
-        {
-          "Coordinates": [
-            9,
-            0,
             15,
             1
           ]
@@ -26,75 +18,67 @@
         {
           "Coordinates": [
             0,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            9,
+            6,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
             2,
-            2,
+            15,
+            2
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
             3
           ]
         },
         {
           "Coordinates": [
-            13,
-            2,
             15,
-            8
+            7
           ]
         },
         {
           "Coordinates": [
-            9,
-            9,
+            14,
+            8,
             15,
             10
           ]
-        }
-      ]
-    },
-    {
-      "Type": "PondCenter",
-      "Children": [
+        },
         {
           "Coordinates": [
-            0,
-            7,
-            5,
+            12,
+            9,
+            12,
             10
           ]
-        }
-      ]
-    },
-    {
-      "Type": "PondBottom",
-      "Children": [
+        },
         {
           "Coordinates": [
-            0,
-            6,
-            5,
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "PondCenterRight",
-      "Children": [
-        {
-          "Coordinates": [
-            6,
-            7,
-            6,
+            10,
+            9,
+            10,
             10
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "PondBottomRight",
-      "Children": [
-        {
-          "Coordinates": [
-            6,
-            6
           ]
         }
       ]
@@ -108,20 +92,45 @@
           },
           "Coordinates": [
             0,
-            4,
-            0,
-            5
+            2
           ]
         },
         {
           "Transition": {
-            "Y": -1
+            "X": -1
           },
           "Coordinates": [
-            7,
             0,
-            8,
-            0
+            8
+          ]
+        },
+        {
+          "Transition": {
+            "X": 1
+          },
+          "Coordinates": [
+            15,
+            4,
+            15,
+            6
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            13,
+            10
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            11,
+            10
           ]
         },
         {
@@ -131,7 +140,7 @@
           "Coordinates": [
             7,
             10,
-            8,
+            9,
             10
           ]
         }

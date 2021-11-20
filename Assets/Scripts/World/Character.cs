@@ -66,7 +66,7 @@ namespace World
         public void AddHealth(float addedHealth, bool increaseMaxHealth = false)
         {
             Health += addedHealth;
-            if (increaseMaxHealth && MaxHealth != Constants.MAX_HEARTS)
+            if (increaseMaxHealth && MaxHealth != Constants.MaxHearts)
             {
                 MaxHealth += addedHealth;
             }

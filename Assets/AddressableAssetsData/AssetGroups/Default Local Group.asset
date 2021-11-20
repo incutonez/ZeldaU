@@ -21,151 +21,107 @@ MonoBehaviour:
     m_Address: Sprites/bosses
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: be7a69334aad2654fb09aa918c8b174c
     m_Address: Sprites/character
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: c052d672b24843a4daf02144595e10ad
     m_Address: Sprites/characters
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 4a56a07b6b8710f48a394dbd8820c055
     m_Address: Sprites/items
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 21cfc19bec8e8064e94ee8e31accde29
     m_Address: Sprites/tiles
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: dcf81fc91b5bcb649ac1211412c38a10
     m_Address: Sprites/Enemies
     m_ReadOnly: 0
     m_SerializedLabels:
     - Enemies
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 6670692bce31ebd48ac00d8d28d47b6b
     m_Address: Prefabs/DoorBlock
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: d0567bf50685eb649b321c93ddc00105
     m_Address: Prefabs/Enemy
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 71a45733d799b8d4fa0020ed5e151bef
     m_Address: Prefabs/HeartTemplate
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 8f939619eeb89df4995b80be1d5adc63
     m_Address: Prefabs/Item
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: af2ed1530fc2d7c41ab61158a369c7fd
     m_Address: Prefabs/NPC
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 4b19f32d2ef3cb44e80129210be24710
     m_Address: Prefabs/Player
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 14b398c2402c4254a80e8b33de2f0188
     m_Address: Prefabs/WorldDoor
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 42a4bdae353ac76459e544c9797290d0
     m_Address: Prefabs/WorldScreen
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: dda723be0bb454d449b391628f492588
     m_Address: Prefabs/WorldTransition
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 91ee69ca067aa3d4cb4ad9ec811a56fe
     m_Address: Audio/FX
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
     - FX
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 97d1ac71e9f658a4cb19fce5a1883240
     m_Address: Sprites/castle
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: d4deb2e30a642834d85bf4757e886b25
     m_Address: Data/ScreenTemplates
     m_ReadOnly: 0
     m_SerializedLabels:
     - ScreenTemplates
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 85ebfaacc8986734d9d158a557c3fb9d
     m_Address: Materials/Castle
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 61e0f99e8c32883438069bbab3554c00
     m_Address: Materials/OverworldTiles
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 01492079565385c4dab9dff6816dbc57
     m_Address: Castles_Q1C1_20
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: a6e1dda887d724140888dc260d9d3368
     m_Address: Castles_Q1C1_10
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: c922d61102744244f92e5e6a73bb01bd
     m_Address: Castles_Q1C1_30
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 22c78fedc87646649bcfd0f6fa7bd59c
     m_Address: Data/Overworld
     m_ReadOnly: 0
     m_SerializedLabels:
     - Overworld
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  - m_GUID: c3d8c1b305af4ba3be19732f60ddae63
+    m_Address: Castles_Q1C3_10
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 47107e41f1307be4e837fab1b87c3b44, type: 2}
   m_SchemaSet:

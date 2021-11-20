@@ -1,0 +1,276 @@
+﻿{
+  "X": 4,
+  "Y": 0,
+  "AccentColor": "Green",
+  "GroundColor": "Tan",
+  "Tiles": [
+    {
+      "Type": "WallBottom",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            0,
+            15,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            1,
+            15,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            2
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            2,
+            15,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            9,
+            15,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomRight",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            1,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            14,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTop",
+      "Children": [
+        {
+          "Coordinates": [
+            2,
+            1,
+            13,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTopLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            14,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTopRight",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Statue",
+      "AccentColor": "Brown",
+      "Children": [
+        {
+          "Coordinates": [
+            4,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            12,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleTopAlt",
+      "AccentColor": "Brown",
+      "Children": [
+        {
+          "Coordinates": [
+            8,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleTopLeft",
+      "AccentColor": "Brown",
+      "Children": [
+        {
+          "Coordinates": [
+            7,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleTopRight",
+      "AccentColor": "Brown",
+      "Children": [
+        {
+          "Coordinates": [
+            9,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "AccentColor": "Brown",
+      "Children": [
+        {
+          "Coordinates": [
+            7,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomRight",
+      "AccentColor": "Brown",
+      "Children": [
+        {
+          "Coordinates": [
+            9,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "Transition": {
+            "X": -1
+          },
+          "Coordinates": [
+            0,
+            4,
+            0,
+            6
+          ]
+        },
+        {
+          "TileType": "Door",
+          "Transition": {
+            "Name": "Q1C3",
+            "IsCastle": true,
+            "X": 1
+          },
+          "Coordinates": [
+            8,
+            6
+          ]
+        }
+      ]
+    }
+  ]
+}

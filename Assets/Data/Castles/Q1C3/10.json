@@ -1,0 +1,25 @@
+﻿{
+  "X": 1,
+  "Y": 0,
+  "AccentColor": "Red",
+  "GroundColor": "Blue",
+  "Template": "Entrance",
+  "Tiles": [
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "Transition": {
+            "Name": "Back",
+            "X": 4,
+            "Y": 0
+          },
+          "Coordinates": [
+            8,
+            -1
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -114,7 +114,7 @@ namespace Manager {
 
     public static void LoadPrefab(string name, Action<RectTransform> callback) {
       LoadCount++;
-      var operation = Addressables.LoadAssetAsync<GameObject>($"{Constants.PATH_PREFABS}{name}");
+      var operation = Addressables.LoadAssetAsync<GameObject>($"{Constants.PathPrefabs}{name}");
       operation.Completed += (response) => {
         LoadCount--;
         switch (response.Status) {
@@ -169,7 +169,7 @@ namespace Manager {
 
     public static void LoadMaterial(string name, Action<Material> callback) {
       LoadCount++;
-      var operation = Addressables.LoadAssetAsync<Material>($"{Constants.PATH_MATERIALS}{name}");
+      var operation = Addressables.LoadAssetAsync<Material>($"{Constants.PathMaterials}{name}");
       operation.Completed += (response) => {
         LoadCount--;
         switch (response.Status) {
@@ -190,7 +190,7 @@ namespace Manager {
 
     public static void LoadSprites(string name, Action<List<Sprite>> callback) {
       LoadCount++;
-      var operation = Addressables.LoadAssetAsync<Sprite[]>($"{Constants.PATH_SPRITES}{name}");
+      var operation = Addressables.LoadAssetAsync<Sprite[]>($"{Constants.PathSprites}{name}");
       operation.Completed += (response) => {
         LoadCount--;
         switch (response.Status) {

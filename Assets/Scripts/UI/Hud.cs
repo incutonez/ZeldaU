@@ -33,9 +33,9 @@ namespace UI
             HeartHalfSprite = Manager.Game.Graphics.GetItem(Items.HeartHalf);
             HeartEmptySprite = Manager.Game.Graphics.GetItem(Items.HeartEmpty);
             LifeContainer = Renderer.Find("LifeContainer/Life");
-            RupeeCount = Renderer.Find($"{Constants.COUNT_CONTAINER_REF}/Rupees/Amount").GetComponent<Text>();
-            KeyCount = Renderer.Find($"{Constants.COUNT_CONTAINER_REF}/Keys/Amount").GetComponent<Text>();
-            BombCount = Renderer.Find($"{Constants.COUNT_CONTAINER_REF}/Bombs/Amount").GetComponent<Text>();
+            RupeeCount = Renderer.Find($"{Constants.CountContainerRef}/Rupees/Amount").GetComponent<Text>();
+            KeyCount = Renderer.Find($"{Constants.CountContainerRef}/Keys/Amount").GetComponent<Text>();
+            BombCount = Renderer.Find($"{Constants.CountContainerRef}/Bombs/Amount").GetComponent<Text>();
             ItemSlotSprite = Renderer.Find("BSlot/BImage").GetComponent<Image>();
             SwordSlotSprite = Renderer.Find("ASlot/AImage").GetComponent<Image>();
         }
@@ -111,12 +111,12 @@ namespace UI
                 }
                 else if (item.Type == Items.HeartContainer)
                 {
-                    Player.AddHealth(Constants.HEART_REFILL, true);
+                    Player.AddHealth(Constants.HeartRefill, true);
                     RefreshLifeUI();
                 }
                 else if (item.Type == Items.Heart)
                 {
-                    Player.AddHealth(Constants.HEART_REFILL);
+                    Player.AddHealth(Constants.HeartRefill);
                     RefreshLifeUI();
                 }
                 else if (item.Type == Items.TriforceShard)

@@ -1,56 +1,9 @@
 {
   "X": 7,
   "Y": 0,
-  "AccentColor": 2,
   "GroundColor": 1,
+  "AccentColor": 2,
   "Tiles": [
-    {
-      "Type": "Rock",
-      "Children": [
-        {
-          "Coordinates": [
-            2,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            5,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            8,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            8,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            8,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
-            10,
-            4
-          ]
-        },
-        {
-          "Coordinates": [
-            10,
-            6
-          ]
-        }
-      ]
-    },
     {
       "Type": "WallBottom",
       "Children": [
@@ -64,14 +17,16 @@
         },
         {
           "Coordinates": [
-            14,
+            0,
             1,
-            15,
-            2
+            1,
+            3
           ]
         },
         {
           "Coordinates": [
+            14,
+            1,
             15,
             3
           ]
@@ -79,57 +34,69 @@
         {
           "Coordinates": [
             0,
-            9,
-            10,
+            6,
+            0,
             10
           ]
         },
         {
           "Coordinates": [
-            11,
+            1,
+            7,
+            1,
             10
           ]
         },
         {
           "Coordinates": [
-            14,
+            2,
             8,
+            2,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            9,
+            3,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            5,
+            9,
+            5,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            7,
             15,
             10
           ]
         },
         {
           "Coordinates": [
+            10,
+            6,
             15,
-            7
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "WallBottomRight",
-      "Children": [
-        {
-          "Coordinates": [
-            11,
-            9
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "WallTopLeft",
-      "Children": [
-        {
-          "Coordinates": [
-            14,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
-            15,
-            4
+            6
           ]
         }
       ]
@@ -139,14 +106,37 @@
       "Children": [
         {
           "Coordinates": [
-            15,
+            9,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomRight",
+      "Children": [
+        {
+          "Coordinates": [
+            1,
             6
           ]
         },
         {
           "Coordinates": [
-            14,
+            2,
             7
+          ]
+        },
+        {
+          "Coordinates": [
+            3,
+            8
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            9
           ]
         }
       ]
@@ -156,7 +146,21 @@
       "Children": [
         {
           "Coordinates": [
+            14,
+            4,
+            15,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
             0,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
             1,
             13,
             1
@@ -165,8 +169,28 @@
       ]
     },
     {
+      "Type": "WallTopRight",
+      "Children": [
+        {
+          "Coordinates": [
+            1,
+            4
+          ]
+        }
+      ]
+    },
+    {
       "Type": "Transition",
       "Children": [
+        {
+          "Transition": {
+            "X": -1
+          },
+          "Coordinates": [
+            0,
+            5
+          ]
+        },
         {
           "Transition": {
             "X": 1
@@ -178,24 +202,66 @@
         },
         {
           "Transition": {
-            "X": -1
-          },
-          "Coordinates": [
-            0,
-            2,
-            0,
-            8
-          ]
-        },
-        {
-          "Transition": {
             "Y": 1
           },
           "Coordinates": [
-            12,
+            7,
             10,
-            13,
+            8,
             10
+          ]
+        },
+        {
+          "TileType": "Door",
+          "Transition": {
+            "Name": "WoodenSwordShop",
+            "Template": "Shop",
+            "IsFloating": true,
+            "X": 7,
+            "Y": 0,
+            "Tiles": [
+              {
+                "Type": "Fire",
+                "Children": [
+                  {
+                    "Coordinates": [
+                      4.5,
+                      6
+                    ]
+                  },
+                  {
+                    "Coordinates": [
+                      10.5,
+                      6
+                    ]
+                  }
+                ]
+              }
+            ],
+            "Items": [
+              {
+                "Item": {
+                  "Type": 32
+                },
+                "Coordinates": [
+                  8,
+                  5
+                ]
+              }
+            ],
+            "Characters": [
+              {
+                "Type": 4,
+                "Coordinates": [
+                  7.5,
+                  6
+                ]
+              }
+            ]
+          },
+          "Coordinates": [
+            4,
+            9
           ]
         }
       ]
@@ -204,43 +270,7 @@
   "Items": [
     {
       "Item": {
-        "Type": 35
-      },
-      "Coordinates": [
-        1,
-        4
-      ]
-    },
-    {
-      "Item": {
-        "Type": 35
-      },
-      "Coordinates": [
-        2,
-        4
-      ]
-    },
-    {
-      "Item": {
-        "Type": 35
-      },
-      "Coordinates": [
-        3,
-        4
-      ]
-    },
-    {
-      "Item": {
-        "Type": 35
-      },
-      "Coordinates": [
-        4,
-        4
-      ]
-    },
-    {
-      "Item": {
-        "Type": 35
+        "Type": 3
       },
       "Coordinates": [
         5,
@@ -249,7 +279,7 @@
     },
     {
       "Item": {
-        "Type": 35
+        "Type": 4
       },
       "Coordinates": [
         6,
@@ -258,7 +288,7 @@
     },
     {
       "Item": {
-        "Type": 35
+        "Type": 6
       },
       "Coordinates": [
         7,
@@ -267,10 +297,46 @@
     },
     {
       "Item": {
-        "Type": 35
+        "Type": 7
       },
       "Coordinates": [
         8,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 11
+      },
+      "Coordinates": [
+        9,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 12
+      },
+      "Coordinates": [
+        10,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 21
+      },
+      "Coordinates": [
+        11,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 36
+      },
+      "Coordinates": [
+        12,
         4
       ]
     }

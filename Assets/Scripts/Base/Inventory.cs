@@ -95,7 +95,7 @@ namespace Base
                 {
                     if (item.Type == Items.TriforceShard)
                     {
-                        var index = Constants.RANDOM_GENERATOR.Next(0, THROWAWAY.Count);
+                        var index = Constants.RandomGenerator.Next(0, THROWAWAY.Count);
                         // We use the amount as the shard's castle number
                         // TODO: Have to get this from the screen we're in when it's picked up at the castle
                         item.Amount = THROWAWAY[index];

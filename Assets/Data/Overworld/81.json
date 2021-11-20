@@ -1,68 +1,9 @@
 {
   "X": 8,
   "Y": 1,
-  "AccentColor": 2,
   "GroundColor": 1,
+  "AccentColor": 2,
   "Tiles": [
-    {
-      "Type": "Rock",
-      "Children": [
-        {
-          "Coordinates": [
-            3,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
-            3,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            3,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            5,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
-            5,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            5,
-            7
-          ]
-        },
-        {
-          "Coordinates": [
-            12,
-            3
-          ]
-        },
-        {
-          "Coordinates": [
-            12,
-            5
-          ]
-        },
-        {
-          "Coordinates": [
-            12,
-            7
-          ]
-        }
-      ]
-    },
     {
       "Type": "WallBottom",
       "Children": [
@@ -70,39 +11,7 @@
           "Coordinates": [
             0,
             0,
-            6,
-            0
-          ]
-        },
-        {
-          "Coordinates": [
-            9,
-            0,
-            15,
-            0
-          ]
-        },
-        {
-          "Coordinates": [
-            0,
             1,
-            1,
-            1
-          ]
-        },
-        {
-          "Coordinates": [
-            9,
-            1,
-            10,
-            1
-          ]
-        },
-        {
-          "Coordinates": [
-            14,
-            1,
-            15,
             1
           ]
         },
@@ -114,51 +23,33 @@
         },
         {
           "Coordinates": [
-            15,
-            2
-          ]
-        },
-        {
-          "Coordinates": [
-            0,
-            8
-          ]
-        },
-        {
-          "Coordinates": [
-            15,
-            8
-          ]
-        },
-        {
-          "Coordinates": [
             0,
             9,
-            15,
+            1,
             10
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            8
           ]
         }
       ]
     },
     {
-      "Type": "WallBottomLeft",
+      "Type": "WallTopRight",
       "Children": [
         {
           "Coordinates": [
-            9,
-            8
+            0,
+            3
           ]
         },
         {
           "Coordinates": [
-            14,
-            8
-          ]
-        },
-        {
-          "Coordinates": [
-            15,
-            7
+            1,
+            2
           ]
         }
       ]
@@ -177,78 +68,200 @@
             1,
             8
           ]
-        },
-        {
-          "Coordinates": [
-            10,
-            8
-          ]
         }
       ]
     },
     {
-      "Type": "WallTop",
+      "Type": "Bush",
       "Children": [
         {
           "Coordinates": [
             2,
-            1,
+            0,
+            2,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            0,
+            4,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            0,
             6,
             1
           ]
         },
         {
           "Coordinates": [
-            11,
-            1,
-            13,
-            1
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "WallTopLeft",
-      "Children": [
-        {
-          "Coordinates": [
             9,
-            2
+            0,
+            9,
+            1
           ]
         },
         {
           "Coordinates": [
-            14,
-            2
+            11,
+            0,
+            11,
+            1
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            0,
+            13,
+            1
           ]
         },
         {
           "Coordinates": [
             15,
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "WallTopRight",
-      "Children": [
-        {
-          "Coordinates": [
-            1,
-            2
-          ]
-        },
-        {
-          "Coordinates": [
-            10,
-            2
-          ]
-        },
-        {
-          "Coordinates": [
             0,
+            15,
             3
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            2,
+            9,
+            2,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            4,
+            9,
+            4,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            6,
+            9,
+            6,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            9,
+            9,
+            9,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            9,
+            11,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            13,
+            9,
+            13,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            7,
+            15,
+            10
           ]
         }
       ]
@@ -261,9 +274,54 @@
             "Y": -1
           },
           "Coordinates": [
+            3,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            5,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
             7,
             0,
             8,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            10,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            12,
+            0
+          ]
+        },
+        {
+          "Transition": {
+            "Y": -1
+          },
+          "Coordinates": [
+            14,
             0
           ]
         },
@@ -288,23 +346,64 @@
             15,
             6
           ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            3,
+            10
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            5,
+            10
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            7,
+            10,
+            8,
+            10
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            10,
+            10
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            12,
+            10
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            14,
+            10
+          ]
         }
       ]
-    }
-  ],
-  "Enemies": [
-    {
-      "Type": 26,
-      "Count": 2
-    },
-    {
-      "Type": 27,
-      "Count": 1
-    },
-    {
-      "Type": 27,
-      "Speed": 7,
-      "Count": 1
     }
   ]
 }

@@ -1,0 +1,278 @@
+{
+  "X": 6,
+  "Y": 0,
+  "AccentColor": 2,
+  "GroundColor": 1,
+  "Tiles": [
+    {
+      "Type": "Rock",
+      "Children": [
+        {
+          "Coordinates": [
+            2,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            5,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            8,
+            5
+          ]
+        },
+        {
+          "Coordinates": [
+            8,
+            7
+          ]
+        },
+        {
+          "Coordinates": [
+            8,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            4
+          ]
+        },
+        {
+          "Coordinates": [
+            10,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottom",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            0,
+            15,
+            0
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            1,
+            15,
+            2
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            0,
+            9,
+            10,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            11,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            8,
+            15,
+            10
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomRight",
+      "Children": [
+        {
+          "Coordinates": [
+            11,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTopLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            14,
+            3
+          ]
+        },
+        {
+          "Coordinates": [
+            15,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomLeft",
+      "Children": [
+        {
+          "Coordinates": [
+            15,
+            6
+          ]
+        },
+        {
+          "Coordinates": [
+            14,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallTop",
+      "Children": [
+        {
+          "Coordinates": [
+            0,
+            1,
+            13,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "Transition": {
+            "X": 1
+          },
+          "Coordinates": [
+            15,
+            5
+          ]
+        },
+        {
+          "Transition": {
+            "X": -1
+          },
+          "Coordinates": [
+            0,
+            2,
+            0,
+            8
+          ]
+        },
+        {
+          "Transition": {
+            "Y": 1
+          },
+          "Coordinates": [
+            12,
+            10,
+            13,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "Items": [
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        1,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        2,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        3,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        4,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        5,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        6,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        7,
+        4
+      ]
+    },
+    {
+      "Item": {
+        "Type": 35
+      },
+      "Coordinates": [
+        8,
+        4
+      ]
+    }
+  ]
+}

@@ -7,9 +7,9 @@ namespace Manager
     {
         // This is a reference to the green color in the baseTexture that we'll be searching for and replacing
         public static readonly Color BaseColor = Color.blue;
-        public static readonly Color GreenSuit = new Color(184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB, 24 / Constants.MAX_RGB);
-        public static readonly Color BlueSuit = new Color(184 / Constants.MAX_RGB, 184 / Constants.MAX_RGB, 248 / Constants.MAX_RGB);
-        public static readonly Color RedSuit = new Color(248 / Constants.MAX_RGB, 56 / Constants.MAX_RGB, 0 / Constants.MAX_RGB);
+        public static readonly Color GreenSuit = new Color(184 / Constants.MaxRGB, 248 / Constants.MaxRGB, 24 / Constants.MaxRGB);
+        public static readonly Color BlueSuit = new Color(184 / Constants.MaxRGB, 184 / Constants.MaxRGB, 248 / Constants.MaxRGB);
+        public static readonly Color RedSuit = new Color(248 / Constants.MaxRGB, 56 / Constants.MaxRGB, 0 / Constants.MaxRGB);
 
         public Color CurrentColor { get; set; }
 

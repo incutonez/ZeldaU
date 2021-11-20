@@ -44,31 +44,31 @@ namespace Manager
         {
             if (movement.x > 0)
             {
-                transform.localPosition = Constants.SWORD_RIGHT;
-                transform.localRotation = Constants.SWORD_X_ROTATION;
+                transform.localPosition = Constants.SwordRight;
+                transform.localRotation = Constants.SwordXRotation;
                 Renderer.flipY = false;
-                Collider.offset = Constants.SWORD_COLLIDER_POSITIVE;
+                Collider.offset = Constants.SwordColliderPositive;
             }
             else if (movement.x < 0)
             {
-                transform.localPosition = Constants.SWORD_LEFT;
-                transform.localRotation = Constants.SWORD_X_ROTATION;
+                transform.localPosition = Constants.SwordLeft;
+                transform.localRotation = Constants.SwordXRotation;
                 Renderer.flipY = true;
-                Collider.offset = Constants.SWORD_COLLIDER_NEGATIVE;
+                Collider.offset = Constants.SwordColliderNegative;
             }
             else if (movement.y > 0)
             {
-                transform.localPosition = Constants.SWORD_UP;
-                transform.localRotation = Constants.SWORD_Y_ROTATION;
+                transform.localPosition = Constants.SwordUp;
+                transform.localRotation = Constants.SwordYRotation;
                 Renderer.flipY = false;
-                Collider.offset = Constants.SWORD_COLLIDER_POSITIVE;
+                Collider.offset = Constants.SwordColliderPositive;
             }
             else if (movement.y < 0 || movement == Vector3.zero)
             {
-                transform.localPosition = Constants.SWORD_DOWN;
-                transform.localRotation = Constants.SWORD_Y_ROTATION;
+                transform.localPosition = Constants.SwordDown;
+                transform.localRotation = Constants.SwordYRotation;
                 Renderer.flipY = true;
-                Collider.offset = Constants.SWORD_COLLIDER_NEGATIVE;
+                Collider.offset = Constants.SwordColliderNegative;
             }
         }
 
@@ -80,7 +80,7 @@ namespace Manager
 
         public float GetDamage()
         {
-            return Constants.BASE_SWORD_POWER;
+            return Constants.BaseSwordPower;
         }
 
         public float GetDamageModifier()

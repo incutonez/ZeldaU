@@ -30,7 +30,7 @@ public class PathTesting : MonoBehaviour
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             grid.GetXY(position, out int x, out int y);
-            List<World.GridNode> path = PathFinder.FindPath(0, 0, x, y);
+            List<World.GridCell> path = PathFinder.FindPath(0, 0, x, y);
             Vector3 quadSize = Vector2.one * grid.CellSize * 0.5f;
             if (path != null)
             {
@@ -45,15 +45,15 @@ public class PathTesting : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            World.GridNode node = grid.GetViewModel(position);
-            node.Color = WorldColors.Tan;
-            node.SetTileType(Tiles.GroundTile);
+            World.GridCell cell = grid.GetViewModel(position);
+            cell.Color = WorldColors.Tan;
+            cell.SetTileType(Tiles.GroundTile);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            World.GridNode node = grid.GetViewModel(position);
-            Manager.Character.SpawnEnemy(grid.GetWorldPosition(node.X, node.Y), NPCs.Enemies.Octorok, Visual.transform, true);
+            World.GridCell cell = grid.GetViewModel(position);
+            Manager.Character.SpawnEnemy(grid.GetWorldPosition(cell.X, cell.Y), NPCs.Enemies.Octorok, Visual.transform, true);
         }
     }
 

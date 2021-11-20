@@ -12,9 +12,9 @@ namespace World
             {
                 return;
             }
-            if (collision.name == Constants.PLAYER_TRANSITION)
+            if (collision.name == Constants.PlayerTransition)
             {
-                if (ViewModel.Name == Constants.TRANSITION_BACK)
+                if (ViewModel.Name == Constants.TransitionBack)
                 {
                     Manager.Game.Scene.StartExitDoor(ViewModel);
                 }
@@ -28,7 +28,7 @@ namespace World
         public void Initialize(ViewModel.Grid transition)
         {
             ViewModel = transition;
-            if (transition.Name != Constants.TRANSITION_BACK)
+            if (transition.Name != Constants.TransitionBack)
             {
                 // We have to make sure our position gets the offset by the x and y transition values... this is because we want
                 // the transition just outside of the world space, really in the "negative" world space

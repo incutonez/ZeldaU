@@ -53,26 +53,26 @@ namespace World
             // Moving to right screen
             if (x == 1)
             {
-                previousX = -Constants.GRID_COLUMNS;
+                previousX = -Constants.GridColumns;
                 playerX = grid.GetWorldPositionX(TRANSITION_PADDING);
             }
             // Moving to left screen
             else if (x == -1)
             {
-                previousX = Constants.GRID_COLUMNS;
-                playerX = grid.GetWorldPositionX(Constants.GRID_COLUMNS_ZERO - TRANSITION_PADDING);
+                previousX = Constants.GridColumns;
+                playerX = grid.GetWorldPositionX(Constants.GridColumnsZero - TRANSITION_PADDING);
             }
             // Moving to top screen
             if (y == 1)
             {
-                previousY = -Constants.GRID_ROWS;
+                previousY = -Constants.GridRows;
                 playerY = grid.GetWorldPositionY(TRANSITION_PADDING);
             }
             // Moving to bottom screen
             else if (y == -1)
             {
-                previousY = Constants.GRID_ROWS;
-                playerY = grid.GetWorldPositionY(Constants.GRID_ROWS_ZERO - TRANSITION_PADDING);
+                previousY = Constants.GridRows;
+                playerY = grid.GetWorldPositionY(Constants.GridRowsZero - TRANSITION_PADDING);
             }
             Vector3 previousDestination = new Vector3(previousX, previousY);
             Vector3 playerDestination = new Vector3(playerX, playerY);
@@ -161,7 +161,7 @@ namespace World
                 CurrentY += transition.Y;
                 screenId = $"{CurrentX}{CurrentY}";
             }
-            else if (screenId == Constants.TRANSITION_BACK)
+            else if (screenId == Constants.TransitionBack)
             {
                 InCastle = false;
                 if (CurrentScreen.ViewModel.IsFloating)
@@ -178,12 +178,12 @@ namespace World
             }
             if (InCastle)
             {
-                screenId = $"{Constants.PATH_CASTLE}{CurrentCastle}_{screenId}";
+                screenId = $"{Constants.PathCastle}{CurrentCastle}_{screenId}";
             }
             else
             {
                 InCastle = false;
-                screenId = $"{Constants.PATH_OVERWORLD}{screenId}";
+                screenId = $"{Constants.PathOverworld}{screenId}";
             }
             return screenId;
         }

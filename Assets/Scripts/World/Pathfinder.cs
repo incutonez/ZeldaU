@@ -19,19 +19,19 @@ namespace World
         // Mathematical value for diagonal... sqrt(200) ~ 14
         private const int MOVE_DIAGONAL_COST = 14;
 
-        public Grid<GridNode> Grid { get; set; }
+        public Grid<GridCell> Grid { get; set; }
         /// <summary>
         /// List for nodes to be searched
         /// </summary>
-        public List<GridNode> OpenList { get; set; }
+        public List<GridCell> OpenList { get; set; }
         /// <summary>
         /// List for nodes that have already been searched
         /// </summary>
-        public List<GridNode> ClosedList { get; set; }
+        public List<GridCell> ClosedList { get; set; }
 
         public Pathfinder(int width, int height)
         {
-            Grid = new Grid<GridNode>(width, height, 1f, new Vector3(-8f, -7.5f), (grid, x, y) => new GridNode(grid, x, y));
+            Grid = new Grid<GridCell>(width, height, 1f, new Vector3(-8f, -7.5f), (grid, x, y) => new GridCell(grid, x, y));
         }
 
         public Vector3 GetQuadSize()
@@ -86,49 +86,49 @@ namespace World
         {
             Grid.GetXY(start, out int startX, out int startY);
             Grid.GetXY(end, out int endX, out int endY);
-            List<GridNode> nodes = FindPath(startX, startY, endX, endY);
+            List<GridCell> nodes = FindPath(startX, startY, endX, endY);
             if (nodes == null)
             {
                 return null;
             }
             List<Vector3> result = new List<Vector3>();
-            foreach (GridNode node in nodes)
+            foreach (GridCell node in nodes)
             {
                 result.Add(Grid.GetWorldPosition(node.X, node.Y));
             }
             return result;
         }
 
-        public List<GridNode> FindPath(int startX, int startY, int endX, int endY)
+        public List<GridCell> FindPath(int startX, int startY, int endX, int endY)
         {
-            GridNode startNode = Grid.GetViewModel(startX, startY);
-            GridNode endNode = Grid.GetViewModel(endX, endY);
+            GridCell startCell = Grid.GetViewModel(startX, startY);
+            GridCell endCell = Grid.GetViewModel(endX, endY);
 
-            OpenList = new List<GridNode> { startNode };
-            ClosedList = new List<GridNode>();
+            OpenList = new List<GridCell> { startCell };
+            ClosedList = new List<GridCell>();
 
             Grid.EachCell((node, x, y) =>
             {
                 node.WalkCost = int.MaxValue;
                 node.CalculateTotalCost();
-                node.PreviousNode = null;
+                node.PreviousCell = null;
             });
 
-            startNode.WalkCost = 0;
-            startNode.DistanceCost = CalculateDistanceCost(startNode, endNode);
-            startNode.CalculateTotalCost();
+            startCell.WalkCost = 0;
+            startCell.DistanceCost = CalculateDistanceCost(startCell, endCell);
+            startCell.CalculateTotalCost();
 
             while (OpenList.Count > 0)
             {
-                GridNode currentNode = GetLowestTotalCostNode(OpenList);
-                if (currentNode == endNode)
+                GridCell currentCell = GetLowestTotalCostNode(OpenList);
+                if (currentCell == endCell)
                 {
-                    return CalculatePath(currentNode);
+                    return CalculatePath(currentCell);
                 }
-                OpenList.Remove(currentNode);
-                ClosedList.Add(currentNode);
+                OpenList.Remove(currentCell);
+                ClosedList.Add(currentCell);
 
-                foreach (GridNode neighbor in GetNeighbors(currentNode))
+                foreach (GridCell neighbor in GetNeighbors(currentCell))
                 {
                     // We've already searched this neighbor, so let's go to next neighbor
                     if (ClosedList.Contains(neighbor))
@@ -141,12 +141,12 @@ namespace World
                         continue;
                     }
 
-                    int walkCost = currentNode.WalkCost + CalculateDistanceCost(currentNode, neighbor);
+                    int walkCost = currentCell.WalkCost + CalculateDistanceCost(currentCell, neighbor);
                     if (walkCost < neighbor.WalkCost)
                     {
-                        neighbor.PreviousNode = currentNode;
+                        neighbor.PreviousCell = currentCell;
                         neighbor.WalkCost = walkCost;
-                        neighbor.DistanceCost = CalculateDistanceCost(neighbor, endNode);
+                        neighbor.DistanceCost = CalculateDistanceCost(neighbor, endCell);
                         neighbor.CalculateTotalCost();
 
                         if (!OpenList.Contains(neighbor))
@@ -162,67 +162,67 @@ namespace World
         }
 
         // TODO: Can optimize this by pre-calculating all of the neighbors as soon as we create the grid
-        private List<GridNode> GetNeighbors(GridNode node)
+        private List<GridCell> GetNeighbors(GridCell cell)
         {
-            List<GridNode> neighbors = new List<GridNode>();
-            if (node.X - 1 >= 0)
+            List<GridCell> neighbors = new List<GridCell>();
+            if (cell.X - 1 >= 0)
             {
-                int localX = node.X - 1;
+                int localX = cell.X - 1;
                 // Left
-                neighbors.Add(Grid.GetViewModel(localX, node.Y));
+                neighbors.Add(Grid.GetViewModel(localX, cell.Y));
                 // Diagonal down to the left
-                if (node.Y - 1 >= 0)
+                if (cell.Y - 1 >= 0)
                 {
                     // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
                     //neighbors.Add(Grid.GetViewModel(localX, node.Y - 1));
                 }
                 // Diagonal up to the left
-                if (node.Y + 1 < Grid.Height)
+                if (cell.Y + 1 < Grid.Height)
                 {
                     // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
                     //neighbors.Add(Grid.GetViewModel(localX, node.Y + 1));
                 }
             }
-            if (node.X + 1 < Grid.Width)
+            if (cell.X + 1 < Grid.Width)
             {
-                int localX = node.X + 1;
+                int localX = cell.X + 1;
                 // Right
-                neighbors.Add(Grid.GetViewModel(localX, node.Y));
+                neighbors.Add(Grid.GetViewModel(localX, cell.Y));
                 // Diagonal down to the right
-                if (node.Y - 1 >= 0)
+                if (cell.Y - 1 >= 0)
                 {
                     // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
                     //neighbors.Add(Grid.GetViewModel(localX, node.Y - 1));
                 }
                 // Diagonal up to the right
-                if (node.Y + 1 < Grid.Height)
+                if (cell.Y + 1 < Grid.Height)
                 {
                     // TODO: Currently, we don't allow these as neighbors... we only want up, down, left, and right... add a way to enable this?
                     //neighbors.Add(Grid.GetViewModel(localX, node.Y + 1));
                 }
             }
             // Down
-            if (node.Y - 1 >= 0)
+            if (cell.Y - 1 >= 0)
             {
-                neighbors.Add(Grid.GetViewModel(node.X, node.Y - 1));
+                neighbors.Add(Grid.GetViewModel(cell.X, cell.Y - 1));
             }
             // Up
-            if (node.Y + 1 < Grid.Height)
+            if (cell.Y + 1 < Grid.Height)
             {
-                neighbors.Add(Grid.GetViewModel(node.X, node.Y + 1));
+                neighbors.Add(Grid.GetViewModel(cell.X, cell.Y + 1));
             }
             return neighbors;
         }
 
-        private List<GridNode> CalculatePath(GridNode endNode)
+        private List<GridCell> CalculatePath(GridCell endCell)
         {
-            List<GridNode> path = new List<GridNode> { endNode };
-            GridNode currentNode = endNode;
+            List<GridCell> path = new List<GridCell> { endCell };
+            GridCell currentCell = endCell;
             // While the current node has a parent
-            while (currentNode.PreviousNode != null)
+            while (currentCell.PreviousCell != null)
             {
-                path.Add(currentNode.PreviousNode);
-                currentNode = currentNode.PreviousNode;
+                path.Add(currentCell.PreviousCell);
+                currentCell = currentCell.PreviousCell;
             }
             // Because we came in from the end, we need to reverse it, so we're at the beginning
             path.Reverse();
@@ -230,7 +230,7 @@ namespace World
         }
 
         // TODOJEF: Maybe look into this and not allowing diagonal?
-        private int CalculateDistanceCost(GridNode a, GridNode b)
+        private int CalculateDistanceCost(GridCell a, GridCell b)
         {
             int xDistance = Mathf.Abs(a.X - b.X);
             int yDistance = Mathf.Abs(a.Y - b.Y);
@@ -239,17 +239,17 @@ namespace World
         }
 
         // TODO: It'd be more performant to use a binary tree
-        private GridNode GetLowestTotalCostNode(List<GridNode> nodes)
+        private GridCell GetLowestTotalCostNode(List<GridCell> nodes)
         {
-            GridNode lowestTotalCostNode = nodes[0];
-            foreach (GridNode node in nodes)
+            GridCell lowestTotalCostCell = nodes[0];
+            foreach (GridCell node in nodes)
             {
-                if (node.TotalCost < lowestTotalCostNode.TotalCost)
+                if (node.TotalCost < lowestTotalCostCell.TotalCost)
                 {
-                    lowestTotalCostNode = node;
+                    lowestTotalCostCell = node;
                 }
             }
-            return lowestTotalCostNode;
+            return lowestTotalCostCell;
         }
     }
 

@@ -1,0 +1,17 @@
+export default {
+    Default: 0,
+    ActionUp: 1,
+    ActionDown: 2,
+    ActionRight: 3,
+    ActionLeft: 4,
+    Entering: 5,
+    Exiting: 6,
+    IdleUp: 7,
+    IdleDown: 8,
+    IdleRight: 9,
+    IdleLeft: 10,
+    WalkUp: 11,
+    WalkDown: 12,
+    WalkRight: 13,
+    WalkLeft: 14,
+}

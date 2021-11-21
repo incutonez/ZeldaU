@@ -1,0 +1,9 @@
+﻿{
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended"
+  ],
+  "globals": {
+    "__dirname": true
+  }
+}

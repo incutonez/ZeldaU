@@ -8,30 +8,27 @@ import glob from "glob";
  * @returns {String}
  */
 function toEnum(data) {
-  // Need the trim because there's some sort of zwnbsp character that'll show up
-  data = data.trim().replace(/public enum [^{]+/, "")
-  // Remove any special descriptions
-  .replace(/\[[^\]]+\]\r\n/g, "")
-  // Change = to :
-  .replace(/=/g, ":")
-  // Remove any comments
-  .replace(/\/\/\/?[^\n]+\n/g, "");
-  // If there are no default values, let's create them
-  if (data.indexOf(":") === -1) {
-    let i = 0;
-    const splits = data.replace(/\s+/g, "").replace(/\{|\}/g, "").split(/([^,]+),/);
-    splits.forEach((item, idx) => {
-      if (item) {
-        // The last one doesn't have a comma, so we can't exact match it
-        if (idx + 1 === splits.length) {
-          data = data.replace(new RegExp(`${item}`), `${item}: ${i++},`);
-        } else {
-          data = data.replace(new RegExp(`${item},`), `${item}: ${i++},`);
-        }
-      }
-    });
-  }
-  return `export default ${data}`;
+  let output = "";
+  const matches = data.trim().match(/public enum [^}]+}/g);
+  const isDefault = matches.length === 1;
+  matches.forEach((match) => {
+    const matchName = match.match(/public enum ([^\r]+)/)[1];
+    // Need the trim because there's some sort of zwnbsp character that'll show up
+    match = match.trim().replace(/public enum [^{]+/, "")
+    // Remove any special descriptions
+    .replace(/\[[^\]]+\]\r\n/g, "")
+    // Change = to :
+    .replace(/=/g, ":")
+    // Remove any comments
+    .replace(/\/\/\/?[^\n]+\n/g, "");
+    // If there are no default values, let's create them
+    if (match.indexOf(":") === -1) {
+      match = "['" + match.replace(/\s+/g, "").replace(/\{|\}/g, "").split(/([^,]+),/).filter((item) => item).join("','") + "']";
+      console.log(match);
+    }
+    output += `export ${isDefault ? "default" : `const ${matchName} =`} new Enum(${match})`;
+  });
+  return `import {Enum} from "../Enum.js"\n${output}`;
 }
 
 if (fs.existsSync("src/enums")) {

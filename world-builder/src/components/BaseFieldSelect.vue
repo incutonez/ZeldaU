@@ -1,5 +1,5 @@
 ﻿<template>
-  <div>
+  <div class="relative">
     <div
       class="flex"
       :class="labelAlign"
@@ -37,7 +37,7 @@
         v-for="record in store"
         :key="record[store.idKey]"
         class="base-list-item"
-        :style="record.fieldStyle"
+        :class="selectedRecord === record ? 'bg-blue-300' : ''"
         @click="onClickListItem(record)"
       >
         <slot
@@ -101,10 +101,12 @@ export default {
 
     watch(isExpanded, (value) => {
       if (value) {
-        const position = inputEl.value.getBoundingClientRect();
-        list.value.style.width = `${position.width}px`;
-        list.value.style.left = `${position.left}px`;
-        list.value.style.top = `${position.bottom}px`;
+        const position = inputEl.value;
+        const parent = inputEl.value.offsetParent;
+        list.value.style.width = `${position.offsetWidth}px`;
+        list.value.style.left = `${position.offsetLeft}px`;
+        // Our input lives in a relatively positioned div, so let's include the div's offsetTop
+        list.value.style.top = `${position.offsetHeight + parent.offsetTop}px`;
         list.value.classList.remove("hidden");
         inputEl.value.focus();
       }
@@ -167,6 +169,7 @@ export default {
       triggerIcon,
       value,
       inputEl,
+      selectedRecord,
       labelCls: useLabelCls(props),
       onClickInput,
       onClickListItem,

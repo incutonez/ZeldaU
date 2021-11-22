@@ -29,9 +29,9 @@ class Enum {
     Object.assign(this, self);
   }
 
-  createKey(item) {
+  createKey(item, alter = false) {
     // We split on uppercase 
-    return item.split(/([A-Z][a-z]+)/g).filter(Boolean).join("_").toUpperCase();
+    return alter ? item.split(/([A-Z][a-z]+)/g).filter(Boolean).join("_").toUpperCase(); : item;
   }
 
   get store() {

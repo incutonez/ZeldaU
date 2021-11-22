@@ -1,4 +1,5 @@
 import { Enum } from "@/classes/Enum.js";
+import { Tile } from "@/classes/models/Tile.js";
 
 export default new Enum([
   "Block",
@@ -80,4 +81,4 @@ export default new Enum([
   "WaterBottomRight",
   "WaterTopLeft",
   "WaterTopRight"
-]);
+], Tile);

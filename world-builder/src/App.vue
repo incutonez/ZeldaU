@@ -6,11 +6,20 @@
     <ul>
       <li
         class="context-menu-item"
-        @click="onClickContextMenuItem"
+        @click="onClickTilesMenu"
       >
-        Item 1
+        Tiles
       </li>
     </ul>
+  </div>
+  <div
+    ref="tilesDialog"
+    class="base-dialog hidden"
+  >
+    <BaseFieldSelect
+      label="Tiles"
+      :store="tilesStore"
+    />
   </div>
   <div
     class="flex h-full w-full"
@@ -54,6 +63,7 @@
 <script>
 import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
 import WorldColors from "@/classes/enums/WorldColors.js";
+import Tiles from "@/classes/enums/Tiles.js";
 
 export default {
   name: "App",
@@ -62,9 +72,10 @@ export default {
     return {
       groundColorsStore: WorldColors.store,
       accentColorsStore: WorldColors.store,
+      tilesStore: Tiles.store,
       record: {
-        groundColor: WorldColors.TAN,
-        accentColor: WorldColors.GREEN,
+        groundColor: WorldColors.Tan,
+        accentColor: WorldColors.Green,
         rows: Array.from(Array(11), () => new Array(16).fill(null)),
       }
     };
@@ -91,7 +102,8 @@ export default {
     onContextMenuCell(event) {
       this.showContextMenu(event);
     },
-    onClickContextMenuItem() {
+    onClickTilesMenu() {
+      this.$refs.tilesDialog.classList.remove("hidden");
       this.hideContextMenu();
     }
   }

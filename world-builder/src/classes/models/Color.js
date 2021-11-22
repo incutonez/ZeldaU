@@ -1,13 +1,7 @@
 ﻿import WorldColors from "@/classes/enums/WorldColors.js";
+import { Model } from "@/classes/models/Model.js";
 
-class Color {
-  id = "";
-  value = "";
-
-  constructor(args) {
-    Object.assign(this, args);
-  }
-
+class Color extends Model {
   get backgroundStyle() {
     if (this.id === WorldColors.TRANSPARENT) {
       return "";

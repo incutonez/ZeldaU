@@ -25,11 +25,7 @@
 
 <script>
 import BaseFieldLabel from "@/components/BaseFieldLabel.vue";
-import {
-  computed,
-  inject,
-  ref,
-} from "vue";
+import { computed } from "vue";
 import {
   baseFieldProps,
   useLabelCls

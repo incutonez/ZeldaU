@@ -1,12 +1,12 @@
 module.exports = {
-  purge: [ "./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}" ],
+  purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      "zTan": "#FFEFA6",
-      "zGreen": "#00a800",
-    },
     extend: {
+      colors: {
+        "zTan": "#FFEFA6",
+        "zGreen": "#00a800",
+      },
       gridTemplateColumns: {
         "16": "repeat(16, minmax(0, 1fr))",
       },

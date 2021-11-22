@@ -3,7 +3,21 @@
 @tailwind utilities;
 
 @layer utilities {
-  .item-highlight {
-    @apply text-blue-100;
+  @variants hover {
+    .item-highlight {
+      @apply bg-blue-100;
+    }
+  }
+}
+
+@layer components {
+  .grid-cell {
+    @apply border-t border-l text-center hover:item-highlight;
+  }
+}
+
+@layer components {
+  .context-menu-item {
+    @apply border-b px-4 py-2 cursor-pointer hover:item-highlight;
   }
 }

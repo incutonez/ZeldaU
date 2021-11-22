@@ -36,9 +36,10 @@
       </template>
     </div>
     <div class="p-4">
-      <BaseField
+      <BaseFieldSelect
         v-model="record.groundColor"
         label="Ground Color"
+        :store="['One', 'Two']"
         @input="onInputGroundColor"
       />
     </div>
@@ -46,11 +47,11 @@
 </template>
 
 <script>
-import BaseField from "@/components/BaseField.vue";
+import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
 
 export default {
   name: "App",
-  components: { BaseField },
+  components: { BaseFieldSelect },
   data() {
     return {
       record: {

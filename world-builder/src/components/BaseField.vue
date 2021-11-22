@@ -7,31 +7,39 @@
       :value="label"
       :class="labelCls"
     />
-    <input
-      v-model="value"
-      class="base-field"
-      :type="inputType"
-      @input="onInputField"
+    <div
+      class="relative"
+      @click="onClickField"
     >
+      <input
+        ref="inputEl"
+        v-model="value"
+        class="base-field"
+        :type="inputType"
+        @input="onInputField"
+        @blur="onBlurField"
+      >
+      <slot name="postInput" />
+    </div>
   </div>
 </template>
 
 <script>
 import BaseFieldLabel from "@/components/BaseFieldLabel.vue";
-import { computed } from "vue";
+import {
+  computed,
+  ref
+} from "vue";
+import {
+  baseFieldProps,
+  useLabelCls
+} from "@/components/useBaseField.js";
 
 export default {
   name: "BaseField",
   components: { BaseFieldLabel },
   props: {
-    label: {
-      type: String,
-      default: "",
-    },
-    labelAlign: {
-      type: String,
-      default: "flex-col"
-    },
+    ...baseFieldProps,
     modelValue: {
       type: [String, Number],
       default: "",
@@ -44,8 +52,11 @@ export default {
   emits: [
     "update:modelValue",
     "input",
+    "click:input",
+    "blur:input"
   ],
   setup(props, { emit }) {
+    const inputEl = ref(null);
     const value = computed({
       get() {
         return props.modelValue;
@@ -55,13 +66,21 @@ export default {
       }
     });
 
-    const labelCls = computed(() => props.labelAlign === "flex-row" ? "mr-2" : "my-1");
-
     return {
       value,
-      labelCls,
+      inputEl,
+      labelCls: useLabelCls(props),
+      getInputEl() {
+        return inputEl.value;
+      },
       onInputField(event) {
         emit("input", event);
+      },
+      onClickField(event) {
+        emit("click:input", event);
+      },
+      onBlurField(event) {
+        emit("blur:input", event);
       }
     };
   },
@@ -70,6 +89,6 @@ export default {
 
 <style>
 .base-field {
-  @apply border text-sm py-0.5 px-1 outline-none;
+  @apply border text-sm py-0.5 px-1 outline-none focus:border-blue-500;
 }
 </style>

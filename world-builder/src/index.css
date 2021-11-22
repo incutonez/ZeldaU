@@ -14,10 +14,12 @@
   .grid-cell {
     @apply border-t border-l text-center hover:item-highlight;
   }
-}
 
-@layer components {
   .context-menu-item {
     @apply border-b px-4 py-2 cursor-pointer hover:item-highlight;
+  }
+
+  .base-list-item {
+    @apply p-1 hover:item-highlight cursor-pointer;
   }
 }

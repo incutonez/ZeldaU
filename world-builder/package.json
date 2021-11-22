@@ -9,6 +9,7 @@
     "lint": "eslint --fix --ext .js,.vue src"
   },
   "dependencies": {
+    "@heroicons/vue": "^1.0.5",
     "glob": "^7.2.0",
     "vue": "^3.2.16"
   },

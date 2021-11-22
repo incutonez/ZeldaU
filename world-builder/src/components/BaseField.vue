@@ -12,7 +12,6 @@
       @click="onClickField"
     >
       <input
-        ref="inputEl"
         v-model="value"
         class="base-field"
         :type="inputType"
@@ -50,33 +49,18 @@ export default {
     "change"
   ],
   setup(props, { emit }) {
-    const inputEl = ref(null);
-    // TODOJEF: Doesn't work if fieldValue is not defined... get Vue warning
-    const value = inject("fieldValue") || computed({
+    const value = computed({
       get() {
-        console.log("using");
         return props.modelValue;
       },
       set(value) {
-        setValue(value);
+        emit("update:modelValue", value);
       }
     });
 
-    console.log(props.modelValue);
-
-    function setValue(value) {
-      console.log("updating");
-      emit("update:modelValue", value);
-    }
-
     return {
       value,
-      inputEl,
       labelCls: useLabelCls(props),
-      setValue,
-      getInputEl() {
-        return inputEl.value;
-      },
       onInputField(event) {
         emit("input", event);
       },

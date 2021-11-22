@@ -3,9 +3,11 @@
 class Store extends Array {
   idKey = "id";
   valueKey = "value";
+  model = null;
 
-  constructor(args) {
+  constructor(args, model = Object) {
     super(args);
+    this.model = model;
     this.initialize(args);
   }
 
@@ -14,10 +16,10 @@ class Store extends Array {
     if (isObject(items, false) || !isObject(first, false)) {
       const result = [];
       for (const item in items) {
-        result.push({
+        result.push(new this.model({
           [this.idKey]: items[item],
           [this.valueKey]: item
-        });
+        }));
       }
       Object.assign(this, result);
     }

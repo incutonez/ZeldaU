@@ -26,7 +26,8 @@
         <div
           v-for="(cell, cellIdx) in row"
           :key="`${rowIdx}_${cellIdx}`"
-          :class="`grid-cell row-start-${record.rows.length - rowIdx} bg-${cell?.groundColor || record.groundColor}`"
+          :class="`grid-cell row-start-${record.rows.length - rowIdx}`"
+          :style="selectedGround"
           :data-cell-idx="cellIdx"
           :data-row-idx="rowIdx"
           @contextmenu="onContextMenuCell"
@@ -35,12 +36,16 @@
         </div>
       </template>
     </div>
-    <div class="p-4">
+    <div class="p-4 space-y-2">
       <BaseFieldSelect
         v-model="record.groundColor"
         label="Ground Color"
         :store="groundColorsStore"
-        @input="onInputGroundColor"
+      />
+      <BaseFieldSelect
+        v-model="record.accentColor"
+        label="Accent Color"
+        :store="accentColorsStore"
       />
     </div>
   </div>
@@ -56,23 +61,20 @@ export default {
   data() {
     return {
       groundColorsStore: WorldColors.store,
+      accentColorsStore: WorldColors.store,
       record: {
         groundColor: WorldColors.TAN,
+        accentColor: WorldColors.GREEN,
         rows: Array.from(Array(11), () => new Array(16).fill(null)),
       }
     };
   },
-  watch: {
-    "record.groundColor": {
-      handler(value) {
-        console.log("updating", WorldColors, value);
-      }
+  computed: {
+    selectedGround() {
+      return this.groundColorsStore.findRecord(this.record.groundColor)?.backgroundStyle;
     }
   },
   methods: {
-    onInputGroundColor() {
-      console.log(this.record);
-    },
     getContextMenu() {
       return this.$refs.contextMenu;
     },

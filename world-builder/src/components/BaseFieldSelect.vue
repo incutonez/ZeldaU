@@ -29,20 +29,28 @@
         </div>
       </div>
     </div>
-  </div>
-  <ul
-    ref="list"
-    class="base-list hidden"
-  >
-    <li
-      v-for="record in store"
-      :key="record[store.idKey]"
-      class="base-list-item"
-      @click="onClickListItem(record)"
+    <ul
+      ref="list"
+      class="base-list hidden"
     >
-      {{ record[store.valueKey] }}
-    </li>
-  </ul>
+      <li
+        v-for="record in store"
+        :key="record[store.idKey]"
+        class="base-list-item"
+        :style="record.fieldStyle"
+        @click="onClickListItem(record)"
+      >
+        <slot
+          name="contentListItem"
+          :record="record"
+          :store="store"
+          :displayValue="record[store.valueKey]"
+        >
+          {{ record[store.valueKey] }}
+        </slot>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -77,10 +85,11 @@ export default {
     }
   },
   // TODOJEF: Can't put this in useBaseField because IDE warns about not existing... fix?
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "select"],
   setup(props, { emit }) {
     const list = ref(null);
     const field = ref(null);
+    const inputEl = ref(null);
     const triggerIcon = ref(null);
     const isExpanded = ref(false);
     const selectedRecord = ref(null);
@@ -92,21 +101,17 @@ export default {
 
     watch(isExpanded, (value) => {
       if (value) {
-        const position = field.value.getBoundingClientRect();
+        const position = inputEl.value.getBoundingClientRect();
         list.value.style.width = `${position.width}px`;
-        list.value.style.left = `${position.x}px`;
+        list.value.style.left = `${position.left}px`;
         list.value.style.top = `${position.bottom}px`;
         list.value.classList.remove("hidden");
-        field.value.focus();
+        inputEl.value.focus();
       }
       else {
         list.value.classList.add("hidden");
       }
     });
-
-    function onChangeInput(value) {
-      console.log("here", value, props.store.findRecord(value));
-    }
 
     function toggleTrigger() {
       isExpanded.value = !isExpanded.value;
@@ -136,6 +141,7 @@ export default {
     function onClickListItem(record) {
       select(record);
       emit("update:modelValue", record[props.store.idKey]);
+      emit("select", record);
       hideTrigger();
     }
 
@@ -160,20 +166,16 @@ export default {
       field,
       triggerIcon,
       value,
+      inputEl,
       labelCls: useLabelCls(props),
       onClickInput,
       onClickListItem,
-      onChangeInput,
     };
   },
 };
 </script>
 
 <style>
-.base-list {
-  @apply absolute text-sm w-full border border-t-0 shadow-sm;
-}
-
 .base-field {
   @apply pr-5;
 }

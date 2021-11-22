@@ -6,7 +6,6 @@ const inPath = "../Assets/Scripts/Enums/";
 const classesPath = "@/classes/";
 const outPath = `src/classes/enums/`;
 
-// TODOJEF: Have to fix the Colors parsing... as I need those values to be the Color value
 /**
  * This takes a C# enum and turns it into a JSON string
  * @param {String} data
@@ -31,12 +30,13 @@ function toEnum(data) {
       matches.forEach((item) => {
         const color = item.match(/(?:Color\()([^)]+)/)?.[1];
         if (color) {
-          const [str, prop, propName] = item.match(/\r\n\s*(([^:]+\s*:)\s*\d+)/);
+          const [, prop, propName] = item.match(/\r\n\s*(([^:]+\s*:)\s*\d+)/);
           match = match.replace(prop, `${propName}${color}`);
         }
       });
     }
-    match = match.replace(/\[[^\]]+\]\r\n/g, "");
+    match = match.replace(/\[[^\]]+\]\r\n/g, "")
+    .replace(/\r\n/g, "");
     // If there are no default values, let's create them
     if (match.indexOf(":") === -1) {
       match = "['" + match.replace(/\s+/g, "").replace(/\{|\}/g, "").split(/([^,]+),/).filter((item) => item).join("','") + "']";

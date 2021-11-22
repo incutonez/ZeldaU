@@ -5,7 +5,7 @@
 @layer utilities {
   @variants hover {
     .item-highlight {
-      @apply bg-blue-100;
+      @apply bg-blue-100 !important;
     }
   }
 }
@@ -17,6 +17,10 @@
 
   .context-menu-item {
     @apply border-b px-4 py-2 cursor-pointer hover:item-highlight;
+  }
+
+  .base-list {
+    @apply absolute text-sm w-full border border-t-0 shadow-sm bg-white z-10;
   }
 
   .base-list-item {

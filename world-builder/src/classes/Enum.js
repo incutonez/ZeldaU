@@ -2,7 +2,10 @@
 import { Store } from "@/classes/Store.js";
 
 class Enum {
-  constructor(items) {
+  #model;
+
+  constructor(items, model) {
+    this.#model = model;
     this.initialize(items);
   }
 
@@ -32,7 +35,7 @@ class Enum {
   }
 
   get store() {
-    return new Store(this);
+    return new Store(this, this.#model);
   }
 
   get keys() {

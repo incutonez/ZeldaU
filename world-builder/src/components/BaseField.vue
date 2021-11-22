@@ -9,7 +9,8 @@
     />
     <input
       v-model="value"
-      class="border text-sm py-0.5 px-1 outline-none focus:border-blue-500"
+      class="base-field"
+      :type="inputType"
       @input="onInputField"
     >
   </div>
@@ -32,8 +33,12 @@ export default {
       default: "flex-col"
     },
     modelValue: {
-      type: [ String, Number ],
+      type: [String, Number],
       default: "",
+    },
+    inputType: {
+      type: String,
+      default: "text",
     },
   },
   emits: [
@@ -62,3 +67,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.base-field {
+  @apply border text-sm py-0.5 px-1 outline-none;
+}
+</style>

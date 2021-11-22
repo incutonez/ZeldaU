@@ -1,3 +1,9 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .item-highlight {
+    @apply text-blue-100;
+  }
+}

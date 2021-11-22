@@ -9,6 +9,14 @@ export const baseFieldProps = {
     type: String,
     default: "flex-col"
   },
+  inputType: {
+    type: String,
+    default: "text",
+  },
+  modelValue: {
+    type: [String, Number],
+    default: "",
+  },
 };
 
 export function useLabelCls(props) {

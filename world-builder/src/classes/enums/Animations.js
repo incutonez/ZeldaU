@@ -1,4 +1,4 @@
-import { Enum } from "../Enum.js";
+import { Enum } from "@/classes/Enum.js";
 
 export default new Enum([
   "Default",

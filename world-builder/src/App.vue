@@ -39,7 +39,7 @@
       <BaseFieldSelect
         v-model="record.groundColor"
         label="Ground Color"
-        :store="['One', 'Two']"
+        :store="groundColorsStore"
         @input="onInputGroundColor"
       />
     </div>
@@ -48,17 +48,26 @@
 
 <script>
 import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
+import WorldColors from "@/classes/enums/WorldColors.js";
 
 export default {
   name: "App",
   components: { BaseFieldSelect },
   data() {
     return {
+      groundColorsStore: WorldColors.store,
       record: {
-        groundColor: "zTan",
+        groundColor: WorldColors.TAN,
         rows: Array.from(Array(11), () => new Array(16).fill(null)),
       }
     };
+  },
+  watch: {
+    "record.groundColor": {
+      handler(value) {
+        console.log("updating", WorldColors, value);
+      }
+    }
   },
   methods: {
     onInputGroundColor() {

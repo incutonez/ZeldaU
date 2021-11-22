@@ -1,11 +1,24 @@
 ﻿<template>
   <div>
-    <BaseField
-      ref="field"
-      v-bind="$attrs"
-      @click:input="onClickInput"
+    <div
+      class="flex"
+      :class="labelAlign"
     >
-      <template #postInput>
+      <BaseFieldLabel
+        :value="label"
+        :class="labelCls"
+      />
+      <div
+        ref="field"
+        class="relative"
+        @click="onClickInput"
+      >
+        <input
+          ref="inputEl"
+          :value="value"
+          class="base-field"
+          :type="inputType"
+        >
         <div
           ref="triggerIcon"
           class="absolute h-full flex items-center top-0 right-0.5"
@@ -14,66 +27,86 @@
             class="h-5 w-5 hover:text-blue-500 cursor-pointer"
           />
         </div>
-      </template>
-    </BaseField>
+      </div>
+    </div>
   </div>
   <ul
     ref="list"
     class="base-list hidden"
   >
     <li
-      v-for="(record, idx) in store"
-      :key="idx"
+      v-for="record in store"
+      :key="record[store.idKey]"
       class="base-list-item"
-      @click="onClickListItem"
+      @click="onClickListItem(record)"
     >
-      {{ record }}
+      {{ record[store.valueKey] }}
     </li>
   </ul>
 </template>
 
 <script>
-import BaseField from "@/components/BaseField.vue";
 import {
+  computed,
   onMounted,
   onUnmounted,
   ref,
   watch
 } from "vue";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
+import { Store } from "@/classes/Store.js";
+import { isEmpty } from "@/utilities.js";
+import BaseFieldLabel from "@/components/BaseFieldLabel.vue";
+import {
+  baseFieldProps,
+  useLabelCls
+} from "@/components/useBaseField.js";
 
 export default {
   name: "BaseFieldSelect",
   components: {
-    BaseField,
     ChevronDownIcon,
+    BaseFieldLabel,
   },
   inheritAttrs: false,
   props: {
+    ...baseFieldProps,
     store: {
-      type: Array,
+      type: Store,
       required: true,
     }
   },
-  setup(props) {
+  // TODOJEF: Can't put this in useBaseField because IDE warns about not existing... fix?
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
     const list = ref(null);
     const field = ref(null);
     const triggerIcon = ref(null);
     const isExpanded = ref(false);
+    const selectedRecord = ref(null);
+    const value = computed(() => selectedRecord.value?.[props.store.valueKey]);
+
+    if (!isEmpty(props.modelValue)) {
+      selectedRecord.value = props.store.findRecord(props.modelValue);
+    }
 
     watch(isExpanded, (value) => {
       if (value) {
-        const position = field.value.$el.getBoundingClientRect();
+        const position = field.value.getBoundingClientRect();
         list.value.style.width = `${position.width}px`;
         list.value.style.left = `${position.x}px`;
         list.value.style.top = `${position.bottom}px`;
         list.value.classList.remove("hidden");
-        field.value.getInputEl().focus();
+        field.value.focus();
       }
       else {
         list.value.classList.add("hidden");
       }
     });
+
+    function onChangeInput(value) {
+      console.log("here", value, props.store.findRecord(value));
+    }
 
     function toggleTrigger() {
       isExpanded.value = !isExpanded.value;
@@ -96,12 +129,18 @@ export default {
       }
     }
 
-    function onClickListItem() {
+    function select(record) {
+      selectedRecord.value = record;
+    }
+
+    function onClickListItem(record) {
+      select(record);
+      emit("update:modelValue", record[props.store.idKey]);
       hideTrigger();
     }
 
     function onClickDocument(event) {
-      if (isExpanded.value && !(field.value.getInputEl().contains(event.target) || triggerIcon.value.contains(event.target))) {
+      if (isExpanded.value && !(field.value.contains(event.target) || triggerIcon.value.contains(event.target))) {
         hideTrigger();
       }
     }
@@ -120,10 +159,13 @@ export default {
       list,
       field,
       triggerIcon,
+      value,
+      labelCls: useLabelCls(props),
       onClickInput,
       onClickListItem,
+      onChangeInput,
     };
-  }
+  },
 };
 </script>
 

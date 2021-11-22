@@ -1,4 +1,4 @@
-import { Enum } from "../Enum.js";
+import { Enum } from "@/classes/Enum.js";
 
 export const Characters = new Enum({
   Fairy: 1,
@@ -9,6 +9,7 @@ export const Characters = new Enum({
   OldWoman: 6,
   Zelda: 7
 });
+
 export const Enemies = new Enum({
   Armos: 0,
   Rock: 1,
@@ -58,6 +59,7 @@ export const Enemies = new Enum({
   ZolGreen: 411,
   Zora: 42
 });
+
 export const Bosses = new Enum([
   "Aquamentus",
   "Digdogger",

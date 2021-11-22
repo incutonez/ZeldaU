@@ -22,4 +22,8 @@
   .base-list-item {
     @apply p-1 hover:item-highlight cursor-pointer;
   }
+
+  .base-field {
+    @apply border text-sm py-0.5 px-1 outline-none focus:border-blue-500 shadow-sm;
+  }
 }

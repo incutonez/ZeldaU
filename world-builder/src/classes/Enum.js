@@ -1,4 +1,5 @@
 ﻿import { isObject } from "@/utilities.js";
+import { Store } from "@/classes/Store.js";
 
 class Enum {
   constructor(items) {
@@ -6,8 +7,8 @@ class Enum {
   }
 
   initialize(items) {
+    const self = {};
     if (Array.isArray(items)) {
-      const self = {};
       items.forEach((item, idx) => {
         if (isObject(item)) {
           Object.assign(self, item);
@@ -16,14 +17,22 @@ class Enum {
           self[this.createKey(item)] = idx;
         }
       });
-      items = self;
     }
-    Object.assign(this, items);
+    else {
+      for (const item in items) {
+        self[this.createKey(item)] = items[item];
+      }
+    }
+    Object.assign(this, self);
   }
 
   createKey(item) {
     // We split on uppercase 
     return item.split(/([A-Z][a-z]+)/g).filter(Boolean).join("_").toUpperCase();
+  }
+
+  get store() {
+    return new Store(this);
   }
 
   get keys() {
@@ -33,6 +42,8 @@ class Enum {
   get values() {
     return Object.values(this);
   }
+
+  // TODOJEF: NEED PRINT OUT METHOD
 }
 
 export {

@@ -28,7 +28,8 @@
 import BaseFieldLabel from "@/components/BaseFieldLabel.vue";
 import {
   computed,
-  ref
+  inject,
+  ref,
 } from "vue";
 import {
   baseFieldProps,
@@ -40,36 +41,39 @@ export default {
   components: { BaseFieldLabel },
   props: {
     ...baseFieldProps,
-    modelValue: {
-      type: [String, Number],
-      default: "",
-    },
-    inputType: {
-      type: String,
-      default: "text",
-    },
   },
   emits: [
     "update:modelValue",
     "input",
     "click:input",
-    "blur:input"
+    "blur:input",
+    "change"
   ],
   setup(props, { emit }) {
     const inputEl = ref(null);
-    const value = computed({
+    // TODOJEF: Doesn't work if fieldValue is not defined... get Vue warning
+    const value = inject("fieldValue") || computed({
       get() {
+        console.log("using");
         return props.modelValue;
       },
       set(value) {
-        emit("update:modelValue", value);
+        setValue(value);
       }
     });
+
+    console.log(props.modelValue);
+
+    function setValue(value) {
+      console.log("updating");
+      emit("update:modelValue", value);
+    }
 
     return {
       value,
       inputEl,
       labelCls: useLabelCls(props),
+      setValue,
       getInputEl() {
         return inputEl.value;
       },
@@ -86,9 +90,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.base-field {
-  @apply border text-sm py-0.5 px-1 outline-none focus:border-blue-500;
-}
-</style>

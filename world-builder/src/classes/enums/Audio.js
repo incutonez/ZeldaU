@@ -1,4 +1,4 @@
-import { Enum } from "../Enum.js";
+import { Enum } from "@/classes/Enum.js";
 
 export const FX = new Enum([
   "ArrowBoomerang",
@@ -28,12 +28,4 @@ export const FX = new Enum([
   "SwordSlash",
   "Text"
 ]);
-export const Music = new Enum([
-  "Castle",
-  "Ending",
-  "FinalCastle",
-  "GameOver",
-  "GanonAppear",
-  "Intro",
-  "Overworld"
-]);
+export const Music = new Enum(["Castle", "Ending", "FinalCastle", "GameOver", "GanonAppear", "Intro", "Overworld"]);

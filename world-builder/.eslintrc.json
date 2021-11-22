@@ -5,5 +5,8 @@
   ],
   "globals": {
     "__dirname": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest"
   }
 }

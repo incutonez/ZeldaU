@@ -36,10 +36,11 @@
         <div
           v-for="(cell, cellIdx) in row"
           :key="`${rowIdx}_${cellIdx}`"
-          :class="`grid-cell row-start-${record.rows.length - rowIdx}`"
-          :style="selectedGround"
+          :class="getCellCls(cell, record.rows.length, rowIdx, selectedCell)"
+          :style="getCellColor(cell.AccentColor)"
           :data-cell-idx="cellIdx"
           :data-row-idx="rowIdx"
+          @click="onClickCell(cell)"
           @contextmenu="onContextMenuCell"
         >
           {{ cellIdx }}, {{ rowIdx }}
@@ -48,15 +49,25 @@
     </div>
     <div class="p-4 space-y-2">
       <BaseFieldSelect
-        v-model="record.groundColor"
+        v-model="record.GroundColor"
         label="Ground Color"
         :store="groundColorsStore"
       />
       <BaseFieldSelect
-        v-model="record.accentColor"
-        label="Accent Color"
+        v-model="record.AccentColor"
+        label="World Accent Color"
         :store="accentColorsStore"
       />
+      <div
+        v-if="selectedCell"
+        :key="selectedCell"
+      >
+        <BaseFieldSelect
+          v-model="selectedCell.AccentColor"
+          label="Cell Accent Color"
+          :store="accentColorsStore"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +75,7 @@
 <script>
 import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
-import Tiles from "@/classes/enums/Tiles.js";
+import { Tiles } from "@/classes/enums/Tiles.js";
 import BaseDialog from "@/components/BaseDialog.vue";
 import {
   computed,
@@ -73,6 +84,7 @@ import {
   toRefs
 } from "vue";
 import BaseContextMenu from "@/components/BaseContextMenu.vue";
+import { Grid } from "@/classes/models/Grid.js";
 
 export default {
   name: "App",
@@ -84,20 +96,36 @@ export default {
   setup() {
     const contextMenu = ref(null);
     const theDialog = ref(null);
+    const selectedCell = ref(null);
     const state = reactive({
       groundColorsStore: WorldColors.store,
       accentColorsStore: WorldColors.store,
       tilesStore: Tiles.store,
-      record: {
-        groundColor: WorldColors.Tan,
-        accentColor: WorldColors.Green,
-        rows: Array.from(Array(11), () => new Array(16).fill(null)),
-      },
+      record: Grid.initialize(11, 16),
     });
-    const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.groundColor)?.backgroundStyle);
+    const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle);
+
+    function getCellColor(accentColor) {
+      if (accentColor === WorldColors.None) {
+        accentColor = "";
+      }
+      return state.accentColorsStore.findRecord(accentColor || state.record.AccentColor)?.backgroundStyle;
+    }
+
+    function getCellCls(cell, totalRows, rowIdx) {
+      return {
+        [`grid-cell row-start-${totalRows - rowIdx}`]: true,
+        "grid-cell-selected": cell === selectedCell.value
+      };
+    }
 
     function hideContextMenu() {
       contextMenu.value.hide();
+    }
+
+    function onClickCell(cell) {
+      selectedCell.value = cell;
+      console.log(cell);
     }
 
     return {
@@ -106,6 +134,10 @@ export default {
       contextMenu,
       theDialog,
       hideContextMenu,
+      onClickCell,
+      selectedCell,
+      getCellCls,
+      getCellColor,
       onContextMenuCell(event) {
         contextMenu.value.show(event);
       },
@@ -121,10 +153,6 @@ export default {
 <style>
 html, body, #app {
   @apply h-full w-full;
-}
-
-.context-menu {
-  @apply absolute bg-gray-100;
 }
 
 /* Target last column */

@@ -1,6 +1,6 @@
 import { Enum } from "@/classes/Enum.js";
 
-export default new Enum({
+const ScreenTemplates = new Enum({
   Base: -1,
   Plain: 0,
   Entrance: 1,
@@ -50,3 +50,7 @@ export default new Enum({
   KeepPath: 45,
   Shop: 46
 });
+
+export {
+  ScreenTemplates
+};

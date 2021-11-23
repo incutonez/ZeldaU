@@ -21,6 +21,7 @@
           :value="value"
           class="base-field"
           :type="inputType"
+          :class="inputCls"
         >
         <div
           ref="triggerIcon"
@@ -70,6 +71,7 @@ import { isEmpty } from "@/utilities.js";
 import BaseFieldLabel from "@/components/BaseFieldLabel.vue";
 import {
   baseFieldProps,
+  useInputCls,
   useLabelCls
 } from "@/components/useBaseField.js";
 
@@ -173,6 +175,7 @@ export default {
       value,
       inputEl,
       selectedRecord,
+      inputCls: useInputCls(props),
       labelCls: useLabelCls(props),
       onClickInput,
       onClickListItem,

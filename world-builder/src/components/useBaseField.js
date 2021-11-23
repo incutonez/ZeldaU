@@ -21,7 +21,17 @@ export const baseFieldProps = {
     type: String,
     default: "w-48",
   },
+  margin: {
+    type: String,
+    default: "mb-1",
+  },
 };
+
+export function useInputCls(props) {
+  return {
+    [props.margin]: true,
+  };
+}
 
 export function useLabelCls(props) {
   return computed(() => {

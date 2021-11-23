@@ -43,11 +43,15 @@
           @click="onClickCell(cell)"
           @contextmenu="onContextMenuCell"
         >
-          {{ cellIdx }}, {{ rowIdx }}
+          <img
+            v-if="cell.tileImage"
+            :src="cell.tileImage"
+            class="w-full h-full"
+          >
         </div>
       </template>
     </div>
-    <div class="p-4 space-y-2">
+    <div class="p-4">
       <BaseFieldSelect
         v-model="record.GroundColor"
         label="Ground Color"
@@ -61,11 +65,17 @@
       <div
         v-if="selectedCell"
         :key="selectedCell"
+        class="mt-8"
       >
         <BaseFieldSelect
           v-model="selectedCell.AccentColor"
           label="Cell Accent Color"
           :store="accentColorsStore"
+        />
+        <BaseFieldSelect
+          v-model="selectedCell.Type"
+          label="Cell Tile"
+          :store="tilesStore"
         />
       </div>
     </div>
@@ -109,7 +119,7 @@ export default {
       if (accentColor === WorldColors.None) {
         accentColor = "";
       }
-      return state.accentColorsStore.findRecord(accentColor || state.record.AccentColor)?.backgroundStyle;
+      return state.accentColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle;
     }
 
     function getCellCls(cell, totalRows, rowIdx) {
@@ -125,7 +135,6 @@ export default {
 
     function onClickCell(cell) {
       selectedCell.value = cell;
-      console.log(cell);
     }
 
     return {

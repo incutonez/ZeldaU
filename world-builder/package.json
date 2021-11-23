@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "api": "cd api && npm run dev",
     "build": "vite build",
     "serve": "vite preview",
     "lint": "eslint --fix --ext .js,.vue src"

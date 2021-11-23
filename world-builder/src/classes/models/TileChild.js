@@ -1,6 +1,7 @@
 ﻿import { Tiles } from "@/classes/enums/Tiles.js";
 import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
+import { isEmpty } from "@/utilities.js";
 
 class TileChild extends Model {
   /**
@@ -30,6 +31,15 @@ class TileChild extends Model {
   constructor(args) {
     super(args);
     this.set(args);
+  }
+
+  get tileImage() {
+    const type = this.Type;
+    const color = this.AccentColor;
+    if (type === Tiles.None || color === WorldColors.None || isEmpty(color) || isEmpty(type)) {
+      return "";
+    }
+    return `http://localhost:3001/image?tile=${Tiles.getKey(type)}&color=${color}`;
   }
 }
 

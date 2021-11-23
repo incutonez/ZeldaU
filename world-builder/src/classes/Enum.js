@@ -29,6 +29,11 @@ class Enum {
     Object.assign(this, self);
   }
 
+  getKey(value) {
+    const index = this.values.indexOf(value);
+    return this.keys[index];
+  }
+
   createKey(item, alter = false) {
     // We split on uppercase 
     return alter ? item.split(/([A-Z][a-z]+)/g).filter(Boolean).join("_").toUpperCase() : item;

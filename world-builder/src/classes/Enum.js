@@ -31,7 +31,7 @@ class Enum {
 
   createKey(item, alter = false) {
     // We split on uppercase 
-    return alter ? item.split(/([A-Z][a-z]+)/g).filter(Boolean).join("_").toUpperCase(); : item;
+    return alter ? item.split(/([A-Z][a-z]+)/g).filter(Boolean).join("_").toUpperCase() : item;
   }
 
   get store() {

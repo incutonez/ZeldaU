@@ -17,6 +17,10 @@ export const baseFieldProps = {
     type: [String, Number],
     default: "",
   },
+  width: {
+    type: String,
+    default: "w-48",
+  },
 };
 
 export function useLabelCls(props) {

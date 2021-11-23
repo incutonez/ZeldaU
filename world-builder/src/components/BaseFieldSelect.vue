@@ -1,5 +1,8 @@
 ﻿<template>
-  <div class="relative">
+  <div
+    class="relative"
+    :class="[width]"
+  >
     <div
       class="flex"
       :class="labelAlign"

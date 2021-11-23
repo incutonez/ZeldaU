@@ -12,15 +12,17 @@
       </li>
     </ul>
   </div>
-  <div
-    ref="tilesDialog"
-    class="base-dialog hidden"
+  <BaseDialog
+    ref="theDialog"
+    title="Hello World"
   >
-    <BaseFieldSelect
-      label="Tiles"
-      :store="tilesStore"
-    />
-  </div>
+    <template #default>
+      <BaseFieldSelect
+        label="Tiles"
+        :store="tilesStore"
+      />
+    </template>
+  </BaseDialog>
   <div
     class="flex h-full w-full"
     @click="hideContextMenu"
@@ -64,10 +66,14 @@
 import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
 import WorldColors from "@/classes/enums/WorldColors.js";
 import Tiles from "@/classes/enums/Tiles.js";
+import BaseDialog from "@/components/BaseDialog.vue";
 
 export default {
   name: "App",
-  components: { BaseFieldSelect },
+  components: {
+    BaseDialog,
+    BaseFieldSelect
+  },
   data() {
     return {
       groundColorsStore: WorldColors.store,
@@ -103,7 +109,7 @@ export default {
       this.showContextMenu(event);
     },
     onClickTilesMenu() {
-      this.$refs.tilesDialog.classList.remove("hidden");
+      this.$refs.theDialog.show();
       this.hideContextMenu();
     }
   }

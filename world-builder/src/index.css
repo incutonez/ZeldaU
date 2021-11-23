@@ -20,7 +20,17 @@
   }
 
   .base-dialog {
-    @apply m-8 h-full w-full absolute z-10 bg-white border shadow flex;
+    @apply w-full h-full absolute z-10 bg-blue-200 bg-opacity-50;
+  }
+
+  .base-dialog-title {
+    @apply h-8 bg-blue-400 w-full text-white flex items-center px-2;
+  }
+
+  .base-dialog-content {
+    @apply m-8 bg-white shadow flex flex-col;
+    height: calc(100% - 4rem);
+    width: calc(100% - 4rem);
   }
 
   .base-list {
@@ -32,6 +42,6 @@
   }
 
   .base-field {
-    @apply border text-sm py-0.5 px-1 outline-none focus:border-blue-500 shadow-sm;
+    @apply border text-sm py-0.5 px-1 outline-none focus:border-blue-500 shadow-sm w-full;
   }
 }

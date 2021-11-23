@@ -76,7 +76,7 @@ import {
 } from "@/components/useBaseField.js";
 
 export default {
-  name: "BaseFieldSelect",
+  name: "BaseComboBox",
   components: {
     ChevronDownIcon,
     BaseFieldLabel,
@@ -87,6 +87,11 @@ export default {
     store: {
       type: Store,
       required: true,
+    },
+    maxHeight: {
+      type: Number,
+      // 18rem
+      default: 288,
     }
   },
   // TODOJEF: Can't put this in useBaseField because IDE warns about not existing... fix?
@@ -108,10 +113,21 @@ export default {
       if (value) {
         const position = inputEl.value;
         const parent = inputEl.value.offsetParent;
+        const offsetTop = position.offsetHeight + parent.offsetTop;
+        let difference = window.innerHeight - (position.getBoundingClientRect().y + offsetTop);
+        // < 6rem
+        if (difference < 96) {
+          // TODO: align picker to top of field
+        }
+        else if (difference >= props.maxHeight) {
+          difference = props.maxHeight;
+        }
+        //window.innerHeight - (position.getBoundingClientRect().y + offsetTop) > 288
         list.value.style.width = `${position.offsetWidth}px`;
         list.value.style.left = `${position.offsetLeft}px`;
         // Our input lives in a relatively positioned div, so let's include the div's offsetTop
-        list.value.style.top = `${position.offsetHeight + parent.offsetTop}px`;
+        list.value.style.top = `${offsetTop}px`;
+        list.value.style.height = `${difference}px`;
         list.value.classList.remove("hidden");
         inputEl.value.focus();
       }

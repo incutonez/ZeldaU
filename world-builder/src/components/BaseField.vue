@@ -1,19 +1,20 @@
 ﻿<template>
   <div
     class="flex"
-    :class="labelAlign"
+    :class="[labelAlign, pack, width]"
   >
     <BaseFieldLabel
       :value="label"
       :class="labelCls"
     />
     <div
-      class="relative"
+      class="relative flex"
       @click="onClickField"
     >
       <input
         v-model="value"
         class="base-field"
+        :class="inputCls"
         :type="inputType"
         @input="onInputField"
         @blur="onBlurField"
@@ -28,6 +29,7 @@ import BaseFieldLabel from "@/components/BaseFieldLabel.vue";
 import { computed } from "vue";
 import {
   baseFieldProps,
+  useInputCls,
   useLabelCls
 } from "@/components/useBaseField.js";
 
@@ -57,6 +59,7 @@ export default {
     return {
       value,
       labelCls: useLabelCls(props),
+      inputCls: useInputCls(props),
       onInputField(event) {
         emit("input", event);
       },

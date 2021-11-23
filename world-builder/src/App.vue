@@ -1,63 +1,23 @@
 <template>
-  <BaseContextMenu ref="contextMenu">
-    <template #default>
-      <ul>
-        <li
-          class="context-menu-item"
-          @click="onClickTilesMenu"
-        >
-          Tiles
-        </li>
-      </ul>
-    </template>
-  </BaseContextMenu>
-  <BaseDialog
-    ref="theDialog"
-    title="Hello World"
-  >
-    <template #default>
-      <BaseFieldSelect
-        label="Tiles"
-        :store="tilesStore"
-      />
-    </template>
-  </BaseDialog>
-  <div
-    class="flex h-full w-full"
-    @click="hideContextMenu"
-  >
-    <div
-      class="flex-1 p-4 grid grid-cols-16 grid-rows-10 auto-rows-fr"
-    >
-      <template
-        v-for="(row, rowIdx) in record.rows"
-        :key="rowIdx"
-      >
-        <div
-          v-for="(cell, cellIdx) in row"
-          :key="`${rowIdx}_${cellIdx}`"
-          :class="getCellCls(cell, record.rows.length, rowIdx, selectedCell)"
-          :style="getCellColor(cell.AccentColor)"
-          :data-cell-idx="cellIdx"
-          :data-row-idx="rowIdx"
-          @click="onClickCell(cell)"
-          @contextmenu="onContextMenuCell"
-        >
-          <img
-            v-if="cell.tileImage"
-            :src="cell.tileImage"
-            class="w-full h-full"
-          >
-        </div>
-      </template>
-    </div>
+  <div class="flex h-full w-full">
+    <BaseGrid
+      ref="grid"
+      v-model:selected-cell="selectedCell"
+      :rows="record.rows"
+      :show-grid-lines="showGridLines"
+      :get-cell-color="getCellColor"
+    />
     <div class="p-4">
-      <BaseFieldSelect
+      <BaseCheckbox
+        v-model="showGridLines"
+        label="Grid Lines"
+      />
+      <BaseComboBox
         v-model="record.GroundColor"
         label="Ground Color"
         :store="groundColorsStore"
       />
-      <BaseFieldSelect
+      <BaseComboBox
         v-model="record.AccentColor"
         label="World Accent Color"
         :store="accentColorsStore"
@@ -67,12 +27,12 @@
         :key="selectedCell"
         class="mt-8"
       >
-        <BaseFieldSelect
+        <BaseComboBox
           v-model="selectedCell.AccentColor"
           label="Cell Accent Color"
           :store="accentColorsStore"
         />
-        <BaseFieldSelect
+        <BaseComboBox
           v-model="selectedCell.Type"
           label="Cell Tile"
           :store="tilesStore"
@@ -83,58 +43,42 @@
 </template>
 
 <script>
-import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
+import BaseComboBox from "@/components/BaseComboBox.vue";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
 import { Tiles } from "@/classes/enums/Tiles.js";
-import BaseDialog from "@/components/BaseDialog.vue";
 import {
   computed,
   reactive,
   ref,
-  toRefs
+  toRefs,
 } from "vue";
-import BaseContextMenu from "@/components/BaseContextMenu.vue";
 import { Grid } from "@/classes/models/Grid.js";
+import BaseCheckbox from "@/components/BaseCheckbox.vue";
+import BaseGrid from "@/components/BaseGrid.vue";
 
 export default {
   name: "App",
   components: {
-    BaseContextMenu,
-    BaseDialog,
-    BaseFieldSelect
+    BaseGrid,
+    BaseCheckbox,
+    BaseComboBox
   },
   setup() {
     const contextMenu = ref(null);
     const theDialog = ref(null);
     const selectedCell = ref(null);
+    const grid = ref(null);
     const state = reactive({
       groundColorsStore: WorldColors.store,
       accentColorsStore: WorldColors.store,
       tilesStore: Tiles.store,
+      showGridLines: true,
       record: Grid.initialize(11, 16),
     });
     const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle);
 
-    function getCellColor(accentColor) {
-      if (accentColor === WorldColors.None) {
-        accentColor = "";
-      }
+    function getCellColor() {
       return state.accentColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle;
-    }
-
-    function getCellCls(cell, totalRows, rowIdx) {
-      return {
-        [`grid-cell row-start-${totalRows - rowIdx}`]: true,
-        "grid-cell-selected": cell === selectedCell.value
-      };
-    }
-
-    function hideContextMenu() {
-      contextMenu.value.hide();
-    }
-
-    function onClickCell(cell) {
-      selectedCell.value = cell;
     }
 
     return {
@@ -142,18 +86,9 @@ export default {
       selectedGround,
       contextMenu,
       theDialog,
-      hideContextMenu,
-      onClickCell,
+      grid,
       selectedCell,
-      getCellCls,
-      getCellColor,
-      onContextMenuCell(event) {
-        contextMenu.value.show(event);
-      },
-      onClickTilesMenu() {
-        theDialog.value.show();
-        hideContextMenu();
-      }
+      getCellColor
     };
   },
 };
@@ -162,16 +97,5 @@ export default {
 <style>
 html, body, #app {
   @apply h-full w-full;
-}
-
-/* Target last column */
-.grid-cell:nth-child(16n+16) {
-  @apply border-r;
-}
-
-/* Taken from https://keithclark.co.uk/articles/targeting-first-and-last-rows-in-css-grid-layouts/ */
-/* Target last row, which is considered the first row due to the grid's starting position... 0,0 is bottom left */
-.grid-cell:nth-child(-n+16) {
-  @apply border-b;
 }
 </style>

@@ -9,17 +9,21 @@ export const baseFieldProps = {
     type: String,
     default: "flex-col"
   },
+  pack: {
+    type: String,
+    default: "items-start"
+  },
   inputType: {
     type: String,
     default: "text",
   },
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, Boolean, Date],
     default: "",
   },
   width: {
     type: String,
-    default: "w-48",
+    default: "w-full",
   },
   margin: {
     type: String,

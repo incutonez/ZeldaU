@@ -39,7 +39,14 @@ class TileChild extends Model {
     if (type === Tiles.None || color === WorldColors.None || isEmpty(color) || isEmpty(type)) {
       return "";
     }
-    return `http://localhost:3001/image?tile=${Tiles.getKey(type)}&color=${color}`;
+    let key;
+    if (type === Tiles.Transition) {
+      key = "Transparent";
+    }
+    else {
+      key = Tiles.getKey(type);
+    }
+    return `http://localhost:3001/image?tile=${key}&color=${color}`;
   }
 }
 

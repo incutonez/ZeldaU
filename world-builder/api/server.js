@@ -10,7 +10,6 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 const port = 3001;
 
 app.get("/image", async (req, res) => {
-  console.log(req.query.tile, req.query.color);
   const data = await replaceColor({
     image: `../public/Tiles/${req.query.tile}.png`,
     colors: {

@@ -67,6 +67,12 @@ import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
 import WorldColors from "@/classes/enums/WorldColors.js";
 import Tiles from "@/classes/enums/Tiles.js";
 import BaseDialog from "@/components/BaseDialog.vue";
+import {
+  computed,
+  reactive,
+  ref,
+  toRefs
+} from "vue";
 
 export default {
   name: "App",
@@ -74,8 +80,10 @@ export default {
     BaseDialog,
     BaseFieldSelect
   },
-  data() {
-    return {
+  setup() {
+    const contextMenu = ref(null);
+    const theDialog = ref(null);
+    const state = reactive({
       groundColorsStore: WorldColors.store,
       accentColorsStore: WorldColors.store,
       tilesStore: Tiles.store,
@@ -83,36 +91,37 @@ export default {
         groundColor: WorldColors.Tan,
         accentColor: WorldColors.Green,
         rows: Array.from(Array(11), () => new Array(16).fill(null)),
+      },
+    });
+    const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.groundColor)?.backgroundStyle);
+
+    function showContextMenu(event) {
+      contextMenu.value.style.left = `${event.pageX}px`;
+      contextMenu.value.style.top = `${event.pageY}px`;
+      contextMenu.value.classList.remove("hidden");
+      event.preventDefault();
+    }
+
+    function hideContextMenu() {
+      contextMenu.value.classList.add("hidden");
+    }
+
+    return {
+      ...toRefs(state),
+      selectedGround,
+      contextMenu,
+      theDialog,
+      hideContextMenu,
+      showContextMenu,
+      onContextMenuCell(event) {
+        showContextMenu(event);
+      },
+      onClickTilesMenu() {
+        theDialog.value.show();
+        hideContextMenu();
       }
     };
   },
-  computed: {
-    selectedGround() {
-      return this.groundColorsStore.findRecord(this.record.groundColor)?.backgroundStyle;
-    }
-  },
-  methods: {
-    getContextMenu() {
-      return this.$refs.contextMenu;
-    },
-    hideContextMenu() {
-      this.getContextMenu().classList.add("hidden");
-    },
-    showContextMenu(event) {
-      const contextMenu = this.getContextMenu();
-      contextMenu.style.left = `${event.pageX}px`;
-      contextMenu.style.top = `${event.pageY}px`;
-      contextMenu.classList.remove("hidden");
-      event.preventDefault();
-    },
-    onContextMenuCell(event) {
-      this.showContextMenu(event);
-    },
-    onClickTilesMenu() {
-      this.$refs.theDialog.show();
-      this.hideContextMenu();
-    }
-  }
 };
 </script>
 

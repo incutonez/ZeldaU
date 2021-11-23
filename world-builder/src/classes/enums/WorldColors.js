@@ -1,7 +1,21 @@
 import { Enum } from "@/classes/Enum.js";
 import { Color } from "@/classes/models/Color.js";
 
-export default new Enum({
+/**
+ * @property None
+ * @property Tan
+ * @property Green
+ * @property Brown
+ * @property Blue
+ * @property Gray
+ * @property White
+ * @property Red
+ * @property Black
+ * @property Q1C1Accent
+ * @property Q1C1Door
+ * @property Q1C1Body
+ */
+const WorldColors = new Enum({
   None: "Transparent",
   Tan: "FFEFA6",
   Green: "00a800",
@@ -15,3 +29,7 @@ export default new Enum({
   Q1C1Door: "183c5c",
   Q1C1Body: "00e8d8"
 }, Color);
+
+export {
+  WorldColors
+};

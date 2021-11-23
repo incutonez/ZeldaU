@@ -46,7 +46,11 @@ class Enum {
     return Object.values(this);
   }
 
-  // TODOJEF: NEED PRINT OUT METHOD
+  toClassDescription() {
+    return "/**\n" + this.keys.map((key) => {
+      return ` * @property ${key}`;
+    }).join("\n") + "\n */";
+  }
 }
 
 export {

@@ -64,7 +64,7 @@
 
 <script>
 import BaseFieldSelect from "@/components/BaseFieldSelect.vue";
-import WorldColors from "@/classes/enums/WorldColors.js";
+import { WorldColors } from "@/classes/enums/WorldColors.js";
 import Tiles from "@/classes/enums/Tiles.js";
 import BaseDialog from "@/components/BaseDialog.vue";
 import {

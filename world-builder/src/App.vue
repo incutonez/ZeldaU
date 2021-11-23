@@ -1,17 +1,16 @@
 <template>
-  <div
-    ref="contextMenu"
-    class="context-menu hidden"
-  >
-    <ul>
-      <li
-        class="context-menu-item"
-        @click="onClickTilesMenu"
-      >
-        Tiles
-      </li>
-    </ul>
-  </div>
+  <BaseContextMenu ref="contextMenu">
+    <template #default>
+      <ul>
+        <li
+          class="context-menu-item"
+          @click="onClickTilesMenu"
+        >
+          Tiles
+        </li>
+      </ul>
+    </template>
+  </BaseContextMenu>
   <BaseDialog
     ref="theDialog"
     title="Hello World"
@@ -73,10 +72,12 @@ import {
   ref,
   toRefs
 } from "vue";
+import BaseContextMenu from "@/components/BaseContextMenu.vue";
 
 export default {
   name: "App",
   components: {
+    BaseContextMenu,
     BaseDialog,
     BaseFieldSelect
   },
@@ -95,15 +96,8 @@ export default {
     });
     const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.groundColor)?.backgroundStyle);
 
-    function showContextMenu(event) {
-      contextMenu.value.style.left = `${event.pageX}px`;
-      contextMenu.value.style.top = `${event.pageY}px`;
-      contextMenu.value.classList.remove("hidden");
-      event.preventDefault();
-    }
-
     function hideContextMenu() {
-      contextMenu.value.classList.add("hidden");
+      contextMenu.value.hide();
     }
 
     return {
@@ -112,9 +106,8 @@ export default {
       contextMenu,
       theDialog,
       hideContextMenu,
-      showContextMenu,
       onContextMenuCell(event) {
-        showContextMenu(event);
+        contextMenu.value.show(event);
       },
       onClickTilesMenu() {
         theDialog.value.show();

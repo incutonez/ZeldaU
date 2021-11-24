@@ -3,10 +3,11 @@
     <BaseGrid
       ref="grid"
       v-model:selected-cell="selectedCell"
-      :cells="record.cells"
+      :cells="store"
       :total-rows="record.totalRows"
       :show-grid-lines="showGridLines"
       :get-cell-color="getCellColor"
+      @replace-cell="onReplaceCell"
     />
     <div class="p-4">
       <BaseCheckbox
@@ -25,7 +26,7 @@
       />
       <div
         v-if="selectedCell"
-        :key="selectedCell"
+        :key="selectedCell.id"
         class="mt-8"
       >
         <div class="flex space-x-2">
@@ -43,13 +44,17 @@
           </div>
         </div>
         <BaseComboBox
-          v-for="(targetColor, idx) in selectedCell.TargetColors"
-          :key="idx"
-          v-model="targetColor.Replace"
+          v-for="targetColor in selectedCell.TargetColors"
+          :key="targetColor.id"
+          v-model="targetColor.Value"
           :label="`Replace ${WorldColors.getKey(targetColor.Target)}`"
           :store="accentColorsStore"
         />
       </div>
+      <BaseButton
+        text="Save"
+        @click="onClickSaveBtn"
+      />
     </div>
   </div>
 </template>
@@ -69,7 +74,7 @@ import {
 import { Grid } from "@/classes/models/Grid.js";
 import BaseCheckbox from "@/components/BaseCheckbox.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
-import BaseField from "@/components/BaseField.vue";
+import BaseButton from "@/components/BaseButton.vue";
 
 /**
  * TODOJEF:
@@ -78,7 +83,7 @@ import BaseField from "@/components/BaseField.vue";
 export default {
   name: "App",
   components: {
-    BaseField,
+    BaseButton,
     BaseGrid,
     BaseCheckbox,
     BaseComboBox
@@ -88,27 +93,66 @@ export default {
     const theDialog = ref(null);
     const selectedCell = ref(null);
     const grid = ref(null);
-    const isShiftHeld = ref(false);
     const state = reactive({
       groundColorsStore: WorldColors.store,
       accentColorsStore: WorldColors.store,
       tilesStore: Tiles.store,
       showGridLines: true,
       record: Grid.initialize(11, 16),
+      pressedKeys: {
+        shift: false,
+        ctrl: false,
+        copy: false,
+        paste: false,
+      }
     });
     const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle);
-    provide("isShiftHeld", isShiftHeld);
+    provide("pressedKeys", state.pressedKeys);
 
     function getCellColor() {
       return state.accentColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle;
     }
 
+    // We have to have this because we do cell replacements, which requires us doing some deep copying here
+    // TODOJEF: Is there a better way of doing this?
+    const store = computed(() => {
+      return [...state.record.cells];
+    }, {
+      immediate: true
+    });
+
     function onDocumentKeyDown(event) {
-      isShiftHeld.value = event.shiftKey;
+      state.pressedKeys.shift = event.shiftKey;
+      state.pressedKeys.ctrl = event.ctrlKey;
+      if (event.ctrlKey && event.code === "KeyC") {
+        state.pressedKeys.copy = false;
+        // We have to clear out the previous binding, so let's use a setTimeout to push onto the event loop
+        setTimeout(() => {
+          state.pressedKeys.copy = true;
+        });
+      }
+      if (event.ctrlKey && event.code === "KeyV") {
+        state.pressedKeys.paste = false;
+        // We have to clear out the previous binding, so let's use a setTimeout to push onto the event loop
+        setTimeout(() => {
+          state.pressedKeys.paste = true;
+        });
+      }
     }
 
     function onDocumentKeyUp(event) {
-      isShiftHeld.value = event.shiftKey;
+      state.pressedKeys.shift = event.shiftKey;
+      state.pressedKeys.ctrl = event.ctrlKey;
+    }
+
+    function onReplaceCell({ index, replacement }) {
+      state.record.cells[index] = replacement;
+      // Make sure we update the selection with the replacement
+      selectedCell.value = replacement;
+    }
+
+    function onClickSaveBtn() {
+      console.log(state.record.getConfig());
     }
 
     document.addEventListener("keydown", onDocumentKeyDown);
@@ -125,9 +169,12 @@ export default {
       contextMenu,
       theDialog,
       grid,
+      store,
       selectedCell,
       getCellColor,
-      WorldColors
+      WorldColors,
+      onReplaceCell,
+      onClickSaveBtn
     };
   },
 };

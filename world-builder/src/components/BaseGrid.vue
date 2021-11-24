@@ -5,8 +5,8 @@
     v-bind="$attrs"
   >
     <div
-      v-for="(cell, cellIdx) in cells"
-      :key="cellIdx"
+      v-for="cell in cells"
+      :key="cell.id"
       :class="getCellCls(cell)"
       :style="getCellColor()"
       @click="onClickCell(cell)"
@@ -85,21 +85,42 @@ export default {
       default: true,
     }
   },
-  emits: ["update:selectedCell"],
+  emits: ["update:selectedCell", "replaceCell"],
   setup(props, { emit }) {
     const self = ref(null);
     const contextMenu = ref(null);
     const testDialog = ref(null);
     const testValue = ref("Hello");
-    const isShiftHeld = inject("isShiftHeld");
+    const pressedKeys = inject("pressedKeys");
     const activeCursor = ref("cursor-pointer");
+    const lastCopiedCell = ref(null);
 
-    watch(() => isShiftHeld.value, (value) => {
+    watch(() => pressedKeys.shift, (value) => {
       if (value) {
         activeCursor.value = "cursor-cell";
       }
       else {
         activeCursor.value = "cursor-pointer";
+      }
+    });
+
+    watch(() => pressedKeys.copy, (value) => {
+      if (value) {
+        lastCopiedCell.value = props.selectedCell;
+      }
+    });
+
+    watch(() => pressedKeys.paste, (value) => {
+      const selectedCell = props.selectedCell;
+      const replacement = lastCopiedCell.value;
+      if (value && selectedCell && replacement && selectedCell !== replacement) {
+        const index = props.cells.indexOf(selectedCell);
+        emit("replaceCell", {
+          index,
+          replacement: replacement.clone({
+            Coordinates: selectedCell.Coordinates
+          })
+        });
       }
     });
 

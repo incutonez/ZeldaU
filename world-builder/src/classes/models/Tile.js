@@ -2,9 +2,11 @@
 import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
 import {
+  collect,
   isEmpty,
   toQueryString
 } from "@/utilities.js";
+import { v4 as uuidv4 } from "uuid";
 
 class Tile extends Model {
   /**
@@ -14,11 +16,7 @@ class Tile extends Model {
   /**
    * @type {WorldColors[]}
    */
-  AccentColors = [WorldColors.White];
-  /**
-   * @type {WorldColors[]}
-   */
-  TargetColors = [WorldColors.White];
+  TargetColors = null;
   /**
    * @type {Number[]}
    */
@@ -34,16 +32,16 @@ class Tile extends Model {
    * @type {Tile[]}
    */
   Children = [];
-  /**
-   * @type {Grid}
-   */
-  Grid = null;
-  tileSrc = null;
 
   constructor(args) {
     super(args);
     this.set(args);
-    this.Tile = this.Type;
+    this.id = uuidv4();
+    this.updateType(this.TargetColors);
+  }
+
+  get excluded() {
+    return ["grid", "tileSrc"];
   }
 
   get Tile() {
@@ -52,7 +50,12 @@ class Tile extends Model {
 
   set Tile(value) {
     this.Type = value;
+    this.updateType();
+  }
+
+  updateType(targetColors) {
     let key;
+    const value = this.Type;
     if (value !== Tiles.None) {
       if (value === Tiles.Transition) {
         key = "Transparent";
@@ -62,7 +65,7 @@ class Tile extends Model {
       }
     }
     this.tileSrc = key ? `/Tiles/${key}.png` : "";
-    this.TargetColors = this.getTargetColors();
+    this.setTargetColors(targetColors);
   }
 
   get x() {
@@ -73,40 +76,65 @@ class Tile extends Model {
     return this.Coordinates[1];
   }
 
-  getTargetColors() {
-    let colors;
-    switch (this.Type) {
-      case Tiles.None:
-        colors = [];
-        break;
-      case Tiles.Block:
-        colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
-        break;
-      case Tiles.CastleBottomLeft:
-      case Tiles.CastleBottomRight:
-      case Tiles.CastleTop:
-      case Tiles.CastleTopAlt:
-      case Tiles.CastleTopLeftAlt:
-      case Tiles.CastleTopRightAlt:
-      case Tiles.CastleTopLeft:
-      case Tiles.CastleTopRight:
-        colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
-        break;
-      case Tiles.Bush:
-      default:
-        colors = [WorldColors.White, WorldColors.Black];
-    }
-
-    return colors.map((color) => {
+  getTargetColors(includeHex) {
+    return this.TargetColors.filter((color) => !!color.Value).map((color) => {
+      let value = color.Value;
+      let target = color.Target;
+      if (target === WorldColors.None) {
+        target = "00000000";
+      }
+      if (value === WorldColors.None) {
+        value = "00000000";
+      }
+      if (includeHex) {
+        target = `#${target}`;
+        value = `#${value}`;
+      }
       return {
-        Target: color,
+        Target: target,
+        Value: value
       };
     });
   }
 
+  setTargetColors(targetColors) {
+    if (!targetColors) {
+      let colors;
+      switch (this.Type) {
+        case Tiles.None:
+          colors = [];
+          break;
+        case Tiles.Block:
+        case Tiles.CastleSand:
+          colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
+          break;
+        case Tiles.CastleBottomLeft:
+        case Tiles.CastleBottomRight:
+        case Tiles.CastleTop:
+        case Tiles.CastleTopAlt:
+        case Tiles.CastleTopLeftAlt:
+        case Tiles.CastleTopRightAlt:
+        case Tiles.CastleTopLeft:
+        case Tiles.CastleTopRight:
+          colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
+          break;
+        case Tiles.Bush:
+        default:
+          colors = [WorldColors.White, WorldColors.Black];
+      }
+
+      targetColors = colors.map((color) => {
+        return {
+          Target: color,
+          id: uuidv4()
+        };
+      });
+    }
+    this.TargetColors = targetColors;
+  }
+
   get tileImage() {
     const type = this.Type;
-    let targetColors = this.TargetColors.filter((color) => !!color.Replace);
     if (type === Tiles.None || isEmpty(type)) {
       return "";
     }
@@ -117,26 +145,25 @@ class Tile extends Model {
     else {
       key = Tiles.getKey(type);
     }
-    const targets = [];
-    const replacers = [];
-    targetColors.forEach((color) => {
-      let target = color.Target;
-      let replace = color.Replace;
-      if (target === WorldColors.None) {
-        target = "#00000000";
-      }
-      if (replace === WorldColors.None) {
-        replace = "#00000000";
-      }
-      targets.push(encodeURIComponent(`#${target}`));
-      replacers.push(encodeURIComponent(`#${replace}`));
-    });
+    let targetColors = this.getTargetColors();
     const params = {
       tile: key,
-      targetColors: targets,
-      replaceColors: replacers
+      targetColors: collect(targetColors, "Target"),
+      replaceColors: collect(targetColors, "Value")
     };
     return `http://localhost:3001/image?${toQueryString(params)}`;
+  }
+
+  getConfig() {
+    return {
+      Type: this.Type,
+      Children: [
+        {
+          Coordinates: this.Coordinates,
+          ReplaceColors: collect(this.getTargetColors(true), ["Target", "Value"]),
+        }
+      ]
+    };
   }
 }
 

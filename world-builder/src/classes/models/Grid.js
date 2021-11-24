@@ -1,12 +1,9 @@
 ﻿import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
 import { Tile } from "@/classes/models/Tile.js";
+import { Tiles } from "@/classes/enums/Tiles.js";
 
 class Grid extends Model {
-  #totalRows;
-  #totalColumns;
-  #cells;
-
   Name = "";
   X = 0;
   Y = 0;
@@ -31,6 +28,7 @@ class Grid extends Model {
    * @type {ScreenTemplates}
    */
   Template = null;
+  cells = null;
 
   constructor(args) {
     super(args);
@@ -44,7 +42,7 @@ class Grid extends Model {
       for (let x = 0; x < columns; x++) {
         config.push(new Tile({
           Coordinates: [x, y],
-          Grid: self,
+          grid: self,
         }));
       }
     }
@@ -54,6 +52,19 @@ class Grid extends Model {
       totalColumns: columns,
     });
     return self;
+  }
+
+  getConfig() {
+    const data = [];
+    const cells = this.cells;
+    for (let i = 0; i < cells.length; i++) {
+      const cell = cells[i];
+      if (cell.Type === Tiles.None) {
+        continue;
+      }
+      data.push(cell.getConfig());
+    }
+    return data;
   }
 }
 

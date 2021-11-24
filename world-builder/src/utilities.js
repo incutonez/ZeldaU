@@ -21,7 +21,7 @@ export function toQueryString(items) {
       item = [item];
     }
     item.forEach((value) => {
-      query.push(`${key}=${value}`);
+      query.push(`${key}=${encodeURIComponent(value)}`);
     });
   }
   return query.join("&");
@@ -40,4 +40,8 @@ export function collect(items, keys) {
     items.forEach((item) => collection.push(item[keys]));
   }
   return collection;
+}
+
+export function clone(item) {
+  return JSON.parse(JSON.stringify(item));
 }

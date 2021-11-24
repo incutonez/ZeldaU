@@ -39,18 +39,21 @@ class Grid extends Model {
 
   static initialize(rows, columns) {
     const config = [];
+    const self = new this();
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < columns; x++) {
         config.push(new Tile({
           Coordinates: [x, y],
+          Grid: self,
         }));
       }
     }
-    return new this({
+    self.set({
       cells: config,
       totalRows: rows,
       totalColumns: columns,
     });
+    return self;
   }
 }
 

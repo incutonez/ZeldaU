@@ -29,14 +29,23 @@
         class="mt-8"
       >
         <BaseComboBox
-          v-model="selectedCell.AccentColor"
-          label="Cell Accent Color"
-          :store="accentColorsStore"
-        />
-        <BaseComboBox
           v-model="selectedCell.Type"
           label="Cell Tile"
           :store="tilesStore"
+        />
+        <div class="w-16 h-16 bg-blue-100">
+          <img
+            v-if="selectedCell.tileSrc"
+            :src="selectedCell.tileSrc"
+            class="w-full h-full"
+          >
+        </div>
+        <BaseComboBox
+          v-for="(targetColor, idx) in selectedCell.TargetColors"
+          :key="idx"
+          v-model="selectedCell.AccentColors[idx]"
+          :label="`Target ${WorldColors.getKey(targetColor)}`"
+          :store="accentColorsStore"
         />
       </div>
     </div>
@@ -49,6 +58,8 @@ import { WorldColors } from "@/classes/enums/WorldColors.js";
 import { Tiles } from "@/classes/enums/Tiles.js";
 import {
   computed,
+  onUnmounted,
+  provide,
   reactive,
   ref,
   toRefs,
@@ -57,6 +68,10 @@ import { Grid } from "@/classes/models/Grid.js";
 import BaseCheckbox from "@/components/BaseCheckbox.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
 
+/**
+ * TODOJEF:
+ * - Get cell highlighting working with shift
+ */
 export default {
   name: "App",
   components: {
@@ -69,6 +84,7 @@ export default {
     const theDialog = ref(null);
     const selectedCell = ref(null);
     const grid = ref(null);
+    const isShiftHeld = ref(false);
     const state = reactive({
       groundColorsStore: WorldColors.store,
       accentColorsStore: WorldColors.store,
@@ -77,10 +93,27 @@ export default {
       record: Grid.initialize(11, 16),
     });
     const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle);
+    provide("isShiftHeld", isShiftHeld);
 
     function getCellColor() {
       return state.accentColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle;
     }
+
+    function onDocumentKeyDown(event) {
+      isShiftHeld.value = event.shiftKey;
+    }
+
+    function onDocumentKeyUp(event) {
+      isShiftHeld.value = event.shiftKey;
+    }
+
+    document.addEventListener("keydown", onDocumentKeyDown);
+    document.addEventListener("keyup", onDocumentKeyUp);
+
+    onUnmounted(() => {
+      document.removeEventListener("keydown", onDocumentKeyDown);
+      document.removeEventListener("keyup", onDocumentKeyUp);
+    });
 
     return {
       ...toRefs(state),
@@ -89,7 +122,8 @@ export default {
       theDialog,
       grid,
       selectedCell,
-      getCellColor
+      getCellColor,
+      WorldColors
     };
   },
 };

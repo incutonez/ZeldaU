@@ -1,7 +1,10 @@
 ﻿import { Tiles } from "@/classes/enums/Tiles.js";
 import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
-import { isEmpty } from "@/utilities.js";
+import {
+  isEmpty,
+  toQueryString
+} from "@/utilities.js";
 
 class Tile extends Model {
   /**
@@ -9,9 +12,9 @@ class Tile extends Model {
    */
   Type = Tiles.None;
   /**
-   * @type {WorldColors}
+   * @type {WorldColors[]}
    */
-  AccentColor = WorldColors.None;
+  AccentColors = [WorldColors.White];
   /**
    * @type {Number[]}
    */
@@ -27,6 +30,10 @@ class Tile extends Model {
    * @type {Tile[]}
    */
   Children = [];
+  /**
+   * @type {Grid}
+   */
+  Grid = null;
 
   constructor(args) {
     super(args);
@@ -41,10 +48,33 @@ class Tile extends Model {
     return this.Coordinates[1];
   }
 
+  get tileSrc() {
+    let key;
+    const type = this.Type;
+    if (type === Tiles.None) {
+      return "";
+    }
+    if (type === Tiles.Transition) {
+      key = "Transparent";
+    }
+    else {
+      key = Tiles.getKey(type);
+    }
+    return `/Tiles/${key}.png`;
+  }
+
+  get TargetColors() {
+    switch (this.Type) {
+      case Tiles.Bush:
+      default:
+        return [WorldColors.White, WorldColors.Black];
+    }
+  }
+
   get tileImage() {
     const type = this.Type;
-    const color = this.AccentColor;
-    if (type === Tiles.None || color === WorldColors.None || isEmpty(color) || isEmpty(type)) {
+    const accentColors = this.AccentColors;
+    if (type === Tiles.None || isEmpty(accentColors) || isEmpty(type)) {
       return "";
     }
     let key;
@@ -54,7 +84,16 @@ class Tile extends Model {
     else {
       key = Tiles.getKey(type);
     }
-    return `http://localhost:3001/image?tile=${key}&color=${color}`;
+    const params = {
+      tile: key,
+      targetColors: this.TargetColors.map((color) => {
+        return encodeURIComponent(`#${color}`);
+      }).slice(0, accentColors.length),
+      replaceColors: accentColors.map((color) => {
+        return encodeURIComponent(`#${color}`);
+      }),
+    };
+    return `http://localhost:3001/image?${toQueryString(params)}`;
   }
 }
 

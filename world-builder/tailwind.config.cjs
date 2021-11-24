@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      cursor: {
+        cell: "cell"
+      },
       colors: {
         "zTan": "#FFEFA6",
         "zGreen": "#00a800",

@@ -7,7 +7,7 @@
     <div
       v-for="(cell, cellIdx) in cells"
       :key="cellIdx"
-      :class="getCellCls(cell, totalRows, selectedCell)"
+      :class="getCellCls(cell)"
       :style="getCellColor()"
       @click="onClickCell(cell)"
       @contextmenu="onContextMenuCell"
@@ -46,6 +46,7 @@
 
 <script>
 import {
+  inject,
   onMounted,
   ref,
   watch
@@ -90,11 +91,23 @@ export default {
     const contextMenu = ref(null);
     const testDialog = ref(null);
     const testValue = ref("Hello");
+    const isShiftHeld = inject("isShiftHeld");
+    const activeCursor = ref("cursor-pointer");
 
-    function getCellCls(cell, totalRows, selectedCell) {
+    watch(() => isShiftHeld.value, (value) => {
+      if (value) {
+        activeCursor.value = "cursor-cell";
+      }
+      else {
+        activeCursor.value = "cursor-pointer";
+      }
+    });
+
+    function getCellCls(cell) {
       return {
-        [`grid-cell row-start-${totalRows - cell.y}`]: true,
-        "grid-cell-selected": cell === selectedCell
+        [`grid-cell row-start-${props.totalRows - cell.y}`]: true,
+        "grid-cell-selected": cell === props.selectedCell,
+        [activeCursor.value]: true,
       };
     }
 
@@ -132,6 +145,7 @@ export default {
       self,
       testDialog,
       testValue,
+      activeCursor,
       getCellCls,
       onClickCell,
       onContextMenuCell,

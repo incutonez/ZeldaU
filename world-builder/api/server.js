@@ -10,21 +10,35 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 const port = 3001;
 
 app.get("/image", async (req, res) => {
-  const data = await replaceColor({
-    image: `../public/Tiles/${req.query.tile}.png`,
-    colors: {
-      type: "hex",
-      targetColor: "#FFFFFF",
-      replaceColor: `#${req.query.color}`
-    }
-  });
   try {
+    let {
+      targetColors,
+      replaceColors
+    } = req.query;
+    let data = `../public/Tiles/${req.query.tile}.png`;
+    if (!Array.isArray(replaceColors)) {
+      replaceColors = [replaceColors];
+    }
+    if (!Array.isArray(targetColors)) {
+      targetColors = [targetColors];
+    }
+    for (let i = 0; i < replaceColors.length; i++) {
+      data = await replaceColor({
+        image: data,
+        colors: {
+          type: "hex",
+          targetColor: targetColors[i],
+          replaceColor: replaceColors[i]
+        }
+      });
+    }
     data.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
       res.send(buffer);
     });
   }
   catch (ex) {
     console.log(ex);
+    res.sendStatus(500);
   }
 });
 

@@ -34,5 +34,14 @@ public enum WorldColors {
   Q1C1Door = 10,
 
   [Color("00e8d8")]
-  Q1C1Body = 11
+  Q1C1Body = 11,
+
+  [Color("0000FF")]
+  PureBlue = 12,
+
+  [Color("FF0000")]
+  PureRed = 13,
+
+  [Color("00FF00")]
+  PureGreen = 14
 }

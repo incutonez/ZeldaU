@@ -9,6 +9,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 const port = 3001;
 
+function determinePriority(targetColors, replaceColors) {
+  /**
+   * This is a little tricky... we need to see if any of our targeted colors are in the replace colors,
+   * and if so, make sure our priority for replacing those colors is in a proper order...
+   * e.g. if we replace black with blue, but then a later color is blue with red, then we'll be replacing
+   * the first black => blue with red
+   */
+  for (let i = targetColors.length; i >= 0; i--) {
+    const index = replaceColors.indexOf(targetColors[i]);
+    if (index === -1) {
+      continue;
+    }
+    if (index < i) {
+      const tempReplace = replaceColors[index];
+      const tempTarget = targetColors[index];
+      replaceColors[index] = replaceColors[i];
+      replaceColors[i] = tempReplace;
+      targetColors[index] = targetColors[i];
+      targetColors[i] = tempTarget;
+    }
+  }
+}
+
 app.get("/image", async (req, res) => {
   try {
     let {
@@ -22,9 +45,12 @@ app.get("/image", async (req, res) => {
     if (!Array.isArray(targetColors)) {
       targetColors = [targetColors];
     }
+    // TODOJEF: Is there a way to tell different shades of colors?
+    determinePriority(targetColors, replaceColors);
     for (let i = 0; i < replaceColors.length; i++) {
       data = await replaceColor({
         image: data,
+        deltaE: 7,
         colors: {
           type: "hex",
           targetColor: targetColors[i],

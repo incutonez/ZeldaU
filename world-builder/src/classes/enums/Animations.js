@@ -1,6 +1,6 @@
 import { Enum } from "@/classes/Enum.js";
 
-export default new Enum([
+export const Animations = new Enum([
   "Default",
   "ActionUp",
   "ActionDown",

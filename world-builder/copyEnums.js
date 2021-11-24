@@ -14,10 +14,9 @@ const outPath = `src/classes/enums/`;
 function toEnum(data) {
   let output = "";
   const matches = data.trim().match(/public enum [^}]+}/g);
-  const isDefault = matches.length === 1;
   matches.forEach((match) => {
     // Get the name of the enum
-    const matchName = match.match(/public enum ([^\r]+)/)[1];
+    const matchName = match.match(/public enum ([^\r{]+)/)[1];
     // Need the trim because there's some sort of zwnbsp character that'll show up
     match = match.trim().replace(/public enum [^{]+/, "")
     // Remove any special descriptions
@@ -41,7 +40,7 @@ function toEnum(data) {
     if (match.indexOf(":") === -1) {
       match = "['" + match.replace(/\s+/g, "").replace(/\{|\}/g, "").split(/([^,]+),/).filter((item) => item).join("','") + "']";
     }
-    output += `export ${isDefault ? "default" : `const ${matchName} =`} new Enum(${match})`;
+    output += `export ${`const ${matchName} =`} new Enum(${match})`;
   });
   return `import {Enum} from "${classesPath}Enum.js"\n${output}`;
 }

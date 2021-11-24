@@ -81,7 +81,7 @@ import { Enum } from "@/classes/Enum.js";
  * @property WaterTopLeft
  * @property WaterTopRight
  */
-const Tiles = new Enum([
+export const Tiles = new Enum([
   "Block",
   "Bush",
   "Castle",
@@ -162,7 +162,3 @@ const Tiles = new Enum([
   "WaterTopLeft",
   "WaterTopRight"
 ]);
-
-export {
-  Tiles
-};

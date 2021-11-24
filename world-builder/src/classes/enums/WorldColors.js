@@ -14,8 +14,11 @@ import { Color } from "@/classes/models/Color.js";
  * @property Q1C1Accent
  * @property Q1C1Door
  * @property Q1C1Body
+ * @property PureBlue
+ * @property PureRed
+ * @property PureGreen
  */
-const WorldColors = new Enum({
+export const WorldColors = new Enum({
   None: "Transparent",
   Tan: "FFEFA6",
   Green: "00a800",
@@ -27,9 +30,8 @@ const WorldColors = new Enum({
   Black: "000000",
   Q1C1Accent: "008088",
   Q1C1Door: "183c5c",
-  Q1C1Body: "00e8d8"
+  Q1C1Body: "00e8d8",
+  PureBlue: "0000FF",
+  PureRed: "FF0000",
+  PureGreen: "00FF00"
 }, Color);
-
-export {
-  WorldColors
-};

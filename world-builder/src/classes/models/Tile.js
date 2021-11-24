@@ -65,6 +65,17 @@ class Tile extends Model {
 
   get TargetColors() {
     switch (this.Type) {
+      case Tiles.Block:
+        return [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
+      case Tiles.CastleBottomLeft:
+      case Tiles.CastleBottomRight:
+      case Tiles.CastleTop:
+      case Tiles.CastleTopAlt:
+      case Tiles.CastleTopLeftAlt:
+      case Tiles.CastleTopRightAlt:
+      case Tiles.CastleTopLeft:
+      case Tiles.CastleTopRight:
+        return [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
       case Tiles.Bush:
       default:
         return [WorldColors.White, WorldColors.Black];
@@ -73,25 +84,32 @@ class Tile extends Model {
 
   get tileImage() {
     const type = this.Type;
-    const accentColors = this.AccentColors;
+    const accentColors = this.AccentColors.filter(Boolean);
     if (type === Tiles.None || isEmpty(accentColors) || isEmpty(type)) {
       return "";
     }
     let key;
+    const targetColors = this.TargetColors.filter(Boolean);
+    let length = accentColors.length;
+    if (targetColors.length < length) {
+      length = targetColors.length;
+    }
     if (type === Tiles.Transition) {
       key = "Transparent";
     }
     else {
       key = Tiles.getKey(type);
     }
+    /* We slice at the end of the maps because it's possible we're in a state where we have more targetColors
+     * or replaceColors than the other, so we normalize on the lowest length */
     const params = {
       tile: key,
-      targetColors: this.TargetColors.map((color) => {
+      targetColors: targetColors.map((color) => {
         return encodeURIComponent(`#${color}`);
-      }).slice(0, accentColors.length),
+      }).slice(0, length),
       replaceColors: accentColors.map((color) => {
         return encodeURIComponent(`#${color}`);
-      }),
+      }).slice(0, length),
     };
     return `http://localhost:3001/image?${toQueryString(params)}`;
   }

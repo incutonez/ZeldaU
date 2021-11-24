@@ -1,6 +1,6 @@
 import { Enum } from "@/classes/Enum.js";
 
-const ScreenTemplates = new Enum({
+export const ScreenTemplates = new Enum({
   Base: -1,
   Plain: 0,
   Entrance: 1,
@@ -50,7 +50,3 @@ const ScreenTemplates = new Enum({
   KeepPath: 45,
   Shop: 46
 });
-
-export {
-  ScreenTemplates
-};

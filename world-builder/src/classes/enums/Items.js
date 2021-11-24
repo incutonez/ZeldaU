@@ -1,6 +1,6 @@
 import { Enum } from "@/classes/Enum.js";
 
-export default new Enum({
+export const Items = new Enum({
   None: 0,
   Arrow: 1,
   ArrowSilver: 2,

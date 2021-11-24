@@ -28,25 +28,36 @@
         :key="selectedCell"
         class="mt-8"
       >
-        <BaseComboBox
-          v-model="selectedCell.Type"
-          label="Cell Tile"
-          :store="tilesStore"
-        />
-        <div class="w-16 h-16 bg-blue-100">
-          <img
-            v-if="selectedCell.tileSrc"
-            :src="selectedCell.tileSrc"
-            class="w-full h-full"
-          >
+        <div class="flex space-x-2">
+          <BaseComboBox
+            v-model="selectedCell.Tile"
+            label="Cell Tile"
+            :store="tilesStore"
+          />
+          <div class="w-16 h-16 bg-blue-100">
+            <img
+              v-if="selectedCell.tileSrc"
+              :src="selectedCell.tileSrc"
+              class="w-full h-full"
+            >
+          </div>
         </div>
-        <BaseComboBox
-          v-for="(targetColor, idx) in selectedCell.TargetColors"
-          :key="idx"
-          v-model="selectedCell.AccentColors[idx]"
-          :label="`Target ${WorldColors.getKey(targetColor)}`"
-          :store="accentColorsStore"
-        />
+        <div
+          v-for="targetColor in selectedCell.TargetColors"
+          :key="targetColor.Position"
+          class="flex w-full space-x-2"
+        >
+          <BaseComboBox
+            v-model="targetColor.Replace"
+            :label="`Target ${WorldColors.getKey(targetColor.Target)}`"
+            :store="accentColorsStore"
+          />
+          <BaseField
+            v-model="targetColor.Position"
+            label="Pos"
+            width="w-16"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +78,7 @@ import {
 import { Grid } from "@/classes/models/Grid.js";
 import BaseCheckbox from "@/components/BaseCheckbox.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
+import BaseField from "@/components/BaseField.vue";
 
 /**
  * TODOJEF:
@@ -75,6 +87,7 @@ import BaseGrid from "@/components/BaseGrid.vue";
 export default {
   name: "App",
   components: {
+    BaseField,
     BaseGrid,
     BaseCheckbox,
     BaseComboBox

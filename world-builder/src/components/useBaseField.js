@@ -23,7 +23,7 @@ export const baseFieldProps = {
   },
   width: {
     type: String,
-    default: "w-full",
+    default: "w-48",
   },
   margin: {
     type: String,

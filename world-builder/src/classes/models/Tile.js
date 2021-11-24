@@ -2,6 +2,7 @@
 import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
 import {
+  collect,
   isEmpty,
   toQueryString
 } from "@/utilities.js";
@@ -15,6 +16,10 @@ class Tile extends Model {
    * @type {WorldColors[]}
    */
   AccentColors = [WorldColors.White];
+  /**
+   * @type {WorldColors[]}
+   */
+  TargetColors = [WorldColors.White];
   /**
    * @type {Number[]}
    */
@@ -34,10 +39,31 @@ class Tile extends Model {
    * @type {Grid}
    */
   Grid = null;
+  tileSrc = null;
 
   constructor(args) {
     super(args);
     this.set(args);
+    this.Tile = this.Type;
+  }
+
+  get Tile() {
+    return this.Type;
+  }
+
+  set Tile(value) {
+    this.Type = value;
+    let key;
+    if (value !== Tiles.None) {
+      if (value === Tiles.Transition) {
+        key = "Transparent";
+      }
+      else {
+        key = Tiles.getKey(value);
+      }
+    }
+    this.tileSrc = key ? `/Tiles/${key}.png` : "";
+    this.TargetColors = this.getTargetColors();
   }
 
   get x() {
@@ -48,25 +74,15 @@ class Tile extends Model {
     return this.Coordinates[1];
   }
 
-  get tileSrc() {
-    let key;
-    const type = this.Type;
-    if (type === Tiles.None) {
-      return "";
-    }
-    if (type === Tiles.Transition) {
-      key = "Transparent";
-    }
-    else {
-      key = Tiles.getKey(type);
-    }
-    return `/Tiles/${key}.png`;
-  }
-
-  get TargetColors() {
+  getTargetColors() {
+    let colors;
     switch (this.Type) {
+      case Tiles.None:
+        colors = [];
+        break;
       case Tiles.Block:
-        return [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
+        colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
+        break;
       case Tiles.CastleBottomLeft:
       case Tiles.CastleBottomRight:
       case Tiles.CastleTop:
@@ -75,41 +91,54 @@ class Tile extends Model {
       case Tiles.CastleTopRightAlt:
       case Tiles.CastleTopLeft:
       case Tiles.CastleTopRight:
-        return [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
+        colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
+        break;
       case Tiles.Bush:
       default:
-        return [WorldColors.White, WorldColors.Black];
+        colors = [WorldColors.White, WorldColors.Black];
     }
+
+    return colors.map((color, index) => {
+      return {
+        Target: color,
+        Position: index,
+      };
+    });
   }
 
   get tileImage() {
     const type = this.Type;
-    const accentColors = this.AccentColors.filter(Boolean);
-    if (type === Tiles.None || isEmpty(accentColors) || isEmpty(type)) {
+    let targetColors = this.TargetColors.filter((color) => !!color.Replace);
+    if (type === Tiles.None || isEmpty(type)) {
       return "";
     }
     let key;
-    const targetColors = this.TargetColors.filter(Boolean);
-    let length = accentColors.length;
-    if (targetColors.length < length) {
-      length = targetColors.length;
-    }
     if (type === Tiles.Transition) {
       key = "Transparent";
     }
     else {
       key = Tiles.getKey(type);
     }
+    targetColors = targetColors.sort((lhs, rhs) => {
+      const lhsPos = lhs.Position;
+      const rhsPos = rhs.Position;
+      if (lhsPos === rhsPos) {
+        return 0;
+      }
+      return lhsPos < rhsPos ? -1 : 1;
+    });
+    const targets = [];
+    const replacers = [];
+    targetColors.forEach((color) => {
+      targets.push(encodeURIComponent(`#${color.Target}`));
+      replacers.push(encodeURIComponent(`#${color.Replace}`));
+    });
     /* We slice at the end of the maps because it's possible we're in a state where we have more targetColors
      * or replaceColors than the other, so we normalize on the lowest length */
     const params = {
       tile: key,
-      targetColors: targetColors.map((color) => {
-        return encodeURIComponent(`#${color}`);
-      }).slice(0, length),
-      replaceColors: accentColors.map((color) => {
-        return encodeURIComponent(`#${color}`);
-      }).slice(0, length),
+      targetColors: targets,
+      replaceColors: replacers
     };
     return `http://localhost:3001/image?${toQueryString(params)}`;
   }

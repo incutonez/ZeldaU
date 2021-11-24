@@ -10,7 +10,7 @@ export function isObject(value, strict = true) {
 }
 
 export function isEmpty(value) {
-  return value === undefined || value === null || value === "";
+  return value === undefined || value === null || value === "" || isArray(value) && value.length === 0;
 }
 
 export function toQueryString(items) {
@@ -25,4 +25,19 @@ export function toQueryString(items) {
     });
   }
   return query.join("&");
+}
+
+export function collect(items, keys) {
+  const collection = [];
+  if (isArray(keys)) {
+    items.forEach((item) => {
+      const collect = {};
+      keys.forEach((key) => collect[key] = item[key]);
+      collection.push(collect);
+    });
+  }
+  else {
+    items.forEach((item) => collection.push(item[keys]));
+  }
+  return collection;
 }

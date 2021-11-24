@@ -12,7 +12,7 @@
 
 @layer components {
   .base-grid {
-    @apply flex-1 p-4 grid grid-cols-16 grid-rows-10;
+    @apply p-4 grid grid-cols-16 grid-rows-10;
     grid-template-columns: 48px;
     grid-template-rows: 48px;
     grid-auto-columns: 48px;

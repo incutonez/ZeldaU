@@ -4,27 +4,20 @@
     class="base-grid"
     v-bind="$attrs"
   >
-    <template
-      v-for="(row, rowIdx) in rows"
-      :key="rowIdx"
+    <div
+      v-for="(cell, cellIdx) in cells"
+      :key="cellIdx"
+      :class="getCellCls(cell, totalRows, selectedCell)"
+      :style="getCellColor()"
+      @click="onClickCell(cell)"
+      @contextmenu="onContextMenuCell"
     >
-      <div
-        v-for="(cell, cellIdx) in row"
-        :key="`${rowIdx}_${cellIdx}`"
-        :class="getCellCls(cell, rows.length, rowIdx, selectedCell)"
-        :style="getCellColor()"
-        :data-cell-idx="cellIdx"
-        :data-row-idx="rowIdx"
-        @click="onClickCell(cell)"
-        @contextmenu="onContextMenuCell"
+      <img
+        v-if="cell.tileImage"
+        :src="cell.tileImage"
+        class="w-full h-full"
       >
-        <img
-          v-if="cell.tileImage"
-          :src="cell.tileImage"
-          class="w-full h-full"
-        >
-      </div>
-    </template>
+    </div>
   </div>
   <BaseContextMenu ref="contextMenu">
     <template #default>
@@ -70,9 +63,13 @@ export default {
   },
   inheritAttrs: false,
   props: {
-    rows: {
+    cells: {
       type: Array,
       default: () => []
+    },
+    totalRows: {
+      type: Number,
+      required: true,
     },
     selectedCell: {
       type: Object,
@@ -94,9 +91,9 @@ export default {
     const testDialog = ref(null);
     const testValue = ref("Hello");
 
-    function getCellCls(cell, totalRows, rowIdx, selectedCell) {
+    function getCellCls(cell, totalRows, selectedCell) {
       return {
-        [`grid-cell row-start-${totalRows - rowIdx}`]: true,
+        [`grid-cell row-start-${totalRows - cell.y}`]: true,
         "grid-cell-selected": cell === selectedCell
       };
     }

@@ -1,10 +1,11 @@
 ﻿import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
-import { TileChild } from "@/classes/models/TileChild.js";
+import { Tile } from "@/classes/models/Tile.js";
 
 class Grid extends Model {
-  #rows;
-  #columns;
+  #totalRows;
+  #totalColumns;
+  #cells;
 
   Name = "";
   X = 0;
@@ -18,7 +19,7 @@ class Grid extends Model {
    */
   GroundColor = WorldColors.Tan;
   /**
-   * @type {TileChild[]}
+   * @type {Tile[]}
    */
   Tiles = [];
   Enemies = [];
@@ -39,16 +40,16 @@ class Grid extends Model {
   static initialize(rows, columns) {
     const config = [];
     for (let y = 0; y < rows; y++) {
-      const row = [];
       for (let x = 0; x < columns; x++) {
-        row.push(new TileChild({
+        config.push(new Tile({
           Coordinates: [x, y],
         }));
       }
-      config.push(row);
     }
     return new this({
-      rows: config
+      cells: config,
+      totalRows: rows,
+      totalColumns: columns,
     });
   }
 }

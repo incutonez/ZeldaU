@@ -3,7 +3,8 @@
     <BaseGrid
       ref="grid"
       v-model:selected-cell="selectedCell"
-      :rows="record.rows"
+      :cells="record.cells"
+      :total-rows="record.totalRows"
       :show-grid-lines="showGridLines"
       :get-cell-color="getCellColor"
     />

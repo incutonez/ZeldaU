@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "ui": "vite",
     "api": "cd api && npm run dev",
     "build": "vite build",
     "serve": "vite preview",

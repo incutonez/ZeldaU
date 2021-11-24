@@ -3,7 +3,7 @@ import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
 import { isEmpty } from "@/utilities.js";
 
-class TileChild extends Model {
+class Tile extends Model {
   /**
    * @type {Tiles}
    */
@@ -24,13 +24,21 @@ class TileChild extends Model {
   FlipX = false;
   FlipY = false;
   /**
-   * @type {TileChild[]}
+   * @type {Tile[]}
    */
   Children = [];
 
   constructor(args) {
     super(args);
     this.set(args);
+  }
+
+  get x() {
+    return this.Coordinates[0];
+  }
+
+  get y() {
+    return this.Coordinates[1];
   }
 
   get tileImage() {
@@ -51,5 +59,5 @@ class TileChild extends Model {
 }
 
 export {
-  TileChild
+  Tile
 };

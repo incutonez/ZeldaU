@@ -23,17 +23,19 @@ app.get("/image", async (req, res) => {
       if (!Array.isArray(targetColors)) {
         targetColors = [targetColors];
       }
-      for (let i = 0; i < replaceColors.length; i++) {
-        data = await replaceColor({
-          image: data,
-          deltaE: 7,
-          colors: {
-            type: "hex",
-            targetColor: targetColors[i],
-            replaceColor: replaceColors[i]
-          }
+      const colors = [];
+      targetColors.forEach((color, index) => {
+        colors.push({
+          type: "hex",
+          targetColor: color,
+          replaceColor: replaceColors[index]
         });
-      }
+      });
+      data = await replaceColor({
+        image: data,
+        deltaE: 20,
+        colors: colors
+      });
     }
     data.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
       res.send(buffer);

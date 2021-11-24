@@ -42,22 +42,13 @@
             >
           </div>
         </div>
-        <div
-          v-for="targetColor in selectedCell.TargetColors"
-          :key="targetColor.Position"
-          class="flex w-full space-x-2"
-        >
-          <BaseComboBox
-            v-model="targetColor.Replace"
-            :label="`Target ${WorldColors.getKey(targetColor.Target)}`"
-            :store="accentColorsStore"
-          />
-          <BaseField
-            v-model="targetColor.Position"
-            label="Pos"
-            width="w-16"
-          />
-        </div>
+        <BaseComboBox
+          v-for="(targetColor, idx) in selectedCell.TargetColors"
+          :key="idx"
+          v-model="targetColor.Replace"
+          :label="`Replace ${WorldColors.getKey(targetColor.Target)}`"
+          :store="accentColorsStore"
+        />
       </div>
     </div>
   </div>

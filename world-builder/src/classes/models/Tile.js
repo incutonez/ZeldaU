@@ -2,7 +2,6 @@
 import { Model } from "@/classes/models/Model.js";
 import { WorldColors } from "@/classes/enums/WorldColors.js";
 import {
-  collect,
   isEmpty,
   toQueryString
 } from "@/utilities.js";
@@ -98,10 +97,9 @@ class Tile extends Model {
         colors = [WorldColors.White, WorldColors.Black];
     }
 
-    return colors.map((color, index) => {
+    return colors.map((color) => {
       return {
         Target: color,
-        Position: index,
       };
     });
   }
@@ -119,22 +117,20 @@ class Tile extends Model {
     else {
       key = Tiles.getKey(type);
     }
-    targetColors = targetColors.sort((lhs, rhs) => {
-      const lhsPos = lhs.Position;
-      const rhsPos = rhs.Position;
-      if (lhsPos === rhsPos) {
-        return 0;
-      }
-      return lhsPos < rhsPos ? -1 : 1;
-    });
     const targets = [];
     const replacers = [];
     targetColors.forEach((color) => {
-      targets.push(encodeURIComponent(`#${color.Target}`));
-      replacers.push(encodeURIComponent(`#${color.Replace}`));
+      let target = color.Target;
+      let replace = color.Replace;
+      if (target === WorldColors.None) {
+        target = "#00000000";
+      }
+      if (replace === WorldColors.None) {
+        replace = "#00000000";
+      }
+      targets.push(encodeURIComponent(`#${target}`));
+      replacers.push(encodeURIComponent(`#${replace}`));
     });
-    /* We slice at the end of the maps because it's possible we're in a state where we have more targetColors
-     * or replaceColors than the other, so we normalize on the lowest length */
     const params = {
       tile: key,
       targetColors: targets,

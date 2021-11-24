@@ -13,7 +13,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "replace-color": "^2.3.0"
+    "replace-color": "file:overrides/replace-color"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

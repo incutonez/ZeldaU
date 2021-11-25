@@ -29,6 +29,8 @@ class Grid extends Model {
    */
   Template = null;
   cells = null;
+  totalRows = 0;
+  totalColumns = 0;
 
   constructor(args) {
     super(args);

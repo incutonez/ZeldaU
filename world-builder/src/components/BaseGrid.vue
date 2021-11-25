@@ -9,8 +9,9 @@
       :key="cell.id"
       :class="getCellCls(cell)"
       :style="getCellColor()"
-      @click="onClickCell(cell)"
+      @click="onClickCell($event, cell)"
       @contextmenu="onContextMenuCell"
+      @mouseover="onMouseOverCell(cell)"
     >
       <img
         v-if="cell.tileImage"
@@ -72,6 +73,10 @@ export default {
       type: Number,
       required: true,
     },
+    totalColumns: {
+      type: Number,
+      required: true,
+    },
     selectedCell: {
       type: Object,
       default: () => null
@@ -94,6 +99,9 @@ export default {
     const pressedKeys = inject("pressedKeys");
     const activeCursor = ref("cursor-pointer");
     const lastCopiedCell = ref(null);
+    const hoverCell = ref(null);
+    const hoverRow = ref(null);
+    const hoverColumn = ref(null);
 
     watch(() => pressedKeys.shift, (value) => {
       if (value) {
@@ -114,25 +122,86 @@ export default {
       const selectedCell = props.selectedCell;
       const replacement = lastCopiedCell.value;
       if (value && selectedCell && replacement && selectedCell !== replacement) {
-        const index = props.cells.indexOf(selectedCell);
+        const indices = props.cells.indexOf(selectedCell);
         emit("replaceCell", {
-          index,
-          replacement: replacement.clone({
-            Coordinates: selectedCell.Coordinates
-          })
+          indices,
+          replacement: replacement
         });
       }
     });
 
     function getCellCls(cell) {
+      let hoverCls = false;
+      if (props.selectedCell && pressedKeys.shift) {
+        let y = cell.y;
+        let x = cell.x;
+        let fromX = props.selectedCell.x;
+        let fromY = props.selectedCell.y;
+        let toX = hoverCell.value.x;
+        let toY = hoverCell.value.y;
+        if (fromX > toX) {
+          fromX = toX;
+          toX = props.selectedCell.x;
+        }
+        if (fromY > toY) {
+          fromY = toY;
+          toY = props.selectedCell.y;
+        }
+        if (x <= toX && y <= toY && x >= fromX && y >= fromY) {
+          hoverCls = true;
+        }
+      }
       return {
         [`grid-cell row-start-${props.totalRows - cell.y}`]: true,
         "grid-cell-selected": cell === props.selectedCell,
+        "grid-cell-hover": hoverCls,
         [activeCursor.value]: true,
       };
     }
 
-    function onClickCell(cell) {
+    function getSelectedCells() {
+      const cells = [];
+      const totalColumns = props.totalColumns;
+      const selectedCell = props.selectedCell;
+      let fromX = selectedCell.x;
+      let fromY = selectedCell.y;
+      let toX = hoverCell.value.x;
+      let toY = hoverCell.value.y;
+      if (fromX > toX) {
+        fromX = toX;
+        toX = selectedCell.x;
+      }
+      if (fromY > toY) {
+        fromY = toY;
+        toY = selectedCell.y;
+      }
+      for (let x = fromX; x <= toX; x++) {
+        for (let y = fromY; y <= toY; y++) {
+          const index = x + y * totalColumns;
+          if (index === selectedCell.getIndex()) {
+            continue;
+          }
+          cells.push(index);
+        }
+      }
+      return cells;
+    }
+
+    function onClickCell(event, cell) {
+      const selectedCell = props.selectedCell;
+      if (pressedKeys.shift) {
+        const indices = getSelectedCells();
+        emit("replaceCell", {
+          indices,
+          // TODOJEF: More performant to call set instead of cloning all the time?
+          replacement: selectedCell
+        });
+        document.getSelection().removeAllRanges();
+        return;
+      }
+      if (cell === selectedCell) {
+        cell = null;
+      }
       emit("update:selectedCell", cell);
     }
 
@@ -142,6 +211,12 @@ export default {
 
     function hideContextMenu() {
       contextMenu.value.hide();
+    }
+
+    function onMouseOverCell(cell) {
+      hoverCell.value = cell;
+      hoverRow.value = cell.y;
+      hoverColumn.value = cell.x;
     }
 
     onMounted(() => {
@@ -168,8 +243,10 @@ export default {
       testValue,
       activeCursor,
       getCellCls,
+      pressedKeys,
       onClickCell,
       onContextMenuCell,
+      onMouseOverCell,
       onClickTilesMenu() {
         testDialog.value.show();
         hideContextMenu();

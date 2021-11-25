@@ -32,6 +32,10 @@ class Tile extends Model {
    * @type {Tile[]}
    */
   Children = [];
+  /**
+   * @type {Grid}
+   */
+  grid = null;
 
   constructor(args) {
     super(args);
@@ -95,6 +99,10 @@ class Tile extends Model {
         Value: value
       };
     });
+  }
+
+  getIndex() {
+    return this.x + this.y * this.grid.totalColumns;
   }
 
   setTargetColors(targetColors) {

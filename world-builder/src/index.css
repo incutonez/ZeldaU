@@ -23,8 +23,12 @@
     @apply text-center hover:item-highlight border-gray-500 cursor-pointer;
   }
 
-  .grid-cell-selected {
+  .grid-cell-hover {
     @apply item-highlight;
+  }
+
+  .grid-cell-selected {
+    @apply bg-blue-200 !important;
   }
 
   .grid-show-lines .grid-cell {

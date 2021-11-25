@@ -24,17 +24,19 @@ class Model {
     return [];
   }
 
-  clone(options = {}) {
+  getData({ excluded, options }) {
     const output = {};
-    const excluded = this.excluded;
     for (const key in this) {
-      if (excluded.indexOf(key) !== -1) {
+      if (excluded?.indexOf(key) !== -1) {
         continue;
       }
       output[key] = options[key] || this[key];
     }
-    console.log(output.TargetColors);
-    return new this.constructor(clone(output));
+    return clone(output);
+  }
+
+  clone(options = {}) {
+    return new this.constructor(this.getData({ options, excluded: this.excluded }));
   }
 }
 

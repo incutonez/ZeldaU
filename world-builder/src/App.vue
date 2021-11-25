@@ -4,16 +4,24 @@
       ref="grid"
       v-model:selected-cell="selectedCell"
       :cells="store"
+      :total-columns="record.totalColumns"
       :total-rows="record.totalRows"
       :show-grid-lines="showGridLines"
       :get-cell-color="getCellColor"
       @replace-cell="onReplaceCell"
     />
     <div class="p-4">
-      <BaseCheckbox
-        v-model="showGridLines"
-        label="Grid Lines"
-      />
+      <div class="flex">
+        <BaseCheckbox
+          v-model="showGridLines"
+          label="Grid Lines"
+        />
+        <BaseButton
+          text="Save"
+          class="self-end"
+          @click="onClickSaveBtn"
+        />
+      </div>
       <BaseComboBox
         v-model="record.GroundColor"
         label="Ground Color"
@@ -51,10 +59,6 @@
           :store="accentColorsStore"
         />
       </div>
-      <BaseButton
-        text="Save"
-        @click="onClickSaveBtn"
-      />
     </div>
   </div>
 </template>
@@ -75,10 +79,17 @@ import { Grid } from "@/classes/models/Grid.js";
 import BaseCheckbox from "@/components/BaseCheckbox.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
 import BaseButton from "@/components/BaseButton.vue";
+import { isArray } from "@/utilities.js";
 
 /**
  * TODOJEF:
- * - Get cell highlighting working with shift
+ * - Add special properties for Transitions
+ * - Finish up the rest of the Cell Tile colors
+ * - Add special properties to Tiles... will need to wire this up in Unity code
+ * - Optimize the export... right now, it does all individual cells... should be able to group by type
+ * - Actually save to file system
+ * - Load into Unity game to see it working
+ * - Finish other TODOJEFs
  */
 export default {
   name: "App",
@@ -115,6 +126,7 @@ export default {
 
     // We have to have this because we do cell replacements, which requires us doing some deep copying here
     // TODOJEF: Is there a better way of doing this?
+    // TODOJEF: Make this an actual store?
     const store = computed(() => {
       return [...state.record.cells];
     }, {
@@ -124,6 +136,13 @@ export default {
     function onDocumentKeyDown(event) {
       state.pressedKeys.shift = event.shiftKey;
       state.pressedKeys.ctrl = event.ctrlKey;
+      if (event.shiftKey) {
+        /* We need to make sure the text selection doesn't occur, as it causes weird visual issues with cells
+         * when we copy/paste using shift click */
+        document.onselectstart = function () {
+          return false;
+        };
+      }
       if (event.ctrlKey && event.code === "KeyC") {
         state.pressedKeys.copy = false;
         // We have to clear out the previous binding, so let's use a setTimeout to push onto the event loop
@@ -143,12 +162,24 @@ export default {
     function onDocumentKeyUp(event) {
       state.pressedKeys.shift = event.shiftKey;
       state.pressedKeys.ctrl = event.ctrlKey;
+      if (event.shiftKey) {
+        document.onselectstart = null;
+      }
     }
 
-    function onReplaceCell({ index, replacement }) {
-      state.record.cells[index] = replacement;
-      // Make sure we update the selection with the replacement
-      selectedCell.value = replacement;
+    function onReplaceCell({ indices, replacement }) {
+      if (!isArray(indices)) {
+        indices = [indices];
+        // Make sure we update the selection with the replacement
+        selectedCell.value = replacement;
+      }
+      indices.forEach((idx) => {
+        let record = state.record.cells[idx];
+        record = state.record.cells[idx] = replacement.clone({
+          Coordinates: record.Coordinates,
+        });
+        record.grid = replacement.grid;
+      });
     }
 
     function onClickSaveBtn() {

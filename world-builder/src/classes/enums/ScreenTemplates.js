@@ -1,5 +1,55 @@
 import { Enum } from "@/classes/Enum.js";
 
+/**
+ * @property Base
+ * @property Plain
+ * @property Entrance
+ * @property Blocks2X3Columns
+ * @property Blocks2X3Column
+ * @property Blocks4
+ * @property Blocks4Alt
+ * @property Blocks1
+ * @property BlocksX
+ * @property Blocks3Rows
+ * @property WaterMaze
+ * @property BlocksAquamentus
+ * @property Exit
+ * @property BlocksStairsCenter
+ * @property WaterBrackets
+ * @property PlainStatues
+ * @property Sand
+ * @property BlocksStairsEnd
+ * @property BlocksDiagonal
+ * @property BlocksHorizontal
+ * @property BlocksC
+ * @property Blocks2
+ * @property BlocksMaze
+ * @property WaterHorizontal
+ * @property WaterT
+ * @property Blocks4Statues
+ * @property BlocksGleeok
+ * @property WaterLadder
+ * @property Blocks6Alt
+ * @property WaterVertical
+ * @property Blocks3Horizontal
+ * @property WaterRectangle
+ * @property PlainStatues2
+ * @property BlocksRectangle
+ * @property WaterHorizontal2
+ * @property BlocksSpiral
+ * @property Ganon
+ * @property Ending
+ * @property Blocks2Vertical
+ * @property Blocks6Vertical
+ * @property Blocks4Way
+ * @property WaterH
+ * @property Black
+ * @property BlocksArrow
+ * @property WaterHAlt
+ * @property KeepItem
+ * @property KeepPath
+ * @property Shop
+ */
 export const ScreenTemplates = new Enum({
   Base: -1,
   Plain: 0,

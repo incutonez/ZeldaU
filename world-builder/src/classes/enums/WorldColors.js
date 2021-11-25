@@ -17,6 +17,8 @@ import { Color } from "@/classes/models/Color.js";
  * @property PureBlue
  * @property PureRed
  * @property PureGreen
+ * @property FireOuter
+ * @property FireInner
  */
 export const WorldColors = new Enum({
   None: "Transparent",
@@ -33,5 +35,7 @@ export const WorldColors = new Enum({
   Q1C1Body: "00e8d8",
   PureBlue: "0000FF",
   PureRed: "FF0000",
-  PureGreen: "00FF00"
+  PureGreen: "00FF00",
+  FireOuter: "F83800",
+  FireInner: "FFA044"
 }, Color);

@@ -1,5 +1,22 @@
 import { Enum } from "@/classes/Enum.js";
 
+/**
+ * @property Default
+ * @property ActionUp
+ * @property ActionDown
+ * @property ActionRight
+ * @property ActionLeft
+ * @property Entering
+ * @property Exiting
+ * @property IdleUp
+ * @property IdleDown
+ * @property IdleRight
+ * @property IdleLeft
+ * @property WalkUp
+ * @property WalkDown
+ * @property WalkRight
+ * @property WalkLeft
+ */
 export const Animations = new Enum([
   "Default",
   "ActionUp",

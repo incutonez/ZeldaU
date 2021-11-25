@@ -1,5 +1,48 @@
 import { Enum } from "@/classes/Enum.js";
 
+/**
+ * @property None
+ * @property Arrow
+ * @property ArrowSilver
+ * @property Bomb
+ * @property Boomerang
+ * @property BoomerangMagical
+ * @property Bow
+ * @property Candle
+ * @property CandleRed
+ * @property Clock
+ * @property Compass
+ * @property Flute
+ * @property Food
+ * @property Heart
+ * @property HeartHalf
+ * @property HeartEmpty
+ * @property HeartAlt
+ * @property HeartContainer
+ * @property Key
+ * @property KeySkeleton
+ * @property Ladder
+ * @property Letter
+ * @property MagicBook
+ * @property Map
+ * @property PotionBlue
+ * @property PotionRed
+ * @property PowerBracelet
+ * @property Raft
+ * @property RingBlue
+ * @property RingGreen
+ * @property RingRed
+ * @property RupeeFive
+ * @property RupeeOne
+ * @property Shield
+ * @property ShieldMagical
+ * @property Sword
+ * @property SwordWhite
+ * @property SwordMagical
+ * @property TriforceShard
+ * @property TriforceShardAlt
+ * @property Wand
+ */
 export const Items = new Enum({
   None: 0,
   Arrow: 1,

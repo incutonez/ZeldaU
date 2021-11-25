@@ -1,5 +1,33 @@
 import { Enum } from "@/classes/Enum.js";
 
+/**
+ * @property ArrowBoomerang
+ * @property BombBlow
+ * @property BombDrop
+ * @property BossManhandlaDigdoggerPatra
+ * @property BossDragonGanon
+ * @property BossDodongoGohma
+ * @property BossHurt
+ * @property DoorUnlock
+ * @property EnemyDie
+ * @property EnemyHurt
+ * @property Fire
+ * @property Flute
+ * @property HealthLow
+ * @property HeartPickup
+ * @property ItemAppear
+ * @property ItemFanfare
+ * @property ItemPickup
+ * @property Magic
+ * @property Rupee
+ * @property SecretAppear
+ * @property Shield
+ * @property Shore
+ * @property Stairs
+ * @property SwordShoot
+ * @property SwordSlash
+ * @property Text
+ */
 export const FX = new Enum([
   "ArrowBoomerang",
   "BombBlow",
@@ -28,4 +56,21 @@ export const FX = new Enum([
   "SwordSlash",
   "Text"
 ]);
-export const Music = new Enum(["Castle", "Ending", "FinalCastle", "GameOver", "GanonAppear", "Intro", "Overworld"]);
+/**
+ * @property Castle
+ * @property Ending
+ * @property FinalCastle
+ * @property GameOver
+ * @property GanonAppear
+ * @property Intro
+ * @property Overworld
+ */
+export const Music = new Enum([
+  "Castle",
+  "Ending",
+  "FinalCastle",
+  "GameOver",
+  "GanonAppear",
+  "Intro",
+  "Overworld"
+]);

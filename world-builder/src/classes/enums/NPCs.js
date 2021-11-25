@@ -1,5 +1,14 @@
 import { Enum } from "@/classes/Enum.js";
 
+/**
+ * @property Fairy
+ * @property Link
+ * @property Merchant
+ * @property OldMan
+ * @property OldMan2
+ * @property OldWoman
+ * @property Zelda
+ */
 export const Characters = new Enum({
   Fairy: 1,
   Link: 2,
@@ -10,6 +19,55 @@ export const Characters = new Enum({
   Zelda: 7
 });
 
+/**
+ * @property Armos
+ * @property Rock
+ * @property Bubble
+ * @property BubbleBlue
+ * @property BubbleRed
+ * @property Darknut
+ * @property DarknutBlue
+ * @property Gel
+ * @property GelBlue
+ * @property Ghini
+ * @property Gibdo
+ * @property GleeokHead
+ * @property Goriya
+ * @property GoriyaBlue
+ * @property Keese
+ * @property KeeseBlue
+ * @property KeeseRed
+ * @property Lanmola
+ * @property LanmolaBlue
+ * @property Leever
+ * @property LeeverBlue
+ * @property LikeLike
+ * @property Lynel
+ * @property LynelBlue
+ * @property Moblin
+ * @property MoblinBlue
+ * @property Moldorm
+ * @property Octorok
+ * @property OctorokBlue
+ * @property Patra
+ * @property PatraHead
+ * @property Peahat
+ * @property PolsVoice
+ * @property Rope
+ * @property RopeBlue
+ * @property Stalfos
+ * @property Tektite
+ * @property TektiteBlue
+ * @property Trap
+ * @property Vire
+ * @property Wallmaster
+ * @property Wizzrobe
+ * @property WizzrobeBlue
+ * @property Zol
+ * @property ZolGray
+ * @property ZolGreen
+ * @property Zora
+ */
 export const Enemies = new Enum({
   Armos: 0,
   Rock: 1,
@@ -60,6 +118,16 @@ export const Enemies = new Enum({
   Zora: 42
 });
 
+/**
+ * @property Aquamentus
+ * @property Digdogger
+ * @property Dodongo
+ * @property Ganon
+ * @property Gleeok
+ * @property Gohma
+ * @property GohmaBlue
+ * @property Manhandla
+ */
 export const Bosses = new Enum([
   "Aquamentus",
   "Digdogger",

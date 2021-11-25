@@ -1,6 +1,7 @@
 ﻿import fs from "fs";
 import path from "path";
 import glob from "glob";
+import { Enum } from "./src/classes/Enum.js";
 
 const inPath = "../Assets/Scripts/Enums/";
 const classesPath = "@/classes/";
@@ -40,7 +41,9 @@ function toEnum(data) {
     if (match.indexOf(":") === -1) {
       match = "['" + match.replace(/\s+/g, "").replace(/\{|\}/g, "").split(/([^,]+),/).filter((item) => item).join("','") + "']";
     }
-    output += `export ${`const ${matchName} =`} new Enum(${match})`;
+    const parse = match.replace(/'/g, "\"").replace(/[\r\n\s]*/g, "").replace(/(\w+):/g, "\"$1\":");
+    const description = new Enum(JSON.parse(parse.trim())).toClassDescription();
+    output += `${description}\nexport ${`const ${matchName} =`} new Enum(${match})`;
   });
   return `import {Enum} from "${classesPath}Enum.js"\n${output}`;
 }

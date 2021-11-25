@@ -1,5 +1,6 @@
-﻿import { isObject } from "@/utilities.js";
-import { Store } from "@/classes/Store.js";
+﻿// We use the relative pathing here, so our copyEnums script can make use of this class
+import { isObject } from "../utilities.js";
+import { Store } from "../classes/Store.js";
 
 class Enum {
   #model;

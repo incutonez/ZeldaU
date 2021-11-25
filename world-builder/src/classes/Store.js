@@ -1,4 +1,5 @@
-﻿import { isObject } from "@/utilities.js";
+﻿// We use the relative pathing here, so our copyEnums script can make use of this class
+import { isObject } from "../utilities.js";
 
 class Store extends Array {
   idKey = "id";

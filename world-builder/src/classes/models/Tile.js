@@ -108,13 +108,48 @@ class Tile extends Model {
   setTargetColors(targetColors) {
     if (!targetColors) {
       let colors;
+      /**
+       * TODOJEF: I really should standardize these colors
+       * - 1 color => White
+       * - 2 colors => White, Black
+       * - 3 colors => White, Black, Blue
+       * - 4 colors => White, Black, Blue, Red
+       */
       switch (this.Type) {
+        // TODOJEF: Add color change for these?
+        case Tiles.StairsKeep:
+        case Tiles.WallKeep:
+        case Tiles.Transition:
         case Tiles.None:
           colors = [];
           break;
         case Tiles.Block:
         case Tiles.CastleSand:
+        case Tiles.DoorClosedY:
+        case Tiles.DoorClosedX:
+        case Tiles.DoorUnlockedX:
+        case Tiles.DoorUnlockedY:
+        case Tiles.DoorLockedX:
+        case Tiles.DoorLockedY:
+        case Tiles.Statue1:
+        case Tiles.Statue2:
+        case Tiles.WallLeftX:
+        case Tiles.WallLeftY:
+        case Tiles.WallLeftYFlip:
+        case Tiles.WallRightX:
+        case Tiles.WallRightY:
+        case Tiles.WallRightYFlip:
+        case Tiles.WallX:
+        case Tiles.WallY:
           colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
+          break;
+        case Tiles.WallHoleX:
+        case Tiles.WallHoleY:
+          colors = [WorldColors.White, WorldColors.Black, WorldColors.PureBlue, WorldColors.PureRed];
+          break;
+        case Tiles.Fire:
+        case Tiles.FireAlt:
+          colors = [WorldColors.FireOuter, WorldColors.FireInner, WorldColors.White];
           break;
         case Tiles.CastleBottomLeft:
         case Tiles.CastleBottomRight:
@@ -124,7 +159,42 @@ class Tile extends Model {
         case Tiles.CastleTopRightAlt:
         case Tiles.CastleTopLeft:
         case Tiles.CastleTopRight:
+        case Tiles.Dock:
+        case Tiles.Grave:
+        case Tiles.StairsUp:
+        case Tiles.Statue:
+        case Tiles.TreeBottomRight:
+        case Tiles.TreeTopLeft:
+        case Tiles.Water:
+        case Tiles.WaterTopLeft:
+        case Tiles.WaterTopRight:
+        case Tiles.WaterBottomLeft:
+        case Tiles.WaterBottomRight:
           colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
+          break;
+        case Tiles.GroundTile:
+          colors = [WorldColors.White, WorldColors.PureRed, WorldColors.Black];
+          break;
+        case Tiles.CastleWater:
+          colors = [WorldColors.PureBlue];
+          break;
+        case Tiles.Door:
+          colors = [WorldColors.Black];
+          break;
+        case Tiles.SandBottom:
+        case Tiles.SandCenter:
+          colors = [WorldColors.White];
+          break;
+        case Tiles.PondBottom:
+        case Tiles.PondBottomLeft:
+        case Tiles.PondBottomRight:
+        case Tiles.PondTop:
+        case Tiles.PondTopLeft:
+        case Tiles.PondTopRight:
+        case Tiles.PondCenter:
+        case Tiles.PondCenterLeft:
+        case Tiles.PondCenterRight:
+          colors = [WorldColors.White, WorldColors.PureBlue];
           break;
         case Tiles.Bush:
         default:

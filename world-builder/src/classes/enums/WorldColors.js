@@ -1,4 +1,4 @@
-import { Enum } from "@/classes/Enum.js";
+import { EnumStore } from "@/classes/EnumStore.js";
 import { Color } from "@/classes/models/Color.js";
 
 /**
@@ -20,7 +20,7 @@ import { Color } from "@/classes/models/Color.js";
  * @property FireOuter
  * @property FireInner
  */
-export const WorldColors = new Enum({
+export const WorldColors = new EnumStore({
   None: "Transparent",
   Tan: "FFEFA6",
   Green: "00a800",

@@ -1,4 +1,4 @@
-import { Enum } from "@/classes/Enum.js";
+import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
  * @property ArrowBoomerang
@@ -28,7 +28,7 @@ import { Enum } from "@/classes/Enum.js";
  * @property SwordSlash
  * @property Text
  */
-export const FX = new Enum([
+export const FX = new EnumStore([
   "ArrowBoomerang",
   "BombBlow",
   "BombDrop",
@@ -56,6 +56,7 @@ export const FX = new Enum([
   "SwordSlash",
   "Text"
 ]);
+
 /**
  * @property Castle
  * @property Ending
@@ -65,7 +66,7 @@ export const FX = new Enum([
  * @property Intro
  * @property Overworld
  */
-export const Music = new Enum([
+export const Music = new EnumStore([
   "Castle",
   "Ending",
   "FinalCastle",

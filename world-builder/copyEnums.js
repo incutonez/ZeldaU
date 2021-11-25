@@ -1,7 +1,7 @@
 ﻿import fs from "fs";
 import path from "path";
 import glob from "glob";
-import { Enum } from "./src/classes/Enum.js";
+import { EnumStore } from "./src/classes/EnumStore.js";
 
 const inPath = "../Assets/Scripts/Enums/";
 const classesPath = "@/classes/";
@@ -42,10 +42,10 @@ function toEnum(data) {
       match = "['" + match.replace(/\s+/g, "").replace(/\{|\}/g, "").split(/([^,]+),/).filter((item) => item).join("','") + "']";
     }
     const parse = match.replace(/'/g, "\"").replace(/[\r\n\s]*/g, "").replace(/(\w+):/g, "\"$1\":");
-    const description = new Enum(JSON.parse(parse.trim())).toClassDescription();
-    output += `${description}\nexport ${`const ${matchName} =`} new Enum(${match})`;
+    const description = new EnumStore(JSON.parse(parse.trim())).toClassDescription();
+    output += `${description}\nexport ${`const ${matchName} =`} new EnumStore(${match})`;
   });
-  return `import {Enum} from "${classesPath}Enum.js"\n${output}`;
+  return `import {EnumStore} from "${classesPath}EnumStore.js"\n${output}`;
 }
 
 if (fs.existsSync(outPath)) {

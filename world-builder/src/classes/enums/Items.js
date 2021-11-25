@@ -1,4 +1,4 @@
-import { Enum } from "@/classes/Enum.js";
+import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
  * @property None
@@ -43,7 +43,7 @@ import { Enum } from "@/classes/Enum.js";
  * @property TriforceShardAlt
  * @property Wand
  */
-export const Items = new Enum({
+export const Items = new EnumStore({
   None: 0,
   Arrow: 1,
   ArrowSilver: 2,

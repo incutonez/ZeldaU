@@ -1,4 +1,4 @@
-import { Enum } from "@/classes/Enum.js";
+import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
  * @property Block
@@ -81,7 +81,7 @@ import { Enum } from "@/classes/Enum.js";
  * @property WaterTopLeft
  * @property WaterTopRight
  */
-export const Tiles = new Enum([
+export const Tiles = new EnumStore([
   "Block",
   "Bush",
   "Castle",

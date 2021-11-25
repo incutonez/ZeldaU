@@ -1,7 +1,7 @@
 ﻿import {
   clone,
   isObject
-} from "@/utilities.js";
+} from "../../utilities.js";
 
 class Model {
   set(field, value) {

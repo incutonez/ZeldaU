@@ -58,6 +58,34 @@
           :label="`Replace ${WorldColors.getKey(targetColor.Target)}`"
           :store="accentColorsStore"
         />
+        <div v-if="selectedCell.isTransition()">
+          <div class="flex space-x-2">
+            <BaseField
+              v-model="selectedCell.Transition.X"
+              label="X Change"
+              width="w-24"
+            />
+            <BaseField
+              v-model="selectedCell.Transition.Y"
+              label="Y Change"
+              width="w-24"
+            />
+          </div>
+          <BaseComboBox
+            v-model="selectedCell.Transition.TileType"
+            label="Tile"
+            :store="tilesStore"
+          />
+          <BaseComboBox
+            v-model="selectedCell.Transition.Template"
+            label="Template"
+            :store="screenTemplatesStore"
+          />
+          <BaseCheckbox
+            v-model="selectedCell.Transition.IsFloating"
+            label="Floating"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -80,11 +108,15 @@ import BaseGrid from "@/components/BaseGrid.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import { isArray } from "@/utilities.js";
 import { useKeyboardMouseProvider } from "@/composables/useKeyboardMouseProvider.js";
+import BaseField from "@/components/BaseField.vue";
+import { ScreenTemplates } from "@/classes/enums/ScreenTemplates.js";
+
+console.log(WorldColors);
 
 /**
  * TODOJEF:
  * - Add special properties for Transitions
- * - Finish up the rest of the Cell Tile colors
+ * - Should rename Door to ShopDoor, as it's a little special
  * - Optimize the export... right now, it does all individual cells... should be able to group by type
  * - Actually save to file system
  * - Load into Unity game to see it working
@@ -95,6 +127,7 @@ import { useKeyboardMouseProvider } from "@/composables/useKeyboardMouseProvider
 export default {
   name: "App",
   components: {
+    BaseField,
     BaseButton,
     BaseGrid,
     BaseCheckbox,
@@ -106,9 +139,10 @@ export default {
     const selectedCell = ref(null);
     const grid = ref(null);
     const state = reactive({
-      groundColorsStore: WorldColors.store,
-      accentColorsStore: WorldColors.store,
-      tilesStore: Tiles.store,
+      groundColorsStore: WorldColors,
+      accentColorsStore: WorldColors,
+      screenTemplatesStore: ScreenTemplates,
+      tilesStore: Tiles,
       showGridLines: true,
       record: Grid.initialize(11, 16),
     });

@@ -1,20 +1,37 @@
 ﻿// We use the relative pathing here, so our copyEnums script can make use of this class
-import { isObject } from "../utilities.js";
+import {
+  isArray,
+  isObject
+} from "../utilities.js";
+import { Model } from "../classes/models/Model.js";
 
 class Store extends Array {
   idKey = "id";
   valueKey = "value";
-  model = null;
+  sorters;
+  model;
 
-  constructor(args, model = Object) {
-    super(args);
+  constructor(data, model = Model, sorters = []) {
+    super(data);
     this.model = model;
-    this.initialize(args);
+    this.sorters = sorters;
+    this.initialize(data);
   }
 
   initialize(items) {
-    const first = this.first;
-    if (isObject(items, false) || !isObject(first, false)) {
+    if (isArray(items)) {
+      if (!isObject(items[0], false)) {
+        const result = [];
+        for (let i = 0; i < items.length; i++) {
+          result.push(new this.model({
+            [this.idKey]: i,
+            [this.valueKey]: items[i]
+          }));
+        }
+        Object.assign(this, result);
+      }
+    }
+    else if (isObject(items, false)) {
       const result = [];
       for (const item in items) {
         result.push(new this.model({
@@ -24,6 +41,29 @@ class Store extends Array {
       }
       Object.assign(this, result);
     }
+    this.sort();
+  }
+
+  sort(sorters) {
+    sorters = sorters || this.sorters;
+    console.log(sorters);
+    sorters?.forEach((sorter) => {
+      if (isObject(sorter)) {
+        const { property, direction = 1 } = sorter;
+        super.sort((lhs, rhs) => {
+          const lhsProp = lhs[property];
+          const rhsProp = rhs[property];
+          if (lhsProp === rhsProp) {
+            return 0;
+          }
+          return lhsProp < rhsProp ? direction * -1 : direction * 1;
+        });
+      }
+      // We have a function
+      else {
+        super.sort(sorter);
+      }
+    });
   }
 
   findRecord(value) {

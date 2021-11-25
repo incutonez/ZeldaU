@@ -57,16 +57,35 @@ class Tile extends Model {
     this.updateType();
   }
 
-  updateType(targetColors) {
+  isTransition() {
+    return this.Type === Tiles.Transition;
+  }
+
+  getTileKey() {
     let key;
     const value = this.Type;
     if (value !== Tiles.None) {
-      if (value === Tiles.Transition) {
+      if (this.isTransition()) {
         key = "Transparent";
       }
       else {
         key = Tiles.getKey(value);
       }
+    }
+    return key;
+  }
+
+  updateType(targetColors) {
+    const key = this.getTileKey();
+    if (this.isTransition()) {
+      this.Transition = this.Transition || {
+        X: 0,
+        Y: 0,
+        TileType: Tiles.Transition,
+        Name: null,
+        Template: null,
+        IsFloating: false,
+      };
     }
     this.tileSrc = key ? `/Tiles/${key}.png` : "";
     this.setTargetColors(targetColors);
@@ -212,18 +231,11 @@ class Tile extends Model {
   }
 
   get tileImage() {
-    const type = this.Type;
-    if (type === Tiles.None || isEmpty(type)) {
+    const key = this.getTileKey();
+    if (isEmpty(key)) {
       return "";
     }
-    let key;
-    if (type === Tiles.Transition) {
-      key = "Transparent";
-    }
-    else {
-      key = Tiles.getKey(type);
-    }
-    let targetColors = this.getTargetColors();
+    const targetColors = this.getTargetColors();
     const params = {
       tile: key,
       targetColors: collect(targetColors, "Target"),
@@ -237,6 +249,7 @@ class Tile extends Model {
       Type: this.Type,
       Children: [
         {
+          Transition: this.Transition,
           Coordinates: this.Coordinates,
           ReplaceColors: collect(this.getTargetColors(true), ["Target", "Value"]),
         }

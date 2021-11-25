@@ -1,4 +1,4 @@
-import { Enum } from "@/classes/Enum.js";
+import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
  * @property Base
@@ -50,7 +50,7 @@ import { Enum } from "@/classes/Enum.js";
  * @property KeepPath
  * @property Shop
  */
-export const ScreenTemplates = new Enum({
+export const ScreenTemplates = new EnumStore({
   Base: -1,
   Plain: 0,
   Entrance: 1,

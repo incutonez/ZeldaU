@@ -9,7 +9,7 @@
       :key="cell.id"
       :class="getCellCls(cell)"
       :style="getCellColor()"
-      @click="onClickCell($event, cell)"
+      @mouseup="onMouseUpCell($event, cell)"
       @contextmenu="onContextMenuCell"
       @mouseover="onMouseOverCell(cell)"
     >
@@ -103,9 +103,14 @@ export default {
     const hoverRow = ref(null);
     const hoverColumn = ref(null);
 
-    watch(() => pressedKeys.shift, (value) => {
-      if (value) {
+    watch(() => {
+      return pressedKeys.shift || pressedKeys.ctrl;
+    }, () => {
+      if (pressedKeys.shift) {
         activeCursor.value = "cursor-cell";
+      }
+      else if (pressedKeys.ctrl) {
+        activeCursor.value = "cursor-copy";
       }
       else {
         activeCursor.value = "cursor-pointer";
@@ -167,6 +172,9 @@ export default {
       let fromY = selectedCell.y;
       let toX = hoverCell.value.x;
       let toY = hoverCell.value.y;
+      /**
+       * We have to look at what quadrant our range is in and re-orient our origin if need be
+       */
       if (fromX > toX) {
         fromX = toX;
         toX = selectedCell.x;
@@ -187,8 +195,19 @@ export default {
       return cells;
     }
 
-    function onClickCell(event, cell) {
+    /**
+     * We use mouseup instead of click because of the ctrl-copy flow... that monitors mousedown and up,
+     * so we can't rely on click, as that'll change it back to false before we can look at the value
+     */
+    function onMouseUpCell(event, cell) {
       const selectedCell = props.selectedCell;
+      if (pressedKeys.ctrl && pressedKeys.mouseDown && selectedCell) {
+        emit("replaceCell", {
+          indices: cell.getIndex(),
+          replacement: selectedCell
+        });
+        return;
+      }
       if (pressedKeys.shift) {
         const indices = getSelectedCells();
         emit("replaceCell", {
@@ -244,7 +263,7 @@ export default {
       activeCursor,
       getCellCls,
       pressedKeys,
-      onClickCell,
+      onMouseUpCell,
       onContextMenuCell,
       onMouseOverCell,
       onClickTilesMenu() {

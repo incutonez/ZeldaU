@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       cursor: {
-        cell: "cell"
+        cell: "cell",
+        copy: "copy"
       },
       colors: {
         "zTan": "#FFEFA6",

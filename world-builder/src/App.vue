@@ -115,6 +115,7 @@ export default {
         ctrl: false,
         copy: false,
         paste: false,
+        mouseDown: false,
       }
     });
     const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle);
@@ -186,10 +187,22 @@ export default {
       console.log(state.record.getConfig());
     }
 
+    function onDocumentMouseDown() {
+      state.pressedKeys.mouseDown = true;
+    }
+
+    function onDocumentMouseUp() {
+      state.pressedKeys.mouseDown = false;
+    }
+
+    document.addEventListener("mousedown", onDocumentMouseDown);
+    document.addEventListener("mouseup", onDocumentMouseUp);
     document.addEventListener("keydown", onDocumentKeyDown);
     document.addEventListener("keyup", onDocumentKeyUp);
 
     onUnmounted(() => {
+      document.removeEventListener("mousedown", onDocumentMouseDown);
+      document.removeEventListener("mouseup", onDocumentMouseUp);
       document.removeEventListener("keydown", onDocumentKeyDown);
       document.removeEventListener("keyup", onDocumentKeyUp);
     });

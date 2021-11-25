@@ -73,7 +73,7 @@ import {
   baseFieldProps,
   useInputCls,
   useLabelCls
-} from "@/components/useBaseField.js";
+} from "@/composables/useBaseField.js";
 
 export default {
   name: "BaseComboBox",

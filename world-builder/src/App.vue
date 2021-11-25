@@ -69,7 +69,6 @@ import { WorldColors } from "@/classes/enums/WorldColors.js";
 import { Tiles } from "@/classes/enums/Tiles.js";
 import {
   computed,
-  onUnmounted,
   provide,
   reactive,
   ref,
@@ -80,16 +79,18 @@ import BaseCheckbox from "@/components/BaseCheckbox.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import { isArray } from "@/utilities.js";
+import { useKeyboardMouseProvider } from "@/composables/useKeyboardMouseProvider.js";
 
 /**
  * TODOJEF:
  * - Add special properties for Transitions
  * - Finish up the rest of the Cell Tile colors
- * - Add special properties to Tiles... will need to wire this up in Unity code
  * - Optimize the export... right now, it does all individual cells... should be able to group by type
  * - Actually save to file system
  * - Load into Unity game to see it working
  * - Finish other TODOJEFs
+ * - Add special properties to Tiles... will need to wire this up in Unity code
+ * -- Like CanBreak, CanBurn, CanBomb
  */
 export default {
   name: "App",
@@ -110,16 +111,9 @@ export default {
       tilesStore: Tiles.store,
       showGridLines: true,
       record: Grid.initialize(11, 16),
-      pressedKeys: {
-        shift: false,
-        ctrl: false,
-        copy: false,
-        paste: false,
-        mouseDown: false,
-      }
     });
     const selectedGround = computed(() => state.groundColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle);
-    provide("pressedKeys", state.pressedKeys);
+    provide("pressedKeys", useKeyboardMouseProvider());
 
     function getCellColor() {
       return state.accentColorsStore.findRecord(state.record.GroundColor)?.backgroundStyle;
@@ -133,40 +127,6 @@ export default {
     }, {
       immediate: true
     });
-
-    function onDocumentKeyDown(event) {
-      state.pressedKeys.shift = event.shiftKey;
-      state.pressedKeys.ctrl = event.ctrlKey;
-      if (event.shiftKey) {
-        /* We need to make sure the text selection doesn't occur, as it causes weird visual issues with cells
-         * when we copy/paste using shift click */
-        document.onselectstart = function () {
-          return false;
-        };
-      }
-      if (event.ctrlKey && event.code === "KeyC") {
-        state.pressedKeys.copy = false;
-        // We have to clear out the previous binding, so let's use a setTimeout to push onto the event loop
-        setTimeout(() => {
-          state.pressedKeys.copy = true;
-        });
-      }
-      if (event.ctrlKey && event.code === "KeyV") {
-        state.pressedKeys.paste = false;
-        // We have to clear out the previous binding, so let's use a setTimeout to push onto the event loop
-        setTimeout(() => {
-          state.pressedKeys.paste = true;
-        });
-      }
-    }
-
-    function onDocumentKeyUp(event) {
-      state.pressedKeys.shift = event.shiftKey;
-      state.pressedKeys.ctrl = event.ctrlKey;
-      if (event.shiftKey) {
-        document.onselectstart = null;
-      }
-    }
 
     function onReplaceCell({ indices, replacement }) {
       if (!isArray(indices)) {
@@ -186,26 +146,6 @@ export default {
     function onClickSaveBtn() {
       console.log(state.record.getConfig());
     }
-
-    function onDocumentMouseDown() {
-      state.pressedKeys.mouseDown = true;
-    }
-
-    function onDocumentMouseUp() {
-      state.pressedKeys.mouseDown = false;
-    }
-
-    document.addEventListener("mousedown", onDocumentMouseDown);
-    document.addEventListener("mouseup", onDocumentMouseUp);
-    document.addEventListener("keydown", onDocumentKeyDown);
-    document.addEventListener("keyup", onDocumentKeyUp);
-
-    onUnmounted(() => {
-      document.removeEventListener("mousedown", onDocumentMouseDown);
-      document.removeEventListener("mouseup", onDocumentMouseUp);
-      document.removeEventListener("keydown", onDocumentKeyDown);
-      document.removeEventListener("keyup", onDocumentKeyUp);
-    });
 
     return {
       ...toRefs(state),

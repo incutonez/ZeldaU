@@ -134,7 +134,7 @@ namespace World {
                 else {
                   GridCell viewModel = Grid.GetViewModel(position);
                   if (viewModel != null) {
-                    Tile.Spawn(position, tileType, transform, child);
+                    Tile.Spawn(position, tileType, transform, child, viewModel, Grid);
                     /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
                      * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
                      * wouldn't allow it... maybe I just don't know enough about shaders? */
@@ -249,22 +249,23 @@ namespace World {
       int height = Grid.Height;
       PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
       polygonCollider.pathCount = 0;
-      Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals);
-      Grid.EachCell((viewModel, x, y) => {
-        // TODO: Potentially don't generate meshes for non-view models?
-        // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
-        Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
-        Vector2[] colliderShape = viewModel.GetColliderShape();
-        if (colliderShape != null) {
-          polygonCollider.SetPath(++polygonCollider.pathCount - 1, colliderShape);
-        }
-      });
-      Mesh.Clear();
-      Mesh.vertices = vertices;
-      Mesh.uv = uvs;
-      Mesh.triangles = triangles;
-      Mesh.colors = colors;
-      Mesh.normals = normals;
+      // TODOJEF: This is no longer used, right?  Check if AI can still walk
+      // Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals);
+      // Grid.EachCell((viewModel, x, y) => {
+      //   // TODO: Potentially don't generate meshes for non-view models?
+      //   // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
+      //   Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
+      //   Vector2[] colliderShape = viewModel.GetColliderShape();
+      //   if (colliderShape != null) {
+      //     polygonCollider.SetPath(++polygonCollider.pathCount - 1, colliderShape);
+      //   }
+      // });
+      // Mesh.Clear();
+      // Mesh.vertices = vertices;
+      // Mesh.uv = uvs;
+      // Mesh.triangles = triangles;
+      // Mesh.colors = colors;
+      // Mesh.normals = normals;
     }
 
     private void Grid_OnValueChanged(object sender, Grid<GridCell>.OnGridValueChangedEventArgs e) {

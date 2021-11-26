@@ -225,10 +225,10 @@ namespace World {
         };
         // Top collision for gap
         points.AddRange(new List<Vector2> {
-          new Vector2 {x = xPos, y = yPos + QuadSize.y - 0.5f},
-          new Vector2 {x = xPos + QuadSize.x, y = yPos + QuadSize.y - 0.5f},
-          new Vector2 {x = xPos + QuadSize.x, y = yPos + QuadSize.y},
-          new Vector2 {x = xPos, y = yPos + QuadSize.y}
+          new() {x = xPos, y = yPos + QuadSize.y - 0.5f},
+          new() {x = xPos + QuadSize.x, y = yPos + QuadSize.y - 0.5f},
+          new() {x = xPos + QuadSize.x, y = yPos + QuadSize.y},
+          new() {x = xPos, y = yPos + QuadSize.y}
         });
       }
       // For doors, we have to create a gap in between
@@ -252,10 +252,10 @@ namespace World {
         };
         // Top collision for gap
         points.AddRange(new List<Vector2> {
-          new Vector2 {x = xPos + QuadSize.x - 0.5f, y = yPos},
-          new Vector2 {x = xPos + QuadSize.x - 0.5f, y = yPos + QuadSize.y},
-          new Vector2 {x = xPos + QuadSize.x, y = yPos + QuadSize.y},
-          new Vector2 {x = xPos + QuadSize.x, y = yPos}
+          new() {x = xPos + QuadSize.x - 0.5f, y = yPos},
+          new() {x = xPos + QuadSize.x - 0.5f, y = yPos + QuadSize.y},
+          new() {x = xPos + QuadSize.x, y = yPos + QuadSize.y},
+          new() {x = xPos + QuadSize.x, y = yPos}
         });
       }
 

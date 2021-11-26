@@ -46,7 +46,6 @@ class Store extends Array {
 
   sort(sorters) {
     sorters = sorters || this.sorters;
-    console.log(sorters);
     sorters?.forEach((sorter) => {
       if (isObject(sorter)) {
         const { property, direction = 1 } = sorter;

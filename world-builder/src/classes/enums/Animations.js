@@ -1,21 +1,21 @@
 import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
- * @property Default
- * @property ActionUp
  * @property ActionDown
- * @property ActionRight
  * @property ActionLeft
+ * @property ActionRight
+ * @property ActionUp
+ * @property Default
  * @property Entering
  * @property Exiting
- * @property IdleUp
  * @property IdleDown
- * @property IdleRight
  * @property IdleLeft
- * @property WalkUp
+ * @property IdleRight
+ * @property IdleUp
  * @property WalkDown
- * @property WalkRight
  * @property WalkLeft
+ * @property WalkRight
+ * @property WalkUp
  */
 export const Animations = new EnumStore([
   "Default",

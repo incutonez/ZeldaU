@@ -4,10 +4,10 @@ import { EnumStore } from "@/classes/EnumStore.js";
  * @property ArrowBoomerang
  * @property BombBlow
  * @property BombDrop
- * @property BossManhandlaDigdoggerPatra
- * @property BossDragonGanon
  * @property BossDodongoGohma
+ * @property BossDragonGanon
  * @property BossHurt
+ * @property BossManhandlaDigdoggerPatra
  * @property DoorUnlock
  * @property EnemyDie
  * @property EnemyHurt

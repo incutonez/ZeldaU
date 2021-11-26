@@ -22,16 +22,32 @@
           @click="onClickSaveBtn"
         />
       </div>
-      <BaseComboBox
-        v-model="record.GroundColor"
-        label="Ground Color"
-        :store="groundColorsStore"
-      />
-      <BaseComboBox
-        v-model="record.AccentColor"
-        label="World Accent Color"
-        :store="accentColorsStore"
-      />
+      <div class="flex space-x-2">
+        <BaseField
+          v-model="record.X"
+          label="Overworld X"
+          width="w-28"
+        />
+        <BaseField
+          v-model="record.Y"
+          label="Overworld Y"
+          width="w-28"
+        />
+      </div>
+      <div class="flex space-x-2">
+        <BaseComboBox
+          v-model="record.GroundColor"
+          label="Ground Color"
+          :store="groundColorsStore"
+          width="w-28"
+        />
+        <BaseComboBox
+          v-model="record.AccentColor"
+          label="World Color"
+          :store="accentColorsStore"
+          width="w-28"
+        />
+      </div>
       <div
         v-if="selectedCell"
         :key="selectedCell.id"
@@ -110,8 +126,6 @@ import { isArray } from "@/utilities.js";
 import { useKeyboardMouseProvider } from "@/composables/useKeyboardMouseProvider.js";
 import BaseField from "@/components/BaseField.vue";
 import { ScreenTemplates } from "@/classes/enums/ScreenTemplates.js";
-
-console.log(WorldColors);
 
 /**
  * TODOJEF:

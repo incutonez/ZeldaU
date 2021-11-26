@@ -21,7 +21,6 @@ export const Characters = new EnumStore({
 
 /**
  * @property Armos
- * @property Rock
  * @property Bubble
  * @property BubbleBlue
  * @property BubbleRed
@@ -53,6 +52,7 @@ export const Characters = new EnumStore({
  * @property PatraHead
  * @property Peahat
  * @property PolsVoice
+ * @property Rock
  * @property Rope
  * @property RopeBlue
  * @property Stalfos

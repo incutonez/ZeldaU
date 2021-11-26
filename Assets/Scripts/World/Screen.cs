@@ -134,7 +134,11 @@ namespace World {
                 else {
                   GridCell viewModel = Grid.GetViewModel(position);
                   if (viewModel != null) {
-                    viewModel.Initialize(tileType, color, position, rotation, flipX, flipY);
+                    Tile.Spawn(position, tileType, transform, child);
+                    /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
+                     * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
+                     * wouldn't allow it... maybe I just don't know enough about shaders? */
+                    // viewModel.Initialize(tileType, child.ReplaceColors, position, rotation, flipX, flipY);
                   }
                 }
               }
@@ -252,8 +256,7 @@ namespace World {
         Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
         Vector2[] colliderShape = viewModel.GetColliderShape();
         if (colliderShape != null) {
-          polygonCollider.pathCount++;
-          polygonCollider.SetPath(polygonCollider.pathCount - 1, colliderShape);
+          polygonCollider.SetPath(++polygonCollider.pathCount - 1, colliderShape);
         }
       });
       Mesh.Clear();

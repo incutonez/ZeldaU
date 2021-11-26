@@ -1,0 +1,153 @@
+﻿{
+  "X": 0,
+  "Y": 0,
+  "Name": "",
+  "GroundColor": "Tan",
+  "AccentColor": "Brown",
+  "Tiles": [
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            0,
+            0
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            1,
+            0
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            2,
+            0
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            3,
+            0
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            4,
+            0
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            6,
+            2
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            7,
+            3
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "c84c0c"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            8,
+            3
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "2038ec"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "CastleBottomLeft",
+      "Children": [
+        {
+          "Transition": null,
+          "Coordinates": [
+            9,
+            3
+          ],
+          "ReplaceColors": [
+            "FFFFFF",
+            "747474"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -50,7 +50,8 @@ namespace Manager {
       if (!IsDebugMode) {
         yield return Scene.BuildScreen(new ViewModel.Grid {
           X = currentX,
-          Y = currentY
+          Y = currentY,
+          Name = Constants.StartingTile
         });
       }
 

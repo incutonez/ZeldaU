@@ -99,25 +99,30 @@ class Tile extends Model {
     return this.Coordinates[1];
   }
 
-  getTargetColors(includeHex) {
-    return this.TargetColors.filter((color) => !!color.Value).map((color) => {
-      let value = color.Value;
-      let target = color.Target;
-      if (target === WorldColors.None) {
-        target = "00000000";
-      }
-      if (value === WorldColors.None) {
-        value = "00000000";
-      }
-      if (includeHex) {
-        target = `#${target}`;
-        value = `#${value}`;
-      }
-      return {
-        Target: target,
-        Value: value
-      };
-    });
+  getTargetColors(useKey) {
+    const targetColors = this.TargetColors.filter((color) => !!color.Value);
+    if (useKey) {
+      return targetColors.reduce((value, item) => {
+        value.push(item.Target, item.Value);
+        return value;
+      }, []);
+    }
+    else {
+      return targetColors.map((color) => {
+        let value = color.Value;
+        let target = color.Target;
+        if (target === WorldColors.None) {
+          target = "00000000";
+        }
+        if (value === WorldColors.None) {
+          value = "00000000";
+        }
+        return {
+          Target: target,
+          Value: value
+        };
+      });
+    }
   }
 
   getIndex() {
@@ -160,15 +165,15 @@ class Tile extends Model {
         case Tiles.WallRightYFlip:
         case Tiles.WallX:
         case Tiles.WallY:
-          colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.PureRed];
+          colors = [WorldColors.PureWhite, WorldColors.PureBlue, WorldColors.PureRed];
           break;
         case Tiles.WallHoleX:
         case Tiles.WallHoleY:
-          colors = [WorldColors.White, WorldColors.Black, WorldColors.PureBlue, WorldColors.PureRed];
+          colors = [WorldColors.PureWhite, WorldColors.Black, WorldColors.PureBlue, WorldColors.PureRed];
           break;
         case Tiles.Fire:
         case Tiles.FireAlt:
-          colors = [WorldColors.FireOuter, WorldColors.FireInner, WorldColors.White];
+          colors = [WorldColors.FireOuter, WorldColors.FireInner, WorldColors.PureWhite];
           break;
         case Tiles.CastleBottomLeft:
         case Tiles.CastleBottomRight:
@@ -189,10 +194,10 @@ class Tile extends Model {
         case Tiles.WaterTopRight:
         case Tiles.WaterBottomLeft:
         case Tiles.WaterBottomRight:
-          colors = [WorldColors.White, WorldColors.PureBlue, WorldColors.Black];
+          colors = [WorldColors.PureWhite, WorldColors.PureBlue, WorldColors.Black];
           break;
         case Tiles.GroundTile:
-          colors = [WorldColors.White, WorldColors.PureRed, WorldColors.Black];
+          colors = [WorldColors.PureWhite, WorldColors.PureRed, WorldColors.Black];
           break;
         case Tiles.CastleWater:
           colors = [WorldColors.PureBlue];
@@ -202,7 +207,7 @@ class Tile extends Model {
           break;
         case Tiles.SandBottom:
         case Tiles.SandCenter:
-          colors = [WorldColors.White];
+          colors = [WorldColors.PureWhite];
           break;
         case Tiles.PondBottom:
         case Tiles.PondBottomLeft:
@@ -213,11 +218,11 @@ class Tile extends Model {
         case Tiles.PondCenter:
         case Tiles.PondCenterLeft:
         case Tiles.PondCenterRight:
-          colors = [WorldColors.White, WorldColors.PureBlue];
+          colors = [WorldColors.PureWhite, WorldColors.PureBlue];
           break;
         case Tiles.Bush:
         default:
-          colors = [WorldColors.White, WorldColors.Black];
+          colors = [WorldColors.PureWhite, WorldColors.Black];
       }
 
       targetColors = colors.map((color) => {
@@ -246,12 +251,12 @@ class Tile extends Model {
 
   getConfig() {
     return {
-      Type: this.Type,
+      Type: Tiles.getKey(this.Type),
       Children: [
         {
           Transition: this.Transition,
           Coordinates: this.Coordinates,
-          ReplaceColors: collect(this.getTargetColors(true), ["Target", "Value"]),
+          ReplaceColors: this.getTargetColors(true),
         }
       ]
     };

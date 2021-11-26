@@ -49,5 +49,8 @@ public enum WorldColors {
   FireOuter = 15,
 
   [Color("FFA044")]
-  FireInner = 16
+  FireInner = 16,
+
+  [Color("FFFFFF")]
+  PureWhite = 17
 }

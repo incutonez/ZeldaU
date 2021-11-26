@@ -2,53 +2,53 @@ import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
  * @property Base
- * @property Plain
- * @property Entrance
- * @property Blocks2X3Columns
+ * @property Black
+ * @property Blocks1
+ * @property Blocks2
+ * @property Blocks2Vertical
  * @property Blocks2X3Column
+ * @property Blocks2X3Columns
+ * @property Blocks3Horizontal
+ * @property Blocks3Rows
  * @property Blocks4
  * @property Blocks4Alt
- * @property Blocks1
- * @property BlocksX
- * @property Blocks3Rows
- * @property WaterMaze
- * @property BlocksAquamentus
- * @property Exit
- * @property BlocksStairsCenter
- * @property WaterBrackets
- * @property PlainStatues
- * @property Sand
- * @property BlocksStairsEnd
- * @property BlocksDiagonal
- * @property BlocksHorizontal
- * @property BlocksC
- * @property Blocks2
- * @property BlocksMaze
- * @property WaterHorizontal
- * @property WaterT
  * @property Blocks4Statues
- * @property BlocksGleeok
- * @property WaterLadder
- * @property Blocks6Alt
- * @property WaterVertical
- * @property Blocks3Horizontal
- * @property WaterRectangle
- * @property PlainStatues2
- * @property BlocksRectangle
- * @property WaterHorizontal2
- * @property BlocksSpiral
- * @property Ganon
- * @property Ending
- * @property Blocks2Vertical
- * @property Blocks6Vertical
  * @property Blocks4Way
- * @property WaterH
- * @property Black
+ * @property Blocks6Alt
+ * @property Blocks6Vertical
+ * @property BlocksAquamentus
  * @property BlocksArrow
- * @property WaterHAlt
+ * @property BlocksC
+ * @property BlocksDiagonal
+ * @property BlocksGleeok
+ * @property BlocksHorizontal
+ * @property BlocksMaze
+ * @property BlocksRectangle
+ * @property BlocksSpiral
+ * @property BlocksStairsCenter
+ * @property BlocksStairsEnd
+ * @property BlocksX
+ * @property Ending
+ * @property Entrance
+ * @property Exit
+ * @property Ganon
  * @property KeepItem
  * @property KeepPath
+ * @property Plain
+ * @property PlainStatues
+ * @property PlainStatues2
+ * @property Sand
  * @property Shop
+ * @property WaterBrackets
+ * @property WaterH
+ * @property WaterHAlt
+ * @property WaterHorizontal
+ * @property WaterHorizontal2
+ * @property WaterLadder
+ * @property WaterMaze
+ * @property WaterRectangle
+ * @property WaterT
+ * @property WaterVertical
  */
 export const ScreenTemplates = new EnumStore({
   Base: -1,

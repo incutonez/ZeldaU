@@ -122,6 +122,10 @@ MonoBehaviour:
     m_Address: Castles_Q1C3_10
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d825aa6f547654647bf850b0250ed9f5
+    m_Address: Prefabs/WorldTile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 47107e41f1307be4e837fab1b87c3b44, type: 2}
   m_SchemaSet:

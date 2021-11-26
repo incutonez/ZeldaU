@@ -66,7 +66,14 @@ class Grid extends Model {
       }
       data.push(cell.getConfig());
     }
-    return data;
+    return {
+      X: this.X,
+      Y: this.Y,
+      Name: this.Name,
+      GroundColor: WorldColors.getKey(this.GroundColor),
+      AccentColor: WorldColors.getKey(this.AccentColor),
+      Tiles: data
+    };
   }
 }
 

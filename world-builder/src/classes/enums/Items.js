@@ -1,7 +1,6 @@
 import { EnumStore } from "@/classes/EnumStore.js";
 
 /**
- * @property None
  * @property Arrow
  * @property ArrowSilver
  * @property Bomb
@@ -15,16 +14,17 @@ import { EnumStore } from "@/classes/EnumStore.js";
  * @property Flute
  * @property Food
  * @property Heart
- * @property HeartHalf
- * @property HeartEmpty
  * @property HeartAlt
  * @property HeartContainer
+ * @property HeartEmpty
+ * @property HeartHalf
  * @property Key
  * @property KeySkeleton
  * @property Ladder
  * @property Letter
  * @property MagicBook
  * @property Map
+ * @property None
  * @property PotionBlue
  * @property PotionRed
  * @property PowerBracelet
@@ -37,8 +37,8 @@ import { EnumStore } from "@/classes/EnumStore.js";
  * @property Shield
  * @property ShieldMagical
  * @property Sword
- * @property SwordWhite
  * @property SwordMagical
+ * @property SwordWhite
  * @property TriforceShard
  * @property TriforceShardAlt
  * @property Wand

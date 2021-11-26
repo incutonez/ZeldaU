@@ -2,23 +2,24 @@ import { EnumStore } from "@/classes/EnumStore.js";
 import { Color } from "@/classes/models/Color.js";
 
 /**
- * @property None
- * @property Tan
- * @property Green
- * @property Brown
- * @property Blue
- * @property Gray
- * @property White
- * @property Red
  * @property Black
- * @property Q1C1Accent
- * @property Q1C1Door
- * @property Q1C1Body
- * @property PureBlue
- * @property PureRed
- * @property PureGreen
- * @property FireOuter
+ * @property Blue
+ * @property Brown
  * @property FireInner
+ * @property FireOuter
+ * @property Gray
+ * @property Green
+ * @property None
+ * @property PureBlue
+ * @property PureGreen
+ * @property PureRed
+ * @property PureWhite
+ * @property Q1C1Accent
+ * @property Q1C1Body
+ * @property Q1C1Door
+ * @property Red
+ * @property Tan
+ * @property White
  */
 export const WorldColors = new EnumStore({
   None: "Transparent",
@@ -37,5 +38,6 @@ export const WorldColors = new EnumStore({
   PureRed: "FF0000",
   PureGreen: "00FF00",
   FireOuter: "F83800",
-  FireInner: "FFA044"
+  FireInner: "FFA044",
+  PureWhite: "FFFFFF"
 }, Color);

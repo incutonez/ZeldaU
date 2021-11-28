@@ -46,16 +46,9 @@ namespace World {
       Y = y;
     }
 
-    public void Initialize(Tiles tileType, WorldColors? color, Vector3 position, int rotation, bool flipX, bool flipY) {
-      // TODO: We can have multiple colors for castles
-      // TODOJEF: Pick up here... need to figure out how to change castle colors... working on Q1C3
-      Color = color;
+    public void Initialize(Tiles tileType, Vector3 position) {
       SetTileType(tileType);
       SetQuadSize();
-      SetUVCoordinates();
-      Rotation = rotation;
-      FlipX = flipX;
-      FlipY = flipY;
       WorldPosition = position;
       CenterPosition = WorldPosition + QuadSize * 0.5f;
     }

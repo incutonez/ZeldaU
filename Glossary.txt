@@ -1,0 +1,11 @@
+- Sprite => 2D graphics object that uses textures
+-- It's like a flat mesh with textures applied
+- Mesh => Describes the shape of the object
+- UV => 2D fold out of the 3D mesh
+-- Values from 0 to 1 to create the triangles
+-- The UVs are the coordinates to where the sprite lives on the texture
+-- In my case, if I repeat a sprite, it's using the same UV coordinates, but placing it at a different location on the mesh
+- Material => Describes the surface of the object
+-- e.g. make the object look like wood, brick, glass, etc.
+- Shaders => perform calculations on how to render meshes
+- Lerp => Linear Interpolation

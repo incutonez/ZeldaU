@@ -103,17 +103,17 @@ namespace World {
           Tiles tileType = screenTile.Type;
           // Order of priority
           WorldColors? color = screenTile.AccentColor ?? scene.AccentColor;
-          foreach (ViewModel.TileChild child in screenTile.Children) {
-            List<float> coordinates = child.Coordinates;
+          foreach (ViewModel.TileChild tileChild in screenTile.Children) {
+            List<float> coordinates = tileChild.Coordinates;
             float x = coordinates[0];
             float y = coordinates[1];
-            int rotation = child.Rotation;
-            bool flipY = child.FlipY;
-            bool flipX = child.FlipX;
+            // int rotation = tileChild.Rotation;
+            // bool flipY = tileChild.FlipY;
+            // bool flipX = tileChild.FlipX;
             float xMax = x;
             float yMax = y;
-            if (child.TileType != Tiles.None) {
-              tileType = child.TileType;
+            if (tileChild.TileType != Tiles.None) {
+              tileType = tileChild.TileType;
             }
 
             // If we have an array of 4, then we want to duplicate this tile across that range
@@ -126,15 +126,15 @@ namespace World {
               for (float j = y; j <= yMax; j++) {
                 Vector3 position = Grid.GetWorldPosition(i, j);
                 if (tileType == Tiles.Door) {
-                  AddDoor(position, child.Transition);
+                  AddDoor(position, tileChild.Transition);
                 }
                 else if (tileType == Tiles.Transition) {
-                  AddTransition(position, child.Transition);
+                  AddTransition(position, tileChild.Transition);
                 }
                 else {
-                  GridCell viewModel = Grid.GetViewModel(position);
-                  if (viewModel != null) {
-                    Tile.Spawn(position, tileType, transform, child, viewModel, Grid);
+                  GridCell gridCell = Grid.GetViewModel(position);
+                  if (gridCell != null) {
+                    Tile.Spawn(position, tileType, transform, tileChild, gridCell);
                     /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
                      * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
                      * wouldn't allow it... maybe I just don't know enough about shaders? */
@@ -245,21 +245,21 @@ namespace World {
     }
 
     public void RefreshGrid() {
-      int width = Grid.Width;
-      int height = Grid.Height;
+      // int width = Grid.Width;
+      // int height = Grid.Height;
       PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
       polygonCollider.pathCount = 0;
       // TODOJEF: This is no longer used, right?  Check if AI can still walk
       // Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals);
-      // Grid.EachCell((viewModel, x, y) => {
-      //   // TODO: Potentially don't generate meshes for non-view models?
-      //   // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
-      //   Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
-      //   Vector2[] colliderShape = viewModel.GetColliderShape();
-      //   if (colliderShape != null) {
-      //     polygonCollider.SetPath(++polygonCollider.pathCount - 1, colliderShape);
-      //   }
-      // });
+      Grid.EachCell((viewModel, x, y) => {
+        // TODO: Potentially don't generate meshes for non-view models?
+        // Quads start on the center of each position, so we shift it by the quadSize multiplied by 0.5
+        // Utilities.AddToMesh(x * height + y, viewModel, vertices, uvs, triangles, colors, normals);
+        Vector2[] colliderShape = viewModel.GetColliderShape();
+        if (colliderShape != null) {
+          polygonCollider.SetPath(++polygonCollider.pathCount - 1, colliderShape);
+        }
+      });
       // Mesh.Clear();
       // Mesh.vertices = vertices;
       // Mesh.uv = uvs;

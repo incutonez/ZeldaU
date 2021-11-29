@@ -1,4 +1,3 @@
-using NPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +5,7 @@ using UnityEngine;
 
 public static class Utilities {
   private static Quaternion[] CachedQuaternionEulerArr { get; set; }
+  private static Dictionary<string, Sprite> _spritesCache { get; set; } = new Dictionary<string, Sprite>();
 
   public static float HexToDec(string hex) {
     return Convert.ToInt32(hex, 16) / Constants.MaxRGB;
@@ -57,11 +57,40 @@ public static class Utilities {
   /// </summary>
   /// <param name="oldSprite"></param>
   /// <param name="replaceColors"></param>
+  /// <param name="isTile"></param>
+  /// If this is set, then we're going to use our cache of tiles to determine if we need to create a new one
   /// <returns></returns>
-  public static Sprite CloneSprite(Sprite oldSprite, Color[] replaceColors = null) {
-    Texture2D replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
-    ReplaceColors(replacement, replaceColors);
-    return Sprite.Create(replacement, oldSprite.rect, Constants.SpriteDefaultPivot, oldSprite.pixelsPerUnit);
+  public static Sprite CloneSprite(Sprite oldSprite, Color[] replaceColors = null, bool isTile = false) {
+    var doCache = false;
+    var key = oldSprite.name;
+    if (replaceColors != null) {
+      key += string.Join("", replaceColors);
+    }
+
+    Texture2D replacement;
+    if (isTile) {
+      if (_spritesCache.ContainsKey(key)) {
+        replacement = UnityEngine.Object.Instantiate(_spritesCache[key].texture);
+      }
+      else {
+        doCache = true;
+        replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
+      }
+    }
+    else {
+      replacement = UnityEngine.Object.Instantiate(oldSprite.texture);
+    }
+
+    if (doCache || !isTile) {
+      ReplaceColors(replacement, replaceColors);
+    }
+
+    var sprite = Sprite.Create(replacement, oldSprite.rect, Constants.SpriteDefaultPivot, oldSprite.pixelsPerUnit);
+    if (doCache) {
+      _spritesCache.Add(key, sprite);
+    }
+
+    return sprite;
   }
 
   public static void ReplaceColors(Texture2D texture, Color[] replaceColors = null) {

@@ -99,10 +99,10 @@ namespace World {
 
     public void Build(ViewModel.Grid scene) {
       if (scene.Tiles != null) {
+        // Order of priority
+        WorldColors? worldAccentColor = scene.AccentColor;
         foreach (ViewModel.Tile screenTile in scene.Tiles) {
           Tiles tileType = screenTile.Type;
-          // Order of priority
-          WorldColors? color = screenTile.AccentColor ?? scene.AccentColor;
           foreach (ViewModel.TileChild tileChild in screenTile.Children) {
             List<float> coordinates = tileChild.Coordinates;
             float x = coordinates[0];
@@ -134,7 +134,7 @@ namespace World {
                 else {
                   GridCell gridCell = Grid.GetViewModel(position);
                   if (gridCell != null) {
-                    Tile.Spawn(position, tileType, transform, tileChild, gridCell);
+                    Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
                     /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
                      * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
                      * wouldn't allow it... maybe I just don't know enough about shaders? */
@@ -210,6 +210,7 @@ namespace World {
       return WorldDoors[index];
     }
 
+    // TODOJEF: Can potentially move this to the Tile.cs code and add the Door.cs script if it's a Door?
     public void AddDoor(Vector3 position, ViewModel.Grid transition) {
       // Because our world has each position as being centered, we have to apply the offset... same
       // as what we do in the AddToMesh method
@@ -221,6 +222,7 @@ namespace World {
       }
     }
 
+    // TODOJEF: Can potentially move this to the Tile.cs code and add the Transition.cs script if it's a transition?
     public void AddTransition(Vector3 position, ViewModel.Grid transition) {
       Transform item = Instantiate(Manager.Game.Graphics.WorldTransition, position, Quaternion.identity, transform);
       if (item != null) {

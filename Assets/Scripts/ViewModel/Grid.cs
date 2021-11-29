@@ -83,7 +83,7 @@ namespace ViewModel {
 
     public Tiles TileType { get; set; } = Tiles.None;
 
-    public string[] ReplaceColors { get; set; }
+    public WorldColors[] ReplaceColors { get; set; }
     public Grid Transition { get; set; }
     public int Rotation { get; set; }
     public bool FlipY { get; set; }

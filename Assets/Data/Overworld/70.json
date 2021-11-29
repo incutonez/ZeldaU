@@ -1,8 +1,8 @@
 {
   "X": 7,
   "Y": 0,
-  "GroundColor": 1,
-  "AccentColor": 2,
+  "GroundColor": "Tan",
+  "AccentColor": "Green",
   "Tiles": [
     {
       "Type": "WallBottom",

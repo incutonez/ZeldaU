@@ -188,7 +188,8 @@ namespace Manager {
       return Items.Find(s => s.name == name);
     }
 
-    public Sprite GetTile(string name) {
+    public Sprite GetTile(Tiles tile) {
+      string name = tile.ToString();
       return Tiles2.Find(s => s.name == name);
     }
 

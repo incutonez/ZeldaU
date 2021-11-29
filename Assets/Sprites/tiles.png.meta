@@ -482,27 +482,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a29be765a1a25e30800000000000000
-      internalID: 4490829510226973348
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: WallBottomLeft
       rect:
         serializedVersion: 2
@@ -1301,7 +1280,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Transparent
+      name: SolidColor
       rect:
         serializedVersion: 2
         x: 140
@@ -1402,8 +1381,8 @@ TextureImporter:
       SandCenterLeft: 1739609419887026453
       CastleTopLeftAlt: -3739403658671949148
       CastleTopRight: -6316070039206261184
+      SolidColor: -4096046942592279390
       WallTop: 7068196587302356019
-      Transparent: -4096046942592279390
       StairsUp: -5142844195294041718
       WallTopRight: 8085280823362815864
       TreeTop: -2735189169244824230
@@ -1413,8 +1392,8 @@ TextureImporter:
       Fire: -3587646122709399558
       Dock: -9055754803560951540
       Rock: 8518639827713111222
-      Statue: -6253889087624368431
       WaterTopRight: 6795650602465171133
+      Statue: -6253889087624368431
       SandCenterRight: 8503986202999718202
       PondBottom: 8765707187099995131
       Bush: 3191702778974358099

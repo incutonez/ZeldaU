@@ -23,12 +23,12 @@
         />
       </div>
       <div class="flex space-x-2">
-        <BaseField
+        <BaseNumberField
           v-model="record.X"
           label="Overworld X"
           width="w-28"
         />
-        <BaseField
+        <BaseNumberField
           v-model="record.Y"
           label="Overworld Y"
           width="w-28"
@@ -76,12 +76,12 @@
         />
         <div v-if="selectedCell.isTransition()">
           <div class="flex space-x-2">
-            <BaseField
+            <BaseNumberField
               v-model="selectedCell.Transition.X"
               label="X Change"
               width="w-24"
             />
-            <BaseField
+            <BaseNumberField
               v-model="selectedCell.Transition.Y"
               label="Y Change"
               width="w-24"
@@ -126,6 +126,7 @@ import { isArray } from "@/utilities.js";
 import { useKeyboardMouseProvider } from "@/composables/useKeyboardMouseProvider.js";
 import BaseField from "@/components/BaseField.vue";
 import { ScreenTemplates } from "@/classes/enums/ScreenTemplates.js";
+import BaseNumberField from "@/components/BaseNumberField.vue";
 
 /**
  * TODOJEF:
@@ -141,6 +142,7 @@ import { ScreenTemplates } from "@/classes/enums/ScreenTemplates.js";
 export default {
   name: "App",
   components: {
+    BaseNumberField,
     BaseField,
     BaseButton,
     BaseGrid,

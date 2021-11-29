@@ -13,7 +13,6 @@ import { EnumStore } from "@/classes/EnumStore.js";
  * @property CastleTopLeftAlt
  * @property CastleTopRight
  * @property CastleTopRightAlt
- * @property CastleWater
  * @property Dock
  * @property Door
  * @property DoorClosedX
@@ -46,6 +45,7 @@ import { EnumStore } from "@/classes/EnumStore.js";
  * @property SandTop
  * @property SandTopLeft
  * @property SandTopRight
+ * @property SolidColor
  * @property StairsDown
  * @property StairsKeep
  * @property StairsUp
@@ -94,7 +94,6 @@ export const Tiles = new EnumStore([
   "CastleTopLeftAlt",
   "CastleTopRight",
   "CastleTopRightAlt",
-  "CastleWater",
   "Dock",
   "Door",
   "DoorClosedX",
@@ -127,6 +126,7 @@ export const Tiles = new EnumStore([
   "SandTop",
   "SandTopLeft",
   "SandTopRight",
+  "SolidColor",
   "StairsDown",
   "StairsKeep",
   "StairsUp",

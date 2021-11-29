@@ -70,8 +70,8 @@ public static class Constants {
   // We don't make this a const or readonly because it can increase to 16
   public static int MaxBombs = 8;
 
-  public static string StartingTile = "Test";
-  public static int[] StartingTiles = new int[] {3, 0};
+  public static string StartingTile = "";
+  public static int[] StartingTiles = new int[] {7, 0};
 
   public static readonly Color ColorInvisible = new Color(1f, 1f, 1f, 0f);
 

@@ -103,7 +103,7 @@ class Tile extends Model {
     const targetColors = this.TargetColors.filter((color) => !!color.Value);
     if (useKey) {
       return targetColors.reduce((value, item) => {
-        value.push(item.Target, item.Value);
+        value.push(WorldColors.getKey(item.Target), WorldColors.getKey(item.Value));
         return value;
       }, []);
     }

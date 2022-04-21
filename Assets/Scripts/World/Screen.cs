@@ -135,6 +135,7 @@ namespace World {
                   GridCell gridCell = Grid.GetViewModel(position);
                   if (gridCell != null) {
                     Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
+                    // TODOJEF: https://forum.unity.com/threads/replace-multiple-colors-in-mesh-uvs.1205110/#post-7729752 should help
                     /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
                      * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
                      * wouldn't allow it... maybe I just don't know enough about shaders? */

@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using ViewModel;
 
+// TODOJEF: Potentially use Tilemap instead of the Grid class
 namespace World {
   public class Tile : MonoBehaviour {
     public Tiles TileType { get; set; }

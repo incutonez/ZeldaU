@@ -301,19 +301,6 @@ namespace World {
       return IsTile() ? null : (Color?) Constants.ColorInvisible;
     }
 
-    public void SetUVCoordinates() {
-      // TODOJEF: Can potentially allow doors here, and then in the box collider just make it a 0?  Would have to fix the quadSize getter
-      if (Manager.Game.Graphics.TileCoordinates.ContainsKey(TileType) && TileType != Tiles.Door) {
-        TileUVs coordinates = Manager.Game.Graphics.TileCoordinates[TileType];
-        UV00 = coordinates.uv00;
-        UV11 = coordinates.uv11;
-      }
-      else {
-        UV00 = Vector2.zero;
-        UV11 = Vector2.zero;
-      }
-    }
-
     public void SetQuadSize() {
       if (IsVerticalCastleWall()) {
         QuadSize = new Vector2(2f, 4.5f) * Grid.CellSize;

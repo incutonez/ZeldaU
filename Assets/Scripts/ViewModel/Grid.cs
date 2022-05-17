@@ -27,10 +27,10 @@ namespace ViewModel {
 
     public WorldColors? AccentColor { get; set; }
     public WorldColors? GroundColor { get; set; }
-    public List<Tile> Tiles { get; set; }
+    public List<TileMeta> Tiles { get; set; }
     public List<Enemy> Enemies { get; set; }
     public List<Character> Characters { get; set; }
-    public List<ItemViewModel> Items { get; set; }
+    public List<Item> Items { get; set; }
     public bool IsCastle { get; set; }
 
     /// <summary>
@@ -40,53 +40,5 @@ namespace ViewModel {
     public bool IsFloating { get; set; }
 
     public ScreenTemplates? Template { get; set; }
-  }
-
-  public class ItemViewModel {
-    public List<float> Coordinates { get; set; }
-    public Base.Item Item { get; set; }
-  }
-
-  public class Character {
-    public List<float> Coordinates { get; set; }
-    public Characters Type { get; set; }
-  }
-
-  public class Enemy {
-    public List<EnemyChild> Children { get; set; }
-    public int Count { get; set; }
-    public Enemies Type { get; set; }
-    public float Speed { get; set; } = 3f;
-  }
-
-  public class EnemyChild {
-    public List<float> Coordinates { get; set; }
-    public World.Enemy Enemy { get; set; }
-  }
-
-  public class Tile {
-    public WorldColors? AccentColor { get; set; }
-    public List<TileChild> Children { get; set; }
-    public Tiles Type { get; set; }
-  }
-
-  public class ReplaceColors {
-    public WorldColors Target { get; set; }
-    public WorldColors Value { get; set; }
-  }
-
-  public class TileChild {
-    /// <summary>
-    /// This is a list of x, y coordinates, and if 4 values are specified, it becomes the max x, y range to keep adding this matter type
-    /// </summary>
-    public List<float> Coordinates { get; set; }
-
-    public Tiles TileType { get; set; } = Tiles.None;
-
-    public WorldColors[] ReplaceColors { get; set; }
-    public Grid Transition { get; set; }
-    public int Rotation { get; set; }
-    public bool FlipY { get; set; }
-    public bool FlipX { get; set; }
   }
 }

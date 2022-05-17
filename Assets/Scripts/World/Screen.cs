@@ -101,47 +101,25 @@ namespace World {
       if (scene.Tiles != null) {
         // Order of priority
         WorldColors? worldAccentColor = scene.AccentColor;
-        foreach (ViewModel.Tile screenTile in scene.Tiles) {
+        foreach (ViewModel.TileMeta screenTile in scene.Tiles) {
           Tiles tileType = screenTile.Type;
-          foreach (ViewModel.TileChild tileChild in screenTile.Children) {
-            List<float> coordinates = tileChild.Coordinates;
-            float x = coordinates[0];
-            float y = coordinates[1];
-            // int rotation = tileChild.Rotation;
-            // bool flipY = tileChild.FlipY;
-            // bool flipX = tileChild.FlipX;
-            float xMax = x;
-            float yMax = y;
-            if (tileChild.TileType != Tiles.None) {
-              tileType = tileChild.TileType;
+          foreach (ViewModel.Tile tileChild in screenTile.Children) {
+            Vector3 position = Grid.GetWorldPosition(tileChild.X, tileChild.Y);
+            if (tileType == Tiles.Door) {
+              AddDoor(position, tileChild.Transition);
             }
-
-            // If we have an array of 4, then we want to duplicate this tile across that range
-            if (coordinates.Count == 4) {
-              xMax = coordinates[2];
-              yMax = coordinates[3];
+            else if (tileType == Tiles.Transition) {
+              AddTransition(position, tileChild.Transition);
             }
-
-            for (float i = x; i <= xMax; i++) {
-              for (float j = y; j <= yMax; j++) {
-                Vector3 position = Grid.GetWorldPosition(i, j);
-                if (tileType == Tiles.Door) {
-                  AddDoor(position, tileChild.Transition);
-                }
-                else if (tileType == Tiles.Transition) {
-                  AddTransition(position, tileChild.Transition);
-                }
-                else {
-                  GridCell gridCell = Grid.GetViewModel(position);
-                  if (gridCell != null) {
-                    Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
-                    // TODOJEF: https://forum.unity.com/threads/replace-multiple-colors-in-mesh-uvs.1205110/#post-7729752 should help
-                    /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
-                     * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
-                     * wouldn't allow it... maybe I just don't know enough about shaders? */
-                    // viewModel.Initialize(tileType, child.ReplaceColors, position, rotation, flipX, flipY);
-                  }
-                }
+            else {
+              GridCell gridCell = Grid.GetViewModel(position);
+              if (gridCell != null) {
+                Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
+                // TODOJEF: https://forum.unity.com/threads/replace-multiple-colors-in-mesh-uvs.1205110/#post-7729752 should help
+                /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
+                 * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
+                 * wouldn't allow it... maybe I just don't know enough about shaders? */
+                // viewModel.Initialize(tileType, child.ReplaceColors, position, rotation, flipX, flipY);
               }
             }
           }
@@ -162,8 +140,8 @@ namespace World {
       }
 
       if (scene.Items != null) {
-        foreach (ViewModel.ItemViewModel item in scene.Items) {
-          Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.Item, transform);
+        foreach (ViewModel.Item item in scene.Items) {
+          Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.BaseItem, transform);
         }
       }
 

@@ -10,12 +10,10 @@ namespace Manager {
     #region Sprites
 
     public List<Sprite> Items { get; set; }
-    public List<Sprite> Tiles2 { get; set; }
+    public List<Sprite> Tiles { get; set; } = new List<Sprite>();
     public Material CurrentCastleMaterial { get; set; }
     public Material CastleMaterials { get; set; }
     public Material WorldMaterials { get; set; }
-    public List<Material> Materials { get; set; } = new List<Material>();
-    public Dictionary<Tiles, World.TileUVs> TileCoordinates { get; set; } = new Dictionary<Tiles, World.TileUVs>();
     public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
     public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
     public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new Dictionary<Animations, List<Sprite>>();
@@ -51,38 +49,8 @@ namespace Manager {
         PlayerAnimations[Animations.Entering] = PlayerAnimations[Animations.WalkUp];
         PlayerAnimations[Animations.Exiting] = PlayerAnimations[Animations.WalkDown];
       });
-      FileSystem.LoadSprites("castle", (response) => {
-        Texture2D parentTexture = response.First().texture;
-        int width = parentTexture.width;
-        int height = parentTexture.height;
-        foreach (Sprite sprite in response) {
-          Rect rect = sprite.rect;
-          Enum.TryParse(sprite.name, out Tiles tileType);
-          if (!TileCoordinates.ContainsKey(tileType)) {
-            TileCoordinates.Add(tileType, new World.TileUVs {
-              uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
-              uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
-            });
-          }
-        }
-      });
-      FileSystem.LoadSprites("tiles", (response) => Tiles2 = response);
-      // TODOJEF: Remove this?  Because I'm now using the Tiles2 from above
-      FileSystem.LoadSprites("tiles", (response) => {
-        Texture2D parentTexture = response.First().texture;
-        int width = parentTexture.width;
-        int height = parentTexture.height;
-        foreach (Sprite sprite in response) {
-          Rect rect = sprite.rect;
-          Enum.TryParse(sprite.name, out Tiles tileType);
-          if (!TileCoordinates.ContainsKey(tileType)) {
-            TileCoordinates.Add(tileType, new World.TileUVs {
-              uv00 = new Vector2(rect.min.x / width, rect.min.y / height),
-              uv11 = new Vector2(rect.max.x / width, rect.max.y / height)
-            });
-          }
-        }
-      });
+      FileSystem.LoadSprites("tiles", (response) => Tiles.AddRange(response));
+      FileSystem.LoadSprites("castle", (response) => Tiles.AddRange(response));
       FileSystem.LoadSprites("items", (response) => { Items = response; });
       FileSystem.LoadSprites("characters", (response) => {
         foreach (Characters character in EnumExtensions.GetValues<Characters>()) {
@@ -190,7 +158,11 @@ namespace Manager {
 
     public Sprite GetTile(Tiles tile) {
       string name = tile.ToString();
-      return Tiles2.Find(s => s.name == name);
+      List<Sprite> source = Tiles;
+      if (tile == global::Tiles.Block) {
+        // source = CastleMaterials;
+      }
+      return Tiles.Find(s => s.name == name);
     }
 
     public Sprite GetItem(Items type) {

@@ -16,11 +16,11 @@
             "Black"
           ],
           "Transition": {
+            "Name": "Shop00",
             "X": 0,
             "Y": 0,
-            "Name": "Shop00",
-            "Template": "Shop",
-            "IsFloating": true
+            "IsFloating": true,
+            "Template": "Shop"
           }
         }
       ]
@@ -33,8 +33,7 @@
           "Y": 2,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         },
         {
@@ -42,8 +41,7 @@
           "Y": 3,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         },
         {
@@ -51,8 +49,7 @@
           "Y": 4,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         },
         {
@@ -60,8 +57,7 @@
           "Y": 5,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         },
         {
@@ -69,8 +65,7 @@
           "Y": 6,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         },
         {
@@ -78,8 +73,7 @@
           "Y": 7,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         },
         {
@@ -87,8 +81,7 @@
           "Y": 8,
           "Transition": {
             "X": 1,
-            "Y": 0,
-            "IsFloating": false
+            "Y": 0
           }
         }
       ]
@@ -249,9 +242,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -259,9 +250,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -269,9 +258,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -279,9 +266,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -289,9 +274,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -299,9 +282,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -309,9 +290,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -319,9 +298,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -329,9 +306,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -339,9 +314,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -349,9 +322,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -359,9 +330,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -369,9 +338,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -379,9 +346,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -389,9 +354,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -399,9 +362,7 @@
           "Y": 0,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -409,9 +370,7 @@
           "Y": 1,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -419,9 +378,7 @@
           "Y": 1,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -429,9 +386,7 @@
           "Y": 1,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -439,9 +394,23 @@
           "Y": 1,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
+          ]
+        },
+        {
+          "X": 0,
+          "Y": 2,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 1,
+          "Y": 2,
+          "Colors": [
+            "PureWhite",
+            "Brown"
           ]
         },
         {
@@ -449,29 +418,7 @@
           "Y": 2,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 1,
-          "Y": 2,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 0,
-          "Y": 2,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -479,9 +426,7 @@
           "Y": 3,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -489,9 +434,7 @@
           "Y": 3,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -499,9 +442,7 @@
           "Y": 4,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -509,9 +450,7 @@
           "Y": 5,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -519,9 +458,7 @@
           "Y": 6,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -529,9 +466,7 @@
           "Y": 7,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -539,19 +474,7 @@
           "Y": 7,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 1,
-          "Y": 8,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -559,9 +482,23 @@
           "Y": 8,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
+          ]
+        },
+        {
+          "X": 1,
+          "Y": 8,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 2,
+          "Y": 8,
+          "Colors": [
+            "PureWhite",
+            "Brown"
           ]
         },
         {
@@ -569,9 +506,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -579,9 +514,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -589,9 +522,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -599,9 +530,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -609,9 +538,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -619,9 +546,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -629,9 +554,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -639,9 +562,7 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -649,153 +570,31 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
           "X": 9,
-          "Y": 9
+          "Y": 9,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
         },
         {
           "X": 10,
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
-          "X": 10,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 9,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 8,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 7,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 6,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 5,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 4,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 3,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 2,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 1,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 0,
-          "Y": 10,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 15,
+          "X": 12,
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 14,
-          "Y": 9,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -803,29 +602,111 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
-          "X": 12,
+          "X": 14,
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
-          "X": 12,
+          "X": 15,
+          "Y": 9,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 0,
           "Y": 10,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
+          ]
+        },
+        {
+          "X": 1,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 2,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 3,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 4,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 5,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 6,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 7,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 8,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 9,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 10,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
           ]
         },
         {
@@ -833,9 +714,15 @@
           "Y": 10,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
+          ]
+        },
+        {
+          "X": 12,
+          "Y": 10,
+          "Colors": [
+            "PureWhite",
+            "Brown"
           ]
         },
         {
@@ -843,9 +730,7 @@
           "Y": 10,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -853,9 +738,7 @@
           "Y": 10,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         },
         {
@@ -863,19 +746,7 @@
           "Y": 10,
           "Colors": [
             "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
-          ]
-        },
-        {
-          "X": 2,
-          "Y": 8,
-          "Colors": [
-            "PureWhite",
-            "Brown",
-            "Black",
-            "Black"
+            "Brown"
           ]
         }
       ]

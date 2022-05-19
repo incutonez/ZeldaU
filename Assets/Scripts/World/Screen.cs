@@ -140,7 +140,7 @@ namespace World {
       }
 
       if (scene.Items != null) {
-        foreach (ViewModel.Item item in scene.Items) {
+        foreach (ViewModel.ItemMeta item in scene.Items) {
           Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.BaseItem, transform);
         }
       }

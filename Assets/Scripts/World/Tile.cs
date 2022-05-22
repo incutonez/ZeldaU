@@ -22,7 +22,7 @@ namespace World {
       // started copying it over into this class, but I'm not sure if that's right?  I at least fixed
       // the positioning... I don't think the AI can walk these cells because we're not initializing that
       // logic in here
-      transform.localPosition = gridCell.CenterPosition;
+      transform.position = gridCell.WorldPosition;
       transform.rotation = Quaternion.identity;
 
       return worldTile;

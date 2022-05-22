@@ -10,15 +10,18 @@ namespace World
         public PolygonCollider2D Collider { get; set; }
         public RectTransform Transform { get; set; }
 
-        public static Item Spawn(Vector3 position, Base.Item item, Transform parent)
+        public static Item Spawn(Vector3 position, Base.Item config, Transform parent)
         {
             RectTransform transform = Instantiate(Manager.Game.Graphics.Item);
             transform.SetParent(parent);
+            // TODO: There's some sort of pivoting issue with items, so we need to adjust them by doing this
+            // I'm not sure why this isn't an issue with the Tiles... it might have to do with the fact that we
+            // set a CenterPosition on them... I forget why I had to do that
             transform.localPosition = position;
             transform.rotation = Quaternion.identity;
 
             Item itemWorld = transform.GetComponent<Item>();
-            itemWorld.SetItem(item);
+            itemWorld.SetItem(config);
 
             return itemWorld;
         }

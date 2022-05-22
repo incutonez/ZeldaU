@@ -14,7 +14,7 @@ namespace Base
         /// in the case of Triforce Shards, it means which castle it came from, so we can use that proper position
         /// in the Menu's Triforce
         /// </summary>
-        public int Amount { get; set; } = 1;
+        public int Amount { get; set; } = 0;
 
         public Sprite GetSprite()
         {
@@ -45,7 +45,6 @@ namespace Base
         }
 
         // TODOJEF: Add GetPickupSound and play it when item is picked up
-
         public bool IsStackable()
         {
             switch (Type)
@@ -141,20 +140,21 @@ namespace Base
 
         public int GetPickupAmount()
         {
-            switch (Type)
-            {
-                case Items.Bomb:
-                    return 4;
-                case Items.Key:
-                    return 1;
-                case Items.Heart:
-                    return 1;
-                case Items.HeartContainer:
-                    return 1;
-                case Items.RupeeOne:
-                    return 1;
-                case Items.RupeeFive:
-                    return 5;
+            if (Amount == 0) {
+                switch (Type) {
+                    case Items.Bomb:
+                        return 4;
+                    case Items.Key:
+                        return 1;
+                    case Items.Heart:
+                        return 1;
+                    case Items.HeartContainer:
+                        return 1;
+                    case Items.RupeeOne:
+                        return 1;
+                    case Items.RupeeFive:
+                        return 5;
+                }
             }
             return 0;
         }

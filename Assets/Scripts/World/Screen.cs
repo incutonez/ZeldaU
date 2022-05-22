@@ -141,7 +141,7 @@ namespace World {
 
       if (scene.Items != null) {
         foreach (ViewModel.ItemMeta item in scene.Items) {
-          Item.Spawn(Grid.GetWorldPosition(item.Coordinates[0], item.Coordinates[1]), item.BaseItem, transform);
+          Item.Spawn(Grid.GetWorldPosition(item.X, item.Y), item.Config, transform);
         }
       }
 
@@ -193,7 +193,7 @@ namespace World {
     public void AddDoor(Vector3 position, ViewModel.Grid transition) {
       // Because our world has each position as being centered, we have to apply the offset... same
       // as what we do in the AddToMesh method
-      Transform door = Instantiate(Manager.Game.Graphics.WorldDoor, GetWorldPositionOffset(position, GetQuadSize()), Quaternion.identity, transform);
+      Transform door = Instantiate(Manager.Game.Graphics.WorldDoor, position, Quaternion.identity, transform);
       if (door != null) {
         Door worldDoor = door.GetComponent<Door>();
         worldDoor.Initialize(GroundColor.Value, transition);

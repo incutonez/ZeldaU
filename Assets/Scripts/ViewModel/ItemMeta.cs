@@ -2,8 +2,8 @@
 
 namespace ViewModel {
   public class ItemMeta {
-    // TODOJEF: Replace with X, Y
-    public List<float> Coordinates { get; set; }
-    public Base.Item BaseItem { get; set; }
+    public float X { get; set; }
+    public float Y { get; set; }
+    public Base.Item Config { get; set; }
   }
 }

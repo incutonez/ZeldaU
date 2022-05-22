@@ -60,7 +60,7 @@ namespace World {
     }
 
     public Vector3 GetWorldPosition(float x, float y) {
-      return new Vector3(x, y) * CellSize + Origin;
+      return new Vector3(x + Constants.PivotOffset, y + Constants.PivotOffset) * CellSize + Origin;
     }
 
     /// <summary>

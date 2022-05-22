@@ -145,7 +145,7 @@ public static class Utilities {
     Vector3[] normals
   ) {
     Vector3 baseSize = tile.QuadSize;
-    Vector3 position = tile.CenterPosition;
+    Vector3 position = tile.WorldPosition;
     float rotation = tile.Rotation;
     Vector2 uv00 = tile.UV00;
     Vector2 uv11 = tile.UV11;

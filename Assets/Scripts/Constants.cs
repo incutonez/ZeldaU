@@ -10,7 +10,7 @@ public static class Constants {
   public const string PlayerTransition = "TransitionCollider";
   public const string CountContainerRef = "CountContainer";
 
-  public static Items[] SelectableItems { get; set; } = new Items[] {
+  public static Items[] SelectableItems { get; set; } = {
     Items.Boomerang,
     Items.Bomb,
     Items.Bow,
@@ -21,7 +21,7 @@ public static class Constants {
     Items.Wand
   };
 
-  public static readonly System.Random RandomGenerator = new System.Random();
+  public static readonly System.Random RandomGenerator = new();
 
   /// <summary>
   /// This represents the number of cells horizontally.
@@ -44,7 +44,14 @@ public static class Constants {
   public const int GridRowsZero = GridRows - 1;
 
   public const float GridCellSize = 1f;
-  public static readonly Vector3 GridOrigin = new Vector3(-8f, -7.5f);
+  public static readonly Vector3 GridOrigin = new(-8f, -7.5f);
+  /**
+   * The reason why we have this for now is because all of our prefabs have a center pivot position, which
+   * is 0.5 and 0.5, but for some reason, when they're rendered, they're using the pivot incorrectly...
+   * this might be due to the grid system not getting the proper position.  Either way, we use this
+   * value to add to the GetWorldPosition value
+   */
+  public const float PivotOffset = 0.5f;
 
   public const float MaxRGB = 255f;
 
@@ -71,19 +78,19 @@ public static class Constants {
   public static int MaxBombs = 8;
 
   public static string StartingTile = "";
-  public static int[] StartingTiles = new int[] {0, 0};
+  public static int[] StartingTiles = {0, 0};
 
-  public static readonly Color ColorInvisible = new Color(1f, 1f, 1f, 0f);
+  public static readonly Color ColorInvisible = new(1f, 1f, 1f, 0f);
 
-  public static readonly Vector3 StartingPosition = new Vector3(-1, -2);
-  public static readonly Vector2 SpriteDefaultPivot = new Vector2(0.5f, 0.5f);
+  public static readonly Vector3 StartingPosition = new(-1, -2);
+  public static readonly Vector2 SpriteDefaultPivot = new(0.5f, 0.5f);
 
-  public static readonly Vector3 SwordRight = new Vector3(1.2f, 0.4f);
-  public static readonly Vector3 SwordColliderPositive = new Vector3(0f, 0.156f);
-  public static readonly Vector3 SwordLeft = new Vector3(-0.2f, 0.4f);
-  public static readonly Vector3 SwordUp = new Vector3(0.407f, 1.25f);
-  public static readonly Vector3 SwordDown = new Vector3(0.5937f, -0.2189f);
-  public static readonly Vector3 SwordColliderNegative = new Vector3(0f, -0.156f);
+  public static readonly Vector3 SwordRight = new(1.2f, 0.4f);
+  public static readonly Vector3 SwordColliderPositive = new(0f, 0.156f);
+  public static readonly Vector3 SwordLeft = new(-0.2f, 0.4f);
+  public static readonly Vector3 SwordUp = new(0.407f, 1.25f);
+  public static readonly Vector3 SwordDown = new(0.5937f, -0.2189f);
+  public static readonly Vector3 SwordColliderNegative = new(0f, -0.156f);
   public static readonly Quaternion SwordXRotation = Quaternion.Euler(new Vector3(0, 0, -90));
   public static readonly Quaternion SwordYRotation = Quaternion.Euler(Vector3.zero);
 }

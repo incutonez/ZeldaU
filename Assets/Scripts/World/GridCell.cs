@@ -33,6 +33,8 @@ namespace World {
     public bool FlipY { get; set; }
     public bool FlipX { get; set; }
     public Vector3 WorldPosition { get; set; }
+    // TODOJEF: Remove??  I was using it to set the tile's location, but I've since added a change to
+    // GetWorldPosition to account for all cells
     public Vector3 CenterPosition { get; set; }
     public Vector3 QuadSize { get; set; }
     public Vector2 UV00 { get; set; }
@@ -50,7 +52,9 @@ namespace World {
       SetTileType(tileType);
       SetQuadSize();
       WorldPosition = position;
-      CenterPosition = WorldPosition + QuadSize * 0.5f;
+      // TODOJEF: I forget why I had to set this CenterPosition, but I've commented it out for now, and
+      // instead, in GetWorldPosition, I'm adding a pivot offset, since all prefabs have that same offset
+      // CenterPosition = WorldPosition + QuadSize * 0.5f;
     }
 
     public void SetTileType(Tiles tileType) {
@@ -164,8 +168,8 @@ namespace World {
         return null;
       }
 
-      float xPos = WorldPosition.x;
-      float yPos = WorldPosition.y;
+      float xPos = WorldPosition.x - Constants.PivotOffset;
+      float yPos = WorldPosition.y - Constants.PivotOffset;
       List<Vector2> points = new List<Vector2>();
       Vector2 topLeft = new Vector2 {
         x = xPos,

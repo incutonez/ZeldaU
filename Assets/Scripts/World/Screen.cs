@@ -3,6 +3,7 @@ using NPCs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace World {
@@ -130,7 +131,7 @@ namespace World {
         foreach (ViewModel.Enemy viewModel in scene.Enemies) {
           Enemies enemyType = viewModel.Type;
           for (int i = 0; i < viewModel.Count; i++) {
-            Enemy enemy = Manager.Character.SpawnEnemy(Vector3.zero, enemyType, transform);
+            Enemy enemy = Manager.Character.SpawnEnemy(Grid.GetWorldPosition(viewModel.X, viewModel.Y), enemyType, transform);
             enemy.SetSpeed(viewModel.Speed);
             enemy.Initialize(enemyType);
             enemy.OnDestroy += Enemy_OnDestroy;
@@ -154,10 +155,10 @@ namespace World {
 
     // Randomly spawn enemies when the scene is shown
     public void SpawnEnemies() {
-      List<Vector3> positions = GetRandomPositions(Enemies.Count);
-      for (int i = 0; i < positions.Count; i++) {
-        Enemy enemy = Enemies[i];
-        enemy.transform.position = positions[i];
+      foreach (Enemy enemy in Enemies) {
+        if (enemy.transform.position == Vector3.zero) {
+          enemy.transform.position = GetRandomPositions(Enemies.Count).First();
+        }
         enemy.Enable();
       }
     }
@@ -189,7 +190,7 @@ namespace World {
       return WorldDoors[index];
     }
 
-    // TODOJEF: Can potentially move this to the Tile.cs code and add the Door.cs script if it's a Door?
+    // TODO: Can potentially move this to the Tile.cs code and add the Door.cs script if it's a Door?
     public void AddDoor(Vector3 position, ViewModel.Grid transition) {
       // Because our world has each position as being centered, we have to apply the offset... same
       // as what we do in the AddToMesh method
@@ -201,7 +202,7 @@ namespace World {
       }
     }
 
-    // TODOJEF: Can potentially move this to the Tile.cs code and add the Transition.cs script if it's a transition?
+    // TODO: Can potentially move this to the Tile.cs code and add the Transition.cs script if it's a transition?
     public void AddTransition(Vector3 position, ViewModel.Grid transition) {
       Transform item = Instantiate(Manager.Game.Graphics.WorldTransition, position, Quaternion.identity, transform);
       if (item != null) {
@@ -230,7 +231,7 @@ namespace World {
       // int height = Grid.Height;
       PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
       polygonCollider.pathCount = 0;
-      // TODOJEF: This is no longer used, right?  Check if AI can still walk
+      // TODO: This is no longer used, right?  Check if AI can still walk
       // Utilities.CreateEmptyMesh(width * height, out Vector3[] vertices, out Vector2[] uvs, out int[] triangles, out Color[] colors, out Vector3[] normals);
       Grid.EachCell((viewModel, x, y) => {
         // TODO: Potentially don't generate meshes for non-view models?

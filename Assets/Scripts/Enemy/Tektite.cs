@@ -28,8 +28,8 @@ namespace Enemy
                 Enemies.TektiteBlue
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_ORANGE, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_RED },
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_BLUE_LIGHT, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_BLUE }
+                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonOrange, EnemyHelper.AccentColor, EnemyHelper.CommonRed },
+                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlueLight, EnemyHelper.AccentColor, EnemyHelper.CommonBlue }
             });
         }
     }

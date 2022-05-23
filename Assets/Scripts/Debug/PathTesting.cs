@@ -29,8 +29,7 @@ public class PathTesting : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            grid.GetXY(position, out int x, out int y);
-            List<World.GridCell> path = PathFinder.FindPath(0, 0, x, y);
+            List<Vector3> path = PathFinder.FindPath(Vector3.zero, grid.GetWorldPosition(position));
             Vector3 quadSize = Vector2.one * grid.CellSize * 0.5f;
             if (path != null)
             {
@@ -38,7 +37,7 @@ public class PathTesting : MonoBehaviour
                 {
                     var node = path[i];
                     var nextNode = path[i + 1];
-                    Debug.DrawLine(grid.GetWorldPosition(node.X, node.Y) + quadSize, grid.GetWorldPosition(nextNode.X, nextNode.Y) + quadSize, Color.green, 100f);
+                    Debug.DrawLine(grid.GetWorldPosition(node.x, node.y) + quadSize, grid.GetWorldPosition(nextNode.x, nextNode.y) + quadSize, Color.green, 100f);
                 }
             }
         }

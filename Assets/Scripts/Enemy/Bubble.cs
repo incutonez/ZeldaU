@@ -17,7 +17,7 @@ namespace Enemy
         public static readonly Color ACCENT_1 = Utilities.HexToColor("ffe0a8");
         // This is a green one, which is used in the rotation of the 4... need to figure out how to keep swapping colors
         public static readonly Color BODY_4 = Utilities.HexToColor("58f898");
-        public static readonly Color BASE_4 = EnemyHelper.COMMON_GREEN;
+        public static readonly Color BASE_4 = EnemyHelper.CommonGreen;
         public static readonly Color ACCENT_4 = Utilities.HexToColor("00a844");
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace Enemy
                 Enemies.BubbleRed
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BODY_COLOR, EnemyHelper.COMMON_ORANGE_DARK, EnemyHelper.BASE_COLOR, BASE_1, EnemyHelper.ACCENT_COLOR, ACCENT_1 },
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_BLUE, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_BLUE_LIGHT },
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_RED, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_ORANGE }
+                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrangeDark, EnemyHelper.BaseColor, BASE_1, EnemyHelper.AccentColor, ACCENT_1 },
+                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlue, EnemyHelper.AccentColor, EnemyHelper.CommonBlueLight },
+                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonRed, EnemyHelper.AccentColor, EnemyHelper.CommonOrange }
             });
         }
     }

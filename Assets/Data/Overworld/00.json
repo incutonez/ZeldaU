@@ -6,235 +6,6 @@
   "AccentColor": "Brown",
   "Tiles": [
     {
-      "Type": "Door",
-      "Children": [
-        {
-          "X": 11,
-          "Y": 9,
-          "Colors": [
-            "White",
-            "Black"
-          ],
-          "Transition": {
-            "Name": "Shop00",
-            "X": 0,
-            "Y": 0,
-            "IsFloating": true,
-            "Template": "Shop"
-          }
-        }
-      ]
-    },
-    {
-      "Type": "Transition",
-      "Children": [
-        {
-          "X": 15,
-          "Y": 2,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        },
-        {
-          "X": 15,
-          "Y": 3,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        },
-        {
-          "X": 15,
-          "Y": 4,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        },
-        {
-          "X": 15,
-          "Y": 5,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        },
-        {
-          "X": 15,
-          "Y": 6,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        },
-        {
-          "X": 15,
-          "Y": 7,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        },
-        {
-          "X": 15,
-          "Y": 8,
-          "Transition": {
-            "X": 1,
-            "Y": 0
-          }
-        }
-      ]
-    },
-    {
-      "Type": "TreeBottomLeft",
-      "Children": [
-        {
-          "X": 6,
-          "Y": 3,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 9,
-          "Y": 3,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 5,
-          "Y": 6,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 8,
-          "Y": 6,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "TreeBottomRight",
-      "Children": [
-        {
-          "X": 7,
-          "Y": 3,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 10,
-          "Y": 3,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 6,
-          "Y": 6,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 9,
-          "Y": 6,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "TreeTopLeft",
-      "Children": [
-        {
-          "X": 6,
-          "Y": 4,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 9,
-          "Y": 4,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 5,
-          "Y": 7,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 8,
-          "Y": 7,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        }
-      ]
-    },
-    {
-      "Type": "TreeTopRight",
-      "Children": [
-        {
-          "X": 7,
-          "Y": 4,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 10,
-          "Y": 4,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 6,
-          "Y": 7,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 9,
-          "Y": 7,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        }
-      ]
-    },
-    {
       "Type": "WallBottom",
       "Children": [
         {
@@ -578,7 +349,9 @@
           "Y": 9,
           "Colors": [
             "PureWhite",
-            "Brown"
+            "Blue",
+            "Black",
+            "Green"
           ]
         },
         {
@@ -752,35 +525,6 @@
       ]
     },
     {
-      "Type": "WallBottomRight",
-      "Children": [
-        {
-          "X": 1,
-          "Y": 6,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 2,
-          "Y": 7,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        },
-        {
-          "X": 3,
-          "Y": 8,
-          "Colors": [
-            "PureWhite",
-            "Brown"
-          ]
-        }
-      ]
-    },
-    {
       "Type": "WallTop",
       "Children": [
         {
@@ -909,6 +653,279 @@
           ]
         }
       ]
+    },
+    {
+      "Type": "Transition",
+      "Children": [
+        {
+          "X": 15,
+          "Y": 2,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        },
+        {
+          "X": 15,
+          "Y": 3,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        },
+        {
+          "X": 15,
+          "Y": 4,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        },
+        {
+          "X": 15,
+          "Y": 5,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        },
+        {
+          "X": 15,
+          "Y": 6,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        },
+        {
+          "X": 15,
+          "Y": 7,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        },
+        {
+          "X": 15,
+          "Y": 8,
+          "Transition": {
+            "X": 1,
+            "Y": 0
+          }
+        }
+      ]
+    },
+    {
+      "Type": "TreeBottomLeft",
+      "Children": [
+        {
+          "X": 6,
+          "Y": 3,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 9,
+          "Y": 3,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 5,
+          "Y": 6,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 8,
+          "Y": 6,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeBottomRight",
+      "Children": [
+        {
+          "X": 7,
+          "Y": 3,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 10,
+          "Y": 3,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 6,
+          "Y": 6,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 9,
+          "Y": 6,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeTopLeft",
+      "Children": [
+        {
+          "X": 6,
+          "Y": 4,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 9,
+          "Y": 4,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 5,
+          "Y": 7,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 8,
+          "Y": 7,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "TreeTopRight",
+      "Children": [
+        {
+          "X": 7,
+          "Y": 4,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 10,
+          "Y": 4,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 6,
+          "Y": 7,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 9,
+          "Y": 7,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "WallBottomRight",
+      "Children": [
+        {
+          "X": 1,
+          "Y": 6,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 2,
+          "Y": 7,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        },
+        {
+          "X": 3,
+          "Y": 8,
+          "Colors": [
+            "PureWhite",
+            "Brown"
+          ]
+        }
+      ]
+    },
+    {
+      "Type": "Door",
+      "Children": [
+        {
+          "X": 11,
+          "Y": 9,
+          "Colors": [
+            "White",
+            "Black"
+          ],
+          "Transition": {
+            "Name": "Shop00",
+            "X": 0,
+            "Y": 0,
+            "IsFloating": true,
+            "Template": "Shop"
+          }
+        }
+      ]
+    }
+  ],
+  "Items": [],
+  "Enemies": [
+    {
+      "Type": "Octorok",
+      "X": 12,
+      "Y": 5,
+      "Speed": 0
+    },
+    {
+      "Type": "Octorok",
+      "X": 12,
+      "Y": 6,
+      "Speed": 0
     }
   ]
 }

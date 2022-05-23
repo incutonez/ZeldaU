@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
@@ -5,11 +7,18 @@ using UnityEditor;
 public class ExportSubSprites : Editor {
   [MenuItem("Assets/Export Sub-Sprites")]
   public static void DoExportSubSprites() {
+    Dictionary<String, Boolean> Names = new();
     var folder = EditorUtility.OpenFolderPanel("Export subsprites into what folder?", "", "");
     foreach (var obj in Selection.objects) {
       var sprite = obj as Sprite;
       if (sprite == null) continue;
       var extracted = ExtractAndName(sprite);
+      if (Names.ContainsKey(extracted.name)) {
+        extracted.name = $"{Guid.NewGuid()}{extracted.name}";
+      }
+      else {
+        Names.Add(extracted.name, true);
+      }
       SaveSubSprite(extracted, folder);
     }
   }

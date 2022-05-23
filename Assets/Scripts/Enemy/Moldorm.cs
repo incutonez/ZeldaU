@@ -28,7 +28,7 @@ namespace Enemy
                 Enemies.Moldorm
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_RED, EnemyHelper.ACCENT_COLOR, EnemyHelper.COMMON_ORANGE }
+                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonRed, EnemyHelper.AccentColor, EnemyHelper.CommonOrange }
             });
         }
     }

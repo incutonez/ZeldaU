@@ -29,8 +29,8 @@ namespace Enemy
                 Enemies.MoblinBlue
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BODY_COLOR, EnemyHelper.COMMON_ORANGE, EnemyHelper.BASE_COLOR, EnemyHelper.COMMON_RED, EnemyHelper.ACCENT_COLOR, Color.white },
-                new Color[] { EnemyHelper.BODY_COLOR, EnemyHelper.COMMON_TEAL }
+                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrange, EnemyHelper.BaseColor, EnemyHelper.CommonRed, EnemyHelper.AccentColor, Color.white },
+                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonTeal }
             });
         }
     }

@@ -64,8 +64,7 @@ namespace Base
                     // Once we've reached the destination, let's pick a new one
                     if (transform.position == RoamingPosition)
                     {
-                        RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(RoamingPosition);
-                        Pathfinding.MoveTo(RoamingPosition);
+                        Reset();
                     }
                     if (CanChase())
                     {
@@ -102,7 +101,7 @@ namespace Base
         public void Reset()
         {
             RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(transform.position);
-            Pathfinding.MoveTo(RoamingPosition);
+            // Pathfinding.MoveTo(RoamingPosition);
         }
     }
 }

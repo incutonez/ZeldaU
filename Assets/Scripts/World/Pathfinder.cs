@@ -15,9 +15,9 @@ namespace World
     /// </summary>
     public class Pathfinder
     {
-        private const int MOVE_STRAIGHT_COST = 10;
+        private const int MoveStraightCost = 10;
         // Mathematical value for diagonal... sqrt(200) ~ 14
-        private const int MOVE_DIAGONAL_COST = 14;
+        private const int MoveDiagonalCost = 14;
 
         public Grid<GridCell> Grid { get; set; }
         /// <summary>
@@ -42,28 +42,30 @@ namespace World
         public Vector3 GetRoamingPosition(Vector3 startingPosition)
         {
             System.Random random = new System.Random();
-            List<Vector3> openTiles = GetOpenTiles();
+            List<GridCell> openTiles = GetOpenTiles();
             List<Vector3> path = null;
-            Vector3 position = Vector3.zero;
-            openTiles.Remove(startingPosition);
+            GridCell end = null;
+            GridCell start = Grid.GetViewModel(startingPosition);
+            openTiles.Remove(start);
             while ((path == null || path.Count == 1) && openTiles.Count > 0)
             {
-                position = openTiles[random.Next(1, openTiles.Count)];
-                path = FindPath(startingPosition, position);
-                openTiles.Remove(position);
+                end = openTiles[random.Next(1, openTiles.Count)];
+                path = FindPath(start, end);
+                openTiles.Remove(end);
             }
-            return position;
+            // TODOJEF: This is the issue
+            return end == null ? Vector3.zero : new Vector3(end.X, end.Y);
         }
 
-        public List<Vector3> GetOpenTiles()
+        public List<GridCell> GetOpenTiles()
         {
-            List<Vector3> result = new List<Vector3>();
+            List<GridCell> result = new();
             Grid.EachCell((viewModel, x, y) =>
             {
                 // If we have the default value, then there's nothing in this tile
                 if (viewModel.IsWalkable())
                 {
-                    result.Add(Grid.GetWorldPosition(x, y));
+                    result.Add(Grid.GetViewModel(Grid.GetWorldPosition(x, y)));
                 }
             });
             return result;
@@ -82,28 +84,11 @@ namespace World
             return worldPosition + quadSize * 0.5f;
         }
 
-        public List<Vector3> FindPath(Vector3 start, Vector3 end)
-        {
-            Grid.GetXY(start, out int startX, out int startY);
-            Grid.GetXY(end, out int endX, out int endY);
-            List<GridCell> nodes = FindPath(startX, startY, endX, endY);
-            if (nodes == null)
-            {
-                return null;
-            }
-            List<Vector3> result = new List<Vector3>();
-            foreach (GridCell node in nodes)
-            {
-                result.Add(Grid.GetWorldPosition(node.X, node.Y));
-            }
-            return result;
+        public List<Vector3> FindPath(Vector3 start, Vector3 end) {
+            return FindPath(Grid.GetViewModel(start), Grid.GetViewModel(end));
         }
 
-        public List<GridCell> FindPath(int startX, int startY, int endX, int endY)
-        {
-            GridCell startCell = Grid.GetViewModel(startX, startY);
-            GridCell endCell = Grid.GetViewModel(endX, endY);
-
+        public List<Vector3> FindPath(GridCell startCell, GridCell endCell) {
             OpenList = new List<GridCell> { startCell };
             ClosedList = new List<GridCell>();
 
@@ -123,7 +108,13 @@ namespace World
                 GridCell currentCell = GetLowestTotalCostNode(OpenList);
                 if (currentCell == endCell)
                 {
-                    return CalculatePath(currentCell);
+                    var nodes = CalculatePath(currentCell);
+                    List<Vector3> result = new();
+                    foreach (GridCell node in nodes)
+                    {
+                        result.Add(Grid.GetWorldPosition(node.X, node.Y));
+                    }
+                    return result;
                 }
                 OpenList.Remove(currentCell);
                 ClosedList.Add(currentCell);
@@ -235,7 +226,7 @@ namespace World
             int xDistance = Mathf.Abs(a.X - b.X);
             int yDistance = Mathf.Abs(a.Y - b.Y);
             int remaining = Mathf.Abs(xDistance - yDistance);
-            return MOVE_DIAGONAL_COST * Mathf.Min(xDistance, yDistance) + MOVE_STRAIGHT_COST * remaining;
+            return MoveDiagonalCost * Mathf.Min(xDistance, yDistance) + MoveStraightCost * remaining;
         }
 
         // TODO: It'd be more performant to use a binary tree

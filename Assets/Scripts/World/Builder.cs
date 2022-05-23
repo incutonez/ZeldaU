@@ -36,50 +36,53 @@ namespace World {
     public IEnumerator PanScreen(ViewModel.Grid transition) {
       SetScreenLoading(true);
       yield return BuildScreen(transition);
-      var grid = PreviousScreen.Grid;
-      int x = transition.X;
-      int y = transition.Y;
-      Transform currentTransform = CurrentScreen.transform;
-      Transform previousTransform = PreviousScreen.transform;
-      Transform player = Manager.Game.Player.transform;
-      float previousX = 0f;
-      float previousY = 0f;
-      float playerX = player.position.x;
-      float playerY = player.position.y;
-      // Moving to right screen
-      if (x == 1) {
-        previousX = -Constants.GridColumns;
-        playerX = grid.GetWorldPositionX(TRANSITION_PADDING);
-      }
-      // Moving to left screen
-      else if (x == -1) {
-        previousX = Constants.GridColumns;
-        playerX = grid.GetWorldPositionX(Constants.GridColumnsZero - TRANSITION_PADDING);
-      }
+      if (PreviousScreen != null) {
+        var grid = PreviousScreen.Grid;
+        int x = transition.X;
+        int y = transition.Y;
+        Transform currentTransform = CurrentScreen.transform;
+        Transform previousTransform = PreviousScreen.transform;
+        Transform player = Manager.Game.Player.transform;
+        float previousX = 0f;
+        float previousY = 0f;
+        var position = player.position;
+        float playerX = position.x;
+        float playerY = position.y;
+        // Moving to right screen
+        if (x == 1) {
+          previousX = -Constants.GridColumns;
+          playerX = grid.GetWorldPositionX(TRANSITION_PADDING);
+        }
+        // Moving to left screen
+        else if (x == -1) {
+          previousX = Constants.GridColumns;
+          playerX = grid.GetWorldPositionX(Constants.GridColumnsZero - TRANSITION_PADDING);
+        }
 
-      // Moving to top screen
-      if (y == 1) {
-        previousY = -Constants.GridRows;
-        playerY = grid.GetWorldPositionY(TRANSITION_PADDING);
-      }
-      // Moving to bottom screen
-      else if (y == -1) {
-        previousY = Constants.GridRows;
-        playerY = grid.GetWorldPositionY(Constants.GridRowsZero - TRANSITION_PADDING);
-      }
+        // Moving to top screen
+        if (y == 1) {
+          previousY = -Constants.GridRows;
+          playerY = grid.GetWorldPositionY(TRANSITION_PADDING);
+        }
+        // Moving to bottom screen
+        else if (y == -1) {
+          previousY = Constants.GridRows;
+          playerY = grid.GetWorldPositionY(Constants.GridRowsZero - TRANSITION_PADDING);
+        }
 
-      Vector3 previousDestination = new Vector3(previousX, previousY);
-      Vector3 playerDestination = new Vector3(playerX, playerY);
-      currentTransform.position = new Vector3(-previousX, -previousY);
-      while (previousTransform.position != previousDestination && currentTransform.position != Vector3.zero) {
-        player.position = Vector3.MoveTowards(player.position, playerDestination, Time.deltaTime * PAN_SPEED);
-        previousTransform.position = Vector3.MoveTowards(previousTransform.position, previousDestination, Time.deltaTime * PAN_SPEED);
-        currentTransform.position = Vector3.MoveTowards(currentTransform.position, Vector3.zero, Time.deltaTime * PAN_SPEED);
-        yield return null;
+        Vector3 previousDestination = new Vector3(previousX, previousY);
+        Vector3 playerDestination = new Vector3(playerX, playerY);
+        currentTransform.position = new Vector3(-previousX, -previousY);
+        while (previousTransform.position != previousDestination && currentTransform.position != Vector3.zero) {
+          player.position = Vector3.MoveTowards(player.position, playerDestination, Time.deltaTime * PAN_SPEED);
+          previousTransform.position = Vector3.MoveTowards(previousTransform.position, previousDestination, Time.deltaTime * PAN_SPEED);
+          currentTransform.position = Vector3.MoveTowards(currentTransform.position, Vector3.zero, Time.deltaTime * PAN_SPEED);
+          yield return null;
+        }
+        PreviousScreen.ToggleActive();
       }
-
       CurrentScreen.SpawnEnemies();
-      PreviousScreen.ToggleActive();
+
       SetScreenLoading(false);
     }
 
@@ -125,9 +128,9 @@ namespace World {
       Texture2D texture = Instantiate(material.mainTexture as Texture2D);
       Utilities.ReplaceColors(texture, new Color[] {
         // TODO: Use CurrentCastle to determine these colors
-        EnemyHelper.ACCENT_COLOR, Utilities.HexToColor("008088"),
-        EnemyHelper.CASTLE_DOOR_COLOR, Utilities.HexToColor("183c5c"),
-        EnemyHelper.BODY_COLOR, Utilities.HexToColor("00e8d8")
+        EnemyHelper.AccentColor, Utilities.HexToColor("008088"),
+        EnemyHelper.CastleDoorColor, Utilities.HexToColor("183c5c"),
+        EnemyHelper.BodyColor, Utilities.HexToColor("00e8d8")
       });
       material.mainTexture = texture;
       Manager.Game.Graphics.CurrentCastleMaterial = material;

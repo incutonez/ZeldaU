@@ -8,7 +8,7 @@ namespace Manager {
       RectTransform transform = Object.Instantiate(prefab);
       transform.gameObject.SetActive(active);
       transform.SetParent(parent);
-      transform.position = position;
+      transform.localPosition = position;
       transform.rotation = Quaternion.identity;
       return transform;
     }

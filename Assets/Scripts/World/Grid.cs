@@ -59,6 +59,10 @@ namespace World {
       }
     }
 
+    public Vector3 GetWorldPosition(Vector3 position) {
+      return (position + new Vector3(Constants.PivotOffset, Constants.PivotOffset)) * CellSize + Origin;
+    }
+
     public Vector3 GetWorldPosition(float x, float y) {
       return new Vector3(x + Constants.PivotOffset, y + Constants.PivotOffset) * CellSize + Origin;
     }
@@ -116,13 +120,6 @@ namespace World {
 
     public bool IsValid(int x, int y) {
       return x >= 0 && y >= 0 && x < Width && y < Height;
-    }
-
-    public void SetValue(Vector3 position, T value) {
-      int x;
-      int y;
-      GetXY(position, out x, out y);
-      SetValue(x, y, value);
     }
 
     public T GetViewModel(int x, int y) {

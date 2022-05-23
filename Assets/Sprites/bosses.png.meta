@@ -179,7 +179,8 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+    flipGreenChannel: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -222,6 +223,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -237,6 +239,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1392,10 +1406,10 @@ TextureImporter:
       DodongoRight1: -5173363477203909298
       Gleeok1: -5710202363144185006
       Aquamentus3: 4246582678940652525
-      GleeokHead: 6105738643464739629
       DodongoLeftBomb: -3927680372460468211
-      GanonGibs: 5068177111274062500
       Ganon5: 3664271616263302216
+      GleeokHead: 6105738643464739629
+      GanonGibs: 5068177111274062500
       Manhandla4: 6947155645052117052
       Aquamentus4: 6232865802514645271
       DodongoLeft1: 8796537411668001247
@@ -1429,7 +1443,6 @@ TextureImporter:
       Gohma2: 4008449916828762133
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

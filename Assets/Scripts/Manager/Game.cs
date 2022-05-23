@@ -47,16 +47,16 @@ namespace Manager {
       Suit = Player.GetComponentInChildren<Suit>(true);
       int currentX = Constants.StartingTiles[0];
       int currentY = Constants.StartingTiles[1];
+      Scene.CurrentX = currentX;
+      Scene.CurrentY = currentY;
       if (!IsDebugMode) {
-        yield return Scene.BuildScreen(new ViewModel.Grid {
+        yield return Scene.PanScreen(new ViewModel.Grid {
           X = currentX,
           Y = currentY,
           Name = Constants.StartingTile
         });
       }
 
-      Scene.CurrentX = currentX;
-      Scene.CurrentY = currentY;
       Player.gameObject.SetActive(true);
       OnLaunch?.Invoke(this, EventArgs.Empty);
     }

@@ -32,7 +32,7 @@ namespace Enemy
             colors.AddRange(new List<Color[]> {
                 // We don't replace anything in the base one because it want it to black
                 null,
-                new Color[] { EnemyHelper.BASE_COLOR, TEAL }
+                new Color[] { EnemyHelper.BaseColor, TEAL }
             });
         }
     }

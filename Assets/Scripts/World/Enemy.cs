@@ -22,6 +22,7 @@ namespace World
             {
                 Movement = GetComponent<Base.Movement>();
             }
+            Movement.Target = transform.position;
             Movement.Speed = speed; 
         }
 

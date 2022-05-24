@@ -53,9 +53,10 @@ namespace World {
       SetTileType(tileType);
       SetQuadSize();
       WorldPosition = position;
-      // TODOJEF: I forget why I had to set this CenterPosition, but I've commented it out for now, and
-      // instead, in GetWorldPosition, I'm adding a pivot offset, since all prefabs have that same offset
-      // CenterPosition = WorldPosition + QuadSize * 0.5f;
+      /* We have to set this because the QuadSize helps with scaling the positioning of the tile... for the
+       * most part, this value is 1.  We then multiply by 0.5f because we want our tile position to be centered,
+       * and if we don't do this, it messes up the pivot and any collisions. */
+      CenterPosition = WorldPosition + QuadSize * 0.5f;
     }
 
     public void SetTileType(Tiles tileType) {
@@ -185,8 +186,8 @@ namespace World {
         return null;
       }
 
-      float xPos = WorldPosition.x - Constants.PivotOffset;
-      float yPos = WorldPosition.y - Constants.PivotOffset;
+      float xPos = WorldPosition.x;
+      float yPos = WorldPosition.y;
       List<Vector2> points = new List<Vector2>();
       Vector2 topLeft = new Vector2 {
         x = xPos,

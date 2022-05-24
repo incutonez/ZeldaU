@@ -100,18 +100,19 @@ namespace World
             // This is our starting node, so let's set it to 0
             startCell.SetCosts(0, CalculateDistanceCost(startCell, endCell));
 
+            List<Vector3> result = new();
             while (OpenList.Count > 0)
             {
                 GridCell currentCell = GetLowestTotalCostNode(OpenList);
                 if (currentCell == endCell)
                 {
                     var nodes = CalculatePath(currentCell);
-                    List<Vector3> result = new();
                     foreach (GridCell node in nodes)
                     {
                         result.Add(node.WorldPosition);
                     }
-                    return result;
+
+                    break;
                 }
                 OpenList.Remove(currentCell);
                 ClosedList.Add(currentCell);
@@ -144,7 +145,7 @@ namespace World
             }
 
             // This means that we could not find a valid path
-            return null;
+            return result;
         }
 
         // TODO: Can optimize this by pre-calculating all of the neighbors as soon as we create the grid

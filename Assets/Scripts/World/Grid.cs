@@ -6,14 +6,14 @@ namespace World {
   /// Idea taken from https://www.youtube.com/watch?v=waEsGu--9P8
   /// </summary>
   public class Grid<T> {
-    public const int HEATMAP_MAX = 100;
-    public const int HEATMAP_MIN = 0;
+    public const int HeatmapMax = 100;
+    public const int HeatmapMin = 0;
 
     public event EventHandler<OnGridValueChangedEventArgs> OnGridValueChanged;
 
     public class OnGridValueChangedEventArgs : EventArgs {
-      public int x;
-      public int y;
+      public int X;
+      public int Y;
     }
 
     public int Width { get; set; }
@@ -37,18 +37,6 @@ namespace World {
           Cells[i, j] = createFunc(this, i, j);
         }
       }
-
-      if (DebugMode) {
-        for (int i = 0; i < Cells.GetLength(0); i++) {
-          for (int j = 0; j < Cells.GetLength(1); j++) {
-            Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.white, 100f);
-          }
-        }
-
-        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
-      }
     }
 
     public void EachCell(Action<T, int, int> func) {
@@ -59,12 +47,8 @@ namespace World {
       }
     }
 
-    public Vector3 GetWorldPosition(Vector3 position) {
-      return (position + new Vector3(Constants.PivotOffset, Constants.PivotOffset)) * CellSize + Origin;
-    }
-
     public Vector3 GetWorldPosition(float x, float y) {
-      return new Vector3(x + Constants.PivotOffset, y + Constants.PivotOffset) * CellSize + Origin;
+      return new Vector3(x, y) * CellSize + Origin;
     }
 
     /// <summary>
@@ -101,7 +85,7 @@ namespace World {
 
     public void TriggerChange(int x, int y) {
       if (OnGridValueChanged != null) {
-        OnGridValueChanged(this, new OnGridValueChangedEventArgs {x = x, y = y});
+        OnGridValueChanged(this, new OnGridValueChangedEventArgs {X = x, Y = y});
       }
     }
 
@@ -113,7 +97,7 @@ namespace World {
         }
 
         if (OnGridValueChanged != null) {
-          OnGridValueChanged(this, new OnGridValueChangedEventArgs {x = x, y = y});
+          OnGridValueChanged(this, new OnGridValueChangedEventArgs {X = x, Y = y});
         }
       }
     }

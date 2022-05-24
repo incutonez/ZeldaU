@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using ViewModel;
 
 // TODOJEF: Potentially use Tilemap instead of the Grid class
 namespace World {
@@ -22,7 +21,7 @@ namespace World {
       // started copying it over into this class, but I'm not sure if that's right?  I at least fixed
       // the positioning... I don't think the AI can walk these cells because we're not initializing that
       // logic in here
-      transform.position = gridCell.WorldPosition;
+      transform.localPosition = gridCell.CenterPosition;
       transform.rotation = Quaternion.identity;
 
       return worldTile;

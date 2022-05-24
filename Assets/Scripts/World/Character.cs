@@ -44,7 +44,7 @@ namespace World
 
         public bool IsDead()
         {
-            return Health.HasValue && Health <= 0;
+            return Health is <= 0;
         }
 
         public void TakeDamage(float damage, float damageModifier = 0)

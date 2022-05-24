@@ -30,6 +30,7 @@ public static class Utilities {
     return Constants.RandomGenerator.Next(min, max);
   }
 
+  // TODOJEF: REMOVE??
   public static List<Dictionary<Animations, List<Sprite>>> ColorAnimations(
     Dictionary<Animations, List<Sprite>> animations,
     List<Dictionary<Animations, List<Sprite>>> variants,
@@ -42,12 +43,27 @@ public static class Utilities {
         Dictionary<Animations, List<Sprite>> variant = variants[i];
         List<Sprite> temp = variant[key] = new List<Sprite>();
         foreach (Sprite sprite in values) {
-          temp.Add(CloneSprite(sprite, colors[i]));
+          temp.Add(CloneSprite(sprite, colors.ElementAtOrDefault(i)));
         }
       }
     }
 
     return variants;
+  }
+
+  public static Dictionary<Animations, List<Sprite>> ColorAnimations(
+    Dictionary<Animations, List<Sprite>> animations,
+    Color[] colors
+  ) {
+    Dictionary<Animations, List<Sprite>> colorAnimations = new();
+    foreach (var (key, values) in animations) {
+      colorAnimations[key] = new List<Sprite>();
+      foreach (Sprite sprite in values) {
+        colorAnimations[key].Add(CloneSprite(sprite, colors));
+      }
+    }
+
+    return colorAnimations;
   }
 
   /// <summary>

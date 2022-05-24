@@ -21,7 +21,7 @@ namespace Manager {
     }
 
     public static void SpawnCharacter(Vector3 position, Characters characterType, Transform parent, bool active = true) {
-      RectTransform transform = Spawn(position, Game.Graphics.NPC, parent, active);
+      RectTransform transform = Spawn(position, Game.Graphics.Npc, parent, active);
 
       World.Character<Characters> worldCharacter = transform.GetComponent<World.Character<Characters>>();
       worldCharacter.Initialize(characterType);

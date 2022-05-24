@@ -1,7 +1,3 @@
-namespace Enemy
-{
-    public class TektiteBlue : Tektite
-    {
-
-    }
+namespace Enemy {
+  public class TektiteBlue : Tektite { }
 }

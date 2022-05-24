@@ -130,6 +130,7 @@ namespace World {
           Enemies enemyType = viewModel.Type;
           for (int i = 0; i < viewModel.Count; i++) {
             Enemy enemy = Manager.Character.SpawnEnemy(Grid.GetWorldPosition(viewModel.X, viewModel.Y), enemyType, transform);
+            enemy.Colors = viewModel.Colors;
             enemy.SetSpeed(viewModel.Speed);
             enemy.Initialize(enemyType);
             enemy.OnDestroy += Enemy_OnDestroy;
@@ -157,6 +158,7 @@ namespace World {
         if (enemy.transform.position == Vector3.zero) {
           enemy.transform.position = GetRandomPositions(Enemies.Count).First();
         }
+
         enemy.Enable();
       }
     }

@@ -4,19 +4,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static System.String;
 
 namespace Manager {
   public class Graphics {
     #region Sprites
 
-    public List<Sprite> Items { get; set; }
-    public List<Sprite> Tiles { get; set; } = new List<Sprite>();
+    private List<Sprite> Items { get; set; }
+    private List<Sprite> Tiles { get; set; } = new();
     public Material CurrentCastleMaterial { get; set; }
     public Material CastleMaterials { get; set; }
     public Material WorldMaterials { get; set; }
-    public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NPCAnimations { get; set; } = new Dictionary<Characters, Dictionary<Animations, List<Sprite>>>();
-    public Dictionary<Enemies, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new Dictionary<Enemies, Dictionary<Animations, List<Sprite>>>();
-    public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new Dictionary<Animations, List<Sprite>>();
+    public Dictionary<Characters, Dictionary<Animations, List<Sprite>>> NpcAnimations { get; set; } = new();
+    public Dictionary<string, Dictionary<Animations, List<Sprite>>> EnemyAnimations { get; set; } = new();
+    public Dictionary<Animations, List<Sprite>> PlayerAnimations { get; set; } = new();
 
     #endregion
 
@@ -28,15 +29,16 @@ namespace Manager {
     public RectTransform WorldScreen { get; set; }
     public RectTransform WorldTile { get; set; }
     public RectTransform Enemy { get; set; }
-    public RectTransform NPC { get; set; }
+    public RectTransform Npc { get; set; }
     public RectTransform Item { get; set; }
     public RectTransform Player { get; set; }
     public RectTransform UIHeart { get; set; }
 
     #endregion
 
-    public Dictionary<ScreenTemplates, ViewModel.Grid> Templates { get; set; } = new Dictionary<ScreenTemplates, ViewModel.Grid>();
-    public Dictionary<string, string> Screens { get; set; } = new Dictionary<string, string>();
+    public Dictionary<ScreenTemplates, ViewModel.Grid> Templates { get; } = new();
+    public Dictionary<string, string> Screens { get; } = new();
+    private static readonly List<Animations> AnimationsCache = EnumExtensions.GetValues<Animations>();
 
     public Graphics() {
       LoadAllSprites();
@@ -55,12 +57,12 @@ namespace Manager {
       FileSystem.LoadSprites("characters", (response) => {
         foreach (Characters character in EnumExtensions.GetValues<Characters>()) {
           string name = character.GetDescription() + "_";
-          NPCAnimations.Add(character, GetAnimations(response.Where(x => x.name.Contains(name)).ToList(), name));
+          NpcAnimations.Add(character, GetAnimations(response.Where(x => x.name.Contains(name)).ToList(), name));
         }
       });
       FileSystem.LoadSpritesLabel("Enemies", (response) => {
         foreach (KeyValuePair<Enemies, List<Sprite>> enemy in response) {
-          EnemyHelper.GetSubTypes(enemy.Key, GetAnimations(enemy.Value, ""), EnemyAnimations);
+          EnemyAnimations.Add(enemy.Key.ToString(), GetAnimations(enemy.Value, ""));
         }
       });
       FileSystem.LoadMaterial("Castle", (response) => { CastleMaterials = response; });
@@ -85,21 +87,25 @@ namespace Manager {
       FileSystem.LoadPrefab("WorldScreen", (response) => { WorldScreen = response; });
       FileSystem.LoadPrefab("Enemy", (response) => { Enemy = response; });
       FileSystem.LoadPrefab("WorldTile", (response) => { WorldTile = response; });
-      FileSystem.LoadPrefab("NPC", (response) => { NPC = response; });
+      FileSystem.LoadPrefab("NPC", (response) => { Npc = response; });
       FileSystem.LoadPrefab("Item", (response) => { Item = response; });
       FileSystem.LoadPrefab("Player", (response) => { Player = response; });
       FileSystem.LoadPrefab("HeartTemplate", (response) => { UIHeart = response; });
     }
 
-    public Dictionary<Animations, List<Sprite>> GetAnimations(List<Sprite> animations, string name) {
-      Dictionary<Animations, List<Sprite>> dict = new Dictionary<Animations, List<Sprite>>();
-      foreach (Animations anim in EnumExtensions.GetValues<Animations>()) {
+    private static Dictionary<Animations, List<Sprite>> GetAnimations(List<Sprite> animations, string name) {
+      Dictionary<Animations, List<Sprite>> dict = new();
+      if (animations.Count == 0) {
+        return dict;
+      }
+
+      foreach (var anim in AnimationsCache) {
         dict[anim] = new List<Sprite>();
       }
 
-      foreach (Sprite sprite in animations) {
-        string spriteName = sprite.name;
-        if (name != String.Empty) {
+      foreach (var sprite in animations) {
+        var spriteName = sprite.name;
+        if (name != Empty) {
           spriteName = spriteName.Replace(name, "");
         }
 
@@ -119,20 +125,15 @@ namespace Manager {
             break;
           case Animations.IdleUp:
             dict[value].Add(sprite);
-            dict[Animations.WalkUp].Add(sprite);
             break;
           case Animations.IdleDown:
             dict[value].Add(sprite);
-            dict[Animations.Default].Add(sprite);
-            dict[Animations.WalkDown].Add(sprite);
             break;
           case Animations.IdleRight:
             dict[value].Add(sprite);
-            dict[Animations.WalkRight].Add(sprite);
             break;
           case Animations.IdleLeft:
             dict[value].Add(sprite);
-            dict[Animations.WalkLeft].Add(sprite);
             break;
           case Animations.WalkUp:
             dict[value].Add(sprite);
@@ -149,6 +150,44 @@ namespace Manager {
         }
       }
 
+      var defaultAnimation = dict[Animations.IdleDown].FirstOrDefault();
+      // If there's no defaultAnimation, then that means we have a special enemy, like a Leever, Lanmola, or Moldorm
+      if (defaultAnimation != null) {
+        if (dict[Animations.IdleUp].Count == 0) {
+          dict[Animations.IdleUp].Add(defaultAnimation);
+        }
+
+        if (dict[Animations.IdleRight].Count == 0) {
+          dict[Animations.IdleRight].Add(defaultAnimation);
+        }
+
+        if (dict[Animations.IdleLeft].Count == 0) {
+          dict[Animations.IdleLeft].Add(defaultAnimation);
+        }
+
+        dict[Animations.WalkDown].Add(defaultAnimation);
+        if (dict[Animations.WalkUp].Count == 0) {
+          dict[Animations.WalkUp].AddRange(dict[Animations.WalkDown]);
+        }
+        else {
+          dict[Animations.WalkUp].AddRange(dict[Animations.IdleUp]);
+        }
+
+        if (dict[Animations.WalkRight].Count == 0) {
+          dict[Animations.WalkRight].AddRange(dict[Animations.WalkDown]);
+        }
+        else {
+          dict[Animations.WalkRight].AddRange(dict[Animations.IdleRight]);
+        }
+
+        if (dict[Animations.WalkLeft].Count == 0) {
+          dict[Animations.WalkLeft].AddRange(dict[Animations.WalkDown]);
+        }
+        else {
+          dict[Animations.WalkLeft].AddRange(dict[Animations.IdleLeft]);
+        }
+      }
+
       return dict;
     }
 
@@ -162,6 +201,7 @@ namespace Manager {
       if (tile == global::Tiles.Block) {
         // source = CastleMaterials;
       }
+
       return Tiles.Find(s => s.name == name);
     }
 

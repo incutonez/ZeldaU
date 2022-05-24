@@ -1,7 +1,3 @@
-namespace Enemy
-{
-    public class BubbleRed : Bubble
-    {
-
-    }
+namespace Enemy {
+  public class BubbleRed : Bubble { }
 }

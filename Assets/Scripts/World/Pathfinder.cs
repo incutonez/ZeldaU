@@ -54,7 +54,7 @@ namespace World
                 openTiles.Remove(end);
             }
             // TODOJEF: This is the issue
-            return end == null ? Vector3.zero : new Vector3(end.X, end.Y);
+            return end?.WorldPosition ?? Vector3.zero;
         }
 
         public List<GridCell> GetOpenTiles()
@@ -220,7 +220,7 @@ namespace World
             return path;
         }
 
-        // TODOJEF: Maybe look into this and not allowing diagonal?
+        // TODOJEF: Maybe look into this and not allow diagonal?
         private int CalculateDistanceCost(GridCell a, GridCell b)
         {
             int xDistance = Mathf.Abs(a.X - b.X);

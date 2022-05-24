@@ -30,8 +30,8 @@ namespace Enemy
             });
             colors.AddRange(new List<Color[]> {
                 null,
-                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonBlueLight, EnemyHelper.BaseColor, EnemyHelper.CommonBlue },
-                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrange, EnemyHelper.BaseColor, EnemyHelper.CommonRed }
+                new[] { EnemyHelper.BodyColor, EnemyHelper.CommonBlueLight, EnemyHelper.BaseColor, EnemyHelper.CommonBlue },
+                new[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrange, EnemyHelper.BaseColor, EnemyHelper.CommonRed }
             });
         }
     }

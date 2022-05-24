@@ -29,7 +29,7 @@ namespace Enemy
                 Enemies.Stalfos
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonOrange, EnemyHelper.AccentColor, EnemyHelper.CommonRed }
+                new[] { EnemyHelper.BaseColor, EnemyHelper.CommonOrange, EnemyHelper.AccentColor, EnemyHelper.CommonRed }
             });
         }
     }

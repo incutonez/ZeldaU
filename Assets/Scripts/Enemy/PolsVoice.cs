@@ -29,7 +29,7 @@ namespace Enemy
             colors.AddRange(new List<Color[]> {
                 // Accent color depends on the suit that's being worn... will have to figure out how to update it when the suit changes
                 // TODOJEF: Somehow use Manager.Game.Suit.CurrentColor for ACCENT_COLOR
-                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrange, EnemyHelper.BaseColor, EnemyHelper.CommonOrangeDark, EnemyHelper.AccentColor, EnemyHelper.CommonOrange }
+                new[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrange, EnemyHelper.BaseColor, EnemyHelper.CommonOrangeDark, EnemyHelper.AccentColor, EnemyHelper.CommonOrange }
             });
         }
     }

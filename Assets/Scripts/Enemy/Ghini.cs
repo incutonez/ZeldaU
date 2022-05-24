@@ -30,7 +30,7 @@ namespace Enemy
                 Enemies.Ghini
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlue, EnemyHelper.AccentColor, EnemyHelper.CommonBlueLight }
+                new[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlue, EnemyHelper.AccentColor, EnemyHelper.CommonBlueLight }
             });
         }
     }

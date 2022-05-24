@@ -30,9 +30,9 @@ namespace Enemy
                 Enemies.GelBlue
             });
             colors.AddRange(new List<Color[]> {
-                // We don't replace anything in the base one because it want it to black
+                // We don't replace anything in the base one because we want it to black
                 null,
-                new Color[] { EnemyHelper.BaseColor, TEAL }
+                new[] { EnemyHelper.BaseColor, TEAL }
             });
         }
     }

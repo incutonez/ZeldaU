@@ -30,7 +30,7 @@ namespace Enemy
                 Enemies.Vire
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlueLight, EnemyHelper.AccentColor, EnemyHelper.CommonBlue }
+                new[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlueLight, EnemyHelper.AccentColor, EnemyHelper.CommonBlue }
             });
         }
     }

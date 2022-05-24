@@ -28,7 +28,7 @@ namespace Enemy
                 Enemies.Zora
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonTeal, EnemyHelper.AccentColor, EnemyHelper.CommonRed }
+                new[] { EnemyHelper.BaseColor, EnemyHelper.CommonTeal, EnemyHelper.AccentColor, EnemyHelper.CommonRed }
             });
         }
     }

@@ -13,12 +13,12 @@ namespace Enemy
     public class Bubble : World.Enemy
     {
         // This is like a burnt orange one
-        public static readonly Color BASE_1 = Utilities.HexToColor("b8f818");
-        public static readonly Color ACCENT_1 = Utilities.HexToColor("ffe0a8");
+        public static readonly Color Base1 = Utilities.HexToColor("b8f818");
+        public static readonly Color Accent1 = Utilities.HexToColor("ffe0a8");
         // This is a green one, which is used in the rotation of the 4... need to figure out how to keep swapping colors
-        public static readonly Color BODY_4 = Utilities.HexToColor("58f898");
-        public static readonly Color BASE_4 = EnemyHelper.CommonGreen;
-        public static readonly Color ACCENT_4 = Utilities.HexToColor("00a844");
+        public static readonly Color Body4 = Utilities.HexToColor("58f898");
+        public static readonly Color Base4 = EnemyHelper.CommonGreen;
+        public static readonly Color Accent4 = Utilities.HexToColor("00a844");
 
         /// <summary>
         /// This method is set in all of the enemy classes and called from EnemyHelper
@@ -33,9 +33,9 @@ namespace Enemy
                 Enemies.BubbleRed
             });
             colors.AddRange(new List<Color[]> {
-                new Color[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrangeDark, EnemyHelper.BaseColor, BASE_1, EnemyHelper.AccentColor, ACCENT_1 },
-                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlue, EnemyHelper.AccentColor, EnemyHelper.CommonBlueLight },
-                new Color[] { EnemyHelper.BaseColor, EnemyHelper.CommonRed, EnemyHelper.AccentColor, EnemyHelper.CommonOrange }
+                new[] { EnemyHelper.BodyColor, EnemyHelper.CommonOrangeDark, EnemyHelper.BaseColor, Base1, EnemyHelper.AccentColor, Accent1 },
+                new[] { EnemyHelper.BaseColor, EnemyHelper.CommonBlue, EnemyHelper.AccentColor, EnemyHelper.CommonBlueLight },
+                new[] { EnemyHelper.BaseColor, EnemyHelper.CommonRed, EnemyHelper.AccentColor, EnemyHelper.CommonOrange }
             });
         }
     }

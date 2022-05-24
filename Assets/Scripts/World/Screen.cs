@@ -106,22 +106,20 @@ namespace World {
           Tiles tileType = screenTile.Type;
           foreach (ViewModel.Tile tileChild in screenTile.Children) {
             Vector3 position = Grid.GetWorldPosition(tileChild.X, tileChild.Y);
+            GridCell gridCell = Grid.GetViewModel(position);
             if (tileType == Tiles.Door) {
-              AddDoor(position, tileChild.Transition);
+              AddDoor(gridCell.CenterPosition, tileChild.Transition);
             }
             else if (tileType == Tiles.Transition) {
               AddTransition(position, tileChild.Transition);
             }
             else {
-              GridCell gridCell = Grid.GetViewModel(position);
-              if (gridCell != null) {
-                Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
-                // TODOJEF: https://forum.unity.com/threads/replace-multiple-colors-in-mesh-uvs.1205110/#post-7729752 should help
-                /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
-                 * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
-                 * wouldn't allow it... maybe I just don't know enough about shaders? */
-                // viewModel.Initialize(tileType, child.ReplaceColors, position, rotation, flipX, flipY);
-              }
+              Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
+              // TODOJEF: https://forum.unity.com/threads/replace-multiple-colors-in-mesh-uvs.1205110/#post-7729752 should help
+              /* TODOJEF: Revisit this... basically, I removed the mesh based generation and replaced with
+               * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
+               * wouldn't allow it... maybe I just don't know enough about shaders? */
+              // viewModel.Initialize(tileType, child.ReplaceColors, position, rotation, flipX, flipY);
             }
           }
         }

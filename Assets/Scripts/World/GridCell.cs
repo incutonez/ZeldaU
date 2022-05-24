@@ -56,7 +56,7 @@ namespace World {
       /* We have to set this because the QuadSize helps with scaling the positioning of the tile... for the
        * most part, this value is 1.  We then multiply by 0.5f because we want our tile position to be centered,
        * and if we don't do this, it messes up the pivot and any collisions. */
-      CenterPosition = WorldPosition + QuadSize * 0.5f;
+      CenterPosition = WorldPosition + QuadSize * Constants.PivotOffset;
     }
 
     public void SetTileType(Tiles tileType) {
@@ -333,11 +333,8 @@ namespace World {
       else if (IsVerticalDoor() || IsHorizontalDoor() || IsSolidWall()) {
         QuadSize = new Vector2(2f, 2f) * Grid.CellSize;
       }
-      else if (IsTile()) {
-        QuadSize = Vector2.one * Grid.CellSize;
-      }
       else {
-        QuadSize = Vector2.zero;
+        QuadSize = Vector2.one * Grid.CellSize;
       }
     }
 

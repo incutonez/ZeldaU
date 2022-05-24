@@ -53,7 +53,8 @@ namespace Base
             Movement.Enable();
             CurrentPathIndex = 0;
             Path = Manager.Game.Pathfinder.FindPath(Movement.GetPosition(), position);
-            if (Path != null && Path.Count > 1)
+            // Pattern syntax https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#declaration-and-type-patterns
+            if (Path is {Count: > 1})
             {
                 Path.RemoveAt(0);
             }

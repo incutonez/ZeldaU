@@ -101,7 +101,6 @@ namespace Base
         public void Reset()
         {
             RoamingPosition = Manager.Game.Pathfinder.GetRoamingPosition(transform.position);
-            // TODOJEF: Pick up here... there's an error when the game loads
             Pathfinding.MoveTo(RoamingPosition);
         }
     }

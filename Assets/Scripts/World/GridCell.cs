@@ -46,6 +46,7 @@ namespace World {
       Grid = grid;
       X = x;
       Y = y;
+      Initialize(Tiles.None, grid.GetWorldPosition(X, Y));
     }
 
     public void Initialize(Tiles tileType, Vector3 position) {
@@ -155,6 +156,22 @@ namespace World {
 
     public void CalculateTotalCost() {
       TotalCost = WalkCost + DistanceCost;
+    }
+
+    /// <summary>
+    /// This method is used when we're prepping the cells for calculating a distance to the requested path.
+    /// We initialize all WalkCosts to the highest int value, so we can determine what's been visited and what hasn't
+    /// </summary>
+    public void ResetCost() {
+      WalkCost = int.MaxValue;
+      CalculateTotalCost();
+      PreviousCell = null;
+    }
+
+    public void SetCosts(int walkCost, int distanceCost) {
+      WalkCost = walkCost;
+      DistanceCost = distanceCost;
+      CalculateTotalCost();
     }
 
     /// <summary>

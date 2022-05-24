@@ -23,7 +23,7 @@ namespace World
                 Movement = GetComponent<Base.Movement>();
             }
             Movement.Target = transform.position;
-            Movement.Speed = speed; 
+            Movement.Speed = speed;
         }
 
         // This is called from Initialize in World.Character

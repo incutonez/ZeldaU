@@ -34,8 +34,9 @@ namespace Base
             }
             if (UseTarget)
             {
-                transform.position = Vector3.MoveTowards(transform.position, Target, Time.deltaTime * Speed);
-                Direction = (Target - transform.position).normalized;
+                Vector3 position = Vector3.MoveTowards(transform.position, Target, Time.deltaTime * Speed);
+                transform.position = position;
+                Direction = (Target - position).normalized;
             }
             else
             {

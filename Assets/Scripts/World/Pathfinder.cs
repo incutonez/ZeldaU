@@ -94,14 +94,11 @@ namespace World
 
             Grid.EachCell((node, x, y) =>
             {
-                node.WalkCost = int.MaxValue;
-                node.CalculateTotalCost();
-                node.PreviousCell = null;
+                node.ResetCost();
             });
 
-            startCell.WalkCost = 0;
-            startCell.DistanceCost = CalculateDistanceCost(startCell, endCell);
-            startCell.CalculateTotalCost();
+            // This is our starting node, so let's set it to 0
+            startCell.SetCosts(0, CalculateDistanceCost(startCell, endCell));
 
             while (OpenList.Count > 0)
             {
@@ -112,7 +109,7 @@ namespace World
                     List<Vector3> result = new();
                     foreach (GridCell node in nodes)
                     {
-                        result.Add(Grid.GetWorldPosition(node.X, node.Y));
+                        result.Add(node.WorldPosition);
                     }
                     return result;
                 }
@@ -136,9 +133,7 @@ namespace World
                     if (walkCost < neighbor.WalkCost)
                     {
                         neighbor.PreviousCell = currentCell;
-                        neighbor.WalkCost = walkCost;
-                        neighbor.DistanceCost = CalculateDistanceCost(neighbor, endCell);
-                        neighbor.CalculateTotalCost();
+                        neighbor.SetCosts(walkCost, CalculateDistanceCost(neighbor, endCell));
 
                         if (!OpenList.Contains(neighbor))
                         {

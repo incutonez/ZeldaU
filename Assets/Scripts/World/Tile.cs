@@ -32,7 +32,7 @@ namespace World {
         var replaceColors = Array.Empty<Color>();
         if (tile.Colors == null) {
           if (worldAccentColor.HasValue) {
-            replaceColors = new[] {WorldColors.PureWhite.GetColor(), worldAccentColor.GetColor()};
+            replaceColors = new[] {WorldColors.WhitePure.GetColor(), worldAccentColor.GetColor()};
           }
         }
         else if (tile.Colors.Any()) {

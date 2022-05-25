@@ -67,10 +67,10 @@ namespace World {
 
     // TODOJEF: Come back to this... create statics for these 2 different arrays
     private List<Color> GetDefaultColors() {
-      var defaultColors = new List<Color> {WorldColors.PureWhite.GetColor(), WorldColors.Black.GetColor()};
+      var defaultColors = new List<Color> {WorldColors.RedPure.GetColor(), WorldColors.Black.GetColor()};
 
       if (CharacterType != Enemies.Gel && CharacterType != Enemies.Keese && CharacterType != Enemies.Zol) {
-        defaultColors.Add(WorldColors.PureRed.GetColor());
+        defaultColors.Add(WorldColors.RedPure.GetColor());
       }
 
       return defaultColors;

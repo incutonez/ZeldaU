@@ -1,58 +1,97 @@
 namespace Enums {
+  // TODO: Should make the color references here static, so we don't have to call GetColor everytime
   public enum WorldColors {
     [Color("Transparent")]
-    None = 0,
-
-    [Color("FFEFA6")]
-    Tan = 1,
-
-    [Color("00a800")]
-    Green = 2,
-
-    [Color("c84c0c")]
-    Brown = 3,
-
-    [Color("2038ec")]
-    Blue = 4,
-
-    [Color("747474")]
-    Gray = 5,
-
-    [Color("fcfcfc")]
-    White = 6,
-
-    [Color("7c0800")]
-    Red = 7,
+    None,
 
     [Color("000000")]
-    Black = 8,
+    Black,
 
-    // Begin Quest 1 Castle colors
-    [Color("008088")]
-    Q1C1Accent = 9,
+    [Color("0000bc")]
+    Blue,
 
-    [Color("183c5c")]
-    Q1C1Door = 10,
-
-    [Color("00e8d8")]
-    Q1C1Body = 11,
+    [Color("6888ff")]
+    BlueLight,
 
     [Color("0000FF")]
-    PureBlue = 12,
+    BluePure,
 
-    [Color("FF0000")]
-    PureRed = 13,
+    [Color("2038ec")]
+    BlueWater,
+
+    [Color("c84c0c")]
+    Brown,
+
+    [Color("ac7c00")]
+    BrownButter,
+
+    [Color("503000")]
+    BrownDark,
+
+    [Color("f8b800")]
+    BrownLight,
+
+    [Color("7c7c7c")]
+    Gray,
+
+    [Color("00a800")]
+    Green,
+
+    // Used on Gel
+    [Color("005800")]
+    GreenDark,
+
+    // Used on Gel's eyes
+    [Color("58f898")]
+    GreenLight,
 
     [Color("00FF00")]
-    PureGreen = 14,
+    GreenPure,
 
-    [Color("F83800")]
-    FireOuter = 15,
+    [Color("b8f818")]
+    Lime,
 
     [Color("FFA044")]
-    FireInner = 16,
+    Orange,
+
+    [Color("e45c10")]
+    OrangeDark,
+
+    [Color("fcd8a8")]
+    Peach,
+
+    [Color("b8b8f8")]
+    PurpleLight,
+
+    [Color("008088")]
+    Q1C1Accent,
+
+    [Color("183c5c")]
+    Q1C1Door,
+
+    [Color("F83800")]
+    Red,
+
+    [Color("FF0000")]
+    RedPure,
+
+    [Color("FFEFA6")]
+    Tan,
+
+    [Color("008888")]
+    Teal,
+
+    [Color("00e8d8")]
+    TealLight,
+
+    [Color("004058")]
+    TealDark,
+
+    // Used on graves, bushes, and statues in graveyard area
+    [Color("fcfcfc")]
+    White,
 
     [Color("FFFFFF")]
-    PureWhite = 17
+    WhitePure,
   }
 }

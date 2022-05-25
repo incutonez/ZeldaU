@@ -128,9 +128,9 @@ namespace World {
       var texture = Instantiate(material.mainTexture as Texture2D);
       Utilities.ReplaceColors(texture, new[] {
         // TODO: Use CurrentCastle to determine these colors
-        EnemyHelper.AccentColor, Utilities.HexToColor("008088"),
-        EnemyHelper.CastleDoorColor, Utilities.HexToColor("183c5c"),
-        EnemyHelper.BodyColor, Utilities.HexToColor("00e8d8")
+        WorldColors.RedPure.GetColor(), Utilities.HexToColor("008088"),
+        WorldColors.BluePure.GetColor(), Utilities.HexToColor("183c5c"),
+        WorldColors.WhitePure.GetColor(), Utilities.HexToColor("00e8d8")
       });
       material.mainTexture = texture;
       Manager.Game.Graphics.CurrentCastleMaterial = material;

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Enums;
 
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 namespace ViewModel {
-  // TODOJEF: Maybe this TileMeta becomes a generic, where we pass in the Tile and Tiles enum,
-  // but for Enemy, it'd be List<Enemy> (the ViewModel.Enemy) and Enemies
   public class TileMeta {
     public List<Tile> Children { get; set; }
     public Tiles Type { get; set; }

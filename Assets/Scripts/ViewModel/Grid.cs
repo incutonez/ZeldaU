@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Enums;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 namespace ViewModel {
   public class Grid {
     /// <summary>

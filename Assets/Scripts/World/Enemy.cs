@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NPCs;
+using Enums;
 using UnityEngine;
 
 namespace World {
@@ -7,8 +7,8 @@ namespace World {
   /// This class represents the Enemy class in the world
   /// </summary>
   public class Enemy : Character<Enemies> {
-    public Base.AI AI { get; set; }
-    public Base.Movement Movement { get; set; }
+    private Base.AI AI { get; set; }
+    protected Base.Movement Movement { get; set; }
     public WorldColors[] Colors { get; set; } = { };
 
     private void Awake() {
@@ -59,10 +59,10 @@ namespace World {
       AI.Reset();
     }
 
-    public virtual void SetFrameRates() {
-      Animation.ActionFrameRate = 0f;
-      Animation.IdleFrameRate = 0f;
-      Animation.WalkFrameRate = 0f;
+    protected virtual void SetFrameRates() {
+      Animation.ActionFrameRate = 0.33f / Movement.Speed;
+      Animation.IdleFrameRate = 1f;
+      Animation.WalkFrameRate = 0.3f / Movement.Speed;
     }
   }
 }

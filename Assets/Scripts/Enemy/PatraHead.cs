@@ -1,7 +1,7 @@
 namespace Enemy {
   public class PatraHead : World.Enemy {
     public override void SetHealth() {
-      // TODOJEF: GET?
+      // TODO: Get what this value should be
       Health = 20f;
     }
 

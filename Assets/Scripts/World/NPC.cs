@@ -1,4 +1,4 @@
-using NPCs;
+using Enums;
 
 namespace World
 {

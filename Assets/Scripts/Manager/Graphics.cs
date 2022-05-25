@@ -1,8 +1,8 @@
 using Newtonsoft.Json;
-using NPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Enums;
 using UnityEngine;
 using static System.String;
 
@@ -198,7 +198,7 @@ namespace Manager {
     public Sprite GetTile(Tiles tile) {
       string name = tile.ToString();
       List<Sprite> source = Tiles;
-      if (tile == global::Tiles.Block) {
+      if (tile == global::Enums.Tiles.Block) {
         // source = CastleMaterials;
       }
 
@@ -211,17 +211,17 @@ namespace Manager {
 
     public List<Sprite> GetAnimations(Items type) {
       switch (type) {
-        case global::Items.Heart:
-        case global::Items.HeartAlt:
+        case global::Enums.Items.Heart:
+        case global::Enums.Items.HeartAlt:
           return new List<Sprite> {
-            GetItem(global::Items.Heart),
-            GetItem(global::Items.HeartAlt)
+            GetItem(global::Enums.Items.Heart),
+            GetItem(global::Enums.Items.HeartAlt)
           };
-        case global::Items.TriforceShard:
-        case global::Items.TriforceShardAlt:
+        case global::Enums.Items.TriforceShard:
+        case global::Enums.Items.TriforceShardAlt:
           return new List<Sprite> {
-            GetItem(global::Items.TriforceShard),
-            GetItem(global::Items.TriforceShardAlt)
+            GetItem(global::Enums.Items.TriforceShard),
+            GetItem(global::Enums.Items.TriforceShardAlt)
           };
         default:
           return new List<Sprite>();

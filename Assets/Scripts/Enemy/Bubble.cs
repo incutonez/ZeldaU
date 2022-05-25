@@ -8,7 +8,7 @@ namespace Enemy {
   /// In order to regain control over his sword, he must touch a Blue Bubble, visit a Fairy Fountain, drink a potion, or pick up a Triforce Shard. 
   /// </summary>
   public class Bubble : World.Enemy {
-    // TODOJEF: REVISIT THIS AND REMOVE
+    // TODO: REVISIT THIS AND REMOVE
     // This is like a burnt orange one
     public static readonly Color Base1 = Utilities.HexToColor("b8f818");
 

@@ -1,6 +1,5 @@
-public enum Animations
-{
-    Default,
+namespace Enums {
+  public enum Animations {
     ActionUp,
     ActionDown,
     ActionRight,
@@ -15,4 +14,5 @@ public enum Animations
     WalkDown,
     WalkRight,
     WalkLeft
+  }
 }

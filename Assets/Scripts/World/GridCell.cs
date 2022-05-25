@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 
 namespace World {
@@ -32,8 +33,10 @@ namespace World {
     public int Rotation { get; set; }
     public bool FlipY { get; set; }
     public bool FlipX { get; set; }
+
     public Vector3 WorldPosition { get; set; }
-    // TODOJEF: Remove??  I was using it to set the tile's location, but I've since added a change to
+
+    // TODO: Remove??  I was using it to set the tile's location, but I've since added a change to
     // GetWorldPosition to account for all cells
     public Vector3 CenterPosition { get; set; }
     public Vector3 QuadSize { get; set; }

@@ -1,5 +1,5 @@
-using NPCs;
 using System.Collections.Generic;
+using Enums;
 
 namespace ViewModel {
   public class Grid {

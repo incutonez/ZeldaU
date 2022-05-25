@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 
 public static class Constants {
   public const string PathSprites = "Sprites/";

@@ -1,4 +1,4 @@
-﻿namespace Audio
+﻿namespace Enums
 {
     public enum FX
     {

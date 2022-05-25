@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Enums;
 using UnityEngine;
 
 public static class Utilities {
   private static Quaternion[] CachedQuaternionEulerArr { get; set; }
-  private static Dictionary<string, Sprite> _spritesCache { get; set; } = new Dictionary<string, Sprite>();
+  private static Dictionary<string, Sprite> SpritesCache { get; } = new();
 
-  public static float HexToDec(string hex) {
+  private static float HexToDec(string hex) {
     return Convert.ToInt32(hex, 16) / Constants.MaxRGB;
   }
 
@@ -26,29 +27,8 @@ public static class Utilities {
     return new Color(HexToDec(hex.Substring(0, 2)), HexToDec(hex.Substring(2, 2)), HexToDec(hex.Substring(4, 2)));
   }
 
-  public static int GetRandomInt(int max = 0, int min = 0) {
+  private static int GetRandomInt(int max = 0, int min = 0) {
     return Constants.RandomGenerator.Next(min, max);
-  }
-
-  // TODOJEF: REMOVE??
-  public static List<Dictionary<Animations, List<Sprite>>> ColorAnimations(
-    Dictionary<Animations, List<Sprite>> animations,
-    List<Dictionary<Animations, List<Sprite>>> variants,
-    List<Color[]> colors
-  ) {
-    foreach (KeyValuePair<Animations, List<Sprite>> entry in animations) {
-      Animations key = entry.Key;
-      List<Sprite> values = entry.Value;
-      for (int i = 0; i < variants.Count; i++) {
-        Dictionary<Animations, List<Sprite>> variant = variants[i];
-        List<Sprite> temp = variant[key] = new List<Sprite>();
-        foreach (Sprite sprite in values) {
-          temp.Add(CloneSprite(sprite, colors.ElementAtOrDefault(i)));
-        }
-      }
-    }
-
-    return variants;
   }
 
   public static Dictionary<Animations, List<Sprite>> ColorAnimations(
@@ -85,8 +65,8 @@ public static class Utilities {
 
     Texture2D replacement;
     if (isTile) {
-      if (_spritesCache.ContainsKey(key)) {
-        replacement = UnityEngine.Object.Instantiate(_spritesCache[key].texture);
+      if (SpritesCache.ContainsKey(key)) {
+        replacement = UnityEngine.Object.Instantiate(SpritesCache[key].texture);
       }
       else {
         doCache = true;
@@ -103,7 +83,7 @@ public static class Utilities {
 
     var sprite = Sprite.Create(replacement, oldSprite.rect, Constants.SpriteDefaultPivot, oldSprite.pixelsPerUnit);
     if (doCache) {
-      _spritesCache.Add(key, sprite);
+      SpritesCache.Add(key, sprite);
     }
 
     return sprite;
@@ -129,6 +109,7 @@ public static class Utilities {
     }
   }
 
+  // TODO: Remove the code below here?
   public static Vector3 GetRandomCoordinates() {
     return new Vector3(GetRandomInt(Constants.GridColumns), GetRandomInt(Constants.GridRows));
   }

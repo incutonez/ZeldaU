@@ -1,5 +1,5 @@
-using NPCs;
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 
 public static class EnemyHelper {

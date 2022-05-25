@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 
 namespace Manager {
@@ -12,7 +13,7 @@ namespace Manager {
     private Color CurrentColor { get; set; }
 
     private void Start() {
-      // TODOJEF: Need to load this from file
+      // TODO: Need to load this from save file
       SetSuitColor(Items.RingGreen);
     }
 
@@ -22,14 +23,13 @@ namespace Manager {
       };
     }
 
-    // TODOJEF: When this updates, also update raft, ladder, and PolsVoice?
+    // TODO: When this updates, also update raft, ladder, and PolsVoice?
     public void SetSuitColor(Items itemType) {
       CurrentColor = GetSuitColor(itemType);
       var animationSprites = Utilities.ColorAnimations(
         Game.Graphics.PlayerAnimations,
         new[] {BaseColor, CurrentColor}
       );
-      // TODOJEF: Pick up here, there's some initial lag when walking... not sure why
       // Overwrite current sprites as we just updated their color
       Game.Player.Animation.AnimationSprites = animationSprites;
       // Update default sprite if not moving

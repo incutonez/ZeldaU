@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -144,7 +145,7 @@ namespace UI
                 }
                 if (playSound)
                 {
-                    Manager.Game.Audio.PlayFX(Audio.FX.Rupee);
+                    Manager.Game.Audio.PlayFX(FX.Rupee);
                 }
             }
             GameObject go = ItemRefs[CurrentIndex];

@@ -1,24 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 
 // TODO: I think this should have an interface, and all animation extensions can override them
 namespace Base {
   public class Animation : MonoBehaviour {
-    public global::Animation.Frames Frames { get; set; }
+    private global::Animation.Frames Frames { get; set; }
     public Dictionary<Animations, List<Sprite>> AnimationSprites { get; set; } = new Dictionary<Animations, List<Sprite>>();
 
-    public bool BlockAnimations { get; set; }
+    protected bool BlockAnimations { get; set; }
 
     // By default, all enemies can attack, but this should be overriden if they can't
     public bool CanAttack { get; set; } = true;
     public Vector3 LastMovement { get; set; }
-    public Animations ActiveAnimation { get; set; } = Animations.IdleDown;
-    public virtual float WalkFrameRate { get; set; } = 0f;
-    public virtual float ActionFrameRate { get; set; } = 0f;
-    public virtual float IdleFrameRate { get; set; } = 0f;
-    public Movement CharacterMovement { get; set; }
+    private Animations ActiveAnimation { get; set; } = Animations.IdleDown;
+    public virtual float WalkFrameRate { get; set; }
+    public virtual float ActionFrameRate { get; set; }
+    public virtual float IdleFrameRate { get; set; }
+    private Movement CharacterMovement { get; set; }
 
     private void Awake() {
       Frames = GetComponent<global::Animation.Frames>();
@@ -36,7 +37,7 @@ namespace Base {
       return BlockAnimations || Manager.Game.IsPaused || CharacterMovement.IsDisabled();
     }
 
-    public virtual void SpriteAnimator_OnAnimationStop(object sender, EventArgs e) {
+    protected virtual void SpriteAnimator_OnAnimationStop(object sender, EventArgs e) {
       if (BlockAnimations) {
         BlockAnimations = false;
       }
@@ -75,14 +76,16 @@ namespace Base {
     }
 
     public virtual void AnimateMove(Vector3 movement) {
+      var x = LastMovement.x;
+      var y = LastMovement.y;
       if (movement == Vector3.zero) {
-        if (LastMovement.x < 0) {
+        if (x < 0) {
           PlayAnimation(Animations.IdleLeft);
         }
-        else if (LastMovement.x > 0) {
+        else if (x > 0) {
           PlayAnimation(Animations.IdleRight);
         }
-        else if (LastMovement.y > 0) {
+        else if (y > 0) {
           PlayAnimation(Animations.IdleUp);
         }
         else {
@@ -91,18 +94,17 @@ namespace Base {
       }
       else {
         LastMovement = movement;
-        float x = LastMovement.x;
-        float y = LastMovement.y;
-        bool xGreater = Math.Abs(x) >= Math.Abs(y);
+        var isHorizontal = Math.Abs(Math.Abs(x) - 1) < 0.000001;
+        var xGreater = Math.Abs(x) >= Math.Abs(y);
         // We prefer horizontal animation over vertical
-        if (x == -1 || x < 0 && xGreater) {
+        if (x < 0 && (isHorizontal || xGreater)) {
           PlayAnimation(Animations.WalkLeft);
         }
         // We prefer horizontal animation over vertical
-        else if (x == 1 || x > 0 && xGreater) {
+        else if (x > 0 && (isHorizontal || xGreater)) {
           PlayAnimation(Animations.WalkRight);
         }
-        else if (y == -1 || y < 0) {
+        else if (y < 0) {
           PlayAnimation(Animations.WalkDown);
         }
         else {
@@ -113,8 +115,8 @@ namespace Base {
 
     public virtual void PlayAnimation(Animations type) {
       if (type != ActiveAnimation) {
-        float frameRate = 0f;
-        bool loop = true;
+        var frameRate = 0f;
+        var loop = true;
         switch (type) {
           case Animations.ActionUp:
           case Animations.ActionDown:
@@ -139,7 +141,6 @@ namespace Base {
             break;
         }
 
-        // TODOJEF: Pick up here there's something odd here where some of the animations step on each other, like with Armos and moving sideways
         Frames.PlayAnimation(AnimationSprites[type], frameRate, loop);
         ActiveAnimation = type;
       }

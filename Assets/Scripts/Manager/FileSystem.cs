@@ -6,9 +6,8 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
-using NPCs;
 using System.IO;
-using Audio;
+using Enums;
 
 namespace Manager {
   public static class FileSystem {
@@ -209,7 +208,7 @@ namespace Manager {
       };
     }
 
-    // TODOJEF: Potentially implement this for perf... right now, we're just loading all into memory and using that, but this is more of an
+    // TODO: Potentially implement this for perf... right now, we're just loading all into memory and using that, but this is more of an
     // on demand system, which would be more optimal
     // Taken from https://www.youtube.com/watch?v=uNpBS0LPhaU
     public static void LoadAsset(int index) {

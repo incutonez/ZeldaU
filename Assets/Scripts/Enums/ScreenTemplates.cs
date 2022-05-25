@@ -1,17 +1,19 @@
-/// <summary>
-/// This is a list of all of the pre-generated rooms that are in castles
-/// Taken from http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/tiles-dungeon-2.png
-/// </summary>
-public enum ScreenTemplates
-{
+namespace Enums {
+  /// <summary>
+  /// This is a list of all of the pre-generated rooms that are in castles
+  /// Taken from http://www.zeldagalaxy.com/wp-content/img/sprites/nes/loz/tiles-dungeon-2.png
+  /// </summary>
+  public enum ScreenTemplates {
     /// <summary>
     /// This is what all of these rooms will extend from... gives us the walls/borders and plain tiles
     /// </summary>
     Base = -1,
+
     /// <summary>
     /// This is a room of only the plain tiles
     /// </summary>
     Plain = 0,
+
     /// <summary>
     /// This is the entrance for all castles... has the statues and sand
     /// </summary>
@@ -61,4 +63,5 @@ public enum ScreenTemplates
     KeepItem = 44,
     KeepPath = 45,
     Shop = 46
+  }
 }

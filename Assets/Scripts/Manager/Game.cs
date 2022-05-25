@@ -17,7 +17,7 @@ namespace Manager {
 
     public static bool IsPaused { get; set; }
 
-    // TODOJEF: Potentially move to the canvas hud?
+    // TODO: Potentially move to the canvas hud?
     public static UI.Hud Inventory { get; set; }
     public static Canvas MainCanvas { get; set; }
     public static World.Pathfinder Pathfinder { get; set; }

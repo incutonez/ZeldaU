@@ -10,15 +10,13 @@ namespace World {
     private SpriteRenderer Renderer { get; set; }
     private RectTransform Transform { get; set; }
 
-    public static Tile Spawn(Vector3 position, Tiles tileType, Transform parent, ViewModel.Tile tile, GridCell gridCell, WorldColors? worldAccentColor) {
-      var transform = Instantiate(Manager.Game.Graphics.WorldTile);
+    public static Tile Spawn(Tiles tileType, Transform parent, ViewModel.Tile tile, GridCell gridCell, WorldColors? worldAccentColor) {
+      gridCell.SetTileType(tileType);
+      var transform = Instantiate(Manager.Game.Graphics.WorldTile, gridCell.CenterPosition, Quaternion.identity);
       // We call SetParent after because we want the Awake method to be called in here
       transform.SetParent(parent);
-      gridCell.Initialize(tileType, position);
       var worldTile = transform.GetComponent<Tile>();
       worldTile.SetTile(tileType, tile, worldAccentColor);
-      transform.localPosition = gridCell.CenterPosition;
-      transform.rotation = Quaternion.identity;
       return worldTile;
     }
 

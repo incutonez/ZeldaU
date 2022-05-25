@@ -49,13 +49,12 @@ namespace World {
       Grid = grid;
       X = x;
       Y = y;
-      Initialize(Tiles.None, grid.GetWorldPosition(X, Y));
+      WorldPosition = grid.GetWorldPosition(X, Y);
+      Initialize();
     }
 
-    public void Initialize(Tiles tileType, Vector3 position) {
-      SetTileType(tileType);
+    private void Initialize() {
       SetQuadSize();
-      WorldPosition = position;
       /* We have to set this because the QuadSize helps with scaling the positioning of the tile... for the
        * most part, this value is 1.  We then multiply by 0.5f because we want our tile position to be centered,
        * and if we don't do this, it messes up the pivot and any collisions. */
@@ -64,6 +63,7 @@ namespace World {
 
     public void SetTileType(Tiles tileType) {
       TileType = tileType;
+      Initialize();
       Grid.TriggerChange(X, Y);
     }
 
@@ -71,7 +71,7 @@ namespace World {
       return TileType == Tiles.None;
     }
 
-    public bool IsHorizontalCastleWall() {
+    private bool IsHorizontalCastleWall() {
       switch (TileType) {
         case Tiles.WallLeftX:
         case Tiles.WallRightX:
@@ -81,7 +81,7 @@ namespace World {
       return false;
     }
 
-    public bool IsSolidWall() {
+    private bool IsSolidWall() {
       switch (TileType) {
         case Tiles.WallX:
         case Tiles.WallY:
@@ -91,7 +91,7 @@ namespace World {
       return false;
     }
 
-    public bool IsVerticalDoor() {
+    private bool IsVerticalDoor() {
       switch (TileType) {
         case Tiles.DoorClosedY:
         case Tiles.DoorLockedY:
@@ -103,7 +103,7 @@ namespace World {
       return false;
     }
 
-    public bool IsHorizontalDoor() {
+    private bool IsHorizontalDoor() {
       switch (TileType) {
         case Tiles.DoorClosedX:
         case Tiles.DoorLockedX:
@@ -115,7 +115,7 @@ namespace World {
       return false;
     }
 
-    public bool IsVerticalCastleWall() {
+    private bool IsVerticalCastleWall() {
       switch (TileType) {
         case Tiles.WallLeftY:
         case Tiles.WallRightY:
@@ -138,7 +138,7 @@ namespace World {
       return true;
     }
 
-    public bool IsBackgroundTile() {
+    private bool IsBackgroundTile() {
       switch (TileType) {
         case Tiles.CastleSand:
         case Tiles.SandBottom:
@@ -158,7 +158,7 @@ namespace World {
       return false;
     }
 
-    public void CalculateTotalCost() {
+    private void CalculateTotalCost() {
       TotalCost = WalkCost + DistanceCost;
     }
 
@@ -189,22 +189,24 @@ namespace World {
         return null;
       }
 
-      float xPos = WorldPosition.x;
-      float yPos = WorldPosition.y;
-      List<Vector2> points = new List<Vector2>();
-      Vector2 topLeft = new Vector2 {
+      var xPos = WorldPosition.x;
+      var yPos = WorldPosition.y;
+      var xPosTop = xPos + QuadSize.x;
+      var yPosTop = yPos + QuadSize.y;
+      List<Vector2> points = new();
+      var topLeft = new Vector2 {
         x = xPos,
-        y = yPos + QuadSize.y
+        y = yPosTop
       };
-      Vector2 topRight = new Vector2 {
-        x = xPos + QuadSize.x,
-        y = yPos + QuadSize.y
+      var topRight = new Vector2 {
+        x = xPosTop,
+        y = yPosTop
       };
-      Vector2 bottomRight = new Vector2 {
-        x = xPos + QuadSize.x,
+      var bottomRight = new Vector2 {
+        x = xPosTop,
         y = yPos
       };
-      Vector2 bottomLeft = new Vector2 {
+      var bottomLeft = new Vector2 {
         x = xPos,
         y = yPos
       };
@@ -230,11 +232,11 @@ namespace World {
           y = yPos + 0.5f
         };
         topRight = new Vector2 {
-          x = xPos + QuadSize.x,
+          x = xPosTop,
           y = yPos + 0.5f
         };
         bottomRight = new Vector2 {
-          x = xPos + QuadSize.x,
+          x = xPosTop,
           y = yPos
         };
         bottomLeft = new Vector2 {
@@ -243,10 +245,10 @@ namespace World {
         };
         // Top collision for gap
         points.AddRange(new List<Vector2> {
-          new() {x = xPos, y = yPos + QuadSize.y - 0.5f},
-          new() {x = xPos + QuadSize.x, y = yPos + QuadSize.y - 0.5f},
-          new() {x = xPos + QuadSize.x, y = yPos + QuadSize.y},
-          new() {x = xPos, y = yPos + QuadSize.y}
+          new() {x = xPos, y = yPosTop - 0.5f},
+          new() {x = xPosTop, y = yPosTop - 0.5f},
+          new() {x = xPosTop, y = yPosTop},
+          new() {x = xPos, y = yPosTop}
         });
       }
       // For doors, we have to create a gap in between
@@ -258,23 +260,21 @@ namespace World {
         };
         topRight = new Vector2 {
           x = xPos + 0.5f,
-          y = yPos + QuadSize.y
+          y = yPosTop
         };
         bottomRight = new Vector2 {
           x = xPos,
-          y = yPos + QuadSize.y
+          y = yPosTop
         };
         bottomLeft = new Vector2 {
           x = xPos,
           y = yPos
         };
         // Top collision for gap
-        points.AddRange(new List<Vector2> {
-          new() {x = xPos + QuadSize.x - 0.5f, y = yPos},
-          new() {x = xPos + QuadSize.x - 0.5f, y = yPos + QuadSize.y},
-          new() {x = xPos + QuadSize.x, y = yPos + QuadSize.y},
-          new() {x = xPos + QuadSize.x, y = yPos}
-        });
+        points.Add(new Vector2 {x = xPosTop - 0.5f, y = yPos});
+        points.Add(new Vector2 {x = xPosTop - 0.5f, y = yPosTop});
+        points.Add(new Vector2 {x = xPosTop, y = yPosTop});
+        points.Add(new Vector2 {x = xPosTop, y = yPos});
       }
 
       if (topLeft != Vector2.zero) {
@@ -323,17 +323,20 @@ namespace World {
         return Color.GetColor();
       }
 
-      return IsTile() ? null : (Color?) Constants.ColorInvisible;
+      return IsTile() ? null : Constants.ColorInvisible;
     }
 
-    public void SetQuadSize() {
+    private void SetQuadSize() {
       if (IsVerticalCastleWall()) {
+        // TODO: Create static value for this Vector2
         QuadSize = new Vector2(2f, 4.5f) * Grid.CellSize;
       }
       else if (IsHorizontalCastleWall()) {
+        // TODO: Create static value for this Vector2
         QuadSize = new Vector2(5f, 2f) * Grid.CellSize;
       }
       else if (IsVerticalDoor() || IsHorizontalDoor() || IsSolidWall()) {
+        // TODO: Create static value for this Vector2
         QuadSize = new Vector2(2f, 2f) * Grid.CellSize;
       }
       else {

@@ -19,10 +19,10 @@ namespace World {
     public int Width { get; set; }
     public int Height { get; set; }
     public float CellSize { get; set; }
-    public T[,] Cells { get; set; }
-    public TextMesh[,] CellsText { get; set; }
-    public Vector3 Origin { get; set; }
-    public bool DebugMode { get; set; } = false;
+    private T[,] Cells { get; set; }
+    private TextMesh[,] CellsText { get; set; }
+    private Vector3 Origin { get; set; }
+    private bool DebugMode { get; set; } = false;
 
     public Grid(int width, int height, float cellSize, Vector3 origin, Func<Grid<T>, int, int, T> createFunc) {
       Width = width;
@@ -71,7 +71,7 @@ namespace World {
       return GetWorldPosition(0f, y).y;
     }
 
-    public void GetXY(Vector3 position, out int x, out int y) {
+    private void GetXY(Vector3 position, out int x, out int y) {
       x = Mathf.FloorToInt((position - Origin).x / CellSize);
       y = Mathf.FloorToInt((position - Origin).y / CellSize);
       if (x < 0) {
@@ -102,22 +102,16 @@ namespace World {
       }
     }
 
-    public bool IsValid(int x, int y) {
+    private bool IsValid(int x, int y) {
       return x >= 0 && y >= 0 && x < Width && y < Height;
     }
 
     public T GetViewModel(int x, int y) {
-      if (IsValid(x, y)) {
-        return Cells[x, y];
-      }
-
-      return default(T);
+      return IsValid(x, y) ? Cells[x, y] : default(T);
     }
 
     public T GetViewModel(Vector3 position) {
-      int x;
-      int y;
-      GetXY(position, out x, out y);
+      GetXY(position, out var x, out var y);
       return GetViewModel(x, y);
     }
   }

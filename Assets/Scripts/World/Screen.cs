@@ -63,7 +63,7 @@ namespace World {
       }
     }
 
-    public void SetGrid(Grid<GridCell> grid, bool refreshGrid = false) {
+    private void SetGrid(Grid<GridCell> grid, bool refreshGrid = false) {
       Mesh = new Mesh();
       GetComponent<MeshFilter>().mesh = Mesh;
       GetComponent<MeshRenderer>().material = Manager.Game.Scene.InCastle ? Manager.Game.Graphics.CurrentCastleMaterial : Manager.Game.Graphics.WorldMaterials;
@@ -113,7 +113,7 @@ namespace World {
               AddTransition(position, tileChild.Transition);
             }
             else {
-              Tile.Spawn(position, tileType, transform, tileChild, gridCell, worldAccentColor);
+              Tile.Spawn(tileType, transform, tileChild, gridCell, worldAccentColor);
               /* TODO: https://forum.unity.com/threads/replace-multiple-colors-in-mesh-uvs.1205110/#post-7729752 should help
                * Revisit this... basically, I removed the mesh based generation and replaced with
                * adding sprites directly in... this allows us to change the sprite colors, whereas the meshes
@@ -151,7 +151,7 @@ namespace World {
       }
     }
 
-    // Randomly spawn enemies when the scene is shown
+    // Spawn enemies when the scene is shown
     public void SpawnEnemies() {
       foreach (var enemy in Enemies) {
         if (enemy.transform.position == Vector3.zero) {

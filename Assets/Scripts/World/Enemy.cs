@@ -29,8 +29,8 @@ namespace World {
       Animation = gameObject.AddComponent<Base.Animation>();
       SetFrameRates();
       List<Color> colors = new();
-      string animationKey = CharacterType.ToString();
-      // TODOJEF: Need default colors when creating the animationKey
+      var animationKey = CharacterType.ToString();
+      // TODOJEF: Need to use default colors when creating the animationKey
       if (Colors != null) {
         for (var i = 0; i < Colors.Length; i += 2) {
           var color2 = Colors[i + 1];
@@ -44,7 +44,7 @@ namespace World {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-      Manager.Sword sword = collision.gameObject.GetComponent<Manager.Sword>();
+      var sword = collision.gameObject.GetComponent<Manager.Sword>();
       if (sword != null) {
         TakeDamage(sword.GetDamage(), sword.GetDamageModifier());
         if (IsDead()) {
@@ -63,6 +63,17 @@ namespace World {
       Animation.ActionFrameRate = 0.33f / Movement.Speed;
       Animation.IdleFrameRate = 1f;
       Animation.WalkFrameRate = 0.3f / Movement.Speed;
+    }
+
+    // TODOJEF: Come back to this... create statics for these 2 different arrays
+    private List<Color> GetDefaultColors() {
+      var defaultColors = new List<Color> {WorldColors.PureWhite.GetColor(), WorldColors.Black.GetColor()};
+
+      if (CharacterType != Enemies.Gel && CharacterType != Enemies.Keese && CharacterType != Enemies.Zol) {
+        defaultColors.Add(WorldColors.PureRed.GetColor());
+      }
+
+      return defaultColors;
     }
   }
 }

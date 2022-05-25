@@ -46,6 +46,7 @@ public static class Constants {
 
   public const float GridCellSize = 1f;
   public static readonly Vector3 GridOrigin = new(-8f, -7.5f);
+
   /**
    * The reason why we have this for now is because all of our prefabs have a center pivot position, which
    * is 0.5 and 0.5, but for some reason, when they're rendered, they're using the pivot incorrectly...
@@ -84,7 +85,7 @@ public static class Constants {
   public static readonly Color ColorInvisible = new(1f, 1f, 1f, 0f);
 
   public static readonly Vector3 StartingPosition = new(-1, -2);
-  public static readonly Vector2 SpriteDefaultPivot = new(0.5f, 0.5f);
+  public static readonly Vector2 SpriteDefaultPivot = new(PivotOffset, PivotOffset);
 
   public static readonly Vector3 SwordRight = new(1.2f, 0.4f);
   public static readonly Vector3 SwordColliderPositive = new(0f, 0.156f);

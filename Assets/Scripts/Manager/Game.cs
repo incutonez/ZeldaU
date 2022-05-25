@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Manager {
   /// <summary>
@@ -23,11 +24,13 @@ namespace Manager {
     public static World.Pathfinder Pathfinder { get; set; }
     public static Graphics Graphics { get; set; }
     public static bool IsDebugMode { get; set; }
-    public bool DebugMode;
+
+    [FormerlySerializedAs("DebugMode")]
+    public bool debugMode;
 
 
     private void Awake() {
-      IsDebugMode = DebugMode;
+      IsDebugMode = debugMode;
       Graphics = new Graphics();
       Audio = gameObject.AddComponent<Audio>();
     }
@@ -36,7 +39,7 @@ namespace Manager {
       StartCoroutine(Launch());
     }
 
-    public IEnumerator Launch() {
+    private IEnumerator Launch() {
       Pathfinder = new World.Pathfinder(Constants.GridColumns, Constants.GridRows);
       MainCanvas = GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<Canvas>();
       Inventory = gameObject.AddComponent<UI.Hud>();
@@ -45,8 +48,8 @@ namespace Manager {
       Shield = Player.GetComponentInChildren<Shield>(true);
       Sword = Player.GetComponentInChildren<Sword>(true);
       Suit = Player.GetComponentInChildren<Suit>(true);
-      int currentX = Constants.StartingTiles[0];
-      int currentY = Constants.StartingTiles[1];
+      var currentX = Constants.StartingTiles[0];
+      var currentY = Constants.StartingTiles[1];
       Scene.CurrentX = currentX;
       Scene.CurrentY = currentY;
       if (!IsDebugMode) {

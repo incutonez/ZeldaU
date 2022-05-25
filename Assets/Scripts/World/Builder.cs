@@ -1,20 +1,19 @@
-using System;
 using System.Collections;
 using Enums;
 using UnityEngine;
 
 namespace World {
   /// <summary>
-  /// The camera is set to 7.5 for its size because it's Camera ortographic size = vertical resolution (240) / PPU (16) / 2 = 7.5
+  /// The camera is set to 7.5 for its size because it's Camera orthographic size = vertical resolution (240) / PPU (16) / 2 = 7.5
   /// per https://hackernoon.com/making-your-pixel-art-game-look-pixel-perfect-in-unity3d-3534963cad1d
   /// </summary>
   public class Builder : MonoBehaviour {
-    public const int PAN_SPEED = 15;
-    private const float TRANSITION_PADDING = 0.08f;
+    private const int PanSpeed = 15;
+    private const float TransitionPadding = 0.08f;
 
-    public Transform ScreensContainer { get; set; }
+    private Transform ScreensContainer { get; set; }
     public bool InCastle { get; set; }
-    public string CurrentCastle { get; set; }
+    private string CurrentCastle { get; set; }
     public int CurrentX { get; set; }
     public int CurrentY { get; set; }
 
@@ -38,58 +37,60 @@ namespace World {
       yield return BuildScreen(transition);
       if (PreviousScreen != null) {
         var grid = PreviousScreen.Grid;
-        int x = transition.X;
-        int y = transition.Y;
-        Transform currentTransform = CurrentScreen.transform;
-        Transform previousTransform = PreviousScreen.transform;
-        Transform player = Manager.Game.Player.transform;
-        float previousX = 0f;
-        float previousY = 0f;
+        var x = transition.X;
+        var y = transition.Y;
+        var currentTransform = CurrentScreen.transform;
+        var previousTransform = PreviousScreen.transform;
+        var player = Manager.Game.Player.transform;
+        var previousX = 0f;
+        var previousY = 0f;
         var position = player.position;
-        float playerX = position.x;
-        float playerY = position.y;
+        var playerX = position.x;
+        var playerY = position.y;
         // Moving to right screen
         if (x == 1) {
           previousX = -Constants.GridColumns;
-          playerX = grid.GetWorldPositionX(TRANSITION_PADDING);
+          playerX = grid.GetWorldPositionX(TransitionPadding);
         }
         // Moving to left screen
         else if (x == -1) {
           previousX = Constants.GridColumns;
-          playerX = grid.GetWorldPositionX(Constants.GridColumnsZero - TRANSITION_PADDING);
+          playerX = grid.GetWorldPositionX(Constants.GridColumnsZero - TransitionPadding);
         }
 
         // Moving to top screen
         if (y == 1) {
           previousY = -Constants.GridRows;
-          playerY = grid.GetWorldPositionY(TRANSITION_PADDING);
+          playerY = grid.GetWorldPositionY(TransitionPadding);
         }
         // Moving to bottom screen
         else if (y == -1) {
           previousY = Constants.GridRows;
-          playerY = grid.GetWorldPositionY(Constants.GridRowsZero - TRANSITION_PADDING);
+          playerY = grid.GetWorldPositionY(Constants.GridRowsZero - TransitionPadding);
         }
 
-        Vector3 previousDestination = new Vector3(previousX, previousY);
-        Vector3 playerDestination = new Vector3(playerX, playerY);
+        var previousDestination = new Vector3(previousX, previousY);
+        var playerDestination = new Vector3(playerX, playerY);
         currentTransform.position = new Vector3(-previousX, -previousY);
         while (previousTransform.position != previousDestination && currentTransform.position != Vector3.zero) {
-          player.position = Vector3.MoveTowards(player.position, playerDestination, Time.deltaTime * PAN_SPEED);
-          previousTransform.position = Vector3.MoveTowards(previousTransform.position, previousDestination, Time.deltaTime * PAN_SPEED);
-          currentTransform.position = Vector3.MoveTowards(currentTransform.position, Vector3.zero, Time.deltaTime * PAN_SPEED);
+          player.position = Vector3.MoveTowards(player.position, playerDestination, Time.deltaTime * PanSpeed);
+          previousTransform.position = Vector3.MoveTowards(previousTransform.position, previousDestination, Time.deltaTime * PanSpeed);
+          currentTransform.position = Vector3.MoveTowards(currentTransform.position, Vector3.zero, Time.deltaTime * PanSpeed);
           yield return null;
         }
+
         PreviousScreen.ToggleActive();
       }
+
       CurrentScreen.SpawnEnemies();
 
       SetScreenLoading(false);
     }
 
-    public Transform GetScreen(string screenId) {
+    private Transform GetScreen(string screenId) {
       // TODO: Have to fix this... for castles, it generates a new one each time because the find is trying to find the slashes for
       // a nested child, but that's not how it is... need to figure out like a common name or something
-      return screenId != null ? ScreensContainer.Find(screenId) : null;
+      return screenId == null ? null : ScreensContainer.Find(screenId);
     }
 
     /// <summary>
@@ -99,14 +100,13 @@ namespace World {
     /// </summary>
     /// <param name="screenId"></param>
     /// <param name="transition"></param>
-    public IEnumerator BuildScreen(ViewModel.Grid transition) {
-      string screenId = GetScreenId(transition);
+    private IEnumerator BuildScreen(ViewModel.Grid transition) {
+      var screenId = GetScreenId(transition);
       PreviousScreen = CurrentScreen;
-      Transform parent = GetScreen(screenId);
+      var parent = GetScreen(screenId);
       // Parent has not been built, so let's build and cache it
       if (parent == null) {
-        parent = Instantiate(Manager.Game.Graphics.WorldScreen);
-        parent.SetParent(ScreensContainer);
+        parent = Instantiate(Manager.Game.Graphics.WorldScreen, ScreensContainer);
         CurrentScreen = parent.gameObject.GetComponent<Screen>();
         yield return CurrentScreen.Initialize(screenId, transition);
       }
@@ -122,11 +122,11 @@ namespace World {
       CurrentScreen.ToggleActive(true);
     }
 
-    public void SetCastleMaterial() {
+    private void SetCastleMaterial() {
       // We have to copy the material here, so it doesn't overwrite the resource
-      Material material = new Material(Manager.Game.Graphics.CastleMaterials);
-      Texture2D texture = Instantiate(material.mainTexture as Texture2D);
-      Utilities.ReplaceColors(texture, new Color[] {
+      var material = new Material(Manager.Game.Graphics.CastleMaterials);
+      var texture = Instantiate(material.mainTexture as Texture2D);
+      Utilities.ReplaceColors(texture, new[] {
         // TODO: Use CurrentCastle to determine these colors
         EnemyHelper.AccentColor, Utilities.HexToColor("008088"),
         EnemyHelper.CastleDoorColor, Utilities.HexToColor("183c5c"),
@@ -136,8 +136,8 @@ namespace World {
       Manager.Game.Graphics.CurrentCastleMaterial = material;
     }
 
-    public string GetScreenId(ViewModel.Grid transition) {
-      string screenId = transition.Name;
+    private string GetScreenId(ViewModel.Grid transition) {
+      var screenId = transition.Name;
       if (transition.IsCastle) {
         InCastle = true;
         CurrentCastle = screenId;
@@ -187,7 +187,7 @@ namespace World {
       StartCoroutine(ExitDoor(transition));
     }
 
-    public IEnumerator ExitDoor(ViewModel.Grid transition) {
+    private IEnumerator ExitDoor(ViewModel.Grid transition) {
       SetScreenLoading(true);
       yield return BuildScreen(transition);
       PreviousScreen.ToggleActive();
@@ -202,7 +202,7 @@ namespace World {
       StartCoroutine(EnterDoor(transition));
     }
 
-    public IEnumerator EnterDoor(ViewModel.Grid transition) {
+    private IEnumerator EnterDoor(ViewModel.Grid transition) {
       SetScreenLoading(true);
       Manager.Game.Audio.PlayFX(FX.Stairs);
       yield return StartCoroutine(Manager.Game.Player.AnimateEnter());
@@ -210,11 +210,11 @@ namespace World {
       OverworldPosition = Manager.Game.Player.transform.position;
       yield return BuildScreen(transition);
       PreviousScreen.ToggleActive();
-      Manager.Game.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TRANSITION_PADDING);
+      Manager.Game.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TransitionPadding);
       SetScreenLoading(false);
     }
 
-    public void SetScreenLoading(bool transitioning) {
+    private void SetScreenLoading(bool transitioning) {
       Manager.Game.IsPaused = transitioning;
     }
 

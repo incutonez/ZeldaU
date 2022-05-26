@@ -1,17 +1,11 @@
-namespace Boss
-{
-    public class GleeokHead : World.Enemy
-    {
-        public override void SetHealth()
-        {
-            Health = 0f;
-        }
+namespace Boss {
+  public class GleeokHead : World.Enemy {
+    public override float? Health { get; set; } = 0f;
 
-        public override void SetAttackStrength()
-        {
-            // TODO: Verify this damage
-            TouchDamage = 2f;
-            WeaponDamage = 2f;
-        }
-    }
+    // TODO: Verify this damage
+    public override float TouchDamage { get; set; } = 2f;
+
+    // TODO: Verify this damage
+    public override float WeaponDamage { get; set; } = 2f;
+  }
 }

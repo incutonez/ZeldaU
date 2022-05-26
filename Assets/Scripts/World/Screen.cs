@@ -126,12 +126,10 @@ namespace World {
 
       if (scene.Enemies != null) {
         foreach (var viewModel in scene.Enemies) {
-          var enemyType = viewModel.Type;
           for (var i = 0; i < viewModel.Count; i++) {
-            var enemy = Manager.Character.SpawnEnemy(Grid.GetWorldPosition(viewModel.X, viewModel.Y), enemyType, transform);
+            var enemy = Manager.Character.SpawnEnemy(Grid.GetWorldPosition(viewModel.X, viewModel.Y), viewModel, transform);
             enemy.Colors = viewModel.Colors;
-            enemy.SetSpeed(viewModel.Speed);
-            enemy.Initialize(enemyType);
+            enemy.Initialize(viewModel);
             enemy.OnDestroy += Enemy_OnDestroy;
             Enemies.Add(enemy);
           }
@@ -146,7 +144,7 @@ namespace World {
 
       if (scene.Characters != null) {
         foreach (var character in scene.Characters) {
-          Manager.Character.SpawnCharacter(Grid.GetWorldPosition(character.Coordinates[0], character.Coordinates[1]), character.Type, transform);
+          Manager.Character.SpawnCharacter(Grid.GetWorldPosition(character.X, character.Y), character.Type, transform);
         }
       }
     }

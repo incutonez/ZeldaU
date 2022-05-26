@@ -1,11 +1,6 @@
 namespace Enemy {
   public class Darknut : World.Enemy {
-    public override void SetHealth() {
-      Health = 8f;
-    }
-
-    public override void SetAttackStrength() {
-      TouchDamage = 2f;
-    }
+    public override float? Health { get; set; } = 8f;
+    public override float TouchDamage { get; set; } = 2f;
   }
 }

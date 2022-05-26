@@ -1,11 +1,6 @@
 namespace Enemy {
   public class Rock : World.Enemy {
-    public override void SetHealth() {
-      Health = 0f;
-    }
-
-    public override void SetAttackStrength() {
-      TouchDamage = 1f;
-    }
+    public override float? Health { get; set; } = 0f;
+    public override float TouchDamage { get; set; } = 1f;
   }
 }

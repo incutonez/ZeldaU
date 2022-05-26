@@ -4,7 +4,7 @@ using UnityEngine;
 namespace World {
   public class Character<TEnum> : MonoBehaviour where TEnum : Enum {
     public event EventHandler OnDestroy;
-    public TEnum CharacterType { get; set; }
+    protected TEnum CharacterType { get; set; }
 
     /// <summary>
     /// If this value is null, then that means the enemy cannot take any damage
@@ -19,32 +19,49 @@ namespace World {
     public Base.Animation Animation { get; set; }
 
     // TODO: Potentially add ability to pass in a config?
-    public virtual void Initialize(TEnum characterType) {
+    public virtual void Initialize(ViewModel.Character<TEnum> config) {
+      CharacterType = config.Type;
       Renderer = transform.Find("Body").GetComponent<SpriteRenderer>();
-      CharacterType = characterType;
-      SetHealth();
+      SetSpeed(config.Speed);
+      SetHealth(config.Health);
+      SetHealthModifier(config.HealthModifier);
+      SetTouchDamage(config.TouchDamage);
+      SetWeaponDamage(config.WeaponDamage);
       SetMaxHealth();
-      SetAttackStrength();
       transform.name = CharacterType.GetDescription();
       SetAnimationBase();
       Renderer.sprite = Animation.GetDefaultSprite();
     }
 
-    public virtual void SetAnimationBase() { }
+    protected virtual void SetAnimationBase() { }
 
-    public virtual void SetHealth() { }
+    protected virtual void SetHealth(float? health) {
+      Health = health ?? Health;
+    }
 
-    public virtual void SetMaxHealth() {
+    protected virtual void SetHealthModifier(float? value) {
+      HealthModifier = value ?? HealthModifier;
+    }
+
+    protected virtual void SetTouchDamage(float? value) {
+      TouchDamage = value ?? TouchDamage;
+    }
+
+    protected virtual void SetWeaponDamage(float? value) {
+      WeaponDamage = value ?? WeaponDamage;
+    }
+
+    public virtual void SetSpeed(float? speed = 0) { }
+
+    protected virtual void SetMaxHealth() {
       MaxHealth = Health;
     }
 
-    public virtual void SetAttackStrength() { }
-
-    public bool IsDead() {
+    protected bool IsDead() {
       return Health is <= 0;
     }
 
-    public void TakeDamage(float damage, float damageModifier = 0) {
+    protected void TakeDamage(float damage, float damageModifier = 0) {
       if (Health.HasValue) {
         // If the modifier is 0, then that mean this enemy constantly loses the same amount, no matter the sword
         if (HealthModifier == 0f || damageModifier == 0) {
@@ -67,7 +84,7 @@ namespace World {
       }
     }
 
-    public void DestroySelf() {
+    protected void DestroySelf() {
       OnDestroy?.Invoke(this, EventArgs.Empty);
       Destroy(gameObject);
     }

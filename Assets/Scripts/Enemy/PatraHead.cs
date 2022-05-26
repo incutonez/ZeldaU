@@ -1,12 +1,7 @@
 namespace Enemy {
   public class PatraHead : World.Enemy {
-    public override void SetHealth() {
-      // TODO: Get what this value should be
-      Health = 20f;
-    }
-
-    public override void SetAttackStrength() {
-      TouchDamage = 4f;
-    }
+    // TODO: Get what this value should be
+    public override float? Health { get; set; } = 20f;
+    public override float TouchDamage { get; set; } = 4f;
   }
 }

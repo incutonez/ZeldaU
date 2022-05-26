@@ -30,8 +30,8 @@ namespace ViewModel {
     public WorldColors? AccentColor { get; set; }
     public WorldColors? GroundColor { get; set; }
     public List<TileMeta> Tiles { get; set; }
-    public List<Enemy> Enemies { get; set; }
-    public List<Character> Characters { get; set; }
+    public List<Character<Enemies>> Enemies { get; set; }
+    public List<Character<Characters>> Characters { get; set; }
     public List<ItemMeta> Items { get; set; }
     public bool IsCastle { get; set; }
 

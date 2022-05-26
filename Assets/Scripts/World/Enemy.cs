@@ -15,17 +15,17 @@ namespace World {
       AI = GetComponent<Base.AI>();
     }
 
-    public void SetSpeed(float speed = 3f) {
+    public override void SetSpeed(float? speed) {
       if (Movement == null) {
         Movement = GetComponent<Base.Movement>();
       }
 
       Movement.Target = transform.position;
-      Movement.Speed = speed;
+      Movement.Speed = speed ?? 3f;
     }
 
     // This is called from Initialize in World.Character
-    public override void SetAnimationBase() {
+    protected override void SetAnimationBase() {
       Animation = gameObject.AddComponent<Base.Animation>();
       SetFrameRates();
       List<Color> colors = new();

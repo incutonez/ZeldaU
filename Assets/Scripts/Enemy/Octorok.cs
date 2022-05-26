@@ -1,13 +1,8 @@
 namespace Enemy {
   public class Octorok : World.Enemy {
-    public override void SetHealth() {
-      Health = 2f;
-    }
-
-    public override void SetAttackStrength() {
-      TouchDamage = 1f;
-      WeaponDamage = 1f;
-    }
+    public override float? Health { get; set; } = 2f;
+    public override float TouchDamage { get; set; } = 1f;
+    public override float WeaponDamage { get; set; } = 1f;
 
     protected override void SetFrameRates() {
       // TODO: Figure out a good multiplier for this... it's too fast, but we do need to speed up the animations slightly

@@ -1,11 +1,6 @@
 namespace Enemy {
   public class Rope : World.Enemy {
-    public override void SetHealth() {
-      Health = 2f;
-    }
-
-    public override void SetAttackStrength() {
-      TouchDamage = 1f;
-    }
+    public override float? Health { get; set; } = 2f;
+    public override float TouchDamage { get; set; } = 1f;
   }
 }

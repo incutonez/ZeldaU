@@ -3,12 +3,7 @@ namespace Enemy {
   /// Randomly spawn as very fast or slow
   /// </summary>
   public class Armos : World.Enemy {
-    public override void SetHealth() {
-      Health = 6f;
-    }
-
-    public override void SetAttackStrength() {
-      TouchDamage = 1f;
-    }
+    public override float? Health { get; set; } = 6f;
+    public override float TouchDamage { get; set; } = 1f;
   }
 }

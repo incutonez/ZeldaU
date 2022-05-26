@@ -1,7 +1,5 @@
 namespace Enemy {
   public class Trap : World.Enemy {
-    public override void SetAttackStrength() {
-      TouchDamage = 1f;
-    }
+    public override float TouchDamage { get; set; } = 1f;
   }
 }

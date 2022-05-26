@@ -8,6 +8,7 @@ namespace World {
     public UI.Hud UiInventory { get; set; }
     public event EventHandler OnInitialize;
     public event EventHandler OnTakeDamage;
+    public override float? Health { get; set; } = 6f;
 
     private Base.Inventory Inventory { get; set; }
 
@@ -48,7 +49,7 @@ namespace World {
       return Animation.AnimateExit();
     }
 
-    public override void SetAnimationBase() {
+    protected override void SetAnimationBase() {
       Animation = gameObject.AddComponent<Animation.Player>();
       Animation.AnimationSprites = Manager.Game.Graphics.PlayerAnimations;
     }
@@ -62,16 +63,12 @@ namespace World {
       }
     }
 
-    public override void SetHealth() {
-      Health = 6f;
-    }
-
-    public override void SetMaxHealth() {
+    protected override void SetMaxHealth() {
       MaxHealth = 16f;
     }
 
-    public override void Initialize(Characters characterType) {
-      base.Initialize(characterType);
+    public override void Initialize(ViewModel.Character<Characters> config) {
+      base.Initialize(config);
       Inventory = new Base.Inventory(UseItem);
       Manager.Game.Inventory.Initialize(Inventory, this);
       OnInitialize?.Invoke(this, EventArgs.Empty);

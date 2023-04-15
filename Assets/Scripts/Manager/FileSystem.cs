@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
 using System.IO;
 using Enums;
 
@@ -13,9 +12,9 @@ namespace Manager {
   public static class FileSystem {
     private static int LoadCount { get; set; } = 0;
     private static List<AssetReference> AssetReferences { get; set; }
-    private static Dictionary<AssetReference, List<GameObject>> AssetSprites { get; set; } = new Dictionary<AssetReference, List<GameObject>>();
-    private static Dictionary<AssetReference, AsyncOperationHandle<GameObject>> OperationHandles { get; set; } = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
-    private static Dictionary<AssetReference, Queue<Vector3>> AssetQueue { get; set; } = new Dictionary<AssetReference, Queue<Vector3>>();
+    private static Dictionary<AssetReference, List<GameObject>> AssetSprites { get; set; } = new();
+    private static Dictionary<AssetReference, AsyncOperationHandle<GameObject>> OperationHandles { get; set; } = new();
+    private static Dictionary<AssetReference, Queue<Vector3>> AssetQueue { get; set; } = new();
 
     public static void ShouldLaunch() {
       if (LoadCount == 0) {
@@ -25,8 +24,8 @@ namespace Manager {
     }
 
     public static IEnumerator LoadJson(string path, Action<string> callback) {
-      string result = String.Empty;
-      AsyncOperationHandle<TextAsset> handle = Addressables.LoadAssetAsync<TextAsset>(path);
+      var result = String.Empty;
+      var handle = Addressables.LoadAssetAsync<TextAsset>(path);
       yield return handle;
       switch (handle.Status) {
         case AsyncOperationStatus.Succeeded:
@@ -44,14 +43,21 @@ namespace Manager {
     }
 
     // TODO: Need to figure out a better way of codifying all of these methods that are eerily similar
+    /// <summary>
+    /// To use this method, an address label must be created, and that can be done through selecting the
+    /// directory in the Unity editor, making it Addressable, and then clicking the "Select" button,
+    /// which will allow adding a new label.  Once that label is added, you can load the entire directory.
+    /// </summary>
+    /// <param name="label"></param>
+    /// <param name="callback"></param>
     public static void LoadJsonByLabel(string label, Action<Dictionary<string, string>> callback) {
       LoadCount++;
-      AsyncOperationHandle<IList<IResourceLocation>> labelOperation = Addressables.LoadResourceLocationsAsync(label);
-      Dictionary<string, string> items = new Dictionary<string, string>();
+      var labelOperation = Addressables.LoadResourceLocationsAsync(label);
+      var items = new Dictionary<string, string>();
       labelOperation.Completed += (labelResponse) => {
-        int totalCount = labelResponse.Result.Count;
-        foreach (IResourceLocation item in labelResponse.Result) {
-          AsyncOperationHandle<TextAsset> resourceOperation = Addressables.LoadAssetAsync<TextAsset>(item.PrimaryKey);
+        var totalCount = labelResponse.Result.Count;
+        foreach (var item in labelResponse.Result) {
+          var resourceOperation = Addressables.LoadAssetAsync<TextAsset>(item.PrimaryKey);
           resourceOperation.Completed += (result) => {
             totalCount--;
             switch (labelResponse.Status) {
@@ -79,12 +85,12 @@ namespace Manager {
 
     public static void LoadAudioClips(string labelName, Action<Dictionary<FX, AudioClip>> callback) {
       LoadCount++;
-      Dictionary<FX, AudioClip> clips = new Dictionary<FX, AudioClip>();
-      AsyncOperationHandle<IList<IResourceLocation>> labelOperation = Addressables.LoadResourceLocationsAsync(labelName);
+      var clips = new Dictionary<FX, AudioClip>();
+      var labelOperation = Addressables.LoadResourceLocationsAsync(labelName);
       labelOperation.Completed += (labelResponse) => {
-        int totalCount = labelResponse.Result.Count;
-        foreach (IResourceLocation item in labelResponse.Result) {
-          AsyncOperationHandle<AudioClip> resourceOperation = Addressables.LoadAssetAsync<AudioClip>(item.PrimaryKey);
+        var totalCount = labelResponse.Result.Count;
+        foreach (var item in labelResponse.Result) {
+          var resourceOperation = Addressables.LoadAssetAsync<AudioClip>(item.PrimaryKey);
           resourceOperation.Completed += (result) => {
             totalCount--;
             switch (labelResponse.Status) {
@@ -134,12 +140,12 @@ namespace Manager {
 
     public static void LoadSpritesLabel(string label, Action<Dictionary<Enemies, List<Sprite>>> callback) {
       LoadCount++;
-      Dictionary<Enemies, List<Sprite>> items = new Dictionary<Enemies, List<Sprite>>();
-      AsyncOperationHandle<IList<IResourceLocation>> labelOperation = Addressables.LoadResourceLocationsAsync(label);
+      var items = new Dictionary<Enemies, List<Sprite>>();
+      var labelOperation = Addressables.LoadResourceLocationsAsync(label);
       labelOperation.Completed += (labelResponse) => {
-        int totalCount = labelResponse.Result.Count;
-        foreach (IResourceLocation item in labelResponse.Result) {
-          AsyncOperationHandle<Sprite[]> resourceOperation = Addressables.LoadAssetAsync<Sprite[]>(item.PrimaryKey);
+        var totalCount = labelResponse.Result.Count;
+        foreach (var item in labelResponse.Result) {
+          var resourceOperation = Addressables.LoadAssetAsync<Sprite[]>(item.PrimaryKey);
           resourceOperation.Completed += (result) => {
             totalCount--;
             switch (labelResponse.Status) {
@@ -212,7 +218,7 @@ namespace Manager {
     // on demand system, which would be more optimal
     // Taken from https://www.youtube.com/watch?v=uNpBS0LPhaU
     public static void LoadAsset(int index) {
-      AssetReference reference = AssetReferences[index];
+      var reference = AssetReferences[index];
       if (!reference.RuntimeKeyIsValid()) {
         Debug.Log("DANGER!");
         return;
@@ -248,7 +254,7 @@ namespace Manager {
         }
 
         AssetSprites[reference].Add(operation.Result);
-        NotifyOnDestroy notify = operation.Result.AddComponent<NotifyOnDestroy>();
+        var notify = operation.Result.AddComponent<NotifyOnDestroy>();
         notify.Destroyed += Remove;
         notify.AssetReference = reference;
       };

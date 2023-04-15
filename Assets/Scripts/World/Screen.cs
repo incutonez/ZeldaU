@@ -21,25 +21,27 @@ namespace World {
     private List<Door> WorldDoors { get; set; }
     private List<Enemy> Enemies { get; } = new();
 
-    public IEnumerator Initialize(string screenId, ViewModel.Grid transition) {
+    public void Initialize(string screenId, ViewModel.Grid transition) {
       SetGrid(new Grid<GridCell>(Constants.GridColumns, Constants.GridRows, Constants.GridCellSize, Constants.GridOrigin, (grid, x, y) => new GridCell(grid, x, y)));
       WorldDoors = new List<Door>();
       ScreenId = screenId;
       transform.name = screenId;
-      if (Manager.Game.Graphics.Screens.ContainsKey(screenId)) {
-        ViewModel = JsonConvert.DeserializeObject<ViewModel.Grid>(Manager.Game.Graphics.Screens[screenId]);
-      }
-      // If we don't have a transition OR the transition isn't floating, then we've got a scene to load
-      else if (transition == null || !transition.IsFloating) {
-        yield return Manager.FileSystem.LoadJson(ScreenId, (response) => { ViewModel = JsonConvert.DeserializeObject<ViewModel.Grid>(response); });
-      }
-      /* Otherwise, let's use the transition's template as our base scene... this is for things like shops and castles...
-       * they're disconnected from the rest of the world and floating in the nebula */
-      else if (transition.Template.HasValue) {
-        ViewModel = Manager.Game.Graphics.Templates[transition.Template.Value];
-        ViewModel.AccentColor = transition.AccentColor ?? ViewModel.AccentColor;
-        ViewModel.GroundColor = transition.GroundColor ?? ViewModel.GroundColor;
-      }
+      ViewModel = Manager.Game.Graphics.World.Overworld[screenId];
+      // TODOJEF: I would have to update this
+      // if (Manager.Game.Graphics.Screens.ContainsKey(screenId)) {
+      //   ViewModel = JsonConvert.DeserializeObject<ViewModel.Grid>(Manager.Game.Graphics.Screens[screenId]);
+      // }
+      // // If we don't have a transition OR the transition isn't floating, then we've got a scene to load
+      // else if (transition == null || !transition.IsFloating) {
+      //   yield return Manager.FileSystem.LoadJson(ScreenId, (response) => { ViewModel = JsonConvert.DeserializeObject<ViewModel.Grid>(response); });
+      // }
+      // /* Otherwise, let's use the transition's template as our base scene... this is for things like shops and castles...
+      //  * they're disconnected from the rest of the world and floating in the nebula */
+      // else if (transition.Template.HasValue) {
+      //   ViewModel = Manager.Game.Graphics.Templates[transition.Template.Value];
+      //   ViewModel.AccentColor = transition.AccentColor ?? ViewModel.AccentColor;
+      //   ViewModel.GroundColor = transition.GroundColor ?? ViewModel.GroundColor;
+      // }
 
       if (ViewModel.Template.HasValue && ViewModel.Template.Value != ScreenTemplates.Plain) {
         ViewModel.Tiles.AddRange(Manager.Game.Graphics.Templates[ViewModel.Template.Value].Tiles);

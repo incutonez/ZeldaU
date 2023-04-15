@@ -10,3 +10,24 @@ For the actual game, it would be a hybrid between Stardew Valley and Zelda... wh
 - You need to eat and drink in this game... almost like survival mode in Fallout
 
 When you step outside of your ranch, the world will be dangerous, and almost like you're in Zelda 1 overworld... however, you can clear areas by defeating the castles, which then unlocks more special things, like villagers that are helpful and other goodies... maybe even certain events happen, like other areas are unlocked.
+
+
+
+
+For Zelda remake:
+- Ability to generate random layouts... completely randomized, not just mirrored or whatever
+- Choose your character (need other animations for other chars)
+-- Can even pick an enemy to play
+- Ability to randomize enemies
+- More than 3 save files
+- Ability to upload levels
+-- Probably can do this through a PR that updates the DB file, or rather provides a SQL update script instead, so you don't get merge conflicts
+- Move levels to DB instead of JSON files... this allows for uploading levels
+- Add statistics for the player
+-- Number of enemies killed
+-- Types of enemies killed
+-- Hearts lost
+-- Deaths
+-- Steps
+-- Total time of play
+--- Break this down per castle

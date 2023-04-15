@@ -126,6 +126,11 @@ MonoBehaviour:
     m_Address: Prefabs/WorldTile
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a412d07dc93b7e34a99142d141ec03fe
+    m_Address: Assets/Data/Worlds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Worlds
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 47107e41f1307be4e837fab1b87c3b44, type: 2}
   m_SchemaSet:

@@ -34,7 +34,7 @@ namespace World {
     /// <returns></returns>
     public IEnumerator PanScreen(ViewModel.Grid transition) {
       SetScreenLoading(true);
-      yield return BuildScreen(transition);
+      BuildScreen(transition);
       if (PreviousScreen != null) {
         var grid = PreviousScreen.Grid;
         var x = transition.X;
@@ -100,7 +100,7 @@ namespace World {
     /// </summary>
     /// <param name="screenId"></param>
     /// <param name="transition"></param>
-    private IEnumerator BuildScreen(ViewModel.Grid transition) {
+    private void BuildScreen(ViewModel.Grid transition) {
       var screenId = GetScreenId(transition);
       PreviousScreen = CurrentScreen;
       var parent = GetScreen(screenId);
@@ -108,7 +108,7 @@ namespace World {
       if (parent == null) {
         parent = Instantiate(Manager.Game.Graphics.WorldScreen, ScreensContainer);
         CurrentScreen = parent.gameObject.GetComponent<Screen>();
-        yield return CurrentScreen.Initialize(screenId, transition);
+        CurrentScreen.Initialize(screenId, transition);
       }
       else {
         CurrentScreen = parent.gameObject.GetComponent<Screen>();
@@ -171,7 +171,7 @@ namespace World {
       }
       else {
         InCastle = false;
-        screenId = $"{Constants.PathOverworld}{screenId}";
+        // screenId = $"{Constants.PathOverworld}{screenId}";
       }
 
       return screenId;
@@ -189,7 +189,7 @@ namespace World {
 
     private IEnumerator ExitDoor(ViewModel.Grid transition) {
       SetScreenLoading(true);
-      yield return BuildScreen(transition);
+      BuildScreen(transition);
       PreviousScreen.ToggleActive();
       Manager.Game.Player.transform.position = OverworldPosition;
       Manager.Game.Audio.PlayFX(FX.Stairs);
@@ -208,7 +208,7 @@ namespace World {
       yield return StartCoroutine(Manager.Game.Player.AnimateEnter());
       // Save off the player's current position, so we can restore it later
       OverworldPosition = Manager.Game.Player.transform.position;
-      yield return BuildScreen(transition);
+      BuildScreen(transition);
       PreviousScreen.ToggleActive();
       Manager.Game.Player.transform.position = CurrentScreen.Grid.GetWorldPosition(7f, TransitionPadding);
       SetScreenLoading(false);

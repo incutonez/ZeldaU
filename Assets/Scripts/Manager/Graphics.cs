@@ -38,13 +38,13 @@ namespace Manager {
 
     public Dictionary<ScreenTemplates, ViewModel.Grid> Templates { get; } = new();
     public Dictionary<string, string> Screens { get; } = new();
+    public ViewModel.World World { get; set; }
     private static readonly List<Animations> AnimationsCache = EnumExtensions.GetValues<Animations>();
 
     public Graphics() {
       LoadAllSprites();
       LoadAllPrefabs();
     }
-
     public void LoadAllSprites() {
       FileSystem.LoadSprites("character", (response) => {
         PlayerAnimations = GetAnimations(response, "");
@@ -73,10 +73,9 @@ namespace Manager {
           Templates.Add(value, JsonConvert.DeserializeObject<ViewModel.Grid>(item.Value));
         }
       });
-      FileSystem.LoadJsonByLabel("Overworld", (response) => {
-        foreach (KeyValuePair<string, string> item in response) {
-          Screens.Add($"{Constants.PathOverworld}{item.Key}", item.Value);
-        }
+      // TODO: Will have to revisit this when more Quests are in this directory
+      FileSystem.LoadJsonByLabel("Worlds", (response) => {
+        World = JsonConvert.DeserializeObject<ViewModel.World>(response["Q1"]);
       });
     }
 

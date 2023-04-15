@@ -88,6 +88,7 @@ MonoBehaviour:
     - Enemies
     - ScreenTemplates
     - Overworld
+    - Worlds
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 53ba59b40236e764abd1b98c1d0e5597, type: 2}
@@ -107,6 +108,3 @@ MonoBehaviour:
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
     m_RegisteredServiceTypeRefs: []
-    m_GlobalProfileVariablesInfos:
-    - key: PrivateIpAddress
-      value: 192.168.0.116

@@ -1,3 +1,9 @@
+Name of game: synonyms of the word in parens
+- Fable (Legend) Basin (Valley)
+- Lore (Legend) of Lowland (Valley)
+- Canyon (Valley) Junction (Link)
+- Nexus (Link) Gorge (Valley)
+
 For the actual game, it would be a hybrid between Stardew Valley and Zelda... where you start out on a ranch, and you have to clear it of Zelda enemies... once you do that, you can start growing and setting up things that will aid you in the quest... eventually you can:
 - Build a stable and get Epona... but you have to actually find Epona in the wild and tame her
 -- Maybe by having the quick boots and running onto her

@@ -80,6 +80,10 @@ public static class Constants {
   public static int MaxBombs = 8;
 
   public static string StartingTile = "";
+  /* It's good to note that I started working on transitioning to a "quest" system in Graphics.cs,
+   * where I'm loading the entire quest instead of individual files... I think this was because the
+   * initial JSON files were quite large, but I trimmed them down to have the default background and
+   * not need every single coordinate defined */
   public static int[] StartingTiles = {0, 0};
 
   public static readonly Color ColorInvisible = new(1f, 1f, 1f, 0f);
